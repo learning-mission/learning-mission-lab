@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.809.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningMissionLab", "LearningMissionLab\LearningMissionLab.csproj", "{CA19C63F-82DD-486E-A7CC-3A64BFDEF2F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningMissionSimulation", "LearningMissionSimulation\LearningMissionSimulation.csproj", "{1971370B-BFBD-4CFF-9D28-8CCB38B1D550}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA19C63F-82DD-486E-A7CC-3A64BFDEF2F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA19C63F-82DD-486E-A7CC-3A64BFDEF2F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA19C63F-82DD-486E-A7CC-3A64BFDEF2F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA19C63F-82DD-486E-A7CC-3A64BFDEF2F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1971370B-BFBD-4CFF-9D28-8CCB38B1D550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1971370B-BFBD-4CFF-9D28-8CCB38B1D550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1971370B-BFBD-4CFF-9D28-8CCB38B1D550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1971370B-BFBD-4CFF-9D28-8CCB38B1D550}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {28D92878-9F6F-4351-9CB6-8EB6285F28F7}
+	EndGlobalSection
+EndGlobal
