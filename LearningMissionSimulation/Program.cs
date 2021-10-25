@@ -6,7 +6,8 @@ namespace LearningMissionSimulation
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+           
+
         }
     }
 }
