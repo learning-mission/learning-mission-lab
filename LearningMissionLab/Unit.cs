@@ -10,7 +10,7 @@ namespace LearningMissionLab
     /// <typeparam name="T">Type of items in the itemList</typeparam>
     public class Unit<T>
     {
-        readonly Guid _id = GetGuid();
+        readonly Guid _id;
         UnitType _unitType;
         string _name;
         string _description;
@@ -40,14 +40,13 @@ namespace LearningMissionLab
 
         public Unit
         (
-            Guid id,
             UnitType unitType,
             string name,
             string description,
             List<T> itemList
         )
         {
-            this._id = id;
+            this._id = GetGuid();
             this._unitType = unitType;
             this._name = name;
             this._description = description;
