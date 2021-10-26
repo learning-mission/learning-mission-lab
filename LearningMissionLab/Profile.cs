@@ -1,4 +1,5 @@
 ﻿using System;
+<<<<<<< HEAD
 using System.Collections.Generic;
 using System.Text;
 
@@ -52,5 +53,14 @@ namespace LearningMissionLab
         public Gender Gender { get => _gender; set => _gender = value; }
         public ContactInfo ContactInfo { get => _contactInfo; set => _contactInfo = value; }
         public List<Language> LanguageList { get => _languageList; set => _languageList = value; }
+=======
+namespace LearningMissionLab
+{
+    public class Profile
+    {
+        public Profile()
+        {
+        }
+>>>>>>> f7a4d32830b3402ec6720626f2e0b16424903007
     }
 }
