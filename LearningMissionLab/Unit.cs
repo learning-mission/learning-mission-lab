@@ -5,13 +5,15 @@ using System.Text;
 namespace LearningMissionLab
 {
     /// <summary>
-    /// Unit class contains methods and properties to manage items of <T> type
+    /// Unit class: Represents a hierarchical model with a head and
+    /// a list of items
     /// </summary>
-    /// <typeparam name="T">Type of items in the itemList</typeparam>
+    /// <typeparam name="T"> The type of items in the itemList</typeparam>
     public class Unit<T>
     {
-        readonly Guid _id = GetGuid();
+        readonly Guid _id;
         UnitType _unitType;
+        Profile _head;
         string _name;
         string _description;
         List<T> _itemList;
@@ -40,14 +42,13 @@ namespace LearningMissionLab
 
         public Unit
         (
-            Guid id,
             UnitType unitType,
             string name,
             string description,
             List<T> itemList
         )
         {
-            this._id = id;
+            this._id = GetGuid();
             this._unitType = unitType;
             this._name = name;
             this._description = description;
@@ -67,6 +68,7 @@ namespace LearningMissionLab
         public List<T> ItemList { get => _itemList; set => _itemList = value; }
         public DateTime CreateDate { get => _createDate; set => _createDate = value; }
         public DateTime UpdateDate { get => _updateDate; set => _updateDate = value; }
+        public Profile Head { get => _head; set => _head = value; }
 
         private static Guid GetGuid()
         {
