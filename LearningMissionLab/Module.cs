@@ -10,8 +10,8 @@ namespace LearningMissionLab
         List<ModuleLevel> ListOfPrerequisites = new List<ModuleLevel>();
                    
 
-        public Module(string subjectID, ModuleLevel moduleLevel, List<ModuleLevel> listOfPrerequisites)
-            :base (subjectID, moduleLevel,listOfPrerequisites)
+        public Module(string subjectID, ModuleLevel moduleLevel, List<ModuleLevel> listOfPrerequisites, string name, string description, List<Lesson> itemList)
+           :base (UnitType.Module, name, description, itemList)
         {
            
             this.subjectID = subjectID;
