@@ -4,19 +4,20 @@ using System.Text;
 
 namespace LearningMissionLab
 {
-    public class Department : Unit<Employee>
+    public class Department:Unit<Employee>
     {
-        public int companyId;
-        public string contactInfo;
+        private int _companyId;
+        private ContactInfo _contactInfo;
 
 
-        public Department()
-        {
-
+        public Department(int companyId, ContactInfo contactInfo)
+            : base()
+        { 
+            this._companyId = companyId;
+            this._contactInfo = contactInfo;
         }
 
-        public int CompanyId { get => companyId; set => companyId = value; }
-        public string ContactInfo { get => contactInfo; set => contactInfo = value; }
-
+        public int CompanyId { get => _companyId; set => _companyId = value; }
+        public ContactInfo ContactInfo { get => _contactInfo; set => _contactInfo = value; }
     }
 }
