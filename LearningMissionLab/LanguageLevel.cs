@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LearningMissionLab
+﻿namespace LearningMissionLab
 {
-    class LanguageLevel
+    /// <summary>
+    /// are stored here language level
+    /// </summary>
+    public enum LanguageLevel
     {
+        Unspecified,
+        Armenian,
+        English,
+        Russian
     }
 }

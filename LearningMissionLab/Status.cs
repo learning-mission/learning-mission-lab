@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LearningMissionLab
+﻿namespace LearningMissionLab
 {
     /// <summary>
     /// are stored here status
@@ -13,5 +9,6 @@ namespace LearningMissionLab
         Pending,
         Active,
         Suspended,
+        Closed,
     }
 }

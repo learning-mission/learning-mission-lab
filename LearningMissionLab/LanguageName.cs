@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LearningMissionLab
+﻿namespace LearningMissionLab
 {
-    class LanguageName
+    /// <summary>
+    /// are stored here language name
+    /// </summary>
+    public enum LanguageName
     {
+        Unspecified,
+        Beginner,
+        Intermediate,
+        Advanced
     }
 }

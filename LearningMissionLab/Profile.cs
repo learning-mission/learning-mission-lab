@@ -1,7 +1,5 @@
 ﻿using System;
-<<<<<<< HEAD
 using System.Collections.Generic;
-using System.Text;
 
 namespace LearningMissionLab
 {
@@ -24,7 +22,6 @@ namespace LearningMissionLab
         string _computerInventory;
         DateTime _createDate;
         DateTime _updateDate;
-        DateTime _endDate;
         DateTime _dateOfBirth;
         Gender _gender;
         ContactInfo _contactInfo;
@@ -48,7 +45,6 @@ namespace LearningMissionLab
         public string ComputerInventory { get => _computerInventory; set => _computerInventory = value; }
         public DateTime CreateDate { get => _createDate; set => _createDate = value; }
         public DateTime UpdateDate { get => _updateDate; set => _updateDate = value; }
-        public DateTime EndDate { get => _endDate; set => _endDate = value; }
         public DateTime DateOfBirth { get => _dateOfBirth; set => _dateOfBirth = value; }
         public Gender Gender { get => _gender; set => _gender = value; }
         public ContactInfo ContactInfo { get => _contactInfo; set => _contactInfo = value; }

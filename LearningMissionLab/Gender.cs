@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LearningMissionLab
+﻿namespace LearningMissionLab
 {
-    class Gender
+    /// <summary>
+    /// are stored here genders
+    /// </summary>
+    public enum Gender
     {
+        Unspecified,
+        Male,
+        Female,
     }
 }
