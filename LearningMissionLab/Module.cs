@@ -7,20 +7,22 @@ namespace LearningMissionLab
     {
         string subjectID;
         ModuleLevel moduleLevel;
-        List<ModuleLevel> ListOfPrerequisites = new List<ModuleLevel>();
+        List<Module> prerequisiteList = new List<Module>();
                    
 
-        public Module(string subjectID, ModuleLevel moduleLevel, List<ModuleLevel> listOfPrerequisites, string name, string description, List<Lesson> itemList)
+        public Module(string subjectID, ModuleLevel moduleLevel, List<Module> prerequisiteList, string name, string description, List<Lesson> itemList)
            :base (UnitType.Module, name, description, itemList)
         {
            
             this.subjectID = subjectID;
             this.moduleLevel = moduleLevel;
-            ListOfPrerequisites = listOfPrerequisites;
+            this.prerequisiteList = prerequisiteList;
         }
 
         public string SubjectID { get => subjectID; set => subjectID = value; }
         public ModuleLevel ModuleLevel { get => moduleLevel; set => moduleLevel = value; }
-        public List<ModuleLevel> ListOfPrerequisites1 { get => ListOfPrerequisites; set => ListOfPrerequisites = value; }
+        public List<Module> PrerequisiteList { get => prerequisiteList; set => prerequisiteList = value; }
     }
 }
+//module
+// prerequisitList
