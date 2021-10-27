@@ -57,10 +57,6 @@ namespace LearningMissionLab
             this._updateDate = DateTime.Now;
         }
 
-        public Unit()
-        {
-        }
-
         public Guid Id => _id;
         public UnitType UnitType { get => _unitType; set => _unitType = value; }
         public string Name { get => _name; set => _name = value; }

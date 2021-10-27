@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace LearningMissionLab
 {
     /// <summary>
@@ -14,6 +11,6 @@ namespace LearningMissionLab
         Department,
         Classroom,
         Subject,
-        Module
+        Module,
     }
 }
