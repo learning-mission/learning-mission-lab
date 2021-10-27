@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LearningMissionLab
+﻿namespace LearningMissionLab
 {
     /// <summary>
     /// 
@@ -18,7 +14,7 @@ namespace LearningMissionLab
         Status _status;
         DateTime _createDate;
         DateTime _updateDate;
-        public Account(string userName,string password,string email,int phone,Role role,Status status)
+        public Account( string userName, string password, string email, int phone, Role role, Status status )
         {
             this._accountId = GetGuid();
             this._userName = userName;
@@ -30,13 +26,18 @@ namespace LearningMissionLab
             this._createDate = DateTime.Now;
             this._updateDate = DateTime.Now;
         }
-        public Account(string userName, string email)
+        public Account(string accountId, string userName, string password, string email, int phone, Role role, Status status,
+                       DateTime createDate, DateTime updateDate)
         {
-            this._accountId = GetGuid();
-            this._userName = userName;            
-            this._email = email;            
-            this._createDate = DateTime.Now;
-            this._updateDate = DateTime.Now;
+            this._accountId = accountId;
+            this._userName = userName;
+            this._password = password;
+            this._email = email;
+            this._phone = phone;
+            this._role = role;
+            this._status = status;
+            this._createDate = createDate;
+            this._updateDate = updateDate;
         }
         public string AccountId => _accountId;
 
