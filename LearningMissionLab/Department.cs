@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace LearningMissionLab
 {
@@ -10,8 +8,8 @@ namespace LearningMissionLab
         private ContactInfo _contactInfo;
 
 
-        public Department(int companyId, ContactInfo contactInfo)
-            : base()
+        public Department(int companyId, ContactInfo contactInfo, string name, string description, List<Employee> itemList)
+            : base(UnitType.Department, name, description, itemList)
         { 
             this._companyId = companyId;
             this._contactInfo = contactInfo;
