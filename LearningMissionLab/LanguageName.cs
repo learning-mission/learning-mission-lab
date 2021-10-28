@@ -7,8 +7,8 @@
     public enum LanguageName
     {
         Unspecified,
-        Beginner,
-        Intermediate,
-        Advanced
+        Armenian,
+        English,
+        Russian
     }
 }

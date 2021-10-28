@@ -8,8 +8,8 @@
     public enum LanguageLevel
     {
         Unspecified,
-        Armenian,
-        English,
-        Russian
+        Beginner,
+        Intermediate,
+        Advanced,
     }
 }
