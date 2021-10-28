@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LearningMissionLab
 {
-    class Lesson
+    class SubjectType
     {
     }
 }
