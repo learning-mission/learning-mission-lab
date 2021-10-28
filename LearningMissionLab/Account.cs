@@ -5,7 +5,7 @@ namespace LearningMissionLab
     /// Class: Account
     /// Purpose: Provides a model for Learning Mission user account 
     /// </summary>
-    public class Account
+    public class Account : IReport
     {
         readonly string _accountId;
         string _userName;
@@ -55,6 +55,11 @@ namespace LearningMissionLab
         {
             Guid guid = Guid.NewGuid();
             return guid.ToString();
+        }
+
+        public void Report()
+        {
+            throw new NotImplementedException();
         }
     }
 }

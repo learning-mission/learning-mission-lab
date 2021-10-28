@@ -7,7 +7,7 @@ namespace LearningMissionLab
     /// Class: Profile
     /// Purpose: Provides a model for user profile
     /// </summary>
-    public class Profile
+    public class Profile : IReport
     {
         string _firstName;
         string _lastName;  
@@ -31,6 +31,37 @@ namespace LearningMissionLab
         {
 
         }
+        public Profile(string firstName, string lastName, ContactInfo contactInfo )
+        {
+            this._firstName = firstName;
+            this._lastName = lastName;
+            this._contactInfo = contactInfo;
+            this._createDate = DateTime.Now;
+        }
+        public Profile(string firstName, string lastName, string financialId, string passportId, string education,
+                       string resume, string salary, string militaryId, string family, string occupation,string stipend,
+                       string computerInventory, DateTime createDate, DateTime updateDate, DateTime dateOfBirth,
+                       Gender gender, ContactInfo contactInfo, List<Language> languageList)
+        {
+            this._firstName = firstName;
+            this._lastName = lastName;
+            this._financialId = financialId;
+            this._passportId = passportId;
+            this._education = education;
+            this._resume = resume;
+            this._salary = salary;
+            this._militaryId = militaryId;
+            this._family = family;
+            this._occupation = occupation;
+            this._stipend = stipend;
+            this._computerInventory = computerInventory;
+            this._createDate = createDate;
+            this._updateDate = updateDate;
+            this._dateOfBirth = dateOfBirth;
+            this._gender = gender;
+            this._contactInfo = contactInfo;
+            this._languageList = languageList;
+        }
 
         public string FirstName { get => _firstName; set => _firstName = value; }
         public string LastName { get => _lastName; set => _lastName = value; }
@@ -50,5 +81,10 @@ namespace LearningMissionLab
         public Gender Gender { get => _gender; set => _gender = value; }
         public ContactInfo ContactInfo { get => _contactInfo; set => _contactInfo = value; }
         public List<Language> LanguageList { get => _languageList; set => _languageList = value; }
+
+        public void Report()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
