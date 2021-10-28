@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace LearningMissionLab
 {
+    /// <summary>
+    /// Class: Module
+    /// Purpose: Provides a model for Learning Mission educational modules 
+    /// </summary>
     public class Module: Unit<Lesson>
     {
         string subjectID;
@@ -24,5 +27,3 @@ namespace LearningMissionLab
         public List<Module> PrerequisiteList { get => prerequisiteList; set => prerequisiteList = value; }
     }
 }
-//module
-// prerequisitList

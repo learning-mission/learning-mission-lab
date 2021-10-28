@@ -1,7 +1,9 @@
 ﻿namespace LearningMissionLab
 {
     /// <summary>
+    /// Class: Language
     /// 
+    /// Purpose: Provides a model for natural languages
     /// </summary>
     public class Language
     {

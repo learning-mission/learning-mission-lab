@@ -1,7 +1,8 @@
 ﻿namespace LearningMissionLab
 {
     /// <summary>
-    /// are stored here rols
+    /// Enum: Role
+    /// Purpose: Describes user roles, used with <see cref="Account"/>.
     /// </summary>
     public enum Role
     {

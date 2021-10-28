@@ -2,7 +2,8 @@
 namespace LearningMissionLab
 {
     /// <summary>
-    /// 
+    /// Class: Account
+    /// Purpose: Provides a model for Learning Mission user account 
     /// </summary>
     public class Account
     {

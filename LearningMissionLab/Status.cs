@@ -1,7 +1,9 @@
 ﻿namespace LearningMissionLab
 {
     /// <summary>
-    /// are stored here status
+    /// Enum: Status
+    /// Purpose: Describes user account status values, used with
+    /// <see cref="Account"/>.
     /// </summary>
     public enum Status
     {
