@@ -1,6 +1,10 @@
 ﻿using System;
 namespace LearningMissionLab
 {
+    /// <summary>
+    /// Class: Address
+    /// Purpose: Provides a model for postal address 
+    /// </summary>
     public class Address
     {
         string _streetAddress;

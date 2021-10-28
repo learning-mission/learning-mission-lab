@@ -2,7 +2,8 @@
 namespace LearningMissionLab
 {
     /// <summary>
-    /// Describes types used with <see cref="Unit{T}"/>.
+    /// Enum: UnitType
+    /// Purpose: Describes unit types, used with <see cref="Unit{T}"/>.
     /// </summary>
     public enum UnitType
     {

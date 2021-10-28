@@ -2,6 +2,10 @@
 
 namespace LearningMissionLab
 {
+    /// <summary>
+    /// Class: Department
+    /// Purpose: Provides a model for Learning Mission departments 
+    /// </summary>
     public class Department:Unit<Employee>
     {
         private int _companyId;

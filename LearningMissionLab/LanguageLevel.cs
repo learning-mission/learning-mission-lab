@@ -1,7 +1,9 @@
 ﻿namespace LearningMissionLab
 {
     /// <summary>
-    /// are stored here language level
+    /// Enum: LanguageLevel
+    /// Purpose: Describes language fluency levels, used with
+    /// <see cref="Language"/>.
     /// </summary>
     public enum LanguageLevel
     {

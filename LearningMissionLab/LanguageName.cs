@@ -1,7 +1,8 @@
 ﻿namespace LearningMissionLab
 {
     /// <summary>
-    /// are stored here language name
+    /// Enum: LanguageName
+    /// Purpose: Describes language names, used with <see cref="Unit{T}"/>.
     /// </summary>
     public enum LanguageName
     {

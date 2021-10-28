@@ -1,7 +1,8 @@
 ﻿namespace LearningMissionLab
 {
     /// <summary>
-    /// are stored here genders
+    /// Enum: Gender
+    /// Purpose: Describes gender values, used with <see cref="Profile"/>.
     /// </summary>
     public enum Gender
     {
