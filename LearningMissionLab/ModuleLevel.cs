@@ -10,8 +10,9 @@ namespace LearningMissionLab
     /// </summary>
     public enum ModuleLevel
     {
+        Unspecified,
         Beginner,
         Intermediate,
-        Advanced
+        Advanced,
     }
 }
