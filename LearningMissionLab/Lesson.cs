@@ -6,10 +6,9 @@ namespace LearningMissionLab
 {
     /// <summary>
     /// Class: Lesson
-    /// Purpose: Provides a model for Learning Mission lessons
+    /// Purpose: Provides a model for Learning Mission lessons 
     /// </summary>
     public class Lesson
     {
-
     }
 }
