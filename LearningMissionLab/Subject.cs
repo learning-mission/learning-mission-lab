@@ -4,21 +4,16 @@ using System.Text;
 
 namespace LearningMissionLab
 {
-    public enum SubjectType
+   
+    public class Subject 
     {
-        Unspecified,
-        AutoCad,
-        CProgramming,
-        CSharpProgramming,
-        English,
-        HardwareRepair,
-        JavaPrograming,
-        JavaScriptPrograming,
-        ProjectManagment,
-        UIUXDesign
-    }
-    public class Subject:Unit<Module> 
-    {
+        SubjectType _subjectType;
+        public Subject(SubjectType subjectType)
+        {
+            this._subjectType = subjectType; 
+        }
+        public SubjectType SubjectType { get => _subjectType; set => _subjectType = value; }
+
         
     }
 

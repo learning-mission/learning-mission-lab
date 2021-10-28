@@ -4,7 +4,17 @@ using System.Text;
 
 namespace LearningMissionLab
 {
-    class SubjectType
+    public enum SubjectType
     {
+        Unspecified,
+        AutoCad,
+        CProgramming,
+        CSharpProgramming,
+        English,
+        HardwareRepair,
+        JavaPrograming,
+        JavaScriptPrograming,
+        ProjectManagment,
+        UIUXDesign
     }
 }
