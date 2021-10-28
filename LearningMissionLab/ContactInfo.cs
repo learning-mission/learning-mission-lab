@@ -3,7 +3,7 @@ namespace LearningMissionLab
 {
     /// <summary>
     /// Class: ContactInfo
-    /// Purpose: Provides a model for Contact Informations
+    /// Purpose: Provides a model for Contact Information
     /// </summary>
 
     public class ContactInfo
