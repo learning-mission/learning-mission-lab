@@ -15,37 +15,45 @@ namespace LearningMissionLab
         int _lessonId;
         int _duration;
         string _description;
-        List<String> _videosList;
-        List<String> _slidesList;
-        DateTime createDate;
-        DateTime updateDate;
+        List<string> _videoList;
+        List<string> _slideList;
+        DateTime _createDate;
+        DateTime _updateDate;
 
         public Lesson(int subjectId, int moduleId, int lessonId, string description,
-                      int duration, List<String> videosList, List<String> slidesList)
+                      int duration, List<string> videoList, List<string> slideList,
+                      DateTime createDate, DateTime updateDate)
         {
             this._subjectId = subjectId;
             this._moduleId = moduleId;
             this._lessonId = lessonId;
             this._duration = duration;
             this._description = description;
-            this._videosList = videosList;
-            this._slidesList = slidesList;
+            this._videoList = videoList;
+            this._slideList = slideList;
+            this._createDate = createDate;
+            this._updateDate = updateDate;
         }
-
-        public Lesson(int lessonId,int duration)
+        public Lesson(int subjectId, int moduleId, string description,
+                      int duration, List<string> videoList, List<string> slideList)                      
         {
-            this._lessonId = lessonId;
+            this._subjectId = subjectId;
+            this._moduleId = moduleId;
             this._duration = duration;
+            this._description = description;
+            this._videoList = videoList;
+            this._slideList = slideList;
+            this._createDate = DateTime.Now;
+            this._updateDate = DateTime.Now;
         }
-
         public int SubjectId { get => _subjectId; set => _subjectId = value; }
         public int ModuleId { get => _moduleId; set => _moduleId = value; }
         public int LessonId { get => _lessonId; set => _lessonId = value; }
         public string Description { get => _description; set => _description = value; }
         public int Duration { get => _duration; set => _duration = value; }
-        public List<string> VideosList { get => _videosList; set => _videosList = value; }
-        public List<string> SlidesList { get => _slidesList; set => _slidesList = value; }
-        public DateTime CreateDate { get => createDate; set => createDate = value; }
-        public DateTime UpdateDate { get => updateDate; set => updateDate = value; }
+        public List<string> VideoList { get => _videoList; set => _videoList = value; }
+        public List<string> SlideList { get => _slideList; set => _slideList = value; }
+        public DateTime CreateDate { get => _createDate; set => _createDate = value; }
+        public DateTime UpdateDate { get => _updateDate; set => _updateDate = value; }
     }
 }
