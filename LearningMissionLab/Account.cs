@@ -7,8 +7,8 @@ namespace LearningMissionLab
     /// </summary>
     public class Account : IReport
     {
-        readonly string _accountId;
-        string _userName;
+        readonly Guid _id;
+        string _username;
         string _password;
         string _email;
         int _phone;
@@ -16,23 +16,11 @@ namespace LearningMissionLab
         Status _status;
         DateTime _createDate;
         DateTime _updateDate;
-        public Account(string userName, string password, string email, int phone, Role role, Status status)
-        {
-            this._accountId = GetGuid();
-            this._userName = userName;
-            this._password = password;
-            this._email = email;
-            this._phone = phone;
-            this._role = role;
-            this._status = status;
-            this._createDate = DateTime.Now;
-            this._updateDate = DateTime.Now;
-        }
-        public Account(string accountId, string userName, string password, string email, int phone, Role role, Status status,
+        public Account(Guid id, string username, string password, string email, int phone, Role role, Status status,
                        DateTime createDate, DateTime updateDate)
         {
-            this._accountId = accountId;
-            this._userName = userName;
+            this._id = id;
+            this._username = username;
             this._password = password;
             this._email = email;
             this._phone = phone;
@@ -41,9 +29,22 @@ namespace LearningMissionLab
             this._createDate = createDate;
             this._updateDate = updateDate;
         }
-        public string AccountId => _accountId;
+        public Account(string username, string password, string email, int phone, Role role, Status status)
+        {
+            this._id = GetGuid();
+            this._username = username;
+            this._password = password;
+            this._email = email;
+            this._phone = phone;
+            this._role = role;
+            this._status = status;
+            this._createDate = DateTime.UtcNow;
+            this._updateDate = DateTime.UtcNow;
+        }
+        
+        public Guid Id => _id;
 
-        public string UserName { get => _userName; set => _userName = value; }
+        public string Username { get => _username; set => _username = value; }
         public string Password { get => _password; set => _password = value; }
         public string Email { get => _email; set => _email = value; }
         public int Phone { get => _phone; set => _phone = value; }
@@ -51,10 +52,11 @@ namespace LearningMissionLab
         public Status Status { get => _status; set => _status = value; }
         public DateTime CreateDate { get => _createDate; set => _createDate = value; }
         public DateTime UpdateDate { get => _updateDate; set => _updateDate = value; }
-        public static string GetGuid()
+
+        public static Guid GetGuid()
         {
             Guid guid = Guid.NewGuid();
-            return guid.ToString();
+            return guid;
         }
 
         public void Report()
@@ -63,7 +65,7 @@ namespace LearningMissionLab
         }
         public override string ToString()
         {
-            return $" Account Id is {AccountId}, User Name is {UserName}, Password is {Password}, Email is {Email}," +
+            return $"  Id is {Id}, User Name is {Username}, Password is {Password}, Email is {Email}," +
                    $" Phone is {Phone}, Role is {Role}, Status is {Status}, Create Date is {CreateDate}, " +
                    $" Update Date is {UpdateDate}";
         }
