@@ -27,7 +27,7 @@ namespace LearningMissionSimulation
                 employee1
             };
 
-            Department department0 = new Department(0, contact0, "Dep0", "Department0", employeeList);
+            Department department0 = new Department(Guid.NewGuid(), contact0, "Dep0", "Department0", employeeList);
 
             List<Department> departmentList = new List<Department>
             {
