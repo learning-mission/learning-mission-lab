@@ -59,7 +59,7 @@ namespace LearningMissionLab
 
         public void Report()
         {
-            ToString();
+            Console.WriteLine(ToString());
         }
         public override string ToString()
         {
