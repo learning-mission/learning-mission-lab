@@ -1,10 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace LearningMissionLab
 {
-    public class Student
+    /// <summary>
+    /// Class: Student
+    /// Purpose: Provides a model for user student
+    /// </summary>
+    public class Student : Profile
     {
-        public Student()
+        string _coverLetter;
+        List<string> _recommendationList;
+        List<Module> _completedModuleList;
+        List<Classroom> _classroomList;
+        Schedule _schedule;
+        public Student(string coverLetter, List<string> recommendationList, List<Module> completedModuleList, List<Classroom> classroomList, Schedule schedule)
+                       : base()
         {
+            this._coverLetter = coverLetter;
+            this._recommendationList = recommendationList;
+            this._completedModuleList = completedModuleList;
+            this._classroomList = classroomList;
+            this._schedule = schedule;
         }
+
+        public string CoverLetter { get => _coverLetter; set => _coverLetter = value; }
+        public List<string> RecommendationList { get => _recommendationList; set => _recommendationList = value; }
+        public List<Module> CompletedModuleList { get => _completedModuleList; set => _completedModuleList = value; }
+        public Schedule Schedule { get => _schedule; set => _schedule = value; }
+        public List<Classroom> ClassroomList { get => _classroomList; set => _classroomList = value; }
     }
 }

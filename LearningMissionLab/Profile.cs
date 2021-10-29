@@ -9,6 +9,7 @@ namespace LearningMissionLab
     /// </summary>
     public class Profile : IReport
     {
+        readonly Guid _id;
         string _firstName;
         string _lastName;  
         string _financialId;
@@ -27,22 +28,12 @@ namespace LearningMissionLab
         Gender _gender;
         ContactInfo _contactInfo;
         List<Language> _languageList;
-        public Profile()
-        {
-
-        }
-        public Profile(string firstName, string lastName, ContactInfo contactInfo )
-        {
-            this._firstName = firstName;
-            this._lastName = lastName;
-            this._contactInfo = contactInfo;
-            this._createDate = DateTime.Now;
-        }
-        public Profile(string firstName, string lastName, string financialId, string passportId, string education,
+        public Profile(Guid id, string firstName, string lastName, string financialId, string passportId, string education,
                        string resume, string salary, string militaryId, string family, string occupation,string stipend,
                        string computerInventory, DateTime createDate, DateTime updateDate, DateTime dateOfBirth,
                        Gender gender, ContactInfo contactInfo, List<Language> languageList)
         {
+            this._id = id;
             this._firstName = firstName;
             this._lastName = lastName;
             this._financialId = financialId;
@@ -62,7 +53,15 @@ namespace LearningMissionLab
             this._contactInfo = contactInfo;
             this._languageList = languageList;
         }
-
+        public Profile(string firstName, string lastName, ContactInfo contactInfo)
+        {
+            this._id = GetGuid();
+            this._firstName = firstName;
+            this._lastName = lastName;
+            this._contactInfo = contactInfo;
+            this._createDate = DateTime.UtcNow;
+        }
+        public Guid Id => _id;
         public string FirstName { get => _firstName; set => _firstName = value; }
         public string LastName { get => _lastName; set => _lastName = value; }
         public string FinancialId { get => _financialId; set => _financialId = value; }
@@ -81,14 +80,18 @@ namespace LearningMissionLab
         public Gender Gender { get => _gender; set => _gender = value; }
         public ContactInfo ContactInfo { get => _contactInfo; set => _contactInfo = value; }
         public List<Language> LanguageList { get => _languageList; set => _languageList = value; }
-
+        public static Guid GetGuid()
+        {
+            Guid guid = Guid.NewGuid();
+            return guid;
+        }
         public void Report()
         {
             Console.WriteLine(ToString());
         }
         public override string ToString()
         {
-            return $" First Name is {FirstName}, Last Name is {LastName}, Financial Id is {FinancialId}," +
+            return $" Id is {Id}, First Name is {FirstName}, Last Name is {LastName}, Financial Id is {FinancialId}," +
                    $" Passport Id is {PassportId}, Education is {Education}, Resume is {Resume}, Salary is {Salary}," +
                    $" Military Id is {MilitaryId}, Family is {Family}, Occupation is {Occupation}, Stipend is {Stipend}," +
                    $" Computer Inventory is {ComputerInventory}, Create Date is {CreateDate}, Update Date is {UpdateDate}," +

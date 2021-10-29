@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace LearningMissionLab
 {
@@ -8,7 +9,7 @@ namespace LearningMissionLab
     /// Purpose: Provides a hierarchical model with a head and a list of items
     /// </summary>
     /// <typeparam name="T"> The type of the items in the itemList</typeparam>
-    public class Unit<T>
+    public class Unit<T> : IReport
     {
         readonly Guid _id;
         UnitType _unitType;
@@ -70,6 +71,26 @@ namespace LearningMissionLab
             Guid guid = Guid.NewGuid();
 
             return guid;
+        }
+
+        public void Report()
+        {
+            Console.WriteLine(ToString());
+        }
+
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendFormat($"Id: {Id}" +
+                $"\nUnit Type: {UnitType}" +
+                $"\nName: {Name}" +
+                $"\nDescription: {Description}" +
+                $"\nItem List: {ItemList}" +
+                $"\nCreate Date: {CreateDate}" +
+                $"\nUpdate Date: {UpdateDate}");
+
+            return stringBuilder.ToString();
         }
     }
 }
