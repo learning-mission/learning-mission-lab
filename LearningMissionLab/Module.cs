@@ -9,25 +9,19 @@ namespace LearningMissionLab
     /// </summary>
     public class Module : Unit<Lesson>, IReport
     {
-        readonly Guid _id;
+        readonly Guid _subjectId;
         ModuleLevel _moduleLevel;
         List<Module> _prerequisiteList = new List<Module>();
 
-        public Module(ModuleLevel moduleLevel, List<Module> prerequisiteList, string name, string description, List<Lesson> itemList)
-           : base(UnitType.Module, name, description, itemList)
-        {
-            this._id = GetGuid();
-            this._moduleLevel = moduleLevel;
-            this._prerequisiteList = prerequisiteList;
-        }
-        public Module(Guid id, ModuleLevel moduleLevel, List<Module> prerequisiteList, string name, string description, List<Lesson> itemList)
+        public Module(Guid subjectId, ModuleLevel moduleLevel, List<Module> prerequisiteList, string name, string description, List<Lesson> itemList)
            :base (UnitType.Module, name, description, itemList)
         {        
-            this._id = id;
+            this._subjectId = subjectId;
             this._moduleLevel = moduleLevel;
             this._prerequisiteList = prerequisiteList;
         }
        
+        public Guid SubjectId { get => subjectId; set => subjectId = value; }
         public ModuleLevel ModuleLevel { get => _moduleLevel; set => _moduleLevel = value; }
         public List<Module> PrerequisiteList { get => _prerequisiteList; set => _prerequisiteList = value; }
         public void Report()
@@ -36,8 +30,7 @@ namespace LearningMissionLab
         }
         private static Guid GetGuid()
         {
-            Guid guid = Guid.NewGuid();
-            return guid;
+            return Guid.NewGuid();
         }
     }
 }
