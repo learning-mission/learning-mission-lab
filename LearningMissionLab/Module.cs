@@ -6,7 +6,7 @@ namespace LearningMissionLab
     /// Class: Module
     /// Purpose: Provides a model for Learning Mission educational modules 
     /// </summary>
-    public class Module: Unit<Lesson>
+    public class Module: Unit<Lesson>,IReport
     {
         string subjectID;
         ModuleLevel moduleLevel;
@@ -25,5 +25,10 @@ namespace LearningMissionLab
         public string SubjectID { get => subjectID; set => subjectID = value; }
         public ModuleLevel ModuleLevel { get => moduleLevel; set => moduleLevel = value; }
         public List<Module> PrerequisiteList { get => prerequisiteList; set => prerequisiteList = value; }
+
+        public void Report()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
