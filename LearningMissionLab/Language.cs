@@ -9,12 +9,13 @@
     {
         LanguageName _languageName;
         LanguageLevel _languageLevel;
-        public Language()
+        public Language(LanguageName languageName, LanguageLevel languageLevel)
         {
-            
+            this._languageName = languageName;
+            this._languageLevel = languageLevel; 
         }
 
         public LanguageName LanguageName { get => _languageName; set => _languageName = value; }
-        public LanguageLevel LanguageLevels { get => _languageLevel; set => _languageLevel = value; }
+        public LanguageLevel LanguageLevel { get => _languageLevel; set => _languageLevel = value; }
     }
 }
