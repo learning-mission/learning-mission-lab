@@ -59,8 +59,7 @@ namespace LearningMissionLab
 
         public void Report()
         {
-            Console.WriteLine($" User Name is {UserName}, Password is {Password},  Email is {Email}," +
-                              $"  Phone is {Phone}, Role is {Role}, Status is {Status} ");
+            ToString();
         }
         public override string ToString()
         {

@@ -84,8 +84,7 @@ namespace LearningMissionLab
 
         public void Report()
         {
-            Console.WriteLine($" First Name is {FirstName}, Last Name is {LastName}," +
-                              $" Contact Info is {ContactInfo},Create Date is {CreateDate}");
+            ToString();
         }
         public override string ToString()
         {
