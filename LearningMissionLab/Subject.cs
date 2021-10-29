@@ -4,17 +4,17 @@ using System.Text;
 
 namespace LearningMissionLab
 {
-   
-    public class Subject 
+
+    public class Subject
     {
         SubjectType _subjectType;
         public Subject(SubjectType subjectType)
         {
-            this._subjectType = subjectType; 
+            this._subjectType = subjectType;
         }
         public SubjectType SubjectType { get => _subjectType; set => _subjectType = value; }
 
-        
+
     }
 
 
