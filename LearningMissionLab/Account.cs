@@ -59,7 +59,14 @@ namespace LearningMissionLab
 
         public void Report()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($" User Name is {UserName}, Password is {Password},  Email is {Email}," +
+                              $"  Phone is {Phone}, Role is {Role}, Status is {Status} ");
+        }
+        public override string ToString()
+        {
+            return $" Account Id is {AccountId}, User Name is {UserName}, Password is {Password}, Email is{Email}," +
+                   $" Phone is {Phone}, Role is {Role}, Status is {Status}, Create Date is {CreateDate}, " +
+                   $" Update Date is {UpdateDate}";
         }
     }
 }
