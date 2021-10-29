@@ -10,11 +10,11 @@ namespace LearningMissionLab
     public class Student : Profile
     {
         string _coverLetter;
-        List<String> _recommendationList;
+        List<string> _recommendationList;
         List<Module> _completedModuleList;
-        List<Student> _classroomList;
+        List<Classroom> _classroomList;
         Schedule _schedule;
-        public Student(string coverLetter, List<String> recommendationList, List<Module> completedModuleList, List<Student> classroomList, Schedule schedule)
+        public Student(string coverLetter, List<string> recommendationList, List<Module> completedModuleList, List<Classroom> classroomList, Schedule schedule)
                        : base()
         {
             this._coverLetter = coverLetter;
@@ -23,16 +23,11 @@ namespace LearningMissionLab
             this._classroomList = classroomList;
             this._schedule = schedule;
         }
-        public Student()
-        {
-
-        }
-
 
         public string CoverLetter { get => _coverLetter; set => _coverLetter = value; }
-        public List<String> RecommendationList { get => _recommendationList; set => _recommendationList = value; }
-        public List<Module> ComplatedModuleList { get => _completedModuleList; set => _completedModuleList = value; }        
+        public List<string> RecommendationList { get => _recommendationList; set => _recommendationList = value; }
+        public List<Module> CompletedModuleList { get => _completedModuleList; set => _completedModuleList = value; }
         public Schedule Schedule { get => _schedule; set => _schedule = value; }
-        public List<Student> ClassroomList { get => _classroomList; set => _classroomList = value; }
+        public List<Classroom> ClassroomList { get => _classroomList; set => _classroomList = value; }
     }
 }
