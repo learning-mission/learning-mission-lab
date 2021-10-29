@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace LearningMissionLab
 {
     /// <summary>
-    /// Describes types used with <see cref="Unit{T}"/>.
+    /// Enum: UnitType
+    /// Purpose: Describes unit types, used with <see cref="Unit{T}"/>.
     /// </summary>
     public enum UnitType
     {
@@ -14,6 +12,6 @@ namespace LearningMissionLab
         Department,
         Classroom,
         Subject,
-        Module
+        Module,
     }
 }

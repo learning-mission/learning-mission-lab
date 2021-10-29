@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LearningMissionLab
 {
     /// <summary>
-    /// Unit class: Represents a hierarchical model with a head and
-    /// a list of items
+    /// Class: Unit
+    /// Purpose: Provides a hierarchical model with a head and a list of items
     /// </summary>
-    /// <typeparam name="T"> The type of items in the itemList</typeparam>
+    /// <typeparam name="T"> The type of the items in the itemList</typeparam>
     public class Unit<T>
     {
         readonly Guid _id;
@@ -55,10 +54,6 @@ namespace LearningMissionLab
             this._itemList = itemList;
             this._createDate = DateTime.Now;
             this._updateDate = DateTime.Now;
-        }
-
-        public Unit()
-        {
         }
 
         public Guid Id => _id;
