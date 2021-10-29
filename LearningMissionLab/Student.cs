@@ -5,9 +5,9 @@ namespace LearningMissionLab
 {
     /// <summary>
     /// Class: Student
-    /// Purpose: Provides a model for user student
+    /// Purpose: Provides a model for student
     /// </summary>
-    public class Student: Profile
+    public class Student : Profile
     {
         string _coverLetter;
         List<string> _recommendationList;
@@ -16,7 +16,7 @@ namespace LearningMissionLab
         Schedule _schedule;
         public Student(string coverLetter, List<string> recommendationList, List<Module> completedModuleList, List<Classroom> classroomList,
             Schedule schedule, string firstName, string lastName, ContactInfo contactInfo)
-                       : base(firstName, lastName, contactInfo )
+                       : base(firstName, lastName, contactInfo)
         {
             this._coverLetter = coverLetter;
             this._recommendationList = recommendationList;
@@ -34,7 +34,7 @@ namespace LearningMissionLab
         public override string ToString()
         {
             return $" Cover letter is {CoverLetter}\n Recommendation list {RecommendationList}\n " +
-                   $"Completed module {CompletedModuleList}\n Schedule is {Schedule}\n Classroom is {ClassroomList} ";
+                   $"Completed module {CompletedModuleList}\n Schedule is {Schedule}\n Classroom list is {ClassroomList} ";
         }
       
     }
