@@ -28,9 +28,5 @@ namespace LearningMissionLab
         {
             throw new System.NotImplementedException();
         }
-        private static Guid GetGuid()
-        {
-            return Guid.NewGuid();
-        }
     }
 }
