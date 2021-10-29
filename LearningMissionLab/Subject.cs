@@ -11,8 +11,7 @@ namespace LearningMissionLab
     public class Subject : Unit<Module>
     {
         SubjectType _subjectType;
-        public Subject(SubjectType subjectType, UnitType unitType, string description,
-                       string name, List<Module> itemList)
+        public Subject(SubjectType subjectType, string description, string name, List<Module> itemList)
                        : base(UnitType.Subject, description, name, itemList)
         {
             this._subjectType = subjectType;
