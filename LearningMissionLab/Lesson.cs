@@ -34,10 +34,10 @@ namespace LearningMissionLab
             this._createDate = createDate;
             this._updateDate = updateDate;
         }
-        public Lesson(string description, int duration, List<string> videoList, List<string> slideList)                      
+        public Lesson(Guid subjectId, Guid moduleId, string description, int duration, List<string> videoList, List<string> slideList)                      
         {
-            this._subjectId = GetGuid();
-            this._moduleId = GetGuid();
+            this._subjectId = subjectId;
+            this._moduleId = moduleId;
             this._id = GetGuid();
             this._duration = duration;
             this._description = description;
@@ -58,8 +58,7 @@ namespace LearningMissionLab
 
         private static Guid GetGuid()
         {
-            Guid guid = Guid.NewGuid();
-            return guid;
+            return Guid.NewGuid();
         }
     }
 }
