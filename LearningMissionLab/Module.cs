@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LearningMissionLab
 {
@@ -8,27 +9,37 @@ namespace LearningMissionLab
     /// </summary>
     public class Module: Unit<Lesson>,IReport
     {
-        string subjectID;
-        ModuleLevel moduleLevel;
-        List<Module> prerequisiteList = new List<Module>();
-                   
+        readonly Guid _id;
+        ModuleLevel _moduleLevel;
+        List<Module> _prerequisiteList = new List<Module>();
 
-        public Module(string subjectID, ModuleLevel moduleLevel, List<Module> prerequisiteList, string name, string description, List<Lesson> itemList)
+        public Module(ModuleLevel moduleLevel, List<Module> prerequisiteList, string name, string description, List<Lesson> itemList)
+           : base(UnitType.Module, name, description, itemList)
+        {
+            this._id = GetGuid();
+            this._moduleLevel = moduleLevel;
+            this._prerequisiteList = prerequisiteList;
+        }
+        public Module(Guid id, ModuleLevel moduleLevel, List<Module> prerequisiteList, string name, string description, List<Lesson> itemList)
            :base (UnitType.Module, name, description, itemList)
         {
            
-            this.subjectID = subjectID;
-            this.moduleLevel = moduleLevel;
-            this.prerequisiteList = prerequisiteList;
+            this._id = id;
+            this._moduleLevel = moduleLevel;
+            this._prerequisiteList = prerequisiteList;
         }
-
-        public string SubjectID { get => subjectID; set => subjectID = value; }
-        public ModuleLevel ModuleLevel { get => moduleLevel; set => moduleLevel = value; }
-        public List<Module> PrerequisiteList { get => prerequisiteList; set => prerequisiteList = value; }
-
+       
+        public ModuleLevel ModuleLevel { get => _moduleLevel; set => _moduleLevel = value; }
+        public List<Module> PrerequisiteList { get => _prerequisiteList; set => _prerequisiteList = value; }
         public void Report()
         {
             throw new System.NotImplementedException();
+        }
+        private static Guid GetGuid()
+        {
+            Guid guid = Guid.NewGuid();
+
+            return guid;
         }
     }
 }
