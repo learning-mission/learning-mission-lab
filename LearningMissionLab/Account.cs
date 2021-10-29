@@ -16,7 +16,7 @@ namespace LearningMissionLab
         Status _status;
         DateTime _createDate;
         DateTime _updateDate;
-        public Account( string userName, string password, string email, int phone, Role role, Status status )
+        public Account(string userName, string password, string email, int phone, Role role, Status status)
         {
             this._accountId = GetGuid();
             this._userName = userName;
@@ -59,7 +59,13 @@ namespace LearningMissionLab
 
         public void Report()
         {
-            throw new NotImplementedException();
+            Console.WriteLine(ToString());
+        }
+        public override string ToString()
+        {
+            return $" Account Id is {AccountId}, User Name is {UserName}, Password is {Password}, Email is {Email}," +
+                   $" Phone is {Phone}, Role is {Role}, Status is {Status}, Create Date is {CreateDate}, " +
+                   $" Update Date is {UpdateDate}";
         }
     }
 }

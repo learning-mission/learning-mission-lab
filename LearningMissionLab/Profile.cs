@@ -84,7 +84,16 @@ namespace LearningMissionLab
 
         public void Report()
         {
-            throw new NotImplementedException();
+            Console.WriteLine(ToString());
+        }
+        public override string ToString()
+        {
+            return $" First Name is {FirstName}, Last Name is {LastName}, Financial Id is {FinancialId}," +
+                   $" Passport Id is {PassportId}, Education is {Education}, Resume is {Resume}, Salary is {Salary}," +
+                   $" Military Id is {MilitaryId}, Family is {Family}, Occupation is {Occupation}, Stipend is {Stipend}," +
+                   $" Computer Inventory is {ComputerInventory}, Create Date is {CreateDate}, Update Date is {UpdateDate}," +
+                   $" Date Of Birth is {DateOfBirth}, Gender is {Gender}, Contact Info is {ContactInfo}, " +
+                   $" Language List is {LanguageList} ";
         }
     }
 }
