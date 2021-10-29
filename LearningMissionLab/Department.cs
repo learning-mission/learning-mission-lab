@@ -28,11 +28,5 @@ namespace LearningMissionLab
                    $" Phone number is {ContactInfo.CellPhone}\n " +
                    $" Email addresd is {ContactInfo.Email} ";
         }
-
-        private static Guid GetGuid()
-        {
-            Guid guid = Guid.NewGuid();
-            return guid;
-        }
     }
 }
