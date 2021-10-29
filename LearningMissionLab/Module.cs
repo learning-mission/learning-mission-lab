@@ -7,7 +7,7 @@ namespace LearningMissionLab
     /// Class: Module
     /// Purpose: Provides a model for Learning Mission educational modules 
     /// </summary>
-    public class Module: Unit<Lesson>,IReport
+    public class Module : Unit<Lesson>, IReport
     {
         readonly Guid _id;
         ModuleLevel _moduleLevel;
@@ -22,8 +22,7 @@ namespace LearningMissionLab
         }
         public Module(Guid id, ModuleLevel moduleLevel, List<Module> prerequisiteList, string name, string description, List<Lesson> itemList)
            :base (UnitType.Module, name, description, itemList)
-        {
-           
+        {        
             this._id = id;
             this._moduleLevel = moduleLevel;
             this._prerequisiteList = prerequisiteList;
@@ -38,7 +37,6 @@ namespace LearningMissionLab
         private static Guid GetGuid()
         {
             Guid guid = Guid.NewGuid();
-
             return guid;
         }
     }
