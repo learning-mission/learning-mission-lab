@@ -4,6 +4,30 @@ namespace LearningMissionSimulation
 {
     public class AttributeGenerator
     {
+
+        public static DateTime GetBirthDate()
+        {
+            DateTime timeNow = DateTime.Now;
+            Random r = new Random();
+            int day = r.Next(1, 32);
+            int month = r.Next(1, 13);
+            int age = r.Next(18, 51);
+            int year = timeNow.Year - age;
+            var birthDate = new DateTime(year, month, day);
+            return birthDate;
+        }
+        public static string GetPhoneNumber()
+        {
+            Random r = new Random();
+            string countryCode = "+374";
+            string[] phOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
+            string phoneNumberCode = phOperatorCode[r.Next(0, phOperatorCode.Length)];
+            string mobileNumber = Convert.ToString(r.Next(100000, 1000000));
+            var phoneNumber = (countryCode + phoneNumberCode + mobileNumber);
+            return phoneNumber;
+        }
+
+
         // Minimum valid applicant age
         static readonly byte APPLICANT_MIN_AGE = 18;
         // Maximum valid applicant age
