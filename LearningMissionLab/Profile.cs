@@ -98,5 +98,51 @@ namespace LearningMissionLab
                    $" Date Of Birth is {DateOfBirth}, Gender is {Gender}, Contact Info is {ContactInfo}, " +
                    $" Language List is {LanguageList} ";
         }
+        public string GetLastName()
+        {
+            return _lastName;
+        }
+        public string GetLastName1
+        {
+            set
+            {
+                _lastName = value;
+            }
+            get
+            {
+                return _lastName;
+            }
+        }
+        public string GetFirstName()
+        {
+            return _firstName;
+        }
+        public string GetFirstName1
+        {
+            set
+            {
+                _firstName = value;
+            }
+            get
+            {
+                return _firstName;
+            }
+        }
+        public DateTime GetDateOfBirth()
+        {
+            return _dateOfBirth;
+        }
+        public DateTime GetDateOfBirth1
+        {
+            set
+            {
+                _dateOfBirth = value;
+            }
+            get
+            {
+                return _dateOfBirth ;
+            }
+        }
+       
     }
 }

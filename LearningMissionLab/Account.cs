@@ -58,7 +58,6 @@ namespace LearningMissionLab
             Guid guid = Guid.NewGuid();
             return guid;
         }
-
         public void Report()
         {
             Console.WriteLine(ToString());
@@ -68,6 +67,36 @@ namespace LearningMissionLab
             return $"  Id is {Id}, User Name is {Username}, Password is {Password}, Email is {Email}," +
                    $" Phone is {Phone}, Role is {Role}, Status is {Status}, Create Date is {CreateDate}, " +
                    $" Update Date is {UpdateDate}";
+        }
+        public int GetPhoneNumber()
+        {
+            return _phone;
+        }
+        public int GetPhoneNumber1
+        {
+            set
+            {
+                _phone = value;
+            }
+            get
+            {
+                return _phone;
+            }
+        }
+        public string GetEmail()
+        {
+            return _email;
+        }
+        public string GetEmail1
+        {
+            set
+            {
+                _email = value;
+            }
+            get
+            {
+                return _email;
+            }
         }
     }
 }
