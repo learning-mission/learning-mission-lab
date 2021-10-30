@@ -72,31 +72,9 @@ namespace LearningMissionLab
         {
             return _phone;
         }
-        public int GetPhoneNumber1
-        {
-            set
-            {
-                _phone = value;
-            }
-            get
-            {
-                return _phone;
-            }
-        }
         public string GetEmail()
         {
             return _email;
-        }
-        public string GetEmail1
-        {
-            set
-            {
-                _email = value;
-            }
-            get
-            {
-                return _email;
-            }
         }
     }
 }
