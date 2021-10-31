@@ -26,13 +26,36 @@ namespace LearningMissionSimulation
         {
             // input's validation: check age limits, make sure their within
             // the allowed range
+            while (minAge < APPLICANT_MIN_AGE || maxAge > APPLICANT_MAX_AGE)
+            {
+                Console.WriteLine(
+                    "Inconsistent values. The minimum age must be big or equal to 18 " +
+                    "and maximum age must be less or equal to 70.\n" +
+                    "Please fill consistent values\n"
+                );
+                Console.WriteLine("Please input minimum age.");
+
+                minAge = (byte)Convert.ToUInt16(Console.ReadLine());
+
+                Console.WriteLine("Please input maximum age.");
+
+                maxAge = (byte)Convert.ToUInt16(Console.ReadLine());
+            }
 
             minAge = Math.Max(APPLICANT_MIN_AGE, minAge);
             maxAge = Math.Min(APPLICANT_MAX_AGE, maxAge);
 
-            //not implemented yet!
+            Random _random = new Random();
 
-            return DateTime.Now;
+            byte _age = (byte)_random.Next(minAge, maxAge + 1);
+            byte _month = (byte)_random.Next(1, 13);
+            byte _day = (byte)_random.Next(1, 32);
+            int _year = DateTime.Now.Year - _age;
+
+            Console.WriteLine(DateTime.Now.Year.GetType());
+            Console.WriteLine($"Age: {_age}");
+
+            return new DateTime(_year, _month, _day);
         }
 
         public static string GetLastName()
