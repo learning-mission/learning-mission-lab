@@ -91,8 +91,13 @@ namespace LearningMissionSimulation
 
         public static string GetPhoneNumber()
         {
-            //not implemented yet!
-            return "";
+            Random r = new Random();
+            string countryCode = "+374";
+            string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
+            string phoneNumberCode = phoneOperatorCode[r.Next(0, phoneOperatorCode.Length)];
+            string mobileNumber = Convert.ToString(r.Next(100000, 1000000));
+            var phoneNumber = (countryCode + phoneNumberCode + mobileNumber);
+            return phoneNumber;
         }
 
         public static string GetEmail()
