@@ -37,6 +37,7 @@ namespace LearningMissionSimulation
             Unit<Department> unit0 = new Unit<Department>(UnitType.Department, "Dep0", "Department0", departmentList);
 
             unit0.Report();
+            Console.WriteLine(AttributeGenerator.GetEmail());
         }
     }
 }

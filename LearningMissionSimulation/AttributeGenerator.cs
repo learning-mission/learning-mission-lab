@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using LearningMissionLab;
 namespace LearningMissionSimulation
 {
@@ -17,6 +19,9 @@ namespace LearningMissionSimulation
 
         static readonly string[] femaleNames = { "Nina", "Karine", "Margarita",
             "Narine", "Nane", "Marina", "Lilit", "Yelena" };
+
+        static readonly char[] alphabets = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                                             'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 
         /// <summary>Generates random date of birth values within the specified age range./>
         /// <param name="minAge">The minimum age.</param>
@@ -37,6 +42,7 @@ namespace LearningMissionSimulation
 
         public static string GetLastName()
         {
+           
             //not implemented yet!
             return "";
         }
@@ -94,11 +100,22 @@ namespace LearningMissionSimulation
             //not implemented yet!
             return "";
         }
-
+        
         public static string GetEmail()
         {
             //not implemented yet!
-            return "";
+            Random _r = new Random();
+            int _emailLength=_r.Next(5, 12);
+            var _EndOfEmail = new List<string>()
+            {"@email.ru", "@gmail.com", "@yahoo.com", "@yandex.ru"};
+            int _index = _r.Next(0,_EndOfEmail.Count);
+            StringBuilder _stringBuilder = new StringBuilder();
+            for(int i=0; i<=_emailLength; i++)
+            {
+                int indexOfAlphabet = _r.Next(0, alphabets.Length);
+                _stringBuilder.Append(alphabets[indexOfAlphabet]);
+            }
+            return _stringBuilder.Append(_EndOfEmail[_index]).ToString();
         }
 
         public static string GetStreetAddress()
