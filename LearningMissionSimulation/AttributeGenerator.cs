@@ -5,9 +5,9 @@ namespace LearningMissionSimulation
     public class AttributeGenerator
     {
         // Minimum valid applicant age
-        static readonly byte APPLICANT_MIN_AGE = 18;
+        static readonly byte _ApplicantMinAge = 18;
         // Maximum valid applicant age
-        static readonly byte APPLICANT_MAX_AGE = 70;
+        static readonly byte _ApplicantMaxAge = 70;
         static readonly string[] syllables = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
             "Mam", "Ket", "Zar", "Luci", "Ter", "Ova", "Sar", "Vol", "Ver" };
 
@@ -18,6 +18,8 @@ namespace LearningMissionSimulation
         static readonly string[] femaleNames = { "Nina", "Karine", "Margarita",
             "Narine", "Nane", "Marina", "Lilit", "Yelena" };
 
+        static Random random = new Random();
+
         /// <summary>Generates random date of birth values within the specified age range./>
         /// <param name="minAge">The minimum age.</param>
         /// <param name="maxAge">The maximum age.</param>
@@ -26,7 +28,7 @@ namespace LearningMissionSimulation
         {
             // input's validation: check age limits, make sure their within
             // the allowed range
-            while (minAge < APPLICANT_MIN_AGE || maxAge > APPLICANT_MAX_AGE)
+            while (minAge < _ApplicantMinAge || maxAge > _ApplicantMaxAge)
             {
                 Console.WriteLine(
                     "Inconsistent values. The minimum age must be big or equal to 18 " +
@@ -42,20 +44,37 @@ namespace LearningMissionSimulation
                 maxAge = (byte)Convert.ToUInt16(Console.ReadLine());
             }
 
-            minAge = Math.Max(APPLICANT_MIN_AGE, minAge);
-            maxAge = Math.Min(APPLICANT_MAX_AGE, maxAge);
+            minAge = Math.Max(_ApplicantMinAge, minAge);
+            maxAge = Math.Min(_ApplicantMaxAge, maxAge);
 
-            Random _random = new Random();
+            byte age = (byte)random.Next(minAge, maxAge + 1);
+            int year = DateTime.Now.Year - age;
+            byte month = (byte)random.Next(1, 13);
+            byte day = (month <= 7 && month % 2 == 1) ?
+                (byte)random.Next(1, 32) :
+                (
+                    month > 7 && month % 2 == 1 ? (byte)random.Next(1, 32) : (byte)random.Next(1, 31)
+                );
 
-            byte _age = (byte)_random.Next(minAge, maxAge + 1);
-            byte _month = (byte)_random.Next(1, 13);
-            byte _day = (byte)_random.Next(1, 32);
-            int _year = DateTime.Now.Year - _age;
+            //Also check leap year
+            if (month == 2 && year % 4 == 0)
+            {
+                if (day > 29)
+                {
+                    month += 1;
+                }
+            } else if (month == 2)
+            {
+                if (day > 28)
+                {
+                    month += 1;
+                }
+            }
 
             Console.WriteLine(DateTime.Now.Year.GetType());
-            Console.WriteLine($"Age: {_age}");
+            Console.WriteLine($"Age: {age}");
 
-            return new DateTime(_year, _month, _day);
+            return new DateTime(year, month, day);
         }
 
         public static string GetLastName()
