@@ -5,9 +5,9 @@ namespace LearningMissionSimulation
     public class AttributeGenerator
     {
         // Minimum valid applicant age
-        static readonly byte _ApplicantMinAge = 18;
+        static readonly byte ApplicantMinAge = 18;
         // Maximum valid applicant age
-        static readonly byte _ApplicantMaxAge = 70;
+        static readonly byte ApplicantMaxAge = 70;
         static readonly string[] syllables = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
             "Mam", "Ket", "Zar", "Luci", "Ter", "Ova", "Sar", "Vol", "Ver" };
 
@@ -28,7 +28,7 @@ namespace LearningMissionSimulation
         {
             // input's validation: check age limits, make sure their within
             // the allowed range
-            while (minAge < _ApplicantMinAge || maxAge > _ApplicantMaxAge)
+            while (minAge < ApplicantMinAge || maxAge > ApplicantMaxAge)
             {
                 Console.WriteLine(
                     "Inconsistent values. The minimum age must be big or equal to 18 " +
@@ -44,34 +44,45 @@ namespace LearningMissionSimulation
                 maxAge = (byte)Convert.ToUInt16(Console.ReadLine());
             }
 
-            minAge = Math.Max(_ApplicantMinAge, minAge);
-            maxAge = Math.Min(_ApplicantMaxAge, maxAge);
+            minAge = Math.Max(ApplicantMinAge, minAge);
+            maxAge = Math.Min(ApplicantMaxAge, maxAge);
 
             byte age = (byte)random.Next(minAge, maxAge + 1);
             int year = DateTime.Now.Year - age;
             byte month = (byte)random.Next(1, 13);
-            byte day = (month <= 7 && month % 2 == 1) ?
-                (byte)random.Next(1, 32) :
-                (
-                    month > 7 && month % 2 == 1 ? (byte)random.Next(1, 32) : (byte)random.Next(1, 31)
-                );
+            byte day;
 
-            //Also check leap year
-            if (month == 2 && year % 4 == 0)
+            switch(month)
             {
-                if (day > 29)
-                {
-                    month += 1;
-                }
-            } else if (month == 2)
-            {
-                if (day > 28)
-                {
-                    month += 1;
-                }
+                case 1:
+                    day = (byte)random.Next(1, 32);
+                    break;
+                case 3:
+                    day = (byte)random.Next(1, 32);
+                    break;
+                case 5:
+                    day = (byte)random.Next(1, 32);
+                    break;
+                case 7:
+                    day = (byte)random.Next(1, 32);
+                    break;
+                case 8:
+                    day = (byte)random.Next(1, 32);
+                    break;
+                case 10:
+                    day = (byte)random.Next(1, 32);
+                    break;
+                case 12:
+                    day = (byte)random.Next(1, 32);
+                    break;
+                case 2:
+                    day = year % 4 == 0 ? (byte)random.Next(1, 30) : (byte)random.Next(1, 29);
+                    break;
+                default: 
+                    day = (byte)random.Next(1, 31);
+                    break;
             }
 
-            Console.WriteLine(DateTime.Now.Year.GetType());
             Console.WriteLine($"Age: {age}");
 
             return new DateTime(year, month, day);
