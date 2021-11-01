@@ -108,8 +108,10 @@ namespace LearningMissionSimulation
 
         public static Gender GetGender()
         {
-            //not implemented yet!
-            return Gender.Unspecified;
+            var genderCount = Enum.GetValues(typeof(Gender)).Length;
+            Gender gender = (Gender)random.Next(1, genderCount);
+            return gender;
+            
         }
 
         public static DepartmentType GetDepartmentType()
@@ -120,14 +122,16 @@ namespace LearningMissionSimulation
 
         public static Role GetRole()
         {
-            //not implemented yet!
-            return Role.Unspecified;
+            var roleCount = Enum.GetValues(typeof(Role)).Length;
+            Role role = (Role)random.Next(1, roleCount);
+            return role ;
         }
 
         public static Status GetStatus()
         {
-            //not implemented yet!
-            return Status.Unspecified;
+            var statusCount = Enum.GetValues(typeof(Status)).Length;
+            Status status = (Status)random.Next(1, statusCount);
+            return status;
         }
 
         public static string GetPhoneNumber()
