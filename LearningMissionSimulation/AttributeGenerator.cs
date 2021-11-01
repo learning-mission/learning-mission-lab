@@ -17,6 +17,14 @@ namespace LearningMissionSimulation
 
         static readonly string[] femaleNames = { "Nina", "Karine", "Margarita",
             "Narine", "Nane", "Marina", "Lilit", "Yelena" };
+        static readonly string[] lastNamePool = new string[] { "Lalazryan", "Mkhrtchyan",
+            "Hakobyan", "Vardanyan", "Lobyan", "Levonyan", "Sahakyan", "Gevorgyan" };
+
+        static readonly string[] alphabetVocalLetters = new string[] { "a", "e", "i", "o", "u", "y" };
+
+        static readonly string[] alphabetConsonantLetters = new string[] { "b", "c", "d", "f", "g", 
+            "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z" };
+         
 
         static Random random = new Random();
 
@@ -78,8 +86,30 @@ namespace LearningMissionSimulation
 
         public static string GetLastName()
         {
-            //not implemented yet!
-            return "";
+            int count = random.Next(2, 10);
+            int i = 0;
+            string name = "";
+            while (i < count )
+            {
+                if (i % 2 == 0)
+                {
+                    if (i == 0)
+                    {
+                        name += alphabetVocalLetters[random.Next(0, alphabetVocalLetters.Length)].ToUpper();
+                    }
+                    else
+                    {
+                        name += alphabetVocalLetters[random.Next(0, alphabetVocalLetters.Length)];
+                    }                                                                                         
+                }
+                else
+                {
+                    name += alphabetConsonantLetters[random.Next(0, alphabetConsonantLetters.Length)];
+                }
+                i++;
+            }
+            string lastName = name + "yan" ;
+            return lastName;
         }
 
         public static string GetFirstName()
