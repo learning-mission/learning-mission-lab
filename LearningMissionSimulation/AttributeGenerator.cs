@@ -84,23 +84,16 @@ namespace LearningMissionSimulation
             return new DateTime(year, month, day);
         }
 
-        public static string GetLastName()
+        public  string GetLastName()
         {
             int count = random.Next(2, 10);
-            int i = 0;
+            int i = random.Next(0,2);
             string name = "";
             while (i < count )
             {
                 if (i % 2 == 0)
                 {
-                    if (i == 0)
-                    {
-                        name += alphabetVocalLetters[random.Next(0, alphabetVocalLetters.Length)].ToUpper();
-                    }
-                    else
-                    {
-                        name += alphabetVocalLetters[random.Next(0, alphabetVocalLetters.Length)];
-                    }                                                                                         
+                    name += alphabetVocalLetters[random.Next(0, alphabetVocalLetters.Length)];                                                                 
                 }
                 else
                 {
@@ -108,6 +101,7 @@ namespace LearningMissionSimulation
                 }
                 i++;
             }
+            name = char.ToUpper(name[0]) + name.Substring(1);
             string lastName = name + "yan" ;
             return lastName;
         }
