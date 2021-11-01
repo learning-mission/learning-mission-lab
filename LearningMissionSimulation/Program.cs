@@ -36,8 +36,14 @@ namespace LearningMissionSimulation
 
             Unit<Department> unit0 = new Unit<Department>(UnitType.Department, "Dep0", "Department0", departmentList);
 
+<<<<<<< HEAD
             unit0.Report();
             Console.WriteLine(AttributeGenerator.GetEmail());
+=======
+            Console.WriteLine(AttributeGenerator.GetDateOfBirth(20, 60));
+
+            //unit0.Report();
+>>>>>>> master
         }
     }
 }
