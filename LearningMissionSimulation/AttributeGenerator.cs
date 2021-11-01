@@ -84,7 +84,7 @@ namespace LearningMissionSimulation
             return new DateTime(year, month, day);
         }
 
-        public  string GetLastName()
+        public static string GetLastName()
         {
             int count = random.Next(2, 10);
             int i = random.Next(0,2);
