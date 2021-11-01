@@ -55,31 +55,19 @@ namespace LearningMissionSimulation
             switch(month)
             {
                 case 1:
-                    day = (byte)random.Next(1, 32);
-                    break;
                 case 3:
-                    day = (byte)random.Next(1, 32);
-                    break;
                 case 5:
-                    day = (byte)random.Next(1, 32);
-                    break;
                 case 7:
-                    day = (byte)random.Next(1, 32);
-                    break;
                 case 8:
-                    day = (byte)random.Next(1, 32);
-                    break;
                 case 10:
-                    day = (byte)random.Next(1, 32);
-                    break;
                 case 12:
-                    day = (byte)random.Next(1, 32);
+                    day = (byte)random.Next(1, 32); //for months with 31 days
                     break;
                 case 2:
-                    day = year % 4 == 0 ? (byte)random.Next(1, 30) : (byte)random.Next(1, 29);
+                    day = year % 4 == 0 ? (byte)random.Next(1, 30) : (byte)random.Next(1, 29); // February
                     break;
                 default: 
-                    day = (byte)random.Next(1, 31);
+                    day = (byte)random.Next(1, 31); // for months with 30 days
                     break;
             }
 
