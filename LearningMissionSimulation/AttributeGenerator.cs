@@ -109,9 +109,7 @@ namespace LearningMissionSimulation
         public static Gender GetGender()
         {
             var genderCount = Enum.GetValues(typeof(Gender)).Length;
-            Gender gender = (Gender)random.Next(1, genderCount);
-            return gender;
-            
+            return (Gender)random.Next(1, genderCount); 
         }
 
         public static DepartmentType GetDepartmentType()
@@ -123,15 +121,13 @@ namespace LearningMissionSimulation
         public static Role GetRole()
         {
             var roleCount = Enum.GetValues(typeof(Role)).Length;
-            Role role = (Role)random.Next(1, roleCount);
-            return role ;
+            return (Role)random.Next(1, roleCount); ;
         }
 
         public static Status GetStatus()
         {
             var statusCount = Enum.GetValues(typeof(Status)).Length;
-            Status status = (Status)random.Next(1, statusCount);
-            return status;
+            return (Status)random.Next(1, statusCount);
         }
 
         public static string GetPhoneNumber()
