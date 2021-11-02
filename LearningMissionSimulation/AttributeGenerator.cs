@@ -52,7 +52,7 @@ namespace LearningMissionSimulation
             byte month = (byte)random.Next(1, 13);
             byte day;
 
-            switch(month)
+            switch (month)
             {
                 case 1:
                 case 3:
@@ -66,7 +66,7 @@ namespace LearningMissionSimulation
                 case 2:
                     day = year % 4 == 0 ? (byte)random.Next(1, 30) : (byte)random.Next(1, 29); // February
                     break;
-                default: 
+                default:
                     day = (byte)random.Next(1, 31); // for months with 30 days
                     break;
             }
@@ -102,9 +102,19 @@ namespace LearningMissionSimulation
 
         public static ModuleLevel GetModuleLevel()
         {
-            //not implemented yet!
-            return ModuleLevel.Unspecified;
+            var levelCunt = Enum.GetValues(typeof(ModuleLevel)).Length;
+            ModuleLevel moduleLevel = (ModuleLevel)random.Next(0, levelCunt);
+
+            return moduleLevel;
         }
+        public static SubjectType GetSubjecType()
+        {
+            var levelCunt = Enum.GetValues(typeof(SubjectType)).Length;
+            SubjectType subject = (SubjectType)random.Next(0, levelCunt);
+
+            return subject;
+        }
+
 
         public static Gender GetGender()
         {
