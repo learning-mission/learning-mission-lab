@@ -224,7 +224,7 @@ namespace LearningMissionSimulation
             return "";
         }
 
-        public static string GetPostalCode()
+        public static string GetProvince()
         {
             foreach (var keyValuePair in postalCodeDictionary)
             {
@@ -240,7 +240,7 @@ namespace LearningMissionSimulation
             return "";
         }
 
-        public static string GetProvince()
+        public static string GetPostalCode()
         {
             string result = "";
             string value = "";
