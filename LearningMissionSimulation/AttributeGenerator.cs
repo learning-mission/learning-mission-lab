@@ -73,6 +73,9 @@ namespace LearningMissionSimulation
             { "00", "Yerevan" }
         };
 
+        static readonly string countryCode = "+374";
+        static readonly string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
+
         static Random random = new Random();
 
         /// <summary>Generates random date of birth values within the specified age range./>
@@ -130,10 +133,13 @@ namespace LearningMissionSimulation
 
             return new DateTime(year, month, day);
         }
-
-        public static string GetLastName()
+        public static string GetFirstName(int lengthLimit)
         {
+<<<<<<< HEAD
             int count = random.Next(2, 10);
+=======
+            int count = random.Next(2, lengthLimit);
+>>>>>>> master
             int i = random.Next(0, 2);
             string name = "";
             while (i < count)
@@ -148,27 +154,38 @@ namespace LearningMissionSimulation
                 }
                 i++;
             }
+<<<<<<< HEAD
             name = char.ToUpper(name[0]) + name.Substring(1);
             string lastName = name + "yan";
             return lastName;
+=======
+            return char.ToUpper(name[0]) + name.Substring(1); 
+>>>>>>> master
         }
-
         public static string GetFirstName()
         {
-            //not implemented yet!
-            return "";
+            return GetFirstName(8);
         }
+        public static string GetLastName(int lengthLimit)
+        { 
+            return GetFirstName(lengthLimit) + "yan";
+        }
+        public static string GetLastName()
+        {
+            return GetLastName(10);
+        }
+        
 
         public static LanguageLevel GetLanguageLevel()
         {
-            //not implemented yet!
-            return LanguageLevel.Unspecified;
+            var levelCount = Enum.GetNames(typeof(LanguageLevel)).Length;
+            return (LanguageLevel)random.Next(1, levelCount);
         }
 
         public static LanguageName GetLanguageName()
         {
-            //not implemented yet!
-            return LanguageName.Unspecified;
+            var levelCount = Enum.GetNames(typeof(LanguageName)).Length;
+            return (LanguageName)random.Next(1, levelCount);
         }
 
         public static ModuleLevel GetModuleLevel()
@@ -203,11 +220,8 @@ namespace LearningMissionSimulation
 
         public static string GetPhoneNumber()
         {
-            Random r = new Random();
-            string countryCode = "+374";
-            string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
-            string phoneNumberCode = phoneOperatorCode[r.Next(0, phoneOperatorCode.Length)];
-            string mobileNumber = Convert.ToString(r.Next(100000, 1000000));
+            string phoneNumberCode = phoneOperatorCode[random.Next(0, phoneOperatorCode.Length)];
+            string mobileNumber = Convert.ToString(random.Next(100000, 1000000));
             var phoneNumber = (countryCode + phoneNumberCode + mobileNumber);
             return phoneNumber;
         }
