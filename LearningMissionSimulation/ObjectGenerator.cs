@@ -76,14 +76,16 @@ namespace LearningMissionSimulation
             return new Language(AttributeGenerator.GetLanguageName(), AttributeGenerator.GetLanguageLevel());
         }
         
-        public static List<Language> GenerateLanguagePool(uint languageCount)
+        public static List<Language> GenerateLanguageList(uint languageCount)
         {
             List<Language> languageList = new List<Language>();
-            int i = 0;
-            while (i < languageCount)
+            if (languageList.Contains(GenerateLanguage()))
             {
-                languageList.Add(GenerateLanguage());
-                i++;
+                return languageList;
+            }
+            else
+            {
+                 languageList.Add(GenerateLanguage());
             }
             return languageList;
         }
