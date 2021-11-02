@@ -55,16 +55,20 @@ namespace LearningMissionSimulation
 
         public static Profile GenerateProfile()
         {
-            //not implemented yet!
-            return null;
-
+            Profile profile = new Profile(AttributeGenerator.GetFirstName(), AttributeGenerator.GetLastName(),
+                                       AttributeGenerator.GetDateOfBirth( 0, 70), AttributeGenerator.GetGender());
+            return profile ;
         }
 
         public static List<Profile> GenerateProfilePool(uint profileCount)
         {
             List<Profile> profileList = new List<Profile>();
-
-            //not implemented yet!
+            int i = 0;
+            while (i < profileCount)
+            {
+                profileList.Add(GenerateProfile());
+                i++;
+            }
             return profileList;
         }
     }
