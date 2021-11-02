@@ -20,12 +20,11 @@ namespace LearningMissionSimulation
         static readonly string[] femaleNames = { "Nina", "Karine", "Margarita",
             "Narine", "Nane", "Marina", "Lilit", "Yelena" };
 
-<<<<<<< HEAD
-        static readonly char[] alphabets = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-                                             'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-=======
+        static readonly char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                                           'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+        static readonly List<string> domain = new List<string>()
+            {"@email.ru", "@gmail.com", "@yahoo.com", "@yandex.ru"};
         static Random random = new Random();
->>>>>>> master
 
         /// <summary>Generates random date of birth values within the specified age range./>
         /// <param name="minAge">The minimum age.</param>
@@ -59,7 +58,7 @@ namespace LearningMissionSimulation
             byte month = (byte)random.Next(1, 13);
             byte day;
 
-            switch(month)
+            switch (month)
             {
                 case 1:
                 case 3:
@@ -73,7 +72,7 @@ namespace LearningMissionSimulation
                 case 2:
                     day = year % 4 == 0 ? (byte)random.Next(1, 30) : (byte)random.Next(1, 29); // February
                     break;
-                default: 
+                default:
                     day = (byte)random.Next(1, 31); // for months with 30 days
                     break;
             }
@@ -85,7 +84,7 @@ namespace LearningMissionSimulation
 
         public static string GetLastName()
         {
-           
+
             //not implemented yet!
             return "";
         }
@@ -110,8 +109,12 @@ namespace LearningMissionSimulation
 
         public static ModuleLevel GetModuleLevel()
         {
+
+            var levelCunt = Enum.GetValues(typeof(ModuleLevel)).Length;
+            ModuleLevel moduleLevel = (ModuleLevel)random.Next(0, levelCunt);
+
             //not implemented yet!
-            return ModuleLevel.Unspecified;
+            return moduleLevel;
         }
 
         public static Gender GetGender()
@@ -148,22 +151,19 @@ namespace LearningMissionSimulation
             var phoneNumber = (countryCode + phoneNumberCode + mobileNumber);
             return phoneNumber;
         }
-        
+
         public static string GetEmail()
         {
             //not implemented yet!
-            Random _r = new Random();
-            int _emailLength=_r.Next(5, 12);
-            var _EndOfEmail = new List<string>()
-            {"@email.ru", "@gmail.com", "@yahoo.com", "@yandex.ru"};
-            int _index = _r.Next(0,_EndOfEmail.Count);
+            int emailLength =random.Next(5, 12);          
+            int index = random.Next(0, domain.Count);
             StringBuilder _stringBuilder = new StringBuilder();
-            for(int i=0; i<=_emailLength; i++)
+            for (int i = 0; i <= emailLength; i++)
             {
-                int indexOfAlphabet = _r.Next(0, alphabets.Length);
-                _stringBuilder.Append(alphabets[indexOfAlphabet]);
+                int indexOfAlphabet = random.Next(0, letters.Length);
+                _stringBuilder.Append(letters[indexOfAlphabet]);
             }
-            return _stringBuilder.Append(_EndOfEmail[_index]).ToString();
+            return _stringBuilder.Append(domain[index]).ToString();
         }
 
         public static string GetStreetAddress()
