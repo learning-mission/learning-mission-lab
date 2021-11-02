@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using LearningMissionLab;
+
 namespace LearningMissionSimulation
 {
     public class AttributeGenerator
@@ -17,6 +19,14 @@ namespace LearningMissionSimulation
 
         static readonly string[] femaleNames = { "Nina", "Karine", "Margarita",
             "Narine", "Nane", "Marina", "Lilit", "Yelena" };
+        static readonly string[] lastNamePool = new string[] { "Lalazryan", "Mkhrtchyan",
+            "Hakobyan", "Vardanyan", "Lobyan", "Levonyan", "Sahakyan", "Gevorgyan" };
+
+        static readonly string[] alphabetVocalLetters = new string[] { "a", "e", "i", "o", "u", "y" };
+
+        static readonly string[] alphabetConsonantLetters = new string[] { "b", "c", "d", "f", "g", 
+            "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z" };
+         
 
         static readonly string countryCode = "+374";
         static readonly string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
@@ -81,8 +91,24 @@ namespace LearningMissionSimulation
 
         public static string GetLastName()
         {
-            //not implemented yet!
-            return "";
+            int count = random.Next(2, 10);
+            int i = random.Next(0,2);
+            string name = "";
+            while (i < count )
+            {
+                if (i % 2 == 0)
+                {
+                    name += alphabetVocalLetters[random.Next(0, alphabetVocalLetters.Length)];                                                                 
+                }
+                else
+                {
+                    name += alphabetConsonantLetters[random.Next(0, alphabetConsonantLetters.Length)];
+                }
+                i++;
+            }
+            name = char.ToUpper(name[0]) + name.Substring(1);
+            string lastName = name + "yan" ;
+            return lastName;
         }
 
         public static string GetFirstName()
@@ -94,15 +120,13 @@ namespace LearningMissionSimulation
         public static LanguageLevel GetLanguageLevel()
         {
             var levelCount = Enum.GetNames(typeof(LanguageLevel)).Length;
-            LanguageLevel languageLevel = (LanguageLevel)random.Next(1, levelCount);
-            return languageLevel;
+            return (LanguageLevel)random.Next(1, levelCount);
         }
 
         public static LanguageName GetLanguageName()
         {
             var levelCount = Enum.GetNames(typeof(LanguageName)).Length;
-            LanguageName languageName = (LanguageName)random.Next(1, levelCount);
-            return languageName;
+            return (LanguageName)random.Next(1, levelCount);
         }
 
         public static ModuleLevel GetModuleLevel()
@@ -113,8 +137,8 @@ namespace LearningMissionSimulation
 
         public static Gender GetGender()
         {
-            //not implemented yet!
-            return Gender.Unspecified;
+            var genderCount = Enum.GetValues(typeof(Gender)).Length;
+            return (Gender)random.Next(1, genderCount); 
         }
 
         public static DepartmentType GetDepartmentType()
@@ -125,14 +149,14 @@ namespace LearningMissionSimulation
 
         public static Role GetRole()
         {
-            //not implemented yet!
-            return Role.Unspecified;
+            var roleCount = Enum.GetValues(typeof(Role)).Length;
+            return (Role)random.Next(1, roleCount); ;
         }
 
         public static Status GetStatus()
         {
-            //not implemented yet!
-            return Status.Unspecified;
+            var statusCount = Enum.GetValues(typeof(Status)).Length;
+            return (Status)random.Next(1, statusCount);
         }
 
         public static string GetPhoneNumber()
@@ -157,7 +181,56 @@ namespace LearningMissionSimulation
 
         public static string GetPostalCode()
         {
-            //not implemented yet!
+            Dictionary<string, string> postalCodeDictionary = new Dictionary<string, string>()
+            {
+                { "03", "Aparan" },
+                { "04", "Aragac" },
+                { "02", "Ashtarak" },
+                { "05", "Talin" },
+                { "06", "Ararat" },
+                { "07", "Artashat" },
+                { "08", "Masis" },
+                { "09", "Armavir" },
+                { "10", "Baghramyan" },
+                { "11", "Vagharshapat" },
+                { "12", "Gavar" },
+                { "14", "Martuni" },
+                { "15", "Sevan" },
+                { "13", "Tshambarak" },
+                { "16", "Vardenis" },
+                { "22", "Abovyan" },
+                { "25", "Charencavan" },
+                { "23", "Hrazdan" },
+                { "24", "Nairi" },
+                { "18", "Spitak" },
+                { "19", "Stepanavan" },
+                { "17", "Tumanyan"},
+                { "20", "Vanadzor"},
+                { "21", "Vanadzor"},
+                { "26", "Akhuryan"},
+                { "27", "Amasia" },
+                { "29", "Ani" },
+                { "30", "Artik" },
+                { "31", "Gyumri" },
+                { "32", "Gyumri" },
+                { "33", "Kapan" },
+                { "34", "Meghri" },
+                { "35", "Sisian" },
+                { "39", "Dilijan" },
+                { "40", "Ijevan" },
+                { "41", "Noyemberyan" },
+                { "42", "Tavush" },
+                { "36", "Eghegnadzor" },
+                { "37", "Jermuk" },
+                { "38", "Vayq" },
+                { "00", "Yerevan" }
+            };
+
+            foreach (var keyValuePair in postalCodeDictionary)
+            {
+                Console.WriteLine($"Key: {keyValuePair.Key} Value: {keyValuePair.Value}");
+            }
+
             return "";
         }
 
