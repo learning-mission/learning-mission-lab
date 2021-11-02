@@ -28,6 +28,9 @@ namespace LearningMissionSimulation
             "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z" };
          
 
+        static readonly string countryCode = "+374";
+        static readonly string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
+
         static Random random = new Random();
 
         /// <summary>Generates random date of birth values within the specified age range./>
@@ -116,14 +119,14 @@ namespace LearningMissionSimulation
 
         public static LanguageLevel GetLanguageLevel()
         {
-            //not implemented yet!
-            return LanguageLevel.Unspecified;
+            var levelCount = Enum.GetNames(typeof(LanguageLevel)).Length;
+            return (LanguageLevel)random.Next(1, levelCount);
         }
 
         public static LanguageName GetLanguageName()
         {
-            //not implemented yet!
-            return LanguageName.Unspecified;
+            var levelCount = Enum.GetNames(typeof(LanguageName)).Length;
+            return (LanguageName)random.Next(1, levelCount);
         }
 
         public static ModuleLevel GetModuleLevel()
@@ -158,11 +161,8 @@ namespace LearningMissionSimulation
 
         public static string GetPhoneNumber()
         {
-            Random r = new Random();
-            string countryCode = "+374";
-            string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
-            string phoneNumberCode = phoneOperatorCode[r.Next(0, phoneOperatorCode.Length)];
-            string mobileNumber = Convert.ToString(r.Next(100000, 1000000));
+            string phoneNumberCode = phoneOperatorCode[random.Next(0, phoneOperatorCode.Length)];
+            string mobileNumber = Convert.ToString(random.Next(100000, 1000000));
             var phoneNumber = (countryCode + phoneNumberCode + mobileNumber);
             return phoneNumber;
         }
