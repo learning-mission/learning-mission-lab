@@ -135,11 +135,7 @@ namespace LearningMissionSimulation
         }
         public static string GetFirstName(int lengthLimit)
         {
-<<<<<<< HEAD
-            int count = random.Next(2, 10);
-=======
             int count = random.Next(2, lengthLimit);
->>>>>>> master
             int i = random.Next(0, 2);
             string name = "";
             while (i < count)
@@ -154,27 +150,21 @@ namespace LearningMissionSimulation
                 }
                 i++;
             }
-<<<<<<< HEAD
-            name = char.ToUpper(name[0]) + name.Substring(1);
-            string lastName = name + "yan";
-            return lastName;
-=======
-            return char.ToUpper(name[0]) + name.Substring(1); 
->>>>>>> master
+            return char.ToUpper(name[0]) + name.Substring(1);
         }
         public static string GetFirstName()
         {
             return GetFirstName(8);
         }
         public static string GetLastName(int lengthLimit)
-        { 
+        {
             return GetFirstName(lengthLimit) + "yan";
         }
         public static string GetLastName()
         {
             return GetLastName(10);
         }
-        
+
 
         public static LanguageLevel GetLanguageLevel()
         {
@@ -209,7 +199,7 @@ namespace LearningMissionSimulation
         public static Role GetRole()
         {
             var roleCount = Enum.GetValues(typeof(Role)).Length;
-            return (Role)random.Next(1, roleCount); ;
+            return (Role)random.Next(1, roleCount);
         }
 
         public static Status GetStatus()
