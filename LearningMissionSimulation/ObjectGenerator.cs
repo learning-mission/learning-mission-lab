@@ -56,7 +56,7 @@ namespace LearningMissionSimulation
         public static Profile GenerateProfile()
         {
             return new Profile(AttributeGenerator.GetFirstName(), AttributeGenerator.GetLastName(),
-                               AttributeGenerator.GetDateOfBirth( 18, 70), AttributeGenerator.GetGender()); ;
+                               AttributeGenerator.GetDateOfBirth(18, 70), AttributeGenerator.GetGender()); ;
         }
 
         public static List<Profile> GenerateProfilePool(uint profileCount)
