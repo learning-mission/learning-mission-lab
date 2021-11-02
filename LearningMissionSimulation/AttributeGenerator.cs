@@ -143,8 +143,8 @@ namespace LearningMissionSimulation
 
         public static DepartmentType GetDepartmentType()
         {
-            //not implemented yet!
-            return DepartmentType.Unspecified;
+            var departmentTypeCount = Enum.GetValues(typeof(DepartmentType)).Length;
+            return (DepartmentType)random.Next(1, departmentTypeCount);
         }
 
         public static Role GetRole()
