@@ -8,6 +8,8 @@ namespace LearningMissionSimulation
     {
         static void Main(string[] args)
         {
+            AttributeGenerator.GetModuleName();
+
             PlaygroundEdvard.Action0();
             PlaygroundMher playgroundMher = new PlaygroundMher();
         }

@@ -10,24 +10,24 @@ namespace LearningMissionSimulation
         static readonly byte ApplicantMinAge = 18;
         // Maximum valid applicant age
         static readonly byte ApplicantMaxAge = 70;
-        static readonly string[] syllables = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
+        static readonly string[] syllablePool = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
             "Mam", "Ket", "Zar", "Luci", "Ter", "Ova", "Sar", "Vol", "Ver" };
 
-        static readonly string[] maleNames = { "Sevak", "Mher", "Arevshat",
+        static readonly string[] maleNamePool = { "Sevak", "Mher", "Arevshat",
             "Garush", "Karen", "Smbat", "Rouben", "Garegin", "Vahe", "Eduard",
             "Gavril", "Suren", "Arkadij" };
 
-        static readonly string[] femaleNames = { "Nina", "Karine", "Margarita",
+        static readonly string[] femaleNamePool = { "Nina", "Karine", "Margarita",
             "Narine", "Nane", "Marina", "Lilit", "Yelena" };
         static readonly string[] lastNamePool = new string[] { "Lalazryan", "Mkhrtchyan",
             "Hakobyan", "Vardanyan", "Lobyan", "Levonyan", "Sahakyan", "Gevorgyan" };
-
-        static readonly string[] alphabetVocalLetters = new string[] { "a", "e", "i", "o", "u", "y" };
-
-        static readonly string[] alphabetConsonantLetters = new string[] { "b", "c", "d", "f", "g", 
+        static readonly List<string> moduleNamePool = new List<string> {"C#", "C++", "Java Script",
+            "Hard Software", "Rhino", "Auto Cad", "English" };
+        static readonly string[] alphabetVocalLetterPool = new string[] { "a", "e", "i", "o", "u", "y" };
+        static readonly string[] alphabetConsonantLetterPool = new string[] { "b", "c", "d", "f", "g", 
             "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z" };
-         
 
+        
         static Random random = new Random();
 
         /// <summary>Generates random date of birth values within the specified age range./>
@@ -95,11 +95,11 @@ namespace LearningMissionSimulation
             {
                 if (i % 2 == 0)
                 {
-                    name += alphabetVocalLetters[random.Next(0, alphabetVocalLetters.Length)];                                                                 
+                    name += alphabetVocalLetterPool[random.Next(0, alphabetVocalLetterPool.Length)];                                                                 
                 }
                 else
                 {
-                    name += alphabetConsonantLetters[random.Next(0, alphabetConsonantLetters.Length)];
+                    name += alphabetConsonantLetterPool[random.Next(0, alphabetConsonantLetterPool.Length)];
                 }
                 i++;
             }
@@ -126,12 +126,7 @@ namespace LearningMissionSimulation
             return LanguageName.Unspecified;
         }
 
-        public static ModuleLevel GetModuleLevel()
-        {
-            //not implemented yet!
-            return ModuleLevel.Unspecified;
-        }
-
+      
         public static Gender GetGender()
         {
             var genderCount = Enum.GetValues(typeof(Gender)).Length;
@@ -147,7 +142,7 @@ namespace LearningMissionSimulation
         public static Role GetRole()
         {
             var roleCount = Enum.GetValues(typeof(Role)).Length;
-            return (Role)random.Next(1, roleCount); ;
+            return (Role)random.Next(1, roleCount);
         }
 
         public static Status GetStatus()
@@ -178,7 +173,29 @@ namespace LearningMissionSimulation
             //not implemented yet!
             return "";
         }
+        public static string GetDepartmentName()
+        {
+            //not implemented yet!
+            return "";
+        }
+        public static string GetDepartmentDecription()
+        {
+            //not implemented yet!
+            return "";
+        }
+        public static string GetModuleName()
+        {            
+            int index = random.Next(0, moduleNamePool.Count);
 
+            return moduleNamePool[index];
+        }
+        public static Enum GetModuleDescription()
+        {
+            //not implemented yet!
+            var ModuleLevelCount = Enum.GetValues(typeof(ModuleLevel)).Length;
+            return (ModuleLevel)random.Next(1, ModuleLevelCount);
+            
+        }
         public static string GetPostalCode()
         {
             Dictionary<string, string> postalCodeDictionary = new Dictionary<string, string>()
