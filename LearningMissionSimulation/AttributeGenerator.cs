@@ -88,17 +88,16 @@ namespace LearningMissionSimulation
 
             return new DateTime(year, month, day);
         }
-
-        public static string GetLastName()
+        public static string GetFirstName(int lengthLimit)
         {
-            int count = random.Next(2, 10);
-            int i = random.Next(0,2);
+            int count = random.Next(2, lengthLimit);
+            int i = random.Next(0, 2);
             string name = "";
-            while (i < count )
+            while (i < count)
             {
                 if (i % 2 == 0)
                 {
-                    name += alphabetVocalLetters[random.Next(0, alphabetVocalLetters.Length)];                                                                 
+                    name += alphabetVocalLetters[random.Next(0, alphabetVocalLetters.Length)];
                 }
                 else
                 {
@@ -106,16 +105,21 @@ namespace LearningMissionSimulation
                 }
                 i++;
             }
-            name = char.ToUpper(name[0]) + name.Substring(1);
-            string lastName = name + "yan" ;
-            return lastName;
+            return char.ToUpper(name[0]) + name.Substring(1); 
         }
-
         public static string GetFirstName()
         {
-            //not implemented yet!
-            return "";
+            return GetFirstName(8);
         }
+        public static string GetLastName(int lengthLimit)
+        { 
+            return GetFirstName(lengthLimit) + "yan";
+        }
+        public static string GetLastName()
+        {
+            return GetLastName(10);
+        }
+        
 
         public static LanguageLevel GetLanguageLevel()
         {
