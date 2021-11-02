@@ -10,21 +10,21 @@ namespace LearningMissionSimulation
         static readonly byte ApplicantMinAge = 18;
         // Maximum valid applicant age
         static readonly byte ApplicantMaxAge = 70;
-        static readonly string[] syllables = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
+        static readonly string[] syllablepool = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
             "Mam", "Ket", "Zar", "Luci", "Ter", "Ova", "Sar", "Vol", "Ver" };
 
-        static readonly string[] maleNames = { "Sevak", "Mher", "Arevshat",
+        static readonly string[] maleNamePool = { "Sevak", "Mher", "Arevshat",
             "Garush", "Karen", "Smbat", "Rouben", "Garegin", "Vahe", "Eduard",
             "Gavril", "Suren", "Arkadij" };
 
-        static readonly string[] femaleNames = { "Nina", "Karine", "Margarita",
+        static readonly string[] femaleNamePool = { "Nina", "Karine", "Margarita",
             "Narine", "Nane", "Marina", "Lilit", "Yelena" };
         static readonly string[] lastNamePool = new string[] { "Lalazryan", "Mkhrtchyan",
             "Hakobyan", "Vardanyan", "Lobyan", "Levonyan", "Sahakyan", "Gevorgyan" };
 
-        static readonly string[] alphabetVocalLetters = new string[] { "a", "e", "i", "o", "u", "y" };
+        static readonly string[] alphabetVocalLetterPool = new string[] { "a", "e", "i", "o", "u", "y" };
 
-        static readonly string[] alphabetConsonantLetters = new string[] { "b", "c", "d", "f", "g", 
+        static readonly string[] alphabetConsonantLetterPool = new string[] { "b", "c", "d", "f", "g", 
             "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z" };
          
 
@@ -95,11 +95,11 @@ namespace LearningMissionSimulation
             {
                 if (i % 2 == 0)
                 {
-                    name += alphabetVocalLetters[random.Next(0, alphabetVocalLetters.Length)];                                                                 
+                    name += alphabetVocalLetterPool[random.Next(0, alphabetVocalLetterPool.Length)];                                                                 
                 }
                 else
                 {
-                    name += alphabetConsonantLetters[random.Next(0, alphabetConsonantLetters.Length)];
+                    name += alphabetConsonantLetterPool[random.Next(0, alphabetConsonantLetterPool.Length)];
                 }
                 i++;
             }
@@ -127,23 +127,16 @@ namespace LearningMissionSimulation
         }
 
         public static ModuleLevel GetModuleLevel()
-        {
-<<<<<<< Updated upstream
-            //not implemented yet!
-            return ModuleLevel.Unspecified;
-=======
-            var levelCunt = Enum.GetValues(typeof(ModuleLevel)).Length;
-            ModuleLevel moduleLevel = (ModuleLevel)random.Next(0, levelCunt);
-
-            return moduleLevel;
+        {                        
+            var levelCount = Enum.GetValues(typeof(ModuleLevel)).Length;
+            return (ModuleLevel)random.Next(0, levelCount);
+            
         }
         public static SubjectType GetSubjecType()
         {
-            var levelCunt = Enum.GetValues(typeof(SubjectType)).Length;
-           return (SubjectType)random.Next(0, levelCunt);
+            var levelCount = Enum.GetValues(typeof(SubjectType)).Length;
+           return (SubjectType)random.Next(0, levelCount);           
 
-           
->>>>>>> Stashed changes
         }
 
         public static Gender GetGender()
