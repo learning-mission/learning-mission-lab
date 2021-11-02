@@ -13,6 +13,11 @@ namespace LearningMissionLab
         string _postalCode;
         string _country;
 
+        public Address()
+        {
+
+        }
+
         public Address(string streetAddress, string city, string province, string postalCode, string country)
         {
             this._streetAddress = streetAddress;

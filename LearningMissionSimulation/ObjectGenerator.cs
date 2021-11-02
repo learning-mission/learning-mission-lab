@@ -67,5 +67,43 @@ namespace LearningMissionSimulation
             //not implemented yet!
             return profileList;
         }
+
+        public static Address GenerateAddress()
+        {
+            return new Address(AttributeGenerator.GetStreetAddress(), AttributeGenerator.GetCity(), 
+                               AttributeGenerator.GetProvince(), AttributeGenerator.GetPostalCode(),
+                               AttributeGenerator.GetCountry());
+        }
+        
+        public static List<Address> GenerateAddressPool(uint addressCount)
+        {
+            List<Address> addresseList = new List<Address>();
+
+            for (int i = 0; i < addressCount; i++)
+            {
+                addresseList.Add(GenerateAddress());
+            }
+
+            return addresseList;
+        }
+        
+        public static ContactInfo GenerateContactInfo()
+        {
+            return new ContactInfo(GenerateAddress(), AttributeGenerator.GetEmail(),
+                AttributeGenerator.GetHomeNumber(), AttributeGenerator.GetWorkNumber(),
+                AttributeGenerator.GetPhoneNumber());
+        }
+
+        public static List<ContactInfo> GetContactInfoPool(uint contactInfoCount)
+        {
+            List<ContactInfo> contactInfoList = new List<ContactInfo>();
+
+            for (int i = 0; i < contactInfoCount; i++)
+            {
+                contactInfoList.Add(GenerateContactInfo());
+            }
+
+            return contactInfoList;
+        }
     }
 }
