@@ -9,7 +9,7 @@ namespace LearningMissionSimulation
         static void Main(string[] args)
         {
             PlaygroundEdvard.Action0();
-           
+            PlaygroundMher playgroundMher = new PlaygroundMher();
         }
     }
 }
