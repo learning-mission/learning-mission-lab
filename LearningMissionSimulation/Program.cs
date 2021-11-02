@@ -39,6 +39,8 @@ namespace LearningMissionSimulation
             Console.WriteLine(AttributeGenerator.GetDateOfBirth(20, 60));
 
             //unit0.Report();
+
+            PlaygroundVahe.Play();
         }
     }
 }
