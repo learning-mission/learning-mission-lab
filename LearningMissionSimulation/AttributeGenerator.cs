@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using LearningMissionLab;
 
 namespace LearningMissionSimulation
@@ -24,9 +25,53 @@ namespace LearningMissionSimulation
 
         static readonly string[] alphabetVocalLetters = new string[] { "a", "e", "i", "o", "u", "y" };
 
-        static readonly string[] alphabetConsonantLetters = new string[] { "b", "c", "d", "f", "g", 
+        static readonly string[] alphabetConsonantLetters = new string[] { "b", "c", "d", "f", "g",
             "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z" };
-         
+
+        static readonly Dictionary<string, string> postalCodeDictionary = new Dictionary<string, string>()
+        {
+            { "03", "Aparan" },
+            { "04", "Aragac" },
+            { "02", "Ashtarak" },
+            { "05", "Talin" },
+            { "06", "Ararat" },
+            { "07", "Artashat" },
+            { "08", "Masis" },
+            { "09", "Armavir" },
+            { "10", "Baghramyan" },
+            { "11", "Vagharshapat" },
+            { "12", "Gavar" },
+            { "14", "Martuni" },
+            { "15", "Sevan" },
+            { "13", "Tshambarak" },
+            { "16", "Vardenis" },
+            { "22", "Abovyan" },
+            { "25", "Charencavan" },
+            { "23", "Hrazdan" },
+            { "24", "Nairi" },
+            { "18", "Spitak" },
+            { "19", "Stepanavan" },
+            { "17", "Tumanyan"},
+            { "20", "Vanadzor"},
+            { "21", "Vanadzor"},
+            { "26", "Akhuryan"},
+            { "27", "Amasia" },
+            { "29", "Ani" },
+            { "30", "Artik" },
+            { "31", "Gyumri" },
+            { "32", "Gyumri" },
+            { "33", "Kapan" },
+            { "34", "Meghri" },
+            { "35", "Sisian" },
+            { "39", "Dilijan" },
+            { "40", "Ijevan" },
+            { "41", "Noyemberyan" },
+            { "42", "Tavush" },
+            { "36", "Eghegnadzor" },
+            { "37", "Jermuk" },
+            { "38", "Vayq" },
+            { "00", "Yerevan" }
+        };
 
         static Random random = new Random();
 
@@ -62,7 +107,7 @@ namespace LearningMissionSimulation
             byte month = (byte)random.Next(1, 13);
             byte day;
 
-            switch(month)
+            switch (month)
             {
                 case 1:
                 case 3:
@@ -76,7 +121,7 @@ namespace LearningMissionSimulation
                 case 2:
                     day = year % 4 == 0 ? (byte)random.Next(1, 30) : (byte)random.Next(1, 29); // February
                     break;
-                default: 
+                default:
                     day = (byte)random.Next(1, 31); // for months with 30 days
                     break;
             }
@@ -89,13 +134,13 @@ namespace LearningMissionSimulation
         public static string GetLastName()
         {
             int count = random.Next(2, 10);
-            int i = random.Next(0,2);
+            int i = random.Next(0, 2);
             string name = "";
-            while (i < count )
+            while (i < count)
             {
                 if (i % 2 == 0)
                 {
-                    name += alphabetVocalLetters[random.Next(0, alphabetVocalLetters.Length)];                                                                 
+                    name += alphabetVocalLetters[random.Next(0, alphabetVocalLetters.Length)];
                 }
                 else
                 {
@@ -104,7 +149,7 @@ namespace LearningMissionSimulation
                 i++;
             }
             name = char.ToUpper(name[0]) + name.Substring(1);
-            string lastName = name + "yan" ;
+            string lastName = name + "yan";
             return lastName;
         }
 
@@ -135,7 +180,7 @@ namespace LearningMissionSimulation
         public static Gender GetGender()
         {
             var genderCount = Enum.GetValues(typeof(Gender)).Length;
-            return (Gender)random.Next(1, genderCount); 
+            return (Gender)random.Next(1, genderCount);
         }
 
         public static DepartmentType GetDepartmentType()
@@ -181,51 +226,6 @@ namespace LearningMissionSimulation
 
         public static string GetPostalCode()
         {
-            Dictionary<string, string> postalCodeDictionary = new Dictionary<string, string>()
-            {
-                { "03", "Aparan" },
-                { "04", "Aragac" },
-                { "02", "Ashtarak" },
-                { "05", "Talin" },
-                { "06", "Ararat" },
-                { "07", "Artashat" },
-                { "08", "Masis" },
-                { "09", "Armavir" },
-                { "10", "Baghramyan" },
-                { "11", "Vagharshapat" },
-                { "12", "Gavar" },
-                { "14", "Martuni" },
-                { "15", "Sevan" },
-                { "13", "Tshambarak" },
-                { "16", "Vardenis" },
-                { "22", "Abovyan" },
-                { "25", "Charencavan" },
-                { "23", "Hrazdan" },
-                { "24", "Nairi" },
-                { "18", "Spitak" },
-                { "19", "Stepanavan" },
-                { "17", "Tumanyan"},
-                { "20", "Vanadzor"},
-                { "21", "Vanadzor"},
-                { "26", "Akhuryan"},
-                { "27", "Amasia" },
-                { "29", "Ani" },
-                { "30", "Artik" },
-                { "31", "Gyumri" },
-                { "32", "Gyumri" },
-                { "33", "Kapan" },
-                { "34", "Meghri" },
-                { "35", "Sisian" },
-                { "39", "Dilijan" },
-                { "40", "Ijevan" },
-                { "41", "Noyemberyan" },
-                { "42", "Tavush" },
-                { "36", "Eghegnadzor" },
-                { "37", "Jermuk" },
-                { "38", "Vayq" },
-                { "00", "Yerevan" }
-            };
-
             foreach (var keyValuePair in postalCodeDictionary)
             {
                 Console.WriteLine($"Key: {keyValuePair.Key} Value: {keyValuePair.Value}");
@@ -242,8 +242,25 @@ namespace LearningMissionSimulation
 
         public static string GetProvince()
         {
-            //not implemented yet!
-            return "";
+            string result = "";
+            string value = "";
+            StringBuilder generateDigit = new StringBuilder();
+
+            generateDigit.Append(random.Next(0, 5));
+
+            for (int i = 0; i < 3; i++)
+            {
+                generateDigit.Append(random.Next(0, 10));
+            }
+
+            if (postalCodeDictionary.ContainsKey(generateDigit.ToString()))
+            {
+                result = generateDigit.ToString();
+
+                postalCodeDictionary.TryGetValue(result, out value);
+            }
+
+            return value;
         }
 
         public static string GetCountry()

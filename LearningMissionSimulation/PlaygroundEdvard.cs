@@ -9,7 +9,8 @@ namespace LearningMissionSimulation
     {
         public static void Action0()
         {
-            Console.WriteLine(AttributeGenerator.GetPostalCode());
+            //Console.WriteLine(AttributeGenerator.GetPostalCode());
+            Console.WriteLine(AttributeGenerator.GetProvince());
         }
         
         public static void Action1()
