@@ -14,11 +14,6 @@ namespace LearningMissionLab
         string _workPhone;
         string _cellPhone;
 
-        public ContactInfo()
-        {
-
-        }
-
         public ContactInfo
         (
             Address address,
