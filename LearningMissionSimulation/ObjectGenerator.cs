@@ -70,10 +70,12 @@ namespace LearningMissionSimulation
             }
             return profileList;
         }
+        
         public static Language GenerateLanguage()
         {
             return new Language(AttributeGenerator.GetLanguageName(), AttributeGenerator.GetLanguageLevel());
         }
+        
         public static List<Language> GenerateLanguagePool(uint languageCount)
         {
             List<Language> languageList = new List<Language>();
