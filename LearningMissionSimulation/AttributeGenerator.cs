@@ -128,8 +128,22 @@ namespace LearningMissionSimulation
 
         public static ModuleLevel GetModuleLevel()
         {
+<<<<<<< Updated upstream
             //not implemented yet!
             return ModuleLevel.Unspecified;
+=======
+            var levelCunt = Enum.GetValues(typeof(ModuleLevel)).Length;
+            ModuleLevel moduleLevel = (ModuleLevel)random.Next(0, levelCunt);
+
+            return moduleLevel;
+        }
+        public static SubjectType GetSubjecType()
+        {
+            var levelCunt = Enum.GetValues(typeof(SubjectType)).Length;
+           return (SubjectType)random.Next(0, levelCunt);
+
+           
+>>>>>>> Stashed changes
         }
 
         public static Gender GetGender()
