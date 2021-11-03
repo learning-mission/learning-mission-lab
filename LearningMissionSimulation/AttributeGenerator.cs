@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using LearningMissionLab;
 
 namespace LearningMissionSimulation
@@ -31,6 +32,10 @@ namespace LearningMissionSimulation
         static readonly string countryCode = "+374";
         static readonly string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
 
+        static readonly char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                                           'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+        static readonly List<string> domainPool = new List<string>()
+            {"@email.ru", "@gmail.com", "@yahoo.com", "@yandex.ru"};
         static Random random = new Random();
 
         /// <summary>Generates random date of birth values within the specified age range./>
@@ -65,7 +70,7 @@ namespace LearningMissionSimulation
             byte month = (byte)random.Next(1, 13);
             byte day;
 
-            switch(month)
+            switch (month)
             {
                 case 1:
                 case 3:
@@ -79,7 +84,7 @@ namespace LearningMissionSimulation
                 case 2:
                     day = year % 4 == 0 ? (byte)random.Next(1, 30) : (byte)random.Next(1, 29); // February
                     break;
-                default: 
+                default:
                     day = (byte)random.Next(1, 31); // for months with 30 days
                     break;
             }
@@ -141,9 +146,8 @@ namespace LearningMissionSimulation
         }
         public static SubjectType GetSubjecType()
         {
-            var levelCount = Enum.GetValues(typeof(SubjectType)).Length;
+           var levelCount = Enum.GetValues(typeof(SubjectType)).Length;
            return (SubjectType)random.Next(0, levelCount);           
-
         }
 
         public static Gender GetGender()
@@ -179,9 +183,16 @@ namespace LearningMissionSimulation
         }
 
         public static string GetEmail()
-        {
-            //not implemented yet!
-            return "";
+        {            
+            int emailLength =random.Next(5, 12);
+            int domainIndex = random.Next(0, domainPool.Count);
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i <= emailLength; i++)
+            {
+                int letterIndex = random.Next(0, letters.Length);
+                stringBuilder.Append(letters[letterIndex]);
+            }
+            return stringBuilder.Append(domainPool[domainIndex]).ToString();
         }
 
         public static string GetStreetAddress()

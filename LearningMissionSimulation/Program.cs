@@ -12,5 +12,6 @@ namespace LearningMissionSimulation
             PlaygroundEdvard.Action0();
             PlaygroundMher playgroundMher = new PlaygroundMher();
         }
+        ModuleLevel moduleLevel = new ModuleLevel();
     }
 }
