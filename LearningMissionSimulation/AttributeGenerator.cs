@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using LearningMissionLab;
+
 namespace LearningMissionSimulation
 {
     public class AttributeGenerator
@@ -10,15 +11,26 @@ namespace LearningMissionSimulation
         static readonly byte ApplicantMinAge = 18;
         // Maximum valid applicant age
         static readonly byte ApplicantMaxAge = 70;
-        static readonly string[] syllables = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
+        static readonly string[] syllablepool = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
             "Mam", "Ket", "Zar", "Luci", "Ter", "Ova", "Sar", "Vol", "Ver" };
 
-        static readonly string[] maleNames = { "Sevak", "Mher", "Arevshat",
+        static readonly string[] maleNamePool = { "Sevak", "Mher", "Arevshat",
             "Garush", "Karen", "Smbat", "Rouben", "Garegin", "Vahe", "Eduard",
             "Gavril", "Suren", "Arkadij" };
 
-        static readonly string[] femaleNames = { "Nina", "Karine", "Margarita",
+        static readonly string[] femaleNamePool = { "Nina", "Karine", "Margarita",
             "Narine", "Nane", "Marina", "Lilit", "Yelena" };
+        static readonly string[] lastNamePool = new string[] { "Lalazryan", "Mkhrtchyan",
+            "Hakobyan", "Vardanyan", "Lobyan", "Levonyan", "Sahakyan", "Gevorgyan" };
+
+        static readonly string[] alphabetVocalLetterPool = new string[] { "a", "e", "i", "o", "u", "y" };
+
+        static readonly string[] alphabetConsonantLetterPool = new string[] { "b", "c", "d", "f", "g", 
+            "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z" };
+         
+
+        static readonly string countryCode = "+374";
+        static readonly string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
 
         static readonly char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
                                            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
@@ -81,73 +93,91 @@ namespace LearningMissionSimulation
 
             return new DateTime(year, month, day);
         }
-
-        public static string GetLastName()
+        public static string GetFirstName(int lengthLimit)
         {
-
-            //not implemented yet!
-            return "";
+            int count = random.Next(2, lengthLimit);
+            int i = random.Next(0, 2);
+            string name = "";
+            while (i < count)
+            {
+                if (i % 2 == 0)
+                {
+                    name += alphabetVocalLetterPool[random.Next(0, alphabetVocalLetterPool.Length)];                                                                 
+                }
+                else
+                {
+                    name += alphabetConsonantLetterPool[random.Next(0, alphabetConsonantLetterPool.Length)];
+                }
+                i++;
+            }
+            return char.ToUpper(name[0]) + name.Substring(1); 
         }
-
         public static string GetFirstName()
         {
-            //not implemented yet!
-            return "";
+            return GetFirstName(8);
         }
+        public static string GetLastName(int lengthLimit)
+        { 
+            return GetFirstName(lengthLimit) + "yan";
+        }
+        public static string GetLastName()
+        {
+            return GetLastName(10);
+        }
+        
 
         public static LanguageLevel GetLanguageLevel()
         {
-            //not implemented yet!
-            return LanguageLevel.Unspecified;
+            var levelCount = Enum.GetNames(typeof(LanguageLevel)).Length;
+            return (LanguageLevel)random.Next(1, levelCount);
         }
 
         public static LanguageName GetLanguageName()
         {
-            //not implemented yet!
-            return LanguageName.Unspecified;
+            var levelCount = Enum.GetNames(typeof(LanguageName)).Length;
+            return (LanguageName)random.Next(1, levelCount);
         }
 
         public static ModuleLevel GetModuleLevel()
+        {                        
+            var levelCount = Enum.GetValues(typeof(ModuleLevel)).Length;
+            return (ModuleLevel)random.Next(0, levelCount);
+            
+        }
+        public static SubjectType GetSubjecType()
         {
-
-            var levelCunt = Enum.GetValues(typeof(ModuleLevel)).Length;
-            ModuleLevel moduleLevel = (ModuleLevel)random.Next(0, levelCunt);
-
-            //not implemented yet!
-            return moduleLevel;
+           var levelCount = Enum.GetValues(typeof(SubjectType)).Length;
+           return (SubjectType)random.Next(0, levelCount);           
         }
 
         public static Gender GetGender()
         {
-            //not implemented yet!
-            return Gender.Unspecified;
+            var genderCount = Enum.GetValues(typeof(Gender)).Length;
+            return (Gender)random.Next(1, genderCount); 
         }
 
         public static DepartmentType GetDepartmentType()
         {
-            //not implemented yet!
-            return DepartmentType.Unspecified;
+            var departmentTypeCount = Enum.GetValues(typeof(DepartmentType)).Length;
+            return (DepartmentType)random.Next(1, departmentTypeCount);
         }
 
         public static Role GetRole()
         {
-            //not implemented yet!
-            return Role.Unspecified;
+            var roleCount = Enum.GetValues(typeof(Role)).Length;
+            return (Role)random.Next(1, roleCount); ;
         }
 
         public static Status GetStatus()
         {
-            //not implemented yet!
-            return Status.Unspecified;
+            var statusCount = Enum.GetValues(typeof(Status)).Length;
+            return (Status)random.Next(1, statusCount);
         }
 
         public static string GetPhoneNumber()
         {
-            Random r = new Random();
-            string countryCode = "+374";
-            string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
-            string phoneNumberCode = phoneOperatorCode[r.Next(0, phoneOperatorCode.Length)];
-            string mobileNumber = Convert.ToString(r.Next(100000, 1000000));
+            string phoneNumberCode = phoneOperatorCode[random.Next(0, phoneOperatorCode.Length)];
+            string mobileNumber = Convert.ToString(random.Next(100000, 1000000));
             var phoneNumber = (countryCode + phoneNumberCode + mobileNumber);
             return phoneNumber;
         }
@@ -173,7 +203,56 @@ namespace LearningMissionSimulation
 
         public static string GetPostalCode()
         {
-            //not implemented yet!
+            Dictionary<string, string> postalCodeDictionary = new Dictionary<string, string>()
+            {
+                { "03", "Aparan" },
+                { "04", "Aragac" },
+                { "02", "Ashtarak" },
+                { "05", "Talin" },
+                { "06", "Ararat" },
+                { "07", "Artashat" },
+                { "08", "Masis" },
+                { "09", "Armavir" },
+                { "10", "Baghramyan" },
+                { "11", "Vagharshapat" },
+                { "12", "Gavar" },
+                { "14", "Martuni" },
+                { "15", "Sevan" },
+                { "13", "Tshambarak" },
+                { "16", "Vardenis" },
+                { "22", "Abovyan" },
+                { "25", "Charencavan" },
+                { "23", "Hrazdan" },
+                { "24", "Nairi" },
+                { "18", "Spitak" },
+                { "19", "Stepanavan" },
+                { "17", "Tumanyan"},
+                { "20", "Vanadzor"},
+                { "21", "Vanadzor"},
+                { "26", "Akhuryan"},
+                { "27", "Amasia" },
+                { "29", "Ani" },
+                { "30", "Artik" },
+                { "31", "Gyumri" },
+                { "32", "Gyumri" },
+                { "33", "Kapan" },
+                { "34", "Meghri" },
+                { "35", "Sisian" },
+                { "39", "Dilijan" },
+                { "40", "Ijevan" },
+                { "41", "Noyemberyan" },
+                { "42", "Tavush" },
+                { "36", "Eghegnadzor" },
+                { "37", "Jermuk" },
+                { "38", "Vayq" },
+                { "00", "Yerevan" }
+            };
+
+            foreach (var keyValuePair in postalCodeDictionary)
+            {
+                Console.WriteLine($"Key: {keyValuePair.Key} Value: {keyValuePair.Value}");
+            }
+
             return "";
         }
 

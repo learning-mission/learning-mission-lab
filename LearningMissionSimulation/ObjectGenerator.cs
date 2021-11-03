@@ -55,17 +55,37 @@ namespace LearningMissionSimulation
 
         public static Profile GenerateProfile()
         {
-            //not implemented yet!
-            return null;
-
+            return new Profile(AttributeGenerator.GetFirstName(), AttributeGenerator.GetLastName(),
+                               AttributeGenerator.GetDateOfBirth(18, 70), AttributeGenerator.GetGender()); 
         }
 
         public static List<Profile> GenerateProfilePool(uint profileCount)
         {
             List<Profile> profileList = new List<Profile>();
-
-            //not implemented yet!
+            int i = 0;
+            while (i < profileCount)
+            {
+                profileList.Add(GenerateProfile());
+                i++;
+            }
             return profileList;
+        }
+        
+        public static Language GenerateLanguage()
+        {
+            return new Language(AttributeGenerator.GetLanguageName(), AttributeGenerator.GetLanguageLevel());
+        }
+        
+        public static List<Language> GenerateLanguagePool(uint languageCount)
+        {
+            List<Language> languageList = new List<Language>();
+            int i = 0;
+            while (i < languageCount)
+            {
+                languageList.Add(GenerateLanguage());
+                i++;
+            }
+            return languageList;
         }
     }
 }
