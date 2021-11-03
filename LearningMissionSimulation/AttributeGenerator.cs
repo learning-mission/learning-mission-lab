@@ -285,13 +285,6 @@ namespace LearningMissionSimulation
 
         public static string GetCity(string postalCode)
         {
-            //Remove lines 283-285 and provide a correct implementation for the method:
-            //method should check whether the CityDictionary contains the value,
-            //using the postalCode parameter as a key. If value is not found you should return null,
-            //otherwise return the found city.
-
-
-
             if (CityDictionary.ContainsKey(postalCode)) 
             {
                 string cityName;
