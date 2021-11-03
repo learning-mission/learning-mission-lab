@@ -22,7 +22,7 @@ namespace LearningMissionSimulation
 
         static readonly char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
                                            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-        static readonly List<string> domain = new List<string>()
+        static readonly List<string> domainPool = new List<string>()
             {"@email.ru", "@gmail.com", "@yahoo.com", "@yandex.ru"};
         static Random random = new Random();
 
@@ -153,17 +153,16 @@ namespace LearningMissionSimulation
         }
 
         public static string GetEmail()
-        {
-            //not implemented yet!
-            int emailLength =random.Next(5, 12);          
-            int index = random.Next(0, domain.Count);
-            StringBuilder _stringBuilder = new StringBuilder();
+        {            
+            int emailLength =random.Next(5, 12);
+            int domainIndex = random.Next(0, domainPool.Count);
+            StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i <= emailLength; i++)
             {
-                int indexOfAlphabet = random.Next(0, letters.Length);
-                _stringBuilder.Append(letters[indexOfAlphabet]);
+                int letterIndex = random.Next(0, letters.Length);
+                stringBuilder.Append(letters[letterIndex]);
             }
-            return _stringBuilder.Append(domain[index]).ToString();
+            return stringBuilder.Append(domainPool[domainIndex]).ToString();
         }
 
         public static string GetStreetAddress()
