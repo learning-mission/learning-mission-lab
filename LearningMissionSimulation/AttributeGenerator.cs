@@ -283,6 +283,20 @@ namespace LearningMissionSimulation
             //not implemented yet!
             return "";
         }
-
+        public static string GetCoverLetter()
+        {
+            //not implemented yet!
+            return "";
+        }
+        public static int GetBuildingNumber()
+        {
+            //not implemented yet!
+            return 0;
+        }
+        public static int GetApartmentNumber()
+        {
+            //not implemented yet!
+            return 0;
+        }
     }
 }
