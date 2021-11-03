@@ -78,14 +78,22 @@ namespace LearningMissionSimulation
         
         public static List<Language> GenerateLanguageList(uint languageCount)
         {
+            int languageMaxCount = Enum.GetNames(typeof(LanguageName)).Length-1;
+            int count = (int)Math.Min(languageMaxCount, languageCount);
+            count = (int)Math.Max(1, count);
             List<Language> languageList = new List<Language>();
-            if (languageList.Contains(GenerateLanguage()))
+            ISet<LanguageName> nameSet = new HashSet<LanguageName>();
+            int i = 0;
+            while (i < count)
             {
-                return languageList;
-            }
-            else
-            {
-                 languageList.Add(GenerateLanguage());
+                Language language = GenerateLanguage();
+                LanguageName name = language.LanguageName;
+                if (!nameSet.Contains(name))
+                {
+                    languageList.Add(language);
+                    nameSet.Add(name);
+                }
+                i++;
             }
             return languageList;
         }
