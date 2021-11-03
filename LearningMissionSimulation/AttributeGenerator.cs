@@ -129,8 +129,8 @@ namespace LearningMissionSimulation
 
         public static LanguageName GetLanguageName()
         {
-            var levelCount = Enum.GetNames(typeof(LanguageName)).Length;
-            return (LanguageName)random.Next(1, levelCount);
+            var nameCount = Enum.GetNames(typeof(LanguageName)).Length;
+            return (LanguageName)random.Next(1, nameCount);
         }
 
         public static ModuleLevel GetModuleLevel()
