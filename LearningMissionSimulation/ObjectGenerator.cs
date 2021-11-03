@@ -10,16 +10,23 @@ namespace LearningMissionSimulation
 
         public static Student GenerateStudent()
         {
-            //not implemented yet!
-            return null;
-
+            return new Student(AttributeGenerator.GetCoverLetter(), new List<string>(), new List<Module>(), new List<Classroom>(),
+                   new Schedule(), AttributeGenerator.GetFirstName(), AttributeGenerator.GetLastName(),
+                   new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), AttributeGenerator.GetBuildingNumber(),
+                   AttributeGenerator.GetApartmentNumber(), AttributeGenerator.GetCity(), AttributeGenerator.GetProvince(),
+                   AttributeGenerator.GetPostalCode(), AttributeGenerator.GetCountry()), AttributeGenerator.GetEmail(),
+                   AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber()));
         }
 
         public static List<Student> GenerateStudentPool(uint studentCount)
         {
             List<Student> studentList = new List<Student>();
-
-            //not implemented yet!
+            int i = 0;
+            while (i < studentCount)
+            {
+                studentList.Add(GenerateStudent());
+                i++;
+            }
             return studentList;
         }
 
@@ -40,32 +47,64 @@ namespace LearningMissionSimulation
 
         public static Account GenerateAccount()
         {
-            //not implemented yet!
-            return null;
+            return new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(), AttributeGenerator.GetEmail(),
+                               AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetRole(), AttributeGenerator.GetStatus());
 
         }
 
         public static List<Account> GenerateAccountPool(uint accountCount)
         {
             List<Account> accountList = new List<Account>();
-
-            //not implemented yet!
+            for(int i = 0; i < accountCount; i++)
+            {
+                accountList.Add(GenerateAccount());
+            }
             return accountList;
         }
 
         public static Profile GenerateProfile()
         {
-            //not implemented yet!
-            return null;
-
+            return new Profile(AttributeGenerator.GetFirstName(), AttributeGenerator.GetLastName(),
+                               AttributeGenerator.GetDateOfBirth(18, 70), AttributeGenerator.GetGender()); 
         }
 
         public static List<Profile> GenerateProfilePool(uint profileCount)
         {
             List<Profile> profileList = new List<Profile>();
-
-            //not implemented yet!
+            int i = 0;
+            while (i < profileCount)
+            {
+                profileList.Add(GenerateProfile());
+                i++;
+            }
             return profileList;
+        }
+        
+        public static Language GenerateLanguage()
+        {
+            return new Language(AttributeGenerator.GetLanguageName(), AttributeGenerator.GetLanguageLevel());
+        }
+        
+        public static List<Language> GenerateLanguageList(uint languageCount)
+        {
+            int languageMaxCount = Enum.GetNames(typeof(LanguageName)).Length-1;
+            int count = (int)Math.Min(languageMaxCount, languageCount);
+            count = (int)Math.Max(1, count);
+            List<Language> languageList = new List<Language>();
+            ISet<LanguageName> nameSet = new HashSet<LanguageName>();
+            int i = 0;
+            while (i < count)
+            {
+                Language language = GenerateLanguage();
+                LanguageName name = language.LanguageName;
+                if (!nameSet.Contains(name))
+                {
+                    languageList.Add(language);
+                    nameSet.Add(name);
+                }
+                i++;
+            }
+            return languageList;
         }
     }
 }

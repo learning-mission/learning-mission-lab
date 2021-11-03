@@ -8,10 +8,12 @@ namespace LearningMissionSimulation
     {
         static void Main(string[] args)
         {
-            AttributeGenerator.GetModuleName();
-
+            PlaygroundVahe.Play();
             PlaygroundEdvard.Action0();
             PlaygroundMher playgroundMher = new PlaygroundMher();
+            AttributeGenerator.GetCity("2613");
+
         }
+        ModuleLevel moduleLevel = new ModuleLevel();
     }
 }

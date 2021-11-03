@@ -61,6 +61,14 @@ namespace LearningMissionLab
             this._contactInfo = contactInfo;
             this._createDate = DateTime.UtcNow;
         }
+        public Profile(string firstName, string lastName, DateTime dateOfBirth, Gender gender)
+        {
+            this._id = GetGuid();
+            this._firstName = firstName;
+            this._lastName = lastName;
+            this._dateOfBirth = dateOfBirth;
+            this._gender = gender;
+        }
         public Guid Id => _id;
         public string FirstName { get => _firstName; set => _firstName = value; }
         public string LastName { get => _lastName; set => _lastName = value; }
