@@ -10,16 +10,23 @@ namespace LearningMissionSimulation
 
         public static Student GenerateStudent()
         {
-            //not implemented yet!
-            return null;
-
+            return new Student(AttributeGenerator.GetCoverLetter(), new List<string>(), new List<Module>(), new List<Classroom>(),
+                   new Schedule(), AttributeGenerator.GetFirstName(), AttributeGenerator.GetLastName(),
+                   new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), AttributeGenerator.GetBuildingNumber(),
+                   AttributeGenerator.GetApartmentNumber(), AttributeGenerator.GetCity(), AttributeGenerator.GetProvince(),
+                   AttributeGenerator.GetPostalCode(), AttributeGenerator.GetCountry()), AttributeGenerator.GetEmail(),
+                   AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber()));
         }
 
         public static List<Student> GenerateStudentPool(uint studentCount)
         {
             List<Student> studentList = new List<Student>();
-
-            //not implemented yet!
+            int i = 0;
+            while (i < studentCount)
+            {
+                studentList.Add(GenerateStudent());
+                i++;
+            }
             return studentList;
         }
 
