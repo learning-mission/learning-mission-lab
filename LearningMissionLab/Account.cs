@@ -11,12 +11,12 @@ namespace LearningMissionLab
         string _username;
         string _password;
         string _email;
-        int _phone;
+        string _phone;
         Role _role;
         Status _status;
         DateTime _createDate;
         DateTime _updateDate;
-        public Account(Guid id, string username, string password, string email, int phone, Role role, Status status,
+        public Account(Guid id, string username, string password, string email, string phone, Role role, Status status,
                        DateTime createDate, DateTime updateDate)
         {
             this._id = id;
@@ -29,7 +29,7 @@ namespace LearningMissionLab
             this._createDate = createDate;
             this._updateDate = updateDate;
         }
-        public Account(string username, string password, string email, int phone, Role role, Status status)
+        public Account(string username, string password, string email, string phone, Role role, Status status)
         {
             this._id = GetGuid();
             this._username = username;
@@ -47,7 +47,7 @@ namespace LearningMissionLab
         public string Username { get => _username; set => _username = value; }
         public string Password { get => _password; set => _password = value; }
         public string Email { get => _email; set => _email = value; }
-        public int Phone { get => _phone; set => _phone = value; }
+        public string Phone { get => _phone; set => _phone = value; }
         public Role Role { get => _role; set => _role = value; }
         public Status Status { get => _status; set => _status = value; }
         public DateTime CreateDate { get => _createDate; set => _createDate = value; }

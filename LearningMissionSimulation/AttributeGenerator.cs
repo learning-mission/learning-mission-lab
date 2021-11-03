@@ -262,6 +262,16 @@ namespace LearningMissionSimulation
             //not implemented yet!
             return "";
         }
+        public static string GetUsername()
+        {
+            //not implemented yet!
+            return "";
+        }
+        public static string GetPassword()
+        {
+            //not implemented yet!
+            return "";
+        }
 
     }
 }

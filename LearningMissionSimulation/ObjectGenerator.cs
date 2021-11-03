@@ -40,16 +40,18 @@ namespace LearningMissionSimulation
 
         public static Account GenerateAccount()
         {
-            //not implemented yet!
-            return null;
+            return new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(), AttributeGenerator.GetEmail(),
+                               AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetRole(), AttributeGenerator.GetStatus());
 
         }
 
         public static List<Account> GenerateAccountPool(uint accountCount)
         {
             List<Account> accountList = new List<Account>();
-
-            //not implemented yet!
+            for(int i = 0; i < accountCount; i++)
+            {
+                accountList.Add(GenerateAccount());
+            }
             return accountList;
         }
 
