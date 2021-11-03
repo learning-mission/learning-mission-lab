@@ -288,12 +288,32 @@ namespace LearningMissionSimulation
             //not implemented yet!
             return "";
         }
+        public static string GetDescription()
+        {
+            //not implemented yet!
+            return "";
+        }
+        public static Guid GetGuid()
+        {
+            Guid guid = Guid.NewGuid();
+            return guid;
+        }
         public static int GetBuildingNumber()
         {
             //not implemented yet!
             return 0;
         }
         public static int GetApartmentNumber()
+        {
+            //not implemented yet!
+            return 0;
+        }
+        public static int GetMaximumCapacity()
+        {
+            //not implemented yet! 
+            return 0;
+        }
+        public static int GetMinimumCapacity()
         {
             //not implemented yet!
             return 0;

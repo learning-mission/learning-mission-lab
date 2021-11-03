@@ -29,7 +29,6 @@ namespace LearningMissionSimulation
             }
             return studentList;
         }
-
         public static Instructor GenerateInstructor()
         {
             //not implemented yet!
@@ -43,6 +42,28 @@ namespace LearningMissionSimulation
 
             //not implemented yet!
             return instructorList;
+        }
+        public static Classroom GenerateClassroom()
+        {
+            return new Classroom(AttributeGenerator.GetMaximumCapacity(), AttributeGenerator.GetMinimumCapacity(), 
+                   new Module(AttributeGenerator.GetGuid(), AttributeGenerator.GetModuleLevel(), new List<Module>(), 
+                   AttributeGenerator.GetFirstName(), AttributeGenerator.GetDescription(), new List<Lesson>()), new Schedule(),
+                   AttributeGenerator.GetFirstName(), AttributeGenerator.GetDescription(), new List<Student>());
+
+        }
+
+        //I think we should use it here HashSet, but there are still many missing things.
+        //Please do not judge harshly.
+        public static List<Classroom> GenerateClassroomPool(uint classroomCount)
+        {
+            List<Classroom> classroomList = new List<Classroom>();
+            int i = 0;
+            while (i < classroomCount)
+            {
+                classroomList.Add(GenerateClassroom());
+                i++;
+            }
+            return classroomList;
         }
 
         public static Account GenerateAccount()
