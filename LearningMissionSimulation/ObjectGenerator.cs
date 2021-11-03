@@ -25,6 +25,7 @@ namespace LearningMissionSimulation
             while (i < studentCount)
             {
                 studentList.Add(GenerateStudent());
+                i++;
             }
             return studentList;
         }
