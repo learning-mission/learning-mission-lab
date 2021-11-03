@@ -14,7 +14,7 @@ namespace LearningMissionSimulation
         
         public static void Action1()
         {
-            Address address0 = new Address("Tbilisyan str", "Yerevan", "Arabkir", "15", "Armenia");
+            Address address0 = new Address("Tbilisyan str",23, 15, "Yerevan", "Arabkir", "15", "Armenia");
             ContactInfo contact0 = new ContactInfo
             (
                 address0,

@@ -14,5 +14,6 @@ namespace LearningMissionSimulation
             AttributeGenerator.GetCity("2613");
 
         }
+        ModuleLevel moduleLevel = new ModuleLevel();
     }
 }
