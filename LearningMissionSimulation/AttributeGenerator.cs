@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LearningMissionLab;
 
 namespace LearningMissionSimulation
@@ -31,7 +32,55 @@ namespace LearningMissionSimulation
         static readonly string countryCode = "+374";
         static readonly string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
 
+
+        static readonly Dictionary<string, string> CityDictionary = new Dictionary<string, string>()
+            {
+              //Region Ararat
+              { "0613", "Noyakert" },
+              { "0605", "Avshar" },
+              { "0604", "Aygavan" },
+              //Region Aparan 
+              { "0301", "Aparan" },
+              { "0302", "Aragatz" },
+              { "0305", "Hartavan" },
+              //Region Armavir 
+              { "0912", "Amasia" },
+              { "0915", "Araqs" },
+              { "0914", "Arazap" },
+              //Region Gegharquniq 
+              { "1403", "Astghadzor" },
+              { "1412", "Dzoragyugh" },
+              { "1405", "Geghhovit" },
+              //Region Kotayq
+              { "2201 - 2208", "Abovyan" },
+              { "2209", "Akunq" },
+              { "2211", "Aramus" },
+              //Region Lori
+              { "1821", "Jrashen" },
+              { "1812", "Lusaghbyur" },
+              { "1822", "Saralanj" },
+              //Region Syuniq 
+              { "2613", "Haykavan" },
+              { "2614", "Hatsik" },
+              { "2615", "Hovuni" },
+              //Region Shirak
+              { "3010", "Gexanist" },
+              { "3011", "Getap" },
+              { "3014", "Haritsh" },
+              //Region Tavush
+              { "4210", "Norashen" },
+              { "4214", "Paravaqar" },
+              { "4205", "Tovuz" },
+              //Region Vayoc dzor
+              { "3606", "Getap" },
+              { "3607", "Gladzor" },
+              { "3609", "Hermon" },
+                //Erevan
+              { "0001", "Yerevan" }
+            };
+
         static Random random = new Random();
+        private static object keyValueCityCode;
 
         /// <summary>Generates random date of birth values within the specified age range./>
         /// <param name="minAge">The minimum age.</param>
@@ -234,56 +283,25 @@ namespace LearningMissionSimulation
             return "";
         }
 
-        public static string GetCity()
+        public static string GetCity(string postalCode)
         {
-            Dictionary<string, string> postalCodeCity = new Dictionary<string, string>()
+            //Remove lines 283-285 and provide a correct implementation for the method:
+            //method should check whether the CityDictionary contains the value,
+            //using the postalCode parameter as a key. If value is not found you should return null,
+            //otherwise return the found city.
+
+
+
+            if (CityDictionary.ContainsKey(postalCode)) 
             {
-              //Region Ararat
-              { "0613", "Noyakert" },
-              { "0605", "Avshar" },
-              { "0604", "Aygavan" },
-              //Region Aparan 
-              { "0301", "Aparan" },
-              { "0302", "Aragatz" },
-              { "0305", "Hartavan" },
-              //Region Armavir 
-              { "0912", "Amasia" },
-              { "0915", "Araqs" },
-              { "0914", "Arazap" },
-              //Region Gegharquniq 
-              { "1403", "Astghadzor" },
-              { "1412", "Dzoragyugh" },
-              { "1405", "Geghhovit" },
-              //Region Kotayq
-              { "2201 - 2208", "Abovyan" },
-              { "2209", "Akunq" },
-              { "2211", "Aramus" },
-              //Region Lori
-              { "1821", "Jrashen" },
-              { "1812", "Lusaghbyur" },
-              { "1822", "Saralanj" },
-              //Region Syuniq 
-              { "2613", "Haykavan" },
-              { "2614", "Hatsik" },
-              { "2615", "Hovuni" },
-              //Region Shirak
-              { "3010", "Gexanist" },
-              { "3011", "Getap" },
-              { "3014", "Haritsh" },
-              //Region Tavush
-              { "4210", "Norashen" },
-              { "4214", "Paravaqar" },
-              { "4205", "Tovuz" },
-              //Region Vayoc dzor
-              { "3606", "Getap" },
-              { "3607", "Gladzor" },
-              { "3609", "Hermon" },
-            };
-            foreach (var keyValueCityCode in postalCodeCity)
-            {
-                Console.WriteLine($"Key: {keyValueCityCode.Key} Value: {keyValueCityCode.Value}");
-            }
-            return "";
+                string cityName;
+
+                CityDictionary.TryGetValue(postalCode, out cityName);
+
+                return cityName;
+            }  
+            
+            return null;
         }
 
         public static string GetProvince()
