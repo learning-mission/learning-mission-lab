@@ -279,21 +279,21 @@ namespace LearningMissionSimulation
         {
             int count = random.Next( minLenght, maxLengh);
             int i = random.Next(0, minLenght);
-            string username = "";
+            string passeord = "";
             while (i < count)
             {
                 if (i % 2 == 0)
                 {
-                    username += alphabetVocalLetterPool[random.Next(0, alphabetVocalLetterPool.Length)];
+                    passeord += alphabetVocalLetterPool[random.Next(0, alphabetVocalLetterPool.Length)];
                 }
                 else
                 {
-                    username += alphabetConsonantLetterPool[random.Next(0, alphabetConsonantLetterPool.Length)];
+                    passeord += alphabetConsonantLetterPool[random.Next(0, alphabetConsonantLetterPool.Length)];
                 }
                 i++;
             }
-            username += characters[random.Next(0, characters.Length)];
-            return char.ToUpper(username[0]) + username.Substring(1);
+            passeord += characters[random.Next(0, characters.Length)];
+            return char.ToUpper(passeord[0]) + passeord.Substring(1);
         }
 
     }
