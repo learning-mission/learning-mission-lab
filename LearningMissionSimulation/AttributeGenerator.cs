@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using LearningMissionLab;
 
+
 namespace LearningMissionSimulation
 {
     public class AttributeGenerator : SimulationConstants
-    {
+    { 
         public static DateTime GetDateOfBirth(byte minAge, byte maxAge)
         {
             // input's validation: check age limits, make sure their within
@@ -67,11 +68,11 @@ namespace LearningMissionSimulation
             {
                 if (i % 2 == 0)
                 {
-                    name += alphabetVocalLetterPool[random.Next(0, alphabetVocalLetterPool.Length)];                                                                 
+                    name += AlphabetVocalLetterPool[random.Next(0, AlphabetVocalLetterPool.Length)];                                                                 
                 }
                 else
                 {
-                    name += alphabetConsonantLetterPool[random.Next(0, alphabetConsonantLetterPool.Length)];
+                    name += AlphabetConsonantLetterPool[random.Next(0, AlphabetConsonantLetterPool.Length)];
                 }
                 i++;
             }
@@ -141,23 +142,23 @@ namespace LearningMissionSimulation
 
         public static string GetPhoneNumber()
         {
-            string phoneNumberCode = phoneOperatorCode[random.Next(0, phoneOperatorCode.Length)];
+            string phoneNumberCode = PhoneOperatorCode[random.Next(0, PhoneOperatorCode.Length)];
             string mobileNumber = Convert.ToString(random.Next(100000, 1000000));
-            var phoneNumber = (countryCode + phoneNumberCode + mobileNumber);
+            var phoneNumber = (CountryCode + phoneNumberCode + mobileNumber);
             return phoneNumber;
         }
 
         public static string GetEmail()
         {            
             int emailLength =random.Next(5, 12);
-            int domainIndex = random.Next(0, domainPool.Count);
+            int domainIndex = random.Next(0, DomainPool.Count);
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i <= emailLength; i++)
             {
-                int letterIndex = random.Next(0, letterPool.Length);
-                stringBuilder.Append(letterPool[letterIndex]);
+                int letterIndex = random.Next(0, LetterPool.Length);
+                stringBuilder.Append(LetterPool[letterIndex]);
             }
-            return stringBuilder.Append(domainPool[domainIndex]).ToString();
+            return stringBuilder.Append(DomainPool[domainIndex]).ToString();
         }
 
         public static string GetStreetAddress()

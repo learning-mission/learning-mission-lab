@@ -15,33 +15,33 @@ namespace LearningMissionSimulation
         /// <returns>The DateTime value within specified range.</returns>
         public static Random random = new Random();
 
-        public static readonly string[] syllablePool = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
+        public static readonly string[] SyllablePool = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
             "Mam", "Ket", "Zar", "Luci", "Ter", "Ova", "Sar", "Vol", "Ver" };
 
-        public static readonly string[] maleNamePool = { "Sevak", "Mher", "Arevshat",
+        public static readonly string[] MaleNamePool = { "Sevak", "Mher", "Arevshat",
             "Garush", "Karen", "Smbat", "Rouben", "Garegin", "Vahe", "Eduard",
             "Gavril", "Suren", "Arkadij" };
 
-        public static readonly string[] femaleNamePool = { "Nina", "Karine", "Margarita",
+        public static readonly string[] MemaleNamePool = { "Nina", "Karine", "Margarita",
             "Narine", "Nane", "Marina", "Lilit", "Yelena" };
-        static readonly string[] lastNamePool = new string[] { "Lalazryan", "Mkhrtchyan",
+        static readonly string[] LastNamePool = new string[] { "Lalazryan", "Mkhrtchyan",
             "Hakobyan", "Vardanyan", "Lobyan", "Levonyan", "Sahakyan", "Gevorgyan" };
 
-        public static readonly string[] alphabetVocalLetterPool = new string[] { "a", "e", "i", "o", "u", "y" };
+        public static readonly string[] AlphabetVocalLetterPool = new string[] { "a", "e", "i", "o", "u", "y" };
 
-        public static readonly string[] alphabetConsonantLetterPool = new string[] { "b", "c", "d", "f", "g",
+        public static readonly string[] AlphabetConsonantLetterPool = new string[] { "b", "c", "d", "f", "g",
             "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z" };
 
 
-        public static readonly string countryCode = "+374";
-        public static readonly string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
+        public static readonly string CountryCode = "+374";
+        public static readonly string[] PhoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
 
-        public static readonly char[] letterPool = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+        public static readonly char[] LetterPool = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
                                            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 
-        public static readonly List<string> domainPool = new List<string>()
+        public static readonly List<string> DomainPool = new List<string>()
             {"@email.ru", "@gmail.com", "@yahoo.com", "@yandex.ru"};
-        public  static object keyValueCityCode;
+        public  static object KeyValueCityCode;
         public static readonly Dictionary<string, string> CityDictionary = new Dictionary<string, string>()
             {
               //Region Ararat
