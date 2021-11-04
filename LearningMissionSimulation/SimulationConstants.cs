@@ -15,7 +15,7 @@ namespace LearningMissionSimulation
         /// <returns>The DateTime value within specified range.</returns>
         public static Random random = new Random();
 
-        public static readonly char[] Characters = {'~', '!', '@', '#', '$', '%', '^', '&', '*', '(',
+        public static readonly char[] CharacterPool = {'~', '!', '@', '#', '$', '%', '^', '&', '*', '(',
             ')', '-', '_', '+', '=', '<', '>', '/', '?', ';', ':', '"', '{', '}', '[', ']' };
 
         public static readonly string[] SyllablePool = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
