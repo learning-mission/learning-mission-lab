@@ -270,7 +270,7 @@ namespace LearningMissionSimulation
                 }
                 i++;
             }
-            password += Characters[random.Next(0, Characters.Length)];
+            password += CharacterPool[random.Next(0, CharacterPool.Length)];
             return char.ToUpper(password[0]) + password.Substring(1);
         }
 
