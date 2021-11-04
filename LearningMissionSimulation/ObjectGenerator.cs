@@ -12,11 +12,11 @@ namespace LearningMissionSimulation
         {
             return new Student(coverLetter: AttributeGenerator.GetCoverLetter(),recommendationList: new List<string>(), 
                    completedModuleList: new List<Module>(), classroomList: new List<Classroom>(),
-                   new Schedule(), firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
-                   new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), buildingNumber: AttributeGenerator.GetBuildingNumber(),
+                   schedule: new Schedule(), firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
+                   contactInfo: new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), buildingNumber: AttributeGenerator.GetBuildingNumber(),
                    apartmentNumber: AttributeGenerator.GetApartmentNumber(), city: AttributeGenerator.GetCity("0001"), province: AttributeGenerator.GetProvince(),
                    postalCode: AttributeGenerator.GetPostalCode(), country: AttributeGenerator.GetCountry()), email: AttributeGenerator.GetEmail(),
-                   AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber()));
+                   homePhone: AttributeGenerator.GetPhoneNumber(), workPhone: AttributeGenerator.GetPhoneNumber(), cellPhone: AttributeGenerator.GetPhoneNumber()));
         }
 
         public static List<Student> GenerateStudentPool(uint studentCount)
