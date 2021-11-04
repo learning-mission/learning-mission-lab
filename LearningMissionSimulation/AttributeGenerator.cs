@@ -9,83 +9,168 @@ namespace LearningMissionSimulation
 {
     public class AttributeGenerator
     {
+        static string cityPostalCode;
+        static string provincePostalCode;
+        static string passedCityName;
+        static string passedprovinceName;
         // Minimum valid applicant age
         static readonly byte ApplicantMinAge = 18;
         // Maximum valid applicant age
         static readonly byte ApplicantMaxAge = 70;
-        static readonly string[] syllablepool = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
+        static readonly string[] syllables = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
             "Mam", "Ket", "Zar", "Luci", "Ter", "Ova", "Sar", "Vol", "Ver" };
 
-        static readonly string[] maleNamePool = { "Sevak", "Mher", "Arevshat",
+        static readonly string[] maleNames = { "Sevak", "Mher", "Arevshat",
             "Garush", "Karen", "Smbat", "Rouben", "Garegin", "Vahe", "Eduard",
             "Gavril", "Suren", "Arkadij" };
 
-        static readonly string[] femaleNamePool = { "Nina", "Karine", "Margarita",
+        static readonly string[] femaleNames = { "Nina", "Karine", "Margarita",
             "Narine", "Nane", "Marina", "Lilit", "Yelena" };
         static readonly string[] lastNamePool = new string[] { "Lalazryan", "Mkhrtchyan",
             "Hakobyan", "Vardanyan", "Lobyan", "Levonyan", "Sahakyan", "Gevorgyan" };
 
-        static readonly string[] alphabetVocalLetterPool = new string[] { "a", "e", "i", "o", "u", "y" };
+        static readonly string[] alphabetVocalLetters = new string[] { "a", "e", "i", "o", "u", "y" };
 
-        static readonly string[] alphabetConsonantLetterPool = new string[] { "b", "c", "d", "f", "g", 
+        static readonly string[] alphabetConsonantLetters = new string[] { "b", "c", "d", "f", "g",
             "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z" };
-         
+
+        static readonly Dictionary<string, string> provinceDictionary = new Dictionary<string, string>()
+        {
+            { "03", "Aparan" },
+            { "04", "Aragac" },
+            { "02", "Ashtarak" },
+            { "05", "Talin" },
+            { "06", "Ararat" },
+            { "07", "Artashat" },
+            { "08", "Masis" },
+            { "09", "Armavir" },
+            { "10", "Baghramyan" },
+            { "11", "Vagharshapat" },
+            { "12", "Gavar" },
+            { "14", "Martuni" },
+            { "15", "Sevan" },
+            { "13", "Tshambarak" },
+            { "16", "Vardenis" },
+            { "22", "Abovyan" },
+            { "25", "Charencavan" },
+            { "23", "Hrazdan" },
+            { "24", "Nairi" },
+            { "18", "Spitak" },
+            { "19", "Stepanavan" },
+            { "17", "Tumanyan"},
+            { "20", "Vanadzor"},
+            { "21", "Vanadzor"},
+            { "26", "Akhuryan"},
+            { "27", "Amasia" },
+            { "29", "Ani" },
+            { "30", "Artik" },
+            { "31", "Gyumri" },
+            { "32", "Gyumri" },
+            { "33", "Kapan" },
+            { "34", "Meghri" },
+            { "35", "Sisian" },
+            { "39", "Dilijan" },
+            { "40", "Ijevan" },
+            { "41", "Noyemberyan" },
+            { "42", "Tavush" },
+            { "36", "Eghegnadzor" },
+            { "37", "Jermuk" },
+            { "38", "Vayq" },
+            { "00", "Yerevan" }
+        };
+
+        static readonly Dictionary<string, string> CityDictionary = new Dictionary<string, string>()
+        {
+            //Region Ararat
+            { "0613", "Noyakert" },
+            { "0605", "Avshar" },
+            { "0604", "Aygavan" },
+            { "0602", "Ararat" },
+            { "0624", "Armash" },
+            { "0625", "Dashtaqar" },
+            { "0608", "Goravan" },
+            //Region Aparan 
+            { "0301", "Aparan" },
+            { "0311", "Quchak" },
+            { "0306", "Mravyan" },
+            { "0307", "Nigavan" },
+            { "0310", "Vardenut" },
+            { "0302", "Aragatz" },
+            { "0305", "Hartavan" },
+            //Region Armavir 
+            { "0912", "Amasia" },
+            { "0915", "Araqs" },
+            { "0914", "Arazap" },
+            { "0917", "Arevik" },
+            { "0916", "Argavand" },
+            { "0919", "Artashar" },
+            { "0921", "Berqashat" },
+            //Region Gegharquniq 
+            { "1403", "Astghadzor" },
+            { "1412", "Dzoragyugh" },
+            { "1405", "Geghhovit" },
+            { "1206", "Gandzak" },
+            { "1209", "Ltshap" },
+            { "1213", "Noratus" },
+            { "1214", "Sarukhan" },
+            //Region Kotayq
+            { "2201", "Abovyan" },
+            { "2208", "Abovyan"},
+            { "2209", "Akunq" },
+            { "2212", "Arzni" },
+            { "2215", "Garni" },
+            { "2216", "Geghadir" },
+            { "2217", "Geghashen" },
+            { "2222", "Kaputan" },
+            //Region Lori
+            { "1821", "Jrashen" },
+            { "1812", "Lusaghbyur" },
+            { "1822", "Saralanj" },
+            { "1809", "Gogaran" },
+            { "1813", "Khnkoyan" },
+            { "1811", "Lernavan" },
+            { "1825", "Qaradzor" },
+            //Region Syuniq 
+            { "2613", "Haykavan" },
+            { "2614", "Hatsik" },
+            { "2615", "Hovuni" },
+            { "3505", "Aghitu" },
+            { "3507", "Brnakot" },
+            { "3510", "Darbas" },
+            { "3508", "Gorayq" },
+            //Region Shirak
+            { "3010", "Gexanist" },
+            { "3011", "Getap" },
+            { "3014", "Haritsh" },
+            { "3015", "Horom" },
+            { "3012", "Lernakert" },
+            { "3017", "Meghrashen" },
+            { "3019", "Nor Kyanq" },
+            //Region Tavush
+            { "4210", "Norashen" },
+            { "4214", "Paravaqar" },
+            { "4205", "Tovuz" },
+            { "4213", "Choratan" },
+            { "4211", "Cinari" },
+            { "4208", "Nerqin Karmir Aghbyur" },
+            { "4215", "Verin Karmir Aghbyur" },
+            //Region Vayoc dzor
+            { "3606", "Getap" },
+            { "3607", "Gladzor" },
+            { "3609", "Hermon" },
+            { "3602", "Agarakadzor" },
+            { "3604", "Areni" },
+            { "3612", "Chiva" },
+            { "3614", "Vernashen" },
+            //Erevan
+            { "0001", "Yerevan" }
+        };
+
 
         static readonly string countryCode = "+374";
         static readonly string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
 
-        static readonly Dictionary<string, string> CityDictionary = new Dictionary<string, string>()
-            {
-              //Region Ararat
-              { "0613", "Noyakert" },
-              { "0605", "Avshar" },
-              { "0604", "Aygavan" },
-              //Region Aparan 
-              { "0301", "Aparan" },
-              { "0302", "Aragatz" },
-              { "0305", "Hartavan" },
-              //Region Armavir 
-              { "0912", "Amasia" },
-              { "0915", "Araqs" },
-              { "0914", "Arazap" },
-              //Region Gegharquniq 
-              { "1403", "Astghadzor" },
-              { "1412", "Dzoragyugh" },
-              { "1405", "Geghhovit" },
-              //Region Kotayq
-              { "2201 - 2208", "Abovyan" },
-              { "2209", "Akunq" },
-              { "2211", "Aramus" },
-              //Region Lori
-              { "1821", "Jrashen" },
-              { "1812", "Lusaghbyur" },
-              { "1822", "Saralanj" },
-              //Region Syuniq 
-              { "2613", "Haykavan" },
-              { "2614", "Hatsik" },
-              { "2615", "Hovuni" },
-              //Region Shirak
-              { "3010", "Gexanist" },
-              { "3011", "Getap" },
-              { "3014", "Haritsh" },
-              //Region Tavush
-              { "4210", "Norashen" },
-              { "4214", "Paravaqar" },
-              { "4205", "Tovuz" },
-              //Region Vayoc dzor
-              { "3606", "Getap" },
-              { "3607", "Gladzor" },
-              { "3609", "Hermon" },
-              //Erevan
-              { "0001", "Yerevan" }
-            };
-
-        static readonly char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-                                           'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-        static readonly List<string> domainPool = new List<string>()
-            {"@email.ru", "@gmail.com", "@yahoo.com", "@yandex.ru"};
         static Random random = new Random();
-        private static object keyValueCityCode;
 
         /// <summary>Generates random date of birth values within the specified age range./>
         /// <param name="minAge">The minimum age.</param>
@@ -151,29 +236,28 @@ namespace LearningMissionSimulation
             {
                 if (i % 2 == 0)
                 {
-                    name += alphabetVocalLetterPool[random.Next(0, alphabetVocalLetterPool.Length)];                                                                 
+                    name += alphabetVocalLetters[random.Next(0, alphabetVocalLetters.Length)];
                 }
                 else
                 {
-                    name += alphabetConsonantLetterPool[random.Next(0, alphabetConsonantLetterPool.Length)];
+                    name += alphabetConsonantLetters[random.Next(0, alphabetConsonantLetters.Length)];
                 }
                 i++;
             }
-            return char.ToUpper(name[0]) + name.Substring(1); 
+            return char.ToUpper(name[0]) + name.Substring(1);
         }
         public static string GetFirstName()
         {
             return GetFirstName(8);
         }
         public static string GetLastName(int lengthLimit)
-        { 
+        {
             return GetFirstName(lengthLimit) + "yan";
         }
         public static string GetLastName()
         {
             return GetLastName(10);
         }
-        
 
         public static LanguageLevel GetLanguageLevel()
         {
@@ -183,38 +267,32 @@ namespace LearningMissionSimulation
 
         public static LanguageName GetLanguageName()
         {
-            var nameCount = Enum.GetNames(typeof(LanguageName)).Length;
-            return (LanguageName)random.Next(1, nameCount);
+            var levelCount = Enum.GetNames(typeof(LanguageName)).Length;
+            return (LanguageName)random.Next(1, levelCount);
         }
 
         public static ModuleLevel GetModuleLevel()
-        {                        
-            var levelCount = Enum.GetValues(typeof(ModuleLevel)).Length;
-            return (ModuleLevel)random.Next(0, levelCount);
-            
-        }
-        public static SubjectType GetSubjecType()
         {
-           var levelCount = Enum.GetValues(typeof(SubjectType)).Length;
-           return (SubjectType)random.Next(0, levelCount);           
+            //not implemented yet!
+            return ModuleLevel.Unspecified;
         }
 
         public static Gender GetGender()
         {
             var genderCount = Enum.GetValues(typeof(Gender)).Length;
-            return (Gender)random.Next(1, genderCount); 
+            return (Gender)random.Next(1, genderCount);
         }
 
         public static DepartmentType GetDepartmentType()
         {
-            var departmentTypeCount = Enum.GetValues(typeof(DepartmentType)).Length;
-            return (DepartmentType)random.Next(1, departmentTypeCount);
+            //not implemented yet!
+            return DepartmentType.Unspecified;
         }
 
         public static Role GetRole()
         {
             var roleCount = Enum.GetValues(typeof(Role)).Length;
-            return (Role)random.Next(1, roleCount); ;
+            return (Role)random.Next(1, roleCount);
         }
 
         public static Status GetStatus()
@@ -231,17 +309,20 @@ namespace LearningMissionSimulation
             return phoneNumber;
         }
 
+        public static string GetHomeNumber()
+        {
+            return "";
+        }
+
+        public static string GetWorkNumber()
+        {
+            return "";
+        }
+
         public static string GetEmail()
-        {            
-            int emailLength =random.Next(5, 12);
-            int domainIndex = random.Next(0, domainPool.Count);
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i <= emailLength; i++)
-            {
-                int letterIndex = random.Next(0, letters.Length);
-                stringBuilder.Append(letters[letterIndex]);
-            }
-            return stringBuilder.Append(domainPool[domainIndex]).ToString();
+        {
+            //not implemented yet!
+            return "";
         }
 
         public static string GetStreetAddress()
@@ -250,110 +331,95 @@ namespace LearningMissionSimulation
             return "";
         }
 
-        public static string GetPostalCode()
+        public static string GetProvince(string postalCode)
         {
-            Dictionary<string, string> postalCodeDictionary = new Dictionary<string, string>()
+            if (provinceDictionary.ContainsKey(postalCode))
             {
-                { "03", "Aparan" },
-                { "04", "Aragac" },
-                { "02", "Ashtarak" },
-                { "05", "Talin" },
-                { "06", "Ararat" },
-                { "07", "Artashat" },
-                { "08", "Masis" },
-                { "09", "Armavir" },
-                { "10", "Baghramyan" },
-                { "11", "Vagharshapat" },
-                { "12", "Gavar" },
-                { "14", "Martuni" },
-                { "15", "Sevan" },
-                { "13", "Tshambarak" },
-                { "16", "Vardenis" },
-                { "22", "Abovyan" },
-                { "25", "Charencavan" },
-                { "23", "Hrazdan" },
-                { "24", "Nairi" },
-                { "18", "Spitak" },
-                { "19", "Stepanavan" },
-                { "17", "Tumanyan"},
-                { "20", "Vanadzor"},
-                { "21", "Vanadzor"},
-                { "26", "Akhuryan"},
-                { "27", "Amasia" },
-                { "29", "Ani" },
-                { "30", "Artik" },
-                { "31", "Gyumri" },
-                { "32", "Gyumri" },
-                { "33", "Kapan" },
-                { "34", "Meghri" },
-                { "35", "Sisian" },
-                { "39", "Dilijan" },
-                { "40", "Ijevan" },
-                { "41", "Noyemberyan" },
-                { "42", "Tavush" },
-                { "36", "Eghegnadzor" },
-                { "37", "Jermuk" },
-                { "38", "Vayq" },
-                { "00", "Yerevan" }
-            };
+                provincePostalCode = postalCode;
 
-            foreach (var keyValuePair in postalCodeDictionary)
-            {
-                Console.WriteLine($"Key: {keyValuePair.Key} Value: {keyValuePair.Value}");
+                string provinceName;
+
+                provinceDictionary.TryGetValue(postalCode, out provinceName);
+
+                passedprovinceName = provinceName;
+
+                Console.WriteLine($"Province Name: {provinceName}");
+
+                return provinceName;
             }
 
-            return "";
+            return null;
         }
 
         public static string GetCity(string postalCode)
         {
-            if (CityDictionary.ContainsKey(postalCode)) 
+            if (CityDictionary.ContainsKey(postalCode))
             {
+                cityPostalCode = postalCode;
+
                 string cityName;
 
                 CityDictionary.TryGetValue(postalCode, out cityName);
 
+                passedCityName = cityName;
+
+                Console.WriteLine($"City Name: {cityName}");
+
                 return cityName;
-            }  
-            
+            }
+
             return null;
         }
 
-        public static string GetProvince()
+        public static string GetPostalCode()
         {
-            //not implemented yet!
-            return "";
+            string generateCodeProvince = null;
+            string generateCodeCity = null;
+            string result = "";
+            string firstDigitRange = random.Next(0, 5).ToString();
+            string secondDigitRange = random.Next(0, 10).ToString();
+
+            if (passedprovinceName != null)
+            {
+                generateCodeProvince = firstDigitRange + secondDigitRange;
+
+                provinceDictionary.TryGetValue(generateCodeProvince, out result);
+
+                while (!provinceDictionary.ContainsKey(generateCodeProvince) || passedprovinceName != result)
+                {
+                    firstDigitRange = random.Next(0, 5).ToString();
+                    secondDigitRange = random.Next(0, 10).ToString();
+                    generateCodeProvince = firstDigitRange + secondDigitRange;
+
+                    provinceDictionary.TryGetValue(generateCodeProvince, out result);
+                }
+            }
+
+            if (passedCityName != null)
+            {
+                string cityDigit = random.Next(10, 100).ToString();
+                generateCodeCity = generateCodeProvince + cityDigit;
+
+                CityDictionary.TryGetValue(generateCodeCity, out result);
+
+                while (!CityDictionary.ContainsKey(generateCodeProvince) || passedCityName != result)
+                {
+                    cityDigit = random.Next(10, 100).ToString();
+                    generateCodeCity = generateCodeProvince + cityDigit;
+
+                    provinceDictionary.TryGetValue(generateCodeCity, out result);
+                }
+            }
+
+            Console.WriteLine($"Province Code: {generateCodeProvince}\nCity Code: {generateCodeCity}");
+
+            return $"Province Code: {generateCodeProvince}\nCity Code: {generateCodeCity}";
         }
 
         public static string GetCountry()
         {
             //not implemented yet!
             return "";
-        }
-        public static string GetUsername()
-        {
-            //not implemented yet!
-            return "";
-        }
-        public static string GetPassword()
-        {
-            //not implemented yet!
-            return "";
-        }
-        public static string GetCoverLetter()
-        {
-            //not implemented yet!
-            return "";
-        }
-        public static int GetBuildingNumber()
-        {
-            //not implemented yet!
-            return 0;
-        }
-        public static int GetApartmentNumber()
-        {
-            //not implemented yet!
-            return 0;
         }
     }
 }

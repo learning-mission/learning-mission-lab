@@ -12,16 +12,21 @@ namespace LearningMissionSimulation
             Console.WriteLine(AttributeGenerator.GetPostalCode());
         }
         
+        public static void Action()
+        {
+            ObjectGenerator.GenerateAddress();
+        }
+
         public static void Action1()
         {
-            Address address0 = new Address("Tbilisyan str",23, 15, "Yerevan", "Arabkir", "15", "Armenia");
+            Address address0 = new Address("Tbilisyan str", "Yerevan", "Arabkir", "15", "Armenia");
             ContactInfo contact0 = new ContactInfo
             (
                 address0,
-                "e.soghomonyan98@gmail.com",
+                "asdnajsd@gmail.com",
                 "010-54-74-90",
                 "010-28-88-88",
-                "043-23-09-99"
+                "043zx123asd"
             );
 
             Employee employee0 = new Employee();
