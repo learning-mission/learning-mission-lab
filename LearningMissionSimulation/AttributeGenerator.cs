@@ -1,96 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-
 using LearningMissionLab;
 
 namespace LearningMissionSimulation
 {
-    public class AttributeGenerator
-    {
-        // Minimum valid applicant age
-        static readonly byte ApplicantMinAge = 18;
-        // Maximum valid applicant age
-        static readonly byte ApplicantMaxAge = 70;
-        static readonly string[] syllablepool = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
-            "Mam", "Ket", "Zar", "Luci", "Ter", "Ova", "Sar", "Vol", "Ver" };
-
-        static readonly string[] maleNamePool = { "Sevak", "Mher", "Arevshat",
-            "Garush", "Karen", "Smbat", "Rouben", "Garegin", "Vahe", "Eduard",
-            "Gavril", "Suren", "Arkadij" };
-
-        static readonly string[] femaleNamePool = { "Nina", "Karine", "Margarita",
-            "Narine", "Nane", "Marina", "Lilit", "Yelena" };
-        static readonly string[] lastNamePool = new string[] { "Lalazryan", "Mkhrtchyan",
-            "Hakobyan", "Vardanyan", "Lobyan", "Levonyan", "Sahakyan", "Gevorgyan" };
-
-        static readonly string[] alphabetVocalLetterPool = new string[] { "a", "e", "i", "o", "u", "y" };
-
-        static readonly string[] alphabetConsonantLetterPool = new string[] { "b", "c", "d", "f", "g", 
-            "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z" };
-         
-
-        static readonly string countryCode = "+374";
-        static readonly string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
-
-        static readonly Dictionary<string, string> CityDictionary = new Dictionary<string, string>()
-            {
-              //Region Ararat
-              { "0613", "Noyakert" },
-              { "0605", "Avshar" },
-              { "0604", "Aygavan" },
-              //Region Aparan 
-              { "0301", "Aparan" },
-              { "0302", "Aragatz" },
-              { "0305", "Hartavan" },
-              //Region Armavir 
-              { "0912", "Amasia" },
-              { "0915", "Araqs" },
-              { "0914", "Arazap" },
-              //Region Gegharquniq 
-              { "1403", "Astghadzor" },
-              { "1412", "Dzoragyugh" },
-              { "1405", "Geghhovit" },
-              //Region Kotayq
-              { "2201 - 2208", "Abovyan" },
-              { "2209", "Akunq" },
-              { "2211", "Aramus" },
-              //Region Lori
-              { "1821", "Jrashen" },
-              { "1812", "Lusaghbyur" },
-              { "1822", "Saralanj" },
-              //Region Syuniq 
-              { "2613", "Haykavan" },
-              { "2614", "Hatsik" },
-              { "2615", "Hovuni" },
-              //Region Shirak
-              { "3010", "Gexanist" },
-              { "3011", "Getap" },
-              { "3014", "Haritsh" },
-              //Region Tavush
-              { "4210", "Norashen" },
-              { "4214", "Paravaqar" },
-              { "4205", "Tovuz" },
-              //Region Vayoc dzor
-              { "3606", "Getap" },
-              { "3607", "Gladzor" },
-              { "3609", "Hermon" },
-              //Erevan
-              { "0001", "Yerevan" }
-            };
-
-        static readonly char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-                                           'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-        static readonly List<string> domainPool = new List<string>()
-            {"@email.ru", "@gmail.com", "@yahoo.com", "@yandex.ru"};
-        static Random random = new Random();
-        private static object keyValueCityCode;
-
-        /// <summary>Generates random date of birth values within the specified age range./>
-        /// <param name="minAge">The minimum age.</param>
-        /// <param name="maxAge">The maximum age.</param>
-        /// <returns>The DateTime value within specified range.</returns>
+    public class AttributeGenerator : SimulationConstants
+    { 
         public static DateTime GetDateOfBirth(byte minAge, byte maxAge)
         {
             // input's validation: check age limits, make sure their within
@@ -151,11 +67,11 @@ namespace LearningMissionSimulation
             {
                 if (i % 2 == 0)
                 {
-                    name += alphabetVocalLetterPool[random.Next(0, alphabetVocalLetterPool.Length)];                                                                 
+                    name += AlphabetVocalLetterPool[random.Next(0, AlphabetVocalLetterPool.Length)];                                                                 
                 }
                 else
                 {
-                    name += alphabetConsonantLetterPool[random.Next(0, alphabetConsonantLetterPool.Length)];
+                    name += AlphabetConsonantLetterPool[random.Next(0, AlphabetConsonantLetterPool.Length)];
                 }
                 i++;
             }
@@ -225,23 +141,23 @@ namespace LearningMissionSimulation
 
         public static string GetPhoneNumber()
         {
-            string phoneNumberCode = phoneOperatorCode[random.Next(0, phoneOperatorCode.Length)];
+            string phoneNumberCode = PhoneOperatorCode[random.Next(0, PhoneOperatorCode.Length)];
             string mobileNumber = Convert.ToString(random.Next(100000, 1000000));
-            var phoneNumber = (countryCode + phoneNumberCode + mobileNumber);
+            var phoneNumber = (CountryCode + phoneNumberCode + mobileNumber);
             return phoneNumber;
         }
 
         public static string GetEmail()
         {            
             int emailLength =random.Next(5, 12);
-            int domainIndex = random.Next(0, domainPool.Count);
+            int domainIndex = random.Next(0, DomainPool.Count);
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i <= emailLength; i++)
             {
-                int letterIndex = random.Next(0, letters.Length);
-                stringBuilder.Append(letters[letterIndex]);
+                int letterIndex = random.Next(0, LetterPool.Length);
+                stringBuilder.Append(LetterPool[letterIndex]);
             }
-            return stringBuilder.Append(domainPool[domainIndex]).ToString();
+            return stringBuilder.Append(DomainPool[domainIndex]).ToString();
         }
 
         public static string GetStreetAddress()
@@ -311,7 +227,7 @@ namespace LearningMissionSimulation
             {
                 string cityName;
 
-                CityDictionary.TryGetValue(postalCode, out cityName);
+               CityDictionary.TryGetValue(postalCode, out cityName);
 
                 return cityName;
             }  

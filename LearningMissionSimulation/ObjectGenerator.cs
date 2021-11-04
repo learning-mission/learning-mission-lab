@@ -13,7 +13,7 @@ namespace LearningMissionSimulation
             return new Student(AttributeGenerator.GetCoverLetter(), new List<string>(), new List<Module>(), new List<Classroom>(),
                    new Schedule(), AttributeGenerator.GetFirstName(), AttributeGenerator.GetLastName(),
                    new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), AttributeGenerator.GetBuildingNumber(),
-                   AttributeGenerator.GetApartmentNumber(), AttributeGenerator.GetCity(), AttributeGenerator.GetProvince(),
+                   AttributeGenerator.GetApartmentNumber(), AttributeGenerator.GetCity("0001"), AttributeGenerator.GetProvince(),
                    AttributeGenerator.GetPostalCode(), AttributeGenerator.GetCountry()), AttributeGenerator.GetEmail(),
                    AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber()));
         }
