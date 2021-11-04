@@ -17,8 +17,8 @@ namespace LearningMissionSimulation
         Dictionary<int, Account> keyValuePairs3 = new Dictionary<int, Account>();
         public void PlyeMetod(uint accountCount, int count)
         {
-            ISet<Password> passwordsName = new HashSet<Password>();
             Account account = ObjectGenerator.GenerateAccount();
+            
             int i = 0;
             while (i < accountCount)
             {

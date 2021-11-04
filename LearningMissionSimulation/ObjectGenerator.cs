@@ -10,7 +10,7 @@ namespace LearningMissionSimulation
 
         public static Student GenerateStudent()
         {
-            return new Student(coverLetter: AttributeGenerator.GetCoverLetter(),recommendationList: new List<string>(), 
+            return new Student(coverLetter: AttributeGenerator.GetCoverLetter(), recommendationList: new List<string>(),
                    completedModuleList: new List<Module>(), classroomList: new List<Classroom>(),
                    schedule: new Schedule(), firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
                    contactInfo: new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), buildingNumber: AttributeGenerator.GetBuildingNumber(),
@@ -56,7 +56,7 @@ namespace LearningMissionSimulation
         public static List<Account> GenerateAccountPool(uint accountCount)
         {
             List<Account> accountList = new List<Account>();
-            for(int i = 0; i < accountCount; i++)
+            for (int i = 0; i < accountCount; i++)
             {
                 accountList.Add(GenerateAccount());
             }
@@ -66,7 +66,7 @@ namespace LearningMissionSimulation
         public static Profile GenerateProfile()
         {
             return new Profile(firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
-                               dateOfBirth: AttributeGenerator.GetDateOfBirth(18, 70), gender: AttributeGenerator.GetGender()); 
+                               dateOfBirth: AttributeGenerator.GetDateOfBirth(18, 70), gender: AttributeGenerator.GetGender());
         }
 
         public static List<Profile> GenerateProfilePool(uint profileCount)
@@ -80,15 +80,15 @@ namespace LearningMissionSimulation
             }
             return profileList;
         }
-        
+
         public static Language GenerateLanguage()
         {
             return new Language(languageName: AttributeGenerator.GetLanguageName(), languageLevel: AttributeGenerator.GetLanguageLevel());
         }
-        
+
         public static List<Language> GenerateLanguageList(uint languageCount)
         {
-            int languageMaxCount = Enum.GetNames(typeof(LanguageName)).Length-1;
+            int languageMaxCount = Enum.GetNames(typeof(LanguageName)).Length - 1;
             int count = (int)Math.Min(languageMaxCount, languageCount);
             count = (int)Math.Max(1, count);
             List<Language> languageList = new List<Language>();
