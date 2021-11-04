@@ -275,25 +275,25 @@ namespace LearningMissionSimulation
             int endOfusername = random.Next(0, 10000);
             return username + "-" + Convert.ToString(endOfusername);
         }
-        public static string GetPassword(int minLenght, int maxLengh)
+        public static string GetPassword(int minLength, int maxLength)
         {
-            int count = random.Next( minLenght, maxLengh);
-            int i = random.Next(0, minLenght);
-            string passeord = "";
+            int count = random.Next( minLength, maxLength);
+            int i = random.Next(0, minLength);
+            string password = "";
             while (i < count)
             {
                 if (i % 2 == 0)
                 {
-                    passeord += alphabetVocalLetterPool[random.Next(0, alphabetVocalLetterPool.Length)];
+                    password += alphabetVocalLetterPool[random.Next(0, alphabetVocalLetterPool.Length)];
                 }
                 else
                 {
-                    passeord += alphabetConsonantLetterPool[random.Next(0, alphabetConsonantLetterPool.Length)];
+                    password += alphabetConsonantLetterPool[random.Next(0, alphabetConsonantLetterPool.Length)];
                 }
                 i++;
             }
-            passeord += characters[random.Next(0, characters.Length)];
-            return char.ToUpper(passeord[0]) + passeord.Substring(1);
+            password += characters[random.Next(0, characters.Length)];
+            return char.ToUpper(password[0]) + password.Substring(1);
         }
 
     }
