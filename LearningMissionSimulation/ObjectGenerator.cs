@@ -10,11 +10,12 @@ namespace LearningMissionSimulation
 
         public static Student GenerateStudent()
         {
-            return new Student(AttributeGenerator.GetCoverLetter(), new List<string>(), new List<Module>(), new List<Classroom>(),
-                   new Schedule(), AttributeGenerator.GetFirstName(), AttributeGenerator.GetLastName(),
-                   new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), AttributeGenerator.GetBuildingNumber(),
-                   AttributeGenerator.GetApartmentNumber(), AttributeGenerator.GetCity("0001"), AttributeGenerator.GetProvince(),
-                   AttributeGenerator.GetPostalCode(), AttributeGenerator.GetCountry()), AttributeGenerator.GetEmail(),
+            return new Student(coverLetter: AttributeGenerator.GetCoverLetter(),recommendationList: new List<string>(), 
+                   completedModuleList: new List<Module>(), classroomList: new List<Classroom>(),
+                   new Schedule(), firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
+                   new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), buildingNumber: AttributeGenerator.GetBuildingNumber(),
+                   apartmentNumber: AttributeGenerator.GetApartmentNumber(), city: AttributeGenerator.GetCity("0001"), province: AttributeGenerator.GetProvince(),
+                   postalCode: AttributeGenerator.GetPostalCode(), country: AttributeGenerator.GetCountry()), email: AttributeGenerator.GetEmail(),
                    AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber()));
         }
 
@@ -64,8 +65,8 @@ namespace LearningMissionSimulation
 
         public static Profile GenerateProfile()
         {
-            return new Profile(AttributeGenerator.GetFirstName(), AttributeGenerator.GetLastName(),
-                               AttributeGenerator.GetDateOfBirth(18, 70), AttributeGenerator.GetGender()); 
+            return new Profile(firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
+                               dateOfBirth: AttributeGenerator.GetDateOfBirth(18, 70), gender: AttributeGenerator.GetGender()); 
         }
 
         public static List<Profile> GenerateProfilePool(uint profileCount)
@@ -82,7 +83,7 @@ namespace LearningMissionSimulation
         
         public static Language GenerateLanguage()
         {
-            return new Language(AttributeGenerator.GetLanguageName(), AttributeGenerator.GetLanguageLevel());
+            return new Language(languageName: AttributeGenerator.GetLanguageName(), languageLevel: AttributeGenerator.GetLanguageLevel());
         }
         
         public static List<Language> GenerateLanguageList(uint languageCount)
