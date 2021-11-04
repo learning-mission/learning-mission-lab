@@ -246,16 +246,34 @@ namespace LearningMissionSimulation
             //not implemented yet!
             return "";
         }
+
         public static string GetUsername()
         {
-            //not implemented yet!
-            return "";
+            string username = GetFirstName();
+            int endOfusername = random.Next(0, 10000);
+            return username + "-" + Convert.ToString(endOfusername);
         }
-        public static string GetPassword()
+        public static string GetPassword(int minLength, int maxLength)
         {
-            //not implemented yet!
-            return "";
+            int count = random.Next(minLength, maxLength);
+            int i = random.Next(0, minLength);
+            string password = "";
+            while (i < count)
+            {
+                if (i % 2 == 0)
+                {
+                    password += AlphabetVocalLetterPool[random.Next(0, AlphabetVocalLetterPool.Length)];
+                }
+                else
+                {
+                    password += AlphabetConsonantLetterPool[random.Next(0, AlphabetConsonantLetterPool.Length)];
+                }
+                i++;
+            }
+            password += Characters[random.Next(0, Characters.Length)];
+            return char.ToUpper(password[0]) + password.Substring(1);
         }
+
         public static string GetCoverLetter()
         {
             //not implemented yet!
