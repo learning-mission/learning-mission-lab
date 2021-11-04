@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using LearningMissionLab;
 
-
 namespace LearningMissionSimulation
 {
     public class AttributeGenerator : SimulationConstants

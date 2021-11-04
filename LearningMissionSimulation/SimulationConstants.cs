@@ -22,7 +22,7 @@ namespace LearningMissionSimulation
             "Garush", "Karen", "Smbat", "Rouben", "Garegin", "Vahe", "Eduard",
             "Gavril", "Suren", "Arkadij" };
 
-        public static readonly string[] MemaleNamePool = { "Nina", "Karine", "Margarita",
+        public static readonly string[] FemaleNamePool = { "Nina", "Karine", "Margarita",
             "Narine", "Nane", "Marina", "Lilit", "Yelena" };
         static readonly string[] LastNamePool = new string[] { "Lalazryan", "Mkhrtchyan",
             "Hakobyan", "Vardanyan", "Lobyan", "Levonyan", "Sahakyan", "Gevorgyan" };
@@ -41,7 +41,6 @@ namespace LearningMissionSimulation
 
         public static readonly List<string> DomainPool = new List<string>()
             {"@email.ru", "@gmail.com", "@yahoo.com", "@yandex.ru"};
-        public  static object KeyValueCityCode;
         public static readonly Dictionary<string, string> CityDictionary = new Dictionary<string, string>()
             {
               //Region Ararat
