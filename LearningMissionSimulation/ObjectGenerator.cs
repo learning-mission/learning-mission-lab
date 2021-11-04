@@ -40,7 +40,7 @@ namespace LearningMissionSimulation
 
         public static Account GenerateAccount()
         {
-            return new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(), AttributeGenerator.GetEmail(),
+            return new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(8, 20), AttributeGenerator.GetEmail(),
                                AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetRole(), AttributeGenerator.GetStatus());
 
         }

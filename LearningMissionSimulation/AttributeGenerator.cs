@@ -19,17 +19,24 @@ namespace LearningMissionSimulation
 
         static readonly string[] femaleNamePool = { "Nina", "Karine", "Margarita",
             "Narine", "Nane", "Marina", "Lilit", "Yelena" };
+
         static readonly string[] lastNamePool = new string[] { "Lalazryan", "Mkhrtchyan",
             "Hakobyan", "Vardanyan", "Lobyan", "Levonyan", "Sahakyan", "Gevorgyan" };
+
+        static readonly string[] alphabetLetter = new string[]{"a", "b", "c", "d","e", "f", "g",
+            "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
 
         static readonly string[] alphabetVocalLetterPool = new string[] { "a", "e", "i", "o", "u", "y" };
 
         static readonly string[] alphabetConsonantLetterPool = new string[] { "b", "c", "d", "f", "g", 
             "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z" };
-         
+
+        static readonly char[] characters = {'~', '!', '@', '#', '$', '%', '^', '&', '*', '(',
+            ')', '-', '_', '+', '=', '<', '>', '/', '?', ';', ':', '"', '{', '}', '[', ']' };
 
         static readonly string countryCode = "+374";
-        static readonly string[] phoneOperatorCode = { "10", "11", "33", "44", "47", "55", "77", "91", "93", "94", "95", "96", "97", "98", "99" };
+        static readonly string[] phoneOperatorCode =  { "10", "11", "33", "44", "47", "55", "77",
+                                                        "91", "93", "94", "95", "96", "97", "98", "99" };
 
         static Random random = new Random();
 
@@ -264,13 +271,29 @@ namespace LearningMissionSimulation
         }
         public static string GetUsername()
         {
-            //not implemented yet!
-            return "";
+            string username = GetFirstName();
+            int endOfusername = random.Next(0, 10000);
+            return username + "-" + Convert.ToString(endOfusername);
         }
-        public static string GetPassword()
+        public static string GetPassword(int minLenght, int maxLengh)
         {
-            //not implemented yet!
-            return "";
+            int count = random.Next( minLenght, maxLengh);
+            int i = random.Next(0, minLenght);
+            string username = "";
+            while (i < count)
+            {
+                if (i % 2 == 0)
+                {
+                    username += alphabetVocalLetterPool[random.Next(0, alphabetVocalLetterPool.Length)];
+                }
+                else
+                {
+                    username += alphabetConsonantLetterPool[random.Next(0, alphabetConsonantLetterPool.Length)];
+                }
+                i++;
+            }
+            username += characters[random.Next(0, characters.Length)];
+            return char.ToUpper(username[0]) + username.Substring(1);
         }
 
     }
