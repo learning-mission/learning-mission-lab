@@ -10,16 +10,23 @@ namespace LearningMissionSimulation
 
         public static Student GenerateStudent()
         {
-            //not implemented yet!
-            return null;
-
+            return new Student(AttributeGenerator.GetCoverLetter(), new List<string>(), new List<Module>(), new List<Classroom>(),
+                   new Schedule(), AttributeGenerator.GetFirstName(), AttributeGenerator.GetLastName(),
+                   new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), AttributeGenerator.GetBuildingNumber(),
+                   AttributeGenerator.GetApartmentNumber(), AttributeGenerator.GetCity("0001"), AttributeGenerator.GetProvince(),
+                   AttributeGenerator.GetPostalCode(), AttributeGenerator.GetCountry()), AttributeGenerator.GetEmail(),
+                   AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber()));
         }
 
         public static List<Student> GenerateStudentPool(uint studentCount)
         {
             List<Student> studentList = new List<Student>();
-
-            //not implemented yet!
+            int i = 0;
+            while (i < studentCount)
+            {
+                studentList.Add(GenerateStudent());
+                i++;
+            }
             return studentList;
         }
 
@@ -78,13 +85,23 @@ namespace LearningMissionSimulation
             return new Language(AttributeGenerator.GetLanguageName(), AttributeGenerator.GetLanguageLevel());
         }
         
-        public static List<Language> GenerateLanguagePool(uint languageCount)
+        public static List<Language> GenerateLanguageList(uint languageCount)
         {
+            int languageMaxCount = Enum.GetNames(typeof(LanguageName)).Length-1;
+            int count = (int)Math.Min(languageMaxCount, languageCount);
+            count = (int)Math.Max(1, count);
             List<Language> languageList = new List<Language>();
+            ISet<LanguageName> nameSet = new HashSet<LanguageName>();
             int i = 0;
-            while (i < languageCount)
+            while (i < count)
             {
-                languageList.Add(GenerateLanguage());
+                Language language = GenerateLanguage();
+                LanguageName name = language.LanguageName;
+                if (!nameSet.Contains(name))
+                {
+                    languageList.Add(language);
+                    nameSet.Add(name);
+                }
                 i++;
             }
             return languageList;

@@ -11,6 +11,9 @@ namespace LearningMissionSimulation
             PlaygroundVahe.Play();
             PlaygroundEdvard.Action0();
             PlaygroundMher playgroundMher = new PlaygroundMher();
+            AttributeGenerator.GetCity("2613");
+
         }
+        ModuleLevel moduleLevel = new ModuleLevel();
     }
 }

@@ -1,49 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using LearningMissionLab;
 
 namespace LearningMissionSimulation
 {
-    public class AttributeGenerator
-    {
-        // Minimum valid applicant age
-        static readonly byte ApplicantMinAge = 18;
-        // Maximum valid applicant age
-        static readonly byte ApplicantMaxAge = 70;
-        static readonly string[] syllablepool = { "Ab", "Saa", "Levo", "Pari", "Rub", "Ask",
-            "Mam", "Ket", "Zar", "Luci", "Ter", "Ova", "Sar", "Vol", "Ver" };
-
-        static readonly string[] maleNamePool = { "Sevak", "Mher", "Arevshat",
-            "Garush", "Karen", "Smbat", "Rouben", "Garegin", "Vahe", "Eduard",
-            "Gavril", "Suren", "Arkadij" };
-
-        static readonly string[] femaleNamePool = { "Nina", "Karine", "Margarita",
-            "Narine", "Nane", "Marina", "Lilit", "Yelena" };
-
-        static readonly string[] lastNamePool = new string[] { "Lalazryan", "Mkhrtchyan",
-            "Hakobyan", "Vardanyan", "Lobyan", "Levonyan", "Sahakyan", "Gevorgyan" };
-
-        static readonly string[] alphabetLetter = new string[]{"a", "b", "c", "d","e", "f", "g",
-            "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
-
-        static readonly string[] alphabetVocalLetterPool = new string[] { "a", "e", "i", "o", "u", "y" };
-
-        static readonly string[] alphabetConsonantLetterPool = new string[] { "b", "c", "d", "f", "g", 
-            "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z" };
-
-        static readonly char[] characters = {'~', '!', '@', '#', '$', '%', '^', '&', '*', '(',
-            ')', '-', '_', '+', '=', '<', '>', '/', '?', ';', ':', '"', '{', '}', '[', ']' };
-
-        static readonly string countryCode = "+374";
-        static readonly string[] phoneOperatorCode =  { "10", "11", "33", "44", "47", "55", "77",
-                                                        "91", "93", "94", "95", "96", "97", "98", "99" };
-
-        static Random random = new Random();
-
-        /// <summary>Generates random date of birth values within the specified age range./>
-        /// <param name="minAge">The minimum age.</param>
-        /// <param name="maxAge">The maximum age.</param>
-        /// <returns>The DateTime value within specified range.</returns>
+    public class AttributeGenerator : SimulationConstants
+    { 
         public static DateTime GetDateOfBirth(byte minAge, byte maxAge)
         {
             // input's validation: check age limits, make sure their within
@@ -72,7 +35,7 @@ namespace LearningMissionSimulation
             byte month = (byte)random.Next(1, 13);
             byte day;
 
-            switch(month)
+            switch (month)
             {
                 case 1:
                 case 3:
@@ -86,7 +49,7 @@ namespace LearningMissionSimulation
                 case 2:
                     day = year % 4 == 0 ? (byte)random.Next(1, 30) : (byte)random.Next(1, 29); // February
                     break;
-                default: 
+                default:
                     day = (byte)random.Next(1, 31); // for months with 30 days
                     break;
             }
@@ -104,11 +67,11 @@ namespace LearningMissionSimulation
             {
                 if (i % 2 == 0)
                 {
-                    name += alphabetVocalLetterPool[random.Next(0, alphabetVocalLetterPool.Length)];                                                                 
+                    name += AlphabetVocalLetterPool[random.Next(0, AlphabetVocalLetterPool.Length)];                                                                 
                 }
                 else
                 {
-                    name += alphabetConsonantLetterPool[random.Next(0, alphabetConsonantLetterPool.Length)];
+                    name += AlphabetConsonantLetterPool[random.Next(0, AlphabetConsonantLetterPool.Length)];
                 }
                 i++;
             }
@@ -148,9 +111,8 @@ namespace LearningMissionSimulation
         }
         public static SubjectType GetSubjecType()
         {
-            var levelCount = Enum.GetValues(typeof(SubjectType)).Length;
+           var levelCount = Enum.GetValues(typeof(SubjectType)).Length;
            return (SubjectType)random.Next(0, levelCount);           
-
         }
 
         public static Gender GetGender()
@@ -179,16 +141,23 @@ namespace LearningMissionSimulation
 
         public static string GetPhoneNumber()
         {
-            string phoneNumberCode = phoneOperatorCode[random.Next(0, phoneOperatorCode.Length)];
+            string phoneNumberCode = PhoneOperatorCode[random.Next(0, PhoneOperatorCode.Length)];
             string mobileNumber = Convert.ToString(random.Next(100000, 1000000));
-            var phoneNumber = (countryCode + phoneNumberCode + mobileNumber);
+            var phoneNumber = (CountryCode + phoneNumberCode + mobileNumber);
             return phoneNumber;
         }
 
         public static string GetEmail()
-        {
-            //not implemented yet!
-            return "";
+        {            
+            int emailLength =random.Next(5, 12);
+            int domainIndex = random.Next(0, DomainPool.Count);
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i <= emailLength; i++)
+            {
+                int letterIndex = random.Next(0, LetterPool.Length);
+                stringBuilder.Append(LetterPool[letterIndex]);
+            }
+            return stringBuilder.Append(DomainPool[domainIndex]).ToString();
         }
 
         public static string GetStreetAddress()
@@ -252,10 +221,18 @@ namespace LearningMissionSimulation
             return "";
         }
 
-        public static string GetCity()
+        public static string GetCity(string postalCode)
         {
-            //not implemented yet!
-            return "";
+            if (CityDictionary.ContainsKey(postalCode)) 
+            {
+                string cityName;
+
+               CityDictionary.TryGetValue(postalCode, out cityName);
+
+                return cityName;
+            }  
+            
+            return null;
         }
 
         public static string GetProvince()
@@ -295,6 +272,20 @@ namespace LearningMissionSimulation
             password += characters[random.Next(0, characters.Length)];
             return char.ToUpper(password[0]) + password.Substring(1);
         }
-
+        public static string GetCoverLetter()
+        {
+            //not implemented yet!
+            return "";
+        }
+        public static int GetBuildingNumber()
+        {
+            //not implemented yet!
+            return 0;
+        }
+        public static int GetApartmentNumber()
+        {
+            //not implemented yet!
+            return 0;
+        }
     }
 }
