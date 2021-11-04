@@ -253,6 +253,7 @@ namespace LearningMissionSimulation
             int endOfusername = random.Next(0, 10000);
             return username + "-" + Convert.ToString(endOfusername);
         }
+
         public static string GetPassword(int minLength, int maxLength)
         {
             int count = random.Next(minLength, maxLength);
@@ -272,6 +273,11 @@ namespace LearningMissionSimulation
             }
             password += CharacterPool[random.Next(0, CharacterPool.Length)];
             return char.ToUpper(password[0]) + password.Substring(1);
+        }
+
+        public static string GetPassword()
+        {
+            return GetPassword(PasswordMinLength, PasswordMaxLength);
         }
 
         public static string GetCoverLetter()
