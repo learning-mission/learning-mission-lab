@@ -13,7 +13,7 @@ namespace LearningMissionSimulation
             return new Student(coverLetter: AttributeGenerator.GetCoverLetter(), recommendationList: new List<string>(),
                    completedModuleList: new List<Module>(), classroomList: new List<Classroom>(),
                    schedule: new Schedule(), firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
-                   contactInfo: new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), buildingNumber: AttributeGenerator.GetBuildingNumber(),
+                   contactInfo: new ContactInfo(address: new Address(AttributeGenerator.GetStreetAddress(), buildingNumber: AttributeGenerator.GetBuildingNumber(),
                    apartmentNumber: AttributeGenerator.GetApartmentNumber(), city: AttributeGenerator.GetCity("0001"), province: AttributeGenerator.GetProvince(),
                    postalCode: AttributeGenerator.GetPostalCode(), country: AttributeGenerator.GetCountry()), email: AttributeGenerator.GetEmail(),
                    homePhone: AttributeGenerator.GetPhoneNumber(), workPhone: AttributeGenerator.GetPhoneNumber(), cellPhone: AttributeGenerator.GetPhoneNumber()));
@@ -33,16 +33,22 @@ namespace LearningMissionSimulation
 
         public static Instructor GenerateInstructor()
         {
-            //not implemented yet!
-            return null;
+            return new Instructor(moduleList: new List<Module>(), classroomsList: new List<Classroom>(), schedule: new Schedule(),
+                   firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(), contactInfo: new ContactInfo
+                   ( address: new Address(AttributeGenerator.GetStreetAddress(), buildingNumber: AttributeGenerator.GetBuildingNumber(),
+                   apartmentNumber: AttributeGenerator.GetApartmentNumber(), city: AttributeGenerator.GetCity("0001"), province: AttributeGenerator.GetProvince(),
+                   postalCode: AttributeGenerator.GetPostalCode(), country: AttributeGenerator.GetCountry()), email: AttributeGenerator.GetEmail(),
+                   homePhone: AttributeGenerator.GetPhoneNumber(), workPhone: AttributeGenerator.GetPhoneNumber(), cellPhone: AttributeGenerator.GetPhoneNumber()));
 
         }
 
         public static List<Instructor> GenerateInstructorPool(uint instructorCount)
         {
             List<Instructor> instructorList = new List<Instructor>();
-
-            //not implemented yet!
+            for (int i = 0; i < instructorCount; i++)
+            {
+                instructorList.Add(GenerateInstructor());
+            }
             return instructorList;
         }
 

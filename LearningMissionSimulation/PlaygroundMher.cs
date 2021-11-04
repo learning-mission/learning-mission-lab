@@ -15,10 +15,12 @@ namespace LearningMissionSimulation
         Dictionary<int, Account> keyValuePairs1 = new Dictionary<int, Account>();
         Dictionary<int, Account> keyValuePairs2 = new Dictionary<int, Account>();
         Dictionary<int, Account> keyValuePairs3 = new Dictionary<int, Account>();
-        public void PlyeMetod(uint accountCount, int count)
+        // Simulate account creation process
+        public void SimulateAccountCreationProcess(uint accountCount, int count)
         {
             Account account = ObjectGenerator.GenerateAccount();
-            
+            account.Report();
+            List<Account> accountList = new List<Account>();
             int i = 0;
             while (i < accountCount)
             {
@@ -26,6 +28,11 @@ namespace LearningMissionSimulation
                 count++;
                 i++;
             }
+
+        }
+        // Simulate account activation process
+        public void SimulateAccountActivationProcess()
+        {
 
         }
         public void FairCoordinator()
