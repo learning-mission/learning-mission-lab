@@ -306,7 +306,7 @@ namespace LearningMissionSimulation
         }
         public static string GetUnitDescprition(UnitType unitType)
         {            
-            int i = random.Next(5, 25);
+            int i = SimulationConstants.random.Next(5, 25);
             int j = 0;
             string unitTypeDiscription = "";
             switch (unitType)
@@ -317,7 +317,7 @@ namespace LearningMissionSimulation
                 case UnitType.Company:
                     while (j < i)
                     {
-                        int count = random.Next(3, 11);
+                        int count = SimulationConstants.random.Next(3, 11);
                         unitTypeDiscription += GetFirstName(count) + " " ;
                         j++;
                     }
@@ -325,7 +325,7 @@ namespace LearningMissionSimulation
                 case UnitType.Department:
                     while (j < i)
                     {
-                        int count = random.Next(3, 11);
+                        int count = SimulationConstants.random.Next(3, 11);
                         unitTypeDiscription += GetFirstName(count) + " ";
                         j++;
                     }
@@ -333,7 +333,7 @@ namespace LearningMissionSimulation
                 case UnitType.Classroom:
                     while (j < i)
                     {
-                        int count = random.Next(3, 11);
+                        int count = SimulationConstants.random.Next(3, 11);
                         unitTypeDiscription += GetFirstName(count) + " ";
                         j++;
                     }
@@ -341,7 +341,7 @@ namespace LearningMissionSimulation
                 case UnitType.Subject:
                     while (j < i)
                     {
-                        int count = random.Next(3, 11);
+                        int count = SimulationConstants.random.Next(3, 11);
                         unitTypeDiscription += GetFirstName(count) + " ";
                         j++;
                     }
@@ -349,7 +349,7 @@ namespace LearningMissionSimulation
                 case UnitType.Module:
                     while (j < i)
                     {
-                        int count = random.Next(3, 11);
+                        int count = SimulationConstants.random.Next(3, 11);
                         unitTypeDiscription += GetFirstName(count) + " ";
                         j++;
                     }
