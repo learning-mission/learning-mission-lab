@@ -10,13 +10,10 @@ namespace LearningMissionSimulation
         // Creates a Student object with randomly selected attributes
         public static Student GenerateStudent()
         {
-            return new Student(coverLetter: AttributeGenerator.GetCoverLetter(), recommendationList: new List<string>(),
-                   completedModuleList: new List<Module>(), classroomList: new List<Classroom>(),
-                   schedule: new Schedule(), firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
-                   contactInfo: new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), buildingNumber: AttributeGenerator.GetBuildingNumber(),
-                   apartmentNumber: AttributeGenerator.GetApartmentNumber(), city: AttributeGenerator.GetCity("0001"), province: AttributeGenerator.GetProvince(),
-                   postalCode: AttributeGenerator.GetPostalCode(), country: AttributeGenerator.GetCountry()), email: AttributeGenerator.GetEmail(),
-                   homePhone: AttributeGenerator.GetPhoneNumber(), workPhone: AttributeGenerator.GetPhoneNumber(), cellPhone: AttributeGenerator.GetPhoneNumber()));
+            return new Student(coverLetter: AttributeGenerator.GetCoverLetter(), GenerateRecommendationList(),
+                   GenerateModuleList(), classroomList: new List<Classroom>(), GenerateSchedule(), 
+                   firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
+                   GenerateContactInfo());
         }
 
         // Creates a random list of Student objects
@@ -35,8 +32,9 @@ namespace LearningMissionSimulation
         // Creates an Instructor object with randomly selected attributes
         public static Instructor GenerateInstructor()
         {
-            //not implemented yet!
-            return null;
+            return new Instructor(GenerateModuleList(), classroomsList: new List<Classroom>(), GenerateSchedule(), 
+                   firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
+                   GenerateContactInfo());
 
         }
 
@@ -44,8 +42,12 @@ namespace LearningMissionSimulation
         public static List<Instructor> GenerateInstructorPool(uint instructorCount)
         {
             List<Instructor> instructorList = new List<Instructor>();
-
-            //not implemented yet!
+            int i = 0;
+            while (i < instructorCount)
+            {
+                instructorList.Add(GenerateInstructor());
+                i++;
+            }
             return instructorList;
         }
 
