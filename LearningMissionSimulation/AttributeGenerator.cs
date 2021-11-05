@@ -317,6 +317,65 @@ namespace LearningMissionSimulation
             //not implemented yet!
             return "";
         }
+        public static string GetUnitName()
+        {
+            string unitName = GetFirstName();
+
+            return unitName;
+        }
+        public static string GetUnitDescprition(UnitType unitType)
+        {            
+            int i = random.Next(5, 25);
+            int j = 0;
+            string unitTypeDiscription = "";
+            switch (unitType)
+            {
+                case UnitType.Unspecified:
+                    unitTypeDiscription = "not have a discription";
+                    break;
+                case UnitType.Company:
+                    while (j < i)
+                    {
+                        int count = random.Next(3, 11);
+                        unitTypeDiscription += GetFirstName(count) + " " ;
+                        j++;
+                    }
+                    break;
+                case UnitType.Department:
+                    while (j < i)
+                    {
+                        int count = random.Next(3, 11);
+                        unitTypeDiscription += GetFirstName(count) + " ";
+                        j++;
+                    }
+                    break;
+                case UnitType.Classroom:
+                    while (j < i)
+                    {
+                        int count = random.Next(3, 11);
+                        unitTypeDiscription += GetFirstName(count) + " ";
+                        j++;
+                    }
+                    break;
+                case UnitType.Subject:
+                    while (j < i)
+                    {
+                        int count = random.Next(3, 11);
+                        unitTypeDiscription += GetFirstName(count) + " ";
+                        j++;
+                    }
+                    break;
+                case UnitType.Module:
+                    while (j < i)
+                    {
+                        int count = random.Next(3, 11);
+                        unitTypeDiscription += GetFirstName(count) + " ";
+                        j++;
+                    }
+                    break;
+            }
+            return unitTypeDiscription;
+        }
 
         // Returns a random building number
         public static int GetBuildingNumber()
