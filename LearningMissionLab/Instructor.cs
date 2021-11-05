@@ -12,8 +12,8 @@ namespace LearningMissionLab
         List<Module> _moduleList;
         List<Classroom> _classroomList;
         Schedule _schedule;
-        public Instructor(List<Module> moduleList, List<Classroom> classroomsList, Schedule schedule, string firstName,
-                          string lastName, ContactInfo contactInfo) : base(firstName, lastName, contactInfo)
+        public Instructor(Guid accountId, List<Module> moduleList, List<Classroom> classroomsList, Schedule schedule, string firstName,
+                          string lastName, ContactInfo contactInfo) : base(accountId, firstName, lastName, contactInfo)
         {
             this._moduleList = moduleList;
             this._classroomList = classroomsList;

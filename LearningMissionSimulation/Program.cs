@@ -10,7 +10,7 @@ namespace LearningMissionSimulation
         {
             PlaygroundVahe.Play();
             PlaygroundEdvard.Action0();
-            PlaygroundMher playgroundMher = new PlaygroundMher();
+            PlaygroundMher playgroundMher = new PlaygroundMher(3);
             AttributeGenerator.GetCity("2613");
 
         }
