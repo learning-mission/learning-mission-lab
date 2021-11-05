@@ -7,11 +7,13 @@ namespace LearningMissionSimulation
 
         void ActivateAccounts();
 
-        void AssignInstructorsToCreateModules();
+        void CreateModules();
 
-        void AssignCompletedModulesToStudents();
+        void AssignModulesToStudents();
 
-        void AssignInstructorsForClasses();
+        void AssignModulesToInstructors();
+
+        void CreateClassrooms();
 
         void RegisterStudentsForClasses();
 
