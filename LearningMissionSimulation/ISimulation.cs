@@ -3,17 +3,17 @@ namespace LearningMissionSimulation
 {
     public interface ISimulation
     {
-        void CreateAccounts();
+        void CreateAccounts(int accountCount);
 
         void ActivateAccounts();
 
-        void CreateModules();
+        void CreateModules(int moduleCount);
 
         void AssignModulesToStudents();
 
         void AssignModulesToInstructors();
 
-        void CreateClassrooms();
+        void CreateClassrooms(int classroomCount);
 
         void RegisterStudentsForClasses();
 
