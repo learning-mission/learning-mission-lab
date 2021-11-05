@@ -5,62 +5,79 @@ using LearningMissionLab;
 
 namespace LearningMissionSimulation
 {
-    public class PlaygroundMher
+    public class PlaygroundMher : ISimulation
     {
-        int accountCount;
-        List<string> passwoerdNameList;
-        List<string> userNameList;
-        List<string> emailNameList;
-        List<string> phoneNumberList;
-        List<Enum> roleEnumList;
-        List<Enum> statusEnumList;
-        List<DateTime> createDateList;
-        List<DateTime> updateDateList;
-        public PlaygroundMher(int count)
+        int _accountCount;
+        public PlaygroundMher(int accountCount)
         {
-            this.accountCount = count;
+            this._accountCount = accountCount;
         }
 
-
-        public List<string> PasswoerdNameList { private get => passwoerdNameList; set => passwoerdNameList = value; }
-        public List<string> UserNameList { get => userNameList; set => userNameList = value; }
-        public List<string> EmailNameList { get => emailNameList; set => emailNameList = value; }
-        public List<string> PhoneNumberList { get => phoneNumberList; set => phoneNumberList = value; }
-        public List<Enum> RoleEnumList { get => roleEnumList; set => roleEnumList = value; }
-        public List<Enum> StatusEnumList { get => statusEnumList; set => statusEnumList = value; }
-        public List<DateTime> CreateDateList { get => createDateList; set => createDateList = value; }
-        public List<DateTime> UpdateDateList { get => updateDateList; set => updateDateList = value; }
+        public int count = 0;
+        public int AccountCount { get => _accountCount; set => _accountCount = value; }
 
         Account account = ObjectGenerator.GenerateAccount();
+
+        Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
+
         // Simulate account creation  process
-        public void SimulateAccountCreationProcess(int accountCount)
+        public void CreateAccounts(int accountCount)
         {
-            account.Report();
             int i = 0;
             while (i < accountCount)
             {
-                passwoerdNameList.Add(account.Password);
-                userNameList.Add(account.Username);
-                emailNameList.Add(account.Email);
-                phoneNumberList.Add(account.Phone);
-                roleEnumList.Add(account.Role);
-                statusEnumList.Add(account.Status);
-                createDateList.Add(account.CreateDate);
-                updateDateList.Add(account.UpdateDate);
+                accountDictionary.Add(ObjectGenerator.GenerateAccount().Id, ObjectGenerator.GenerateAccount());
                 i++;
             }
+            foreach (var item in accountDictionary)
+            {
+                Console.WriteLine(item);
+            }
         }
+
         // Simulate account activati process
-        public void SimulateAccountActivatiProcess()
+        public void ActivateAccounts()
         {
 
+            if( AttributeGenerator.GetStatus() == Status.Pending )
+            {
+                 account.Status = Status.Active;
+            }
+
+            //if (AttributeGenerator.GetStatus() != Status.Active)
+            //{
+            //    account.Status = Status.Active;
+            //}
+
+        }
+
+        public void CreateModules(int moduleCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AssignModulesToStudents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AssignModulesToInstructors()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateClassrooms(int classroomCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RegisterStudentsForClasses()
+        {
+            throw new NotImplementedException();
         }
         public void FairCoordinator()
         {
-            if (statusEnumList.Contains(Status.Suspended))
-            {
-
-            }
+           
 
         }
     }
