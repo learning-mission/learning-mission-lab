@@ -14,9 +14,9 @@ namespace LearningMissionLab
         List<Module> _completedModuleList;
         List<Classroom> _classroomList;
         Schedule _schedule;
-        public Student(string coverLetter, List<string> recommendationList, List<Module> completedModuleList, List<Classroom> classroomList,
+        public Student(Guid accountId, string coverLetter, List<string> recommendationList, List<Module> completedModuleList, List<Classroom> classroomList,
             Schedule schedule, string firstName, string lastName, ContactInfo contactInfo)
-                       : base(firstName, lastName, contactInfo)
+                       : base(accountId, firstName, lastName, contactInfo)
         {
             this._coverLetter = coverLetter;
             this._recommendationList = recommendationList;

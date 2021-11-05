@@ -6,47 +6,20 @@ namespace LearningMissionSimulation
 {
     public class ObjectGenerator
     {
-
         // Creates a Student object with randomly selected attributes
-        public static Student GenerateStudent()
+        public static Student GenerateStudent(Guid accountId)
         {
-            return new Student(coverLetter: AttributeGenerator.GetCoverLetter(), recommendationList: new List<string>(),
-                   completedModuleList: new List<Module>(), classroomList: new List<Classroom>(),
-                   schedule: new Schedule(), firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
-                   contactInfo: new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), buildingNumber: AttributeGenerator.GetBuildingNumber(),
-                   apartmentNumber: AttributeGenerator.GetApartmentNumber(), city: AttributeGenerator.GetCity("0001"), province: AttributeGenerator.GetProvince(),
-                   postalCode: AttributeGenerator.GetPostalCode(), country: AttributeGenerator.GetCountry()), email: AttributeGenerator.GetEmail(),
-                   homePhone: AttributeGenerator.GetPhoneNumber(), workPhone: AttributeGenerator.GetPhoneNumber(), cellPhone: AttributeGenerator.GetPhoneNumber()));
-        }
-
-        // Creates a random list of Student objects
-        public static List<Student> GenerateStudentPool(uint studentCount)
-        {
-            List<Student> studentList = new List<Student>();
-            int i = 0;
-            while (i < studentCount)
-            {
-                studentList.Add(GenerateStudent());
-                i++;
-            }
-            return studentList;
+            return new Student(accountId: accountId, coverLetter: AttributeGenerator.GetCoverLetter(), recommendationList: GenerateRecommendationList(),
+                               completedModuleList: GenerateModuleList(), classroomList: GenerateClassroomList(), schedule: GenerateSchedule(),
+                               firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(), contactInfo:GenerateContactInfo());
         }
 
         // Creates an Instructor object with randomly selected attributes
-        public static Instructor GenerateInstructor()
+        public static Instructor GenerateInstructor(Guid accountId)
         {
-            //not implemented yet!
-            return null;
+            return new Instructor(accountId: accountId, moduleList:GenerateModuleList(), classroomsList: GenerateClassroomList(), schedule: GenerateSchedule(),
+                                  firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(), contactInfo: GenerateContactInfo());
 
-        }
-
-        // Creates a random list of Instructor objects
-        public static List<Instructor> GenerateInstructorPool(uint instructorCount)
-        {
-            List<Instructor> instructorList = new List<Instructor>();
-
-            //not implemented yet!
-            return instructorList;
         }
 
         // Creates an Account object with randomly selected attributes
@@ -56,36 +29,11 @@ namespace LearningMissionSimulation
                                AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetRole(), AttributeGenerator.GetStatus());
 
         }
-
-        // Creates a random list of Account objects
-        public static List<Account> GenerateAccountPool(uint accountCount)
-        {
-            List<Account> accountList = new List<Account>();
-            for (int i = 0; i < accountCount; i++)
-            {
-                accountList.Add(GenerateAccount());
-            }
-            return accountList;
-        }
-
         // Creates a Profile object with randomly selected attributes
-        public static Profile GenerateProfile()
+        public static Profile GenerateProfile(Guid accountId)
         {
-            return new Profile(firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
+            return new Profile(accountId: accountId, firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
                                dateOfBirth: AttributeGenerator.GetDateOfBirth(18, 70), gender: AttributeGenerator.GetGender());
-        }
-
-        // Creates a random list of Profile objects
-        public static List<Profile> GenerateProfilePool(uint profileCount)
-        {
-            List<Profile> profileList = new List<Profile>();
-            int i = 0;
-            while (i < profileCount)
-            {
-                profileList.Add(GenerateProfile());
-                i++;
-            }
-            return profileList;
         }
 
         // Creates a Language object with randomly selected attributes
@@ -120,8 +68,17 @@ namespace LearningMissionSimulation
         // Creates an Address object with randomly selected attributes
         public static Address GenerateAddress()
         {
-            //not implemented yet!
-            return null;
+            string postalCode = AttributeGenerator.GetPostalCode();
+
+            return new Address(
+                 AttributeGenerator.GetStreetAddress(),
+                 AttributeGenerator.GetBuildingNumber(),
+                 AttributeGenerator.GetApartmentNumber(),
+                 AttributeGenerator.GetCity(postalCode),
+                 AttributeGenerator.GetProvince(postalCode),
+                 AttributeGenerator.GetPostalCode(),
+                 AttributeGenerator.GetCountry()
+             );
         }
 
         // Creates a ContactInfo object with randomly selected attributes
@@ -151,7 +108,12 @@ namespace LearningMissionSimulation
             //not implemented yet!
             return null;
         }
-
+        // Creates a random list of Classroom objects
+        public static List<Classroom> GenerateClassroomList()
+        {
+            //not implemented yet!
+            return new List<Classroom>();
+        }
         // Creates a random list of Module objects
         public static List<Module> GenerateModuleList()
         {
