@@ -6,7 +6,6 @@ namespace LearningMissionSimulation
 {
     public class ObjectGenerator
     {
-
         // Creates a Student object with randomly selected attributes
         public static Student GenerateStudent()
         {
@@ -14,7 +13,7 @@ namespace LearningMissionSimulation
                    completedModuleList: new List<Module>(), classroomList: new List<Classroom>(),
                    schedule: new Schedule(), firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
                    contactInfo: new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), buildingNumber: AttributeGenerator.GetBuildingNumber(),
-                   apartmentNumber: AttributeGenerator.GetApartmentNumber(), city: AttributeGenerator.GetCity("0001"), province: AttributeGenerator.GetProvince(),
+                   apartmentNumber: AttributeGenerator.GetApartmentNumber(), city: AttributeGenerator.GetCity("0001"), province: AttributeGenerator.GetProvince("1234"),
                    postalCode: AttributeGenerator.GetPostalCode(), country: AttributeGenerator.GetCountry()), email: AttributeGenerator.GetEmail(),
                    homePhone: AttributeGenerator.GetPhoneNumber(), workPhone: AttributeGenerator.GetPhoneNumber(), cellPhone: AttributeGenerator.GetPhoneNumber()));
         }
@@ -117,11 +116,35 @@ namespace LearningMissionSimulation
             return languageList;
         }
 
+        public static string GetTwoDigitCode(int maxLimit)
+        {
+            string postalCode = "";
+            int range = SimulationConstants.random.Next(0, maxLimit);
+
+            postalCode = range < 10 ? "0" + range.ToString() : range.ToString();
+
+            return postalCode;
+        }
+
         // Creates an Address object with randomly selected attributes
         public static Address GenerateAddress()
         {
-            //not implemented yet!
-            return null;
+            string postalCode = GetTwoDigitCode(43) + GetTwoDigitCode(20);
+
+            while (!SimulationConstants.CityDictionary.ContainsKey(postalCode))
+            {
+                postalCode = GetTwoDigitCode(43) + GetTwoDigitCode(20);
+            }
+
+            return new Address(
+                 AttributeGenerator.GetStreetAddress(),
+                 AttributeGenerator.GetBuildingNumber(),
+                 AttributeGenerator.GetApartmentNumber(),
+                 AttributeGenerator.GetCity(postalCode),
+                 AttributeGenerator.GetProvince(postalCode),
+                 AttributeGenerator.GetPostalCode(),
+                 AttributeGenerator.GetCountry()
+             );
         }
 
         // Creates a ContactInfo object with randomly selected attributes

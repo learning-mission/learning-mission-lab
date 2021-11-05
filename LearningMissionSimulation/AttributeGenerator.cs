@@ -254,7 +254,9 @@ namespace LearningMissionSimulation
             {
                 string cityName;
 
-               CityDictionary.TryGetValue(postalCode, out cityName);
+                CityDictionary.TryGetValue(postalCode, out cityName);
+
+                Console.WriteLine($"City Name: {cityName}");
 
                 return cityName;
             }  
@@ -263,10 +265,20 @@ namespace LearningMissionSimulation
         }
 
         // Returns a random province name
-        public static string GetProvince()
+        public static string GetProvince(string postalCode)
         {
-            //not implemented yet!
-            return "";
+            if (SimulationConstants.ProvinceDictionary.ContainsKey(postalCode.Substring(0, 2)))
+            {
+                string provinceName;
+
+                ProvinceDictionary.TryGetValue(postalCode.Substring(0, 2), out provinceName);
+
+                Console.WriteLine($"Province Name: {provinceName}");
+
+                return provinceName;
+            }
+
+            return null;
         }
 
         // Returns a random country name
