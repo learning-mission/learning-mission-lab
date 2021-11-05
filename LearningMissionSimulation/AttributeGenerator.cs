@@ -58,6 +58,8 @@ namespace LearningMissionSimulation
 
             return new DateTime(year, month, day);
         }
+
+        // Returns a random first name
         public static string GetFirstName(int lengthLimit)
         {
             int count = random.Next(2, lengthLimit);
@@ -77,68 +79,89 @@ namespace LearningMissionSimulation
             }
             return char.ToUpper(name[0]) + name.Substring(1); 
         }
+
         public static string GetFirstName()
         {
             return GetFirstName(8);
         }
+
+        // Returns a random last name
         public static string GetLastName(int lengthLimit)
         { 
             return GetFirstName(lengthLimit) + "yan";
         }
+
         public static string GetLastName()
         {
             return GetLastName(10);
         }
-        
 
+        // Returns a random value from LanguageLevel, LanguageLevel.Unspecified
+        // is excluded
         public static LanguageLevel GetLanguageLevel()
         {
             var levelCount = Enum.GetNames(typeof(LanguageLevel)).Length;
             return (LanguageLevel)random.Next(1, levelCount);
         }
 
+        // Returns a random value from LanguageName, LanguageName.Unspecified
+        // is excluded
         public static LanguageName GetLanguageName()
         {
             var nameCount = Enum.GetNames(typeof(LanguageName)).Length;
             return (LanguageName)random.Next(1, nameCount);
         }
 
+        // Returns a random value from ModuleLevel, ModuleLevel.Unspecified
+        // is excluded
         public static ModuleLevel GetModuleLevel()
         {                        
             var levelCount = Enum.GetValues(typeof(ModuleLevel)).Length;
             return (ModuleLevel)random.Next(0, levelCount);
             
         }
+
+        // Returns a random value from SubjectType, SubjectType.Unspecified
+        // is excluded
         public static SubjectType GetSubjecType()
         {
            var levelCount = Enum.GetValues(typeof(SubjectType)).Length;
            return (SubjectType)random.Next(0, levelCount);           
         }
 
+        // Returns a random value from Gender, Gender.Unspecified
+        // is excluded
         public static Gender GetGender()
         {
             var genderCount = Enum.GetValues(typeof(Gender)).Length;
             return (Gender)random.Next(1, genderCount); 
         }
 
+        // Returns a random value from DepartmentType, DepartmentType.Unspecified
+        // is excluded
         public static DepartmentType GetDepartmentType()
         {
             var departmentTypeCount = Enum.GetValues(typeof(DepartmentType)).Length;
             return (DepartmentType)random.Next(1, departmentTypeCount);
         }
 
+        // Returns a random value from Role, Role.Unspecified
+        // is excluded
         public static Role GetRole()
         {
             var roleCount = Enum.GetValues(typeof(Role)).Length;
             return (Role)random.Next(1, roleCount); ;
         }
 
+        // Returns a random value from Status, Status.Unspecified
+        // is excluded
         public static Status GetStatus()
         {
             var statusCount = Enum.GetValues(typeof(Status)).Length;
             return (Status)random.Next(1, statusCount);
         }
 
+        // Returns a random phone number
         public static string GetPhoneNumber()
         {
             string phoneNumberCode = PhoneOperatorCode[random.Next(0, PhoneOperatorCode.Length)];
@@ -147,6 +170,7 @@ namespace LearningMissionSimulation
             return phoneNumber;
         }
 
+        // Returns a random email address
         public static string GetEmail()
         {            
             int emailLength =random.Next(5, 12);
@@ -160,12 +184,14 @@ namespace LearningMissionSimulation
             return stringBuilder.Append(DomainPool[domainIndex]).ToString();
         }
 
+        // Returns a random street address
         public static string GetStreetAddress()
         {
             //not implemented yet!
             return "";
         }
 
+        // Returns a random postal code
         public static string GetPostalCode()
         {
             Dictionary<string, string> postalCodeDictionary = new Dictionary<string, string>()
@@ -221,6 +247,7 @@ namespace LearningMissionSimulation
             return "";
         }
 
+        // Returns a random city name
         public static string GetCity(string postalCode)
         {
             if (CityDictionary.ContainsKey(postalCode)) 
@@ -235,18 +262,21 @@ namespace LearningMissionSimulation
             return null;
         }
 
+        // Returns a random province name
         public static string GetProvince()
         {
             //not implemented yet!
             return "";
         }
 
+        // Returns a random country name
         public static string GetCountry()
         {
             //not implemented yet!
             return "";
         }
 
+        // Returns a random username
         public static string GetUsername()
         {
             string username = GetFirstName();
@@ -254,6 +284,7 @@ namespace LearningMissionSimulation
             return username + "-" + Convert.ToString(endOfusername);
         }
 
+        // Returns a random password
         public static string GetPassword(int minLength, int maxLength)
         {
             int count = random.Next(minLength, maxLength);
@@ -280,16 +311,21 @@ namespace LearningMissionSimulation
             return GetPassword(PasswordMinLength, PasswordMaxLength);
         }
 
+        // Returns a random cover letter
         public static string GetCoverLetter()
         {
             //not implemented yet!
             return "";
         }
+
+        // Returns a random building number
         public static int GetBuildingNumber()
         {
             //not implemented yet!
             return 0;
         }
+
+        // Returns a random apartment number
         public static int GetApartmentNumber()
         {
             //not implemented yet!

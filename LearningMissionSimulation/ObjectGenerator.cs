@@ -6,8 +6,8 @@ namespace LearningMissionSimulation
 {
     public class ObjectGenerator
     {
-        static HashSet<string> emailNameSet = new HashSet<string>();
 
+        // Creates a Student object with randomly selected attributes
         public static Student GenerateStudent()
         {
             return new Student(coverLetter: AttributeGenerator.GetCoverLetter(), recommendationList: new List<string>(),
@@ -19,6 +19,7 @@ namespace LearningMissionSimulation
                    homePhone: AttributeGenerator.GetPhoneNumber(), workPhone: AttributeGenerator.GetPhoneNumber(), cellPhone: AttributeGenerator.GetPhoneNumber()));
         }
 
+        // Creates a random list of Student objects
         public static List<Student> GenerateStudentPool(uint studentCount)
         {
             List<Student> studentList = new List<Student>();
@@ -31,6 +32,7 @@ namespace LearningMissionSimulation
             return studentList;
         }
 
+        // Creates an Instructor object with randomly selected attributes
         public static Instructor GenerateInstructor()
         {
             //not implemented yet!
@@ -38,6 +40,7 @@ namespace LearningMissionSimulation
 
         }
 
+        // Creates a random list of Instructor objects
         public static List<Instructor> GenerateInstructorPool(uint instructorCount)
         {
             List<Instructor> instructorList = new List<Instructor>();
@@ -46,6 +49,7 @@ namespace LearningMissionSimulation
             return instructorList;
         }
 
+        // Creates an Account object with randomly selected attributes
         public static Account GenerateAccount()
         {
             return new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(), AttributeGenerator.GetEmail(),
@@ -53,6 +57,7 @@ namespace LearningMissionSimulation
 
         }
 
+        // Creates a random list of Account objects
         public static List<Account> GenerateAccountPool(uint accountCount)
         {
             List<Account> accountList = new List<Account>();
@@ -63,12 +68,14 @@ namespace LearningMissionSimulation
             return accountList;
         }
 
+        // Creates a Profile object with randomly selected attributes
         public static Profile GenerateProfile()
         {
             return new Profile(firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
                                dateOfBirth: AttributeGenerator.GetDateOfBirth(18, 70), gender: AttributeGenerator.GetGender());
         }
 
+        // Creates a random list of Profile objects
         public static List<Profile> GenerateProfilePool(uint profileCount)
         {
             List<Profile> profileList = new List<Profile>();
@@ -81,11 +88,13 @@ namespace LearningMissionSimulation
             return profileList;
         }
 
+        // Creates a Language object with randomly selected attributes
         public static Language GenerateLanguage()
         {
             return new Language(languageName: AttributeGenerator.GetLanguageName(), languageLevel: AttributeGenerator.GetLanguageLevel());
         }
 
+        // Creates a random list of Language objects
         public static List<Language> GenerateLanguageList(uint languageCount)
         {
             int languageMaxCount = Enum.GetNames(typeof(LanguageName)).Length - 1;
@@ -106,6 +115,48 @@ namespace LearningMissionSimulation
                 i++;
             }
             return languageList;
+        }
+
+        // Creates an Address object with randomly selected attributes
+        public static Address GenerateAddress()
+        {
+            //not implemented yet!
+            return null;
+        }
+
+        // Creates a ContactInfo object with randomly selected attributes
+        public static ContactInfo GenerateContactInfo()
+        {
+            //not implemented yet!
+            return null;
+        }
+
+        // Creates a Schedule object with randomly selected attributes
+        public static Schedule GenerateSchedule()
+        {
+            //not implemented yet!
+            return null;
+        }
+
+        // Creates a random list of recommendations
+        public static List<string> GenerateRecommendationList()
+        {
+            //not implemented yet!
+            return new List<string>();
+        }
+
+        // Creates a random list of Classroom objects
+        public static Classroom GenerateClassroom()
+        {
+            //not implemented yet!
+            return null;
+        }
+
+        // Creates a random list of Module objects
+        public static List<Module> GenerateModuleList()
+        {
+            //not implemented yet!
+            return new List<Module>();
         }
     }
 }
