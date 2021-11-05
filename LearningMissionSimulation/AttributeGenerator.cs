@@ -191,60 +191,29 @@ namespace LearningMissionSimulation
             return "";
         }
 
+        public static string GetTwoDigitCode(int maxLimit)
+        {
+            string postalCode = "";
+            int range = SimulationConstants.random.Next(0, maxLimit);
+
+            postalCode = range < 10 ? "0" + range.ToString() : range.ToString();
+
+            return postalCode;
+        }
+
         // Returns a random postal code
         public static string GetPostalCode()
         {
-            Dictionary<string, string> postalCodeDictionary = new Dictionary<string, string>()
-            {
-                { "03", "Aparan" },
-                { "04", "Aragac" },
-                { "02", "Ashtarak" },
-                { "05", "Talin" },
-                { "06", "Ararat" },
-                { "07", "Artashat" },
-                { "08", "Masis" },
-                { "09", "Armavir" },
-                { "10", "Baghramyan" },
-                { "11", "Vagharshapat" },
-                { "12", "Gavar" },
-                { "14", "Martuni" },
-                { "15", "Sevan" },
-                { "13", "Tshambarak" },
-                { "16", "Vardenis" },
-                { "22", "Abovyan" },
-                { "25", "Charencavan" },
-                { "23", "Hrazdan" },
-                { "24", "Nairi" },
-                { "18", "Spitak" },
-                { "19", "Stepanavan" },
-                { "17", "Tumanyan"},
-                { "20", "Vanadzor"},
-                { "21", "Vanadzor"},
-                { "26", "Akhuryan"},
-                { "27", "Amasia" },
-                { "29", "Ani" },
-                { "30", "Artik" },
-                { "31", "Gyumri" },
-                { "32", "Gyumri" },
-                { "33", "Kapan" },
-                { "34", "Meghri" },
-                { "35", "Sisian" },
-                { "39", "Dilijan" },
-                { "40", "Ijevan" },
-                { "41", "Noyemberyan" },
-                { "42", "Tavush" },
-                { "36", "Eghegnadzor" },
-                { "37", "Jermuk" },
-                { "38", "Vayq" },
-                { "00", "Yerevan" }
-            };
+            string postalCode = GetTwoDigitCode(43) + GetTwoDigitCode(20);
 
-            foreach (var keyValuePair in postalCodeDictionary)
+            while (!SimulationConstants.CityDictionary.ContainsKey(postalCode))
             {
-                Console.WriteLine($"Key: {keyValuePair.Key} Value: {keyValuePair.Value}");
+                postalCode = GetTwoDigitCode(43) + GetTwoDigitCode(20);
             }
 
-            return "";
+            Console.WriteLine($"Postal Code: {postalCode}");
+
+            return postalCode;
         }
 
         // Returns a random city name

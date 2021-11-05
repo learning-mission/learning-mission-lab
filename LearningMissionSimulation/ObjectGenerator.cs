@@ -116,25 +116,10 @@ namespace LearningMissionSimulation
             return languageList;
         }
 
-        public static string GetTwoDigitCode(int maxLimit)
-        {
-            string postalCode = "";
-            int range = SimulationConstants.random.Next(0, maxLimit);
-
-            postalCode = range < 10 ? "0" + range.ToString() : range.ToString();
-
-            return postalCode;
-        }
-
         // Creates an Address object with randomly selected attributes
         public static Address GenerateAddress()
         {
-            string postalCode = GetTwoDigitCode(43) + GetTwoDigitCode(20);
-
-            while (!SimulationConstants.CityDictionary.ContainsKey(postalCode))
-            {
-                postalCode = GetTwoDigitCode(43) + GetTwoDigitCode(20);
-            }
+            string postalCode = AttributeGenerator.GetPostalCode();
 
             return new Address(
                  AttributeGenerator.GetStreetAddress(),
