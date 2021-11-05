@@ -148,7 +148,7 @@ namespace LearningMissionSimulation
         }
 
         public static string GetEmail()
-        {            
+        {
             int emailLength =random.Next(5, 12);
             int domainIndex = random.Next(0, DomainPool.Count);
             StringBuilder stringBuilder = new StringBuilder();
@@ -168,57 +168,49 @@ namespace LearningMissionSimulation
 
         public static string GetPostalCode()
         {
-            Dictionary<string, string> postalCodeDictionary = new Dictionary<string, string>()
-            {
-                { "03", "Aparan" },
-                { "04", "Aragac" },
-                { "02", "Ashtarak" },
-                { "05", "Talin" },
-                { "06", "Ararat" },
-                { "07", "Artashat" },
-                { "08", "Masis" },
-                { "09", "Armavir" },
-                { "10", "Baghramyan" },
-                { "11", "Vagharshapat" },
-                { "12", "Gavar" },
-                { "14", "Martuni" },
-                { "15", "Sevan" },
-                { "13", "Tshambarak" },
-                { "16", "Vardenis" },
-                { "22", "Abovyan" },
-                { "25", "Charencavan" },
-                { "23", "Hrazdan" },
-                { "24", "Nairi" },
-                { "18", "Spitak" },
-                { "19", "Stepanavan" },
-                { "17", "Tumanyan"},
-                { "20", "Vanadzor"},
-                { "21", "Vanadzor"},
-                { "26", "Akhuryan"},
-                { "27", "Amasia" },
-                { "29", "Ani" },
-                { "30", "Artik" },
-                { "31", "Gyumri" },
-                { "32", "Gyumri" },
-                { "33", "Kapan" },
-                { "34", "Meghri" },
-                { "35", "Sisian" },
-                { "39", "Dilijan" },
-                { "40", "Ijevan" },
-                { "41", "Noyemberyan" },
-                { "42", "Tavush" },
-                { "36", "Eghegnadzor" },
-                { "37", "Jermuk" },
-                { "38", "Vayq" },
-                { "00", "Yerevan" }
-            };
-
-            foreach (var keyValuePair in postalCodeDictionary)
-            {
-                Console.WriteLine($"Key: {keyValuePair.Key} Value: {keyValuePair.Value}");
-            }
-
             return "";
+
+            string generateCodeProvince = null;
+            //string generateCodeCity = null;
+            //string result = "";
+            //string firstDigitRange = random.Next(0, 5).ToString();
+            //string secondDigitRange = random.Next(0, 10).ToString();
+
+            //if (passedprovinceName != null)
+            //{
+            //    generateCodeProvince = firstDigitRange + secondDigitRange;
+
+            //    provinceDictionary.TryGetValue(generateCodeProvince, out result);
+
+            //    while (!provinceDictionary.ContainsKey(generateCodeProvince) || passedprovinceName != result)
+            //    {
+            //        firstDigitRange = random.Next(0, 5).ToString();
+            //        secondDigitRange = random.Next(0, 10).ToString();
+            //        generateCodeProvince = firstDigitRange + secondDigitRange;
+
+            //        provinceDictionary.TryGetValue(generateCodeProvince, out result);
+            //    }
+            //}
+
+            //if (passedCityName != null)
+            //{
+            //    string cityDigit = random.Next(10, 100).ToString();
+            //    generateCodeCity = generateCodeProvince + cityDigit;
+
+            //    CityDictionary.TryGetValue(generateCodeCity, out result);
+
+            //    while (!CityDictionary.ContainsKey(generateCodeProvince) || passedCityName != result)
+            //    {
+            //        cityDigit = random.Next(10, 100).ToString();
+            //        generateCodeCity = generateCodeProvince + cityDigit;
+
+            //        provinceDictionary.TryGetValue(generateCodeCity, out result);
+            //    }
+            //}
+
+            //Console.WriteLine($"Province Code: {generateCodeProvince}\nCity Code: {generateCodeCity}");
+
+            //return $"Province Code: {generateCodeProvince}\nCity Code: {generateCodeCity}";
         }
 
         public static string GetCity(string postalCode)
@@ -230,15 +222,25 @@ namespace LearningMissionSimulation
                CityDictionary.TryGetValue(postalCode, out cityName);
 
                 return cityName;
-            }  
+            }
             
             return null;
         }
 
-        public static string GetProvince()
+        public static string GetProvince(string postalCode)
         {
-            //not implemented yet!
-            return "";
+            if (SimulationConstants.ProvinceDictionary.ContainsKey(postalCode.Substring(0, 2)))
+            {
+                string provinceName;
+
+                ProvinceDictionary.TryGetValue(postalCode.Substring(0, 2), out provinceName);
+
+                Console.WriteLine($"Province Name: {provinceName}");
+
+                return provinceName;
+            }
+
+            return null;
         }
 
         public static string GetCountry()
@@ -279,15 +281,15 @@ namespace LearningMissionSimulation
             //not implemented yet!
             return "";
         }
+
         public static int GetBuildingNumber()
         {
-            //not implemented yet!
-            return 0;
+            return random.Next(1, 100);
         }
+
         public static int GetApartmentNumber()
         {
-            //not implemented yet!
-            return 0;
+            return random.Next(1, 100);
         }
     }
 }

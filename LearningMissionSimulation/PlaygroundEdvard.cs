@@ -5,11 +5,11 @@ using System.Text;
 
 namespace LearningMissionSimulation
 {
-    class PlaygroundEdvard
+    public class PlaygroundEdvard
     {
         public static void Action0()
         {
-            Console.WriteLine(AttributeGenerator.GetPostalCode());
+            Console.WriteLine(ObjectGenerator.GenerateAddress());
         }
         
         public static void Action1()

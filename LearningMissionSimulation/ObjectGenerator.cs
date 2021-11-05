@@ -6,6 +6,7 @@ namespace LearningMissionSimulation
 {
     public class ObjectGenerator
     {
+        static Random random = new Random();
         static HashSet<string> emailNameSet = new HashSet<string>();
 
         public static Student GenerateStudent()
@@ -13,7 +14,7 @@ namespace LearningMissionSimulation
             return new Student(AttributeGenerator.GetCoverLetter(), new List<string>(), new List<Module>(), new List<Classroom>(),
                    new Schedule(), AttributeGenerator.GetFirstName(), AttributeGenerator.GetLastName(),
                    new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), AttributeGenerator.GetBuildingNumber(),
-                   AttributeGenerator.GetApartmentNumber(), AttributeGenerator.GetCity("0001"), AttributeGenerator.GetProvince(),
+                   AttributeGenerator.GetApartmentNumber(), AttributeGenerator.GetCity("0001"), AttributeGenerator.GetProvince("0001"),
                    AttributeGenerator.GetPostalCode(), AttributeGenerator.GetCountry()), AttributeGenerator.GetEmail(),
                    AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetPhoneNumber()));
         }
@@ -47,7 +48,7 @@ namespace LearningMissionSimulation
 
         public static Account GenerateAccount()
         {
-            return new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(), AttributeGenerator.GetEmail(),
+            return new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(6, 12), AttributeGenerator.GetEmail(),
                                AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetRole(), AttributeGenerator.GetStatus());
 
         }
@@ -79,7 +80,25 @@ namespace LearningMissionSimulation
             }
             return profileList;
         }
-        
+
+        public static Address GenerateAddress()
+        {
+            int codeRange = random.Next(100, 5000);
+            string postalCode = "";
+
+            postalCode = codeRange < 1000 ? "0" + codeRange.ToString() : codeRange.ToString();
+
+            return new Address(
+                 AttributeGenerator.GetStreetAddress(),
+                 AttributeGenerator.GetBuildingNumber(),
+                 AttributeGenerator.GetApartmentNumber(),
+                 AttributeGenerator.GetCity(postalCode),
+                 AttributeGenerator.GetProvince(postalCode),
+                 AttributeGenerator.GetPostalCode(),
+                 AttributeGenerator.GetCountry()
+             );
+        }
+
         public static Language GenerateLanguage()
         {
             return new Language(AttributeGenerator.GetLanguageName(), AttributeGenerator.GetLanguageLevel());
