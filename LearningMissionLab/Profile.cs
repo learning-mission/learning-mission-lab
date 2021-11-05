@@ -9,7 +9,7 @@ namespace LearningMissionLab
     /// </summary>
     public class Profile : IReport
     {
-        readonly Guid _id;
+        readonly Guid _accountId;
         string _firstName;
         string _lastName;  
         string _financialId;
@@ -28,12 +28,12 @@ namespace LearningMissionLab
         Gender _gender;
         ContactInfo _contactInfo;
         List<Language> _languageList;
-        public Profile(Guid id, string firstName, string lastName, string financialId, string passportId, string education,
+        public Profile(Guid accountId, string firstName, string lastName, string financialId, string passportId, string education,
                        string resume, string salary, string militaryId, string family, string occupation,string stipend,
                        string computerInventory, DateTime createDate, DateTime updateDate, DateTime dateOfBirth,
                        Gender gender, ContactInfo contactInfo, List<Language> languageList)
         {
-            this._id = id;
+            this._accountId = accountId;
             this._firstName = firstName;
             this._lastName = lastName;
             this._financialId = financialId;
@@ -53,23 +53,23 @@ namespace LearningMissionLab
             this._contactInfo = contactInfo;
             this._languageList = languageList;
         }
-        public Profile(string firstName, string lastName, ContactInfo contactInfo)
+        public Profile(Guid accountId, string firstName, string lastName, ContactInfo contactInfo)
         {
-            this._id = GetGuid();
+            this._accountId = accountId;
             this._firstName = firstName;
             this._lastName = lastName;
             this._contactInfo = contactInfo;
             this._createDate = DateTime.UtcNow;
         }
-        public Profile(string firstName, string lastName, DateTime dateOfBirth, Gender gender)
+        public Profile(Guid accountId, string firstName, string lastName, DateTime dateOfBirth, Gender gender)
         {
-            this._id = GetGuid();
+            this._accountId = accountId;
             this._firstName = firstName;
             this._lastName = lastName;
             this._dateOfBirth = dateOfBirth;
             this._gender = gender;
         }
-        public Guid Id => _id;
+        public Guid AccountId => _accountId;
         public string FirstName { get => _firstName; set => _firstName = value; }
         public string LastName { get => _lastName; set => _lastName = value; }
         public string FinancialId { get => _financialId; set => _financialId = value; }
@@ -88,22 +88,17 @@ namespace LearningMissionLab
         public Gender Gender { get => _gender; set => _gender = value; }
         public ContactInfo ContactInfo { get => _contactInfo; set => _contactInfo = value; }
         public List<Language> LanguageList { get => _languageList; set => _languageList = value; }
-        public static Guid GetGuid()
-        {
-            Guid guid = Guid.NewGuid();
-            return guid;
-        }
         public void Report()
         {
             Console.WriteLine(ToString());
         }
         public override string ToString()
         {
-            return $" Id is {Id}, First Name is {FirstName}, Last Name is {LastName}, Financial Id is {FinancialId}," +
-                   $" Passport Id is {PassportId}, Education is {Education}, Resume is {Resume}, Salary is {Salary}," +
+            return $" Id is { AccountId},\n First Name is {FirstName},\n Last Name is {LastName},\n Financial Id is {FinancialId},\n" +
+                   $" Passport Id is {PassportId},\n Education is {Education},\n Resume is {Resume},\n Salary is {Salary},\n" +
                    $" Military Id is {MilitaryId}, Family is {Family}, Occupation is {Occupation}, Stipend is {Stipend}," +
-                   $" Computer Inventory is {ComputerInventory}, Create Date is {CreateDate}, Update Date is {UpdateDate}," +
-                   $" Date Of Birth is {DateOfBirth}, Gender is {Gender}, Contact Info is {ContactInfo}, " +
+                   $" Computer Inventory is {ComputerInventory},\n Create Date is {CreateDate},\n Update Date is {UpdateDate},\n" +
+                   $" Date Of Birth is {DateOfBirth},\n Gender is {Gender},\n Contact Info is {ContactInfo},\n " +
                    $" Language List is {LanguageList} ";
         }
     }
