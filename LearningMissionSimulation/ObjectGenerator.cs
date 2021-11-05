@@ -10,10 +10,9 @@ namespace LearningMissionSimulation
         // Creates a Student object with randomly selected attributes
         public static Student GenerateStudent()
         {
-            return new Student(coverLetter: AttributeGenerator.GetCoverLetter(), GenerateRecommendationList(),
-                   GenerateModuleList(), classroomList: new List<Classroom>(), GenerateSchedule(), 
-                   firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
-                   GenerateContactInfo());
+            return new Student(coverLetter: AttributeGenerator.GetCoverLetter(), recommendationList: GenerateRecommendationList(),
+                               completedModuleList: GenerateModuleList(), classroomList: GenerateClassroomList(), schedule: GenerateSchedule(), 
+                               firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(), contactInfo: GenerateContactInfo());
         }
 
         // Creates a random list of Student objects
@@ -32,9 +31,8 @@ namespace LearningMissionSimulation
         // Creates an Instructor object with randomly selected attributes
         public static Instructor GenerateInstructor()
         {
-            return new Instructor(GenerateModuleList(), classroomsList: new List<Classroom>(), GenerateSchedule(), 
-                   firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
-                   GenerateContactInfo());
+            return new Instructor(moduleList: GenerateModuleList(), classroomsList: GenerateClassroomList(), schedule: GenerateSchedule(), 
+                                  firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(), contactInfo: GenerateContactInfo());
 
         }
 
@@ -152,6 +150,13 @@ namespace LearningMissionSimulation
         {
             //not implemented yet!
             return null;
+        }
+
+        // Creates a random list of classroomList
+        public static List<Classroom> GenerateClassroomList()
+        {
+            //not implemented yet!
+            return new List<Classroom>();
         }
 
         // Creates a random list of Module objects
