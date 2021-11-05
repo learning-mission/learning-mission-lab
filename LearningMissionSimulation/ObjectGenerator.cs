@@ -9,13 +9,9 @@ namespace LearningMissionSimulation
         // Creates a Student object with randomly selected attributes
         public static Student GenerateStudent()
         {
-            return new Student(coverLetter: AttributeGenerator.GetCoverLetter(), recommendationList: new List<string>(),
-                   completedModuleList: new List<Module>(), classroomList: new List<Classroom>(),
-                   schedule: new Schedule(), firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
-                   contactInfo: new ContactInfo(new Address(AttributeGenerator.GetStreetAddress(), buildingNumber: AttributeGenerator.GetBuildingNumber(),
-                   apartmentNumber: AttributeGenerator.GetApartmentNumber(), city: AttributeGenerator.GetCity("0001"), province: AttributeGenerator.GetProvince("1234"),
-                   postalCode: AttributeGenerator.GetPostalCode(), country: AttributeGenerator.GetCountry()), email: AttributeGenerator.GetEmail(),
-                   homePhone: AttributeGenerator.GetPhoneNumber(), workPhone: AttributeGenerator.GetPhoneNumber(), cellPhone: AttributeGenerator.GetPhoneNumber()));
+            return new Student(coverLetter: AttributeGenerator.GetCoverLetter(), recommendationList: GenerateRecommendationList(),
+                               completedModuleList: GenerateModuleList(), classroomList: GenerateClassroomList(), schedule: GenerateSchedule(),
+                               firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(), contactInfo:GenerateContactInfo());
         }
 
         // Creates a random list of Student objects
@@ -159,7 +155,12 @@ namespace LearningMissionSimulation
             //not implemented yet!
             return null;
         }
-
+        // Creates a random list of Classroom objects
+        public static List<Classroom> GenerateClassroomList()
+        {
+            //not implemented yet!
+            return new List<Classroom>();
+        }
         // Creates a random list of Module objects
         public static List<Module> GenerateModuleList()
         {
