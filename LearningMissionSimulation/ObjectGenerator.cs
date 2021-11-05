@@ -81,12 +81,24 @@ namespace LearningMissionSimulation
             return profileList;
         }
 
+        public static string GetTwoDigitCode(int maxLimit)
+        {
+            string postalCode = "";
+            int range = random.Next(0, maxLimit);
+
+            postalCode = range < 10 ? "0" + range.ToString() : range.ToString();
+
+            return postalCode;
+        }
+
         public static Address GenerateAddress()
         {
-            int codeRange = random.Next(100, 5000);
-            string postalCode = "";
+            string postalCode = GetTwoDigitCode(43) + GetTwoDigitCode(20);
 
-            postalCode = codeRange < 1000 ? "0" + codeRange.ToString() : codeRange.ToString();
+            while (!SimulationConstants.CityDictionary.ContainsKey(postalCode))
+            {
+                postalCode = GetTwoDigitCode(43) + GetTwoDigitCode(20);
+            }
 
             return new Address(
                  AttributeGenerator.GetStreetAddress(),

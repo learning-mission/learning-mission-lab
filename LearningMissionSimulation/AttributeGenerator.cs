@@ -169,48 +169,6 @@ namespace LearningMissionSimulation
         public static string GetPostalCode()
         {
             return "";
-
-            string generateCodeProvince = null;
-            //string generateCodeCity = null;
-            //string result = "";
-            //string firstDigitRange = random.Next(0, 5).ToString();
-            //string secondDigitRange = random.Next(0, 10).ToString();
-
-            //if (passedprovinceName != null)
-            //{
-            //    generateCodeProvince = firstDigitRange + secondDigitRange;
-
-            //    provinceDictionary.TryGetValue(generateCodeProvince, out result);
-
-            //    while (!provinceDictionary.ContainsKey(generateCodeProvince) || passedprovinceName != result)
-            //    {
-            //        firstDigitRange = random.Next(0, 5).ToString();
-            //        secondDigitRange = random.Next(0, 10).ToString();
-            //        generateCodeProvince = firstDigitRange + secondDigitRange;
-
-            //        provinceDictionary.TryGetValue(generateCodeProvince, out result);
-            //    }
-            //}
-
-            //if (passedCityName != null)
-            //{
-            //    string cityDigit = random.Next(10, 100).ToString();
-            //    generateCodeCity = generateCodeProvince + cityDigit;
-
-            //    CityDictionary.TryGetValue(generateCodeCity, out result);
-
-            //    while (!CityDictionary.ContainsKey(generateCodeProvince) || passedCityName != result)
-            //    {
-            //        cityDigit = random.Next(10, 100).ToString();
-            //        generateCodeCity = generateCodeProvince + cityDigit;
-
-            //        provinceDictionary.TryGetValue(generateCodeCity, out result);
-            //    }
-            //}
-
-            //Console.WriteLine($"Province Code: {generateCodeProvince}\nCity Code: {generateCodeCity}");
-
-            //return $"Province Code: {generateCodeProvince}\nCity Code: {generateCodeCity}";
         }
 
         public static string GetCity(string postalCode)
@@ -219,7 +177,9 @@ namespace LearningMissionSimulation
             {
                 string cityName;
 
-               CityDictionary.TryGetValue(postalCode, out cityName);
+                CityDictionary.TryGetValue(postalCode, out cityName);
+
+                Console.WriteLine($"City Name: {cityName}");
 
                 return cityName;
             }
