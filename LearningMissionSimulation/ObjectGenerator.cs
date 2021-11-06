@@ -25,10 +25,12 @@ namespace LearningMissionSimulation
         // Creates an Account object with randomly selected attributes
         public static Account GenerateAccount()
         {
-            return new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(), AttributeGenerator.GetEmail(),
+            Account account =  new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(), AttributeGenerator.GetEmail(),
                                AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetRole(), AttributeGenerator.GetStatus());
-
+            account.Report();
+            return account;
         }
+
         // Creates a Profile object with randomly selected attributes
         public static Profile GenerateProfile(Guid accountId)
         {
@@ -108,12 +110,14 @@ namespace LearningMissionSimulation
             //not implemented yet!
             return null;
         }
+
         // Creates a random list of Classroom objects
         public static List<Classroom> GenerateClassroomList()
         {
             //not implemented yet!
             return new List<Classroom>();
         }
+
         // Creates a random list of Module objects
         public static List<Module> GenerateModuleList()
         {
