@@ -18,37 +18,37 @@ namespace LearningMissionSimulation
 
         Account account = ObjectGenerator.GenerateAccount();
 
-        Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
-
+        List<Account> accountList = new List<Account>();
+        List<Status> statuseNameList = new List<Status>();
+       
+        
         // Simulate account creation  process
         public void CreateAccounts(int accountCount)
         {
             int i = 0;
             while (i < accountCount)
             {
-                accountDictionary.Add(ObjectGenerator.GenerateAccount().Id, ObjectGenerator.GenerateAccount());
+                accountList.Add(ObjectGenerator.GenerateAccount());
                 i++;
             }
-            foreach (var item in accountDictionary)
+            i = 0;
+            foreach (var itemOfAccountList in accountList)
             {
-                Console.WriteLine(item);
+                Console.WriteLine("=============== Create Account {0} =================\n", i);
+                Console.WriteLine(itemOfAccountList + "\n");
+                i++;
             }
         }
 
         // Simulate account activati process
         public void ActivateAccounts()
         {
-
-            if( AttributeGenerator.GetStatus() == Status.Pending )
+            account.Status = Status.Active;
+            int i = 0;
+            while (i < accountList.Count)
             {
-                 account.Status = Status.Active;
+                
             }
-
-            //if (AttributeGenerator.GetStatus() != Status.Active)
-            //{
-            //    account.Status = Status.Active;
-            //}
-
         }
 
         public void CreateModules(int moduleCount)
