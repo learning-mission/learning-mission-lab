@@ -65,8 +65,8 @@ namespace LearningMissionLab
         }
         public override string ToString()
         {
-            return $"  Id is {Id},\n User Name is {Username},\n Password is {Password},\n Email is {Email},\n" +
-                   $" Phone is {Phone},\n Role is {Role},\n Status is {Status},\n Create Date is {CreateDate},\n " +
+            return $" Id is {Id},\n Username is {Username},\n Password is {Password},\n Email is {Email},\n" +
+                   $" Phone is {Phone},\n Role is {Role},\n Status is {Status},\n Create Date is {CreateDate},\n" +
                    $" Update Date is {UpdateDate}";
         }
     }
