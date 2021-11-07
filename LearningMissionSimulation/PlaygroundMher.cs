@@ -18,10 +18,14 @@ namespace LearningMissionSimulation
         Account account = ObjectGenerator.GenerateAccount();
 
         List<Account> accountList = new List<Account>();
+
+        Queue<DateTime> creatDateTimeQueue = new Queue<DateTime>();
         
         // Simulate account creation  process
         public void CreateAccounts(int accountCount)
         {
+            account.Report();
+            Console.WriteLine("\n");
             int i = 0;
             while (i < accountCount)
             {
@@ -31,6 +35,14 @@ namespace LearningMissionSimulation
             i = 0;
             foreach (var itemOfAccountList in accountList)
             {
+                //if (itemOfAccountList.Status == Status.Pending)
+                //{
+                //    creatDateTimeQueue.Enqueue(itemOfAccountList.CreateDate);
+                //}
+                if (!(itemOfAccountList.Status == Status.Active))
+                {
+                    creatDateTimeQueue.Enqueue(itemOfAccountList.CreateDate);
+                }
                 Console.WriteLine("=============== Create Account {0} =================\n", i);
                 Console.WriteLine(itemOfAccountList + "\n");
                 i++;
@@ -40,7 +52,22 @@ namespace LearningMissionSimulation
         // Simulate account activati process
         public void ActivateAccounts()
         {
-           
+            int i = 0;
+            foreach (var itemOfAccountList in accountList)
+            {
+                //if (itemOfAccountList.Status == Status.Pending)
+                //{
+                //    itemOfAccountList.Status = Status.Active;
+                //}
+                if (!(itemOfAccountList.Status == Status.Active))
+                {
+                    itemOfAccountList.Status = Status.Active;
+                }
+                Console.WriteLine("=============== Create Account {0} =================\n", i);
+                Console.WriteLine(itemOfAccountList + "\n");
+                i++;
+            }
+            
         }
 
         public void CreateModules(int moduleCount)
@@ -69,8 +96,23 @@ namespace LearningMissionSimulation
         }
         public void FairCoordinator()
         {
-
-
+            int i = 0;
+            foreach (var itemOfAccountList in accountList)
+            {
+                //if (itemOfAccountList.Status == Status.Pending)
+                //{
+                //    creatDateTimeQueue.Dequeue();
+                //    itemOfAccountList.Status = Status.Active;
+                //}
+                if (!(itemOfAccountList.Status == Status.Active))
+                {
+                    creatDateTimeQueue.Dequeue();
+                    itemOfAccountList.Status = Status.Active;
+                }
+                Console.WriteLine("=============== Create Account {0} =================\n", i);
+                Console.WriteLine(itemOfAccountList + "\n");
+                i++;
+            }
         }
     }
 }
