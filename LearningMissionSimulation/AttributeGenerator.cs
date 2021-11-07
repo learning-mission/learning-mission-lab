@@ -187,7 +187,7 @@ namespace LearningMissionSimulation
         // Returns a random street address
         public static string GetStreetAddress()
         {
-            //not implemented yet!
+            //not implemented yet
             return "";
         }
 
@@ -302,15 +302,13 @@ namespace LearningMissionSimulation
         // Returns a random building number
         public static int GetBuildingNumber()
         {
-            //not implemented yet!
-            return 0;
+            return SimulationConstants.random.Next(1, 101);
         }
 
         // Returns a random apartment number
         public static int GetApartmentNumber()
         {
-            //not implemented yet!
-            return 0;
+            return SimulationConstants.random.Next(1, 101);
         }
     }
 }

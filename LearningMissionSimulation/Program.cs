@@ -8,6 +8,8 @@ namespace LearningMissionSimulation
     {
         static void Main(string[] args)
         {
+            PlaygroundEdvard playgroundEdvard0 = new PlaygroundEdvard();
+            playgroundEdvard0.Action2(50);
             PlaygroundVahe.Play();
             PlaygroundEdvard.Action0();
             PlaygroundMher playgroundMher = new PlaygroundMher(3);

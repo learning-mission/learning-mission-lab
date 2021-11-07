@@ -9,39 +9,69 @@ namespace LearningMissionSimulation
         // Creates a Student object with randomly selected attributes
         public static Student GenerateStudent(Guid accountId)
         {
-            return new Student(accountId: accountId, coverLetter: AttributeGenerator.GetCoverLetter(), recommendationList: GenerateRecommendationList(),
-                               completedModuleList: GenerateModuleList(), classroomList: GenerateClassroomList(), schedule: GenerateSchedule(),
-                               firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(), contactInfo:GenerateContactInfo());
+            return new Student(
+                accountId: accountId, 
+                coverLetter: AttributeGenerator.GetCoverLetter(),
+                recommendationList: GenerateRecommendationList(),
+                completedModuleList: GenerateModuleList(),
+                classroomList: GenerateClassroomList(),
+                schedule: GenerateSchedule(),
+                firstName: AttributeGenerator.GetFirstName(),
+                lastName: AttributeGenerator.GetLastName(),
+                contactInfo:GenerateContactInfo()
+            );
         }
 
         // Creates an Instructor object with randomly selected attributes
         public static Instructor GenerateInstructor(Guid accountId)
         {
-            return new Instructor(accountId: accountId, moduleList:GenerateModuleList(), classroomsList: GenerateClassroomList(), schedule: GenerateSchedule(),
-                                  firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(), contactInfo: GenerateContactInfo());
-
+            return new Instructor(
+                accountId: accountId,
+                moduleList:GenerateModuleList(),
+                classroomsList: GenerateClassroomList(),
+                schedule: GenerateSchedule(),
+                firstName: AttributeGenerator.GetFirstName(),
+                lastName: AttributeGenerator.GetLastName(),
+                contactInfo: GenerateContactInfo()
+            );
         }
 
         // Creates an Account object with randomly selected attributes
         public static Account GenerateAccount()
         {
-            Account account =  new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(), AttributeGenerator.GetEmail(),
-                               AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetRole(), AttributeGenerator.GetStatus());
+            Account account =  new Account(
+                AttributeGenerator.GetUsername(),
+                AttributeGenerator.GetPassword(),
+                AttributeGenerator.GetEmail(),
+                AttributeGenerator.GetPhoneNumber(),
+                AttributeGenerator.GetRole(),
+                AttributeGenerator.GetStatus()
+            );
+
             account.Report();
+
             return account;
         }
 
         // Creates a Profile object with randomly selected attributes
         public static Profile GenerateProfile(Guid accountId)
         {
-            return new Profile(accountId: accountId, firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
-                               dateOfBirth: AttributeGenerator.GetDateOfBirth(18, 70), gender: AttributeGenerator.GetGender());
+            return new Profile(
+                accountId: accountId,
+                firstName: AttributeGenerator.GetFirstName(),
+                lastName: AttributeGenerator.GetLastName(),
+                dateOfBirth: AttributeGenerator.GetDateOfBirth(18, 70),
+                gender: AttributeGenerator.GetGender()
+            );
         }
 
         // Creates a Language object with randomly selected attributes
         public static Language GenerateLanguage()
         {
-            return new Language(languageName: AttributeGenerator.GetLanguageName(), languageLevel: AttributeGenerator.GetLanguageLevel());
+            return new Language(
+                languageName: AttributeGenerator.GetLanguageName(),
+                languageLevel: AttributeGenerator.GetLanguageLevel()
+            );
         }
 
         // Creates a random list of Language objects
@@ -86,8 +116,13 @@ namespace LearningMissionSimulation
         // Creates a ContactInfo object with randomly selected attributes
         public static ContactInfo GenerateContactInfo()
         {
-            //not implemented yet!
-            return null;
+            return new ContactInfo(
+                GenerateAddress(),
+                AttributeGenerator.GetEmail(),
+                AttributeGenerator.GetPhoneNumber(),
+                AttributeGenerator.GetPhoneNumber(),
+                AttributeGenerator.GetPhoneNumber()
+            );
         }
 
         // Creates a Schedule object with randomly selected attributes
