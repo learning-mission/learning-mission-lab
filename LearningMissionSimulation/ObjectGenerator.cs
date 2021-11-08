@@ -74,8 +74,8 @@ namespace LearningMissionSimulation
 
             return new Address(
                  AttributeGenerator.GetStreetAddress(),
-                 AttributeGenerator.GetBuildingNumber(),
-                 AttributeGenerator.GetApartmentNumber(),
+                 AttributeGenerator.GetBuildingNumber(1, 100),
+                 AttributeGenerator.GetApartmentNumber(1, 50),
                  AttributeGenerator.GetCity(postalCode),
                  AttributeGenerator.GetProvince(postalCode),
                  AttributeGenerator.GetPostalCode(),
@@ -86,8 +86,13 @@ namespace LearningMissionSimulation
         // Creates a ContactInfo object with randomly selected attributes
         public static ContactInfo GenerateContactInfo()
         {
-            //not implemented yet!
-            return null;
+            return new ContactInfo(
+                address: GenerateAddress(),
+                email: AttributeGenerator.GetEmail(),
+                homePhone: AttributeGenerator.GetPhoneNumber(),
+                workPhone: AttributeGenerator.GetPhoneNumber(),
+                cellPhone: AttributeGenerator.GetPhoneNumber()
+            );
         }
 
         // Creates a Schedule object with randomly selected attributes
