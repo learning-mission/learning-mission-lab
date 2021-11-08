@@ -300,14 +300,11 @@ namespace LearningMissionSimulation
         }
         public static string GetUnitName(UnitType unitType)
         {
-            string unitName = unitType + "Name" + SimulationConstants.random.Next(1000, 10000);
-
-            return unitName;
+            return  unitType + "Name" + SimulationConstants.random.Next(1000, 10000);            
         }
         public static string GetUnitDescprition(UnitType unitType)
         {          
-            string  unitTypeDescription = unitType + "Description" + SimulationConstants.random.Next(1000, 10000);
-            return unitTypeDescription;
+            return unitType + "Description" + SimulationConstants.random.Next(1000, 10000);
         }
 
         // Returns a random building number
