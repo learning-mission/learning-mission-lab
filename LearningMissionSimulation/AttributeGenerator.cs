@@ -8,7 +8,6 @@ namespace LearningMissionSimulation
     public class AttributeGenerator  
     {
         public static Random random = new Random();
-
         public static DateTime GetDateOfBirth(byte minAge, byte maxAge)
         {
             // input's validation: check age limits, make sure their within
@@ -79,7 +78,7 @@ namespace LearningMissionSimulation
                 }
                 i++;
             }
-            return char.ToUpper(name[0]) + name.Substring(1); 
+            return char.ToUpper(name[0]) + name.Substring(1);
         }
 
         public static string GetFirstName()
@@ -89,7 +88,7 @@ namespace LearningMissionSimulation
 
         // Returns a random last name
         public static string GetLastName(int lengthLimit)
-        { 
+        {
             return GetFirstName(lengthLimit) + "yan";
         }
 
@@ -117,10 +116,9 @@ namespace LearningMissionSimulation
         // Returns a random value from ModuleLevel, ModuleLevel.Unspecified
         // is excluded
         public static ModuleLevel GetModuleLevel()
-        {                        
+        {
             var levelCount = Enum.GetValues(typeof(ModuleLevel)).Length;
-            return (ModuleLevel)random.Next(0, levelCount);
-            
+            return (ModuleLevel)random.Next(0, levelCount);      
         }
 
         // Returns a random value from SubjectType, SubjectType.Unspecified
@@ -152,7 +150,7 @@ namespace LearningMissionSimulation
         public static Role GetRole()
         {
             var roleCount = Enum.GetValues(typeof(Role)).Length;
-            return (Role)random.Next(1, roleCount); ;
+            return (Role)random.Next(1, roleCount);
         }
 
         // Returns a random value from Status, Status.Unspecified
@@ -221,7 +219,7 @@ namespace LearningMissionSimulation
         // Returns a random city name
         public static string GetCity(string postalCode)
         {
-            if (SimulationConstants.CityDictionary.ContainsKey(postalCode)) 
+            if (SimulationConstants.CityDictionary.ContainsKey(postalCode))
             {
                 string cityName;
 
@@ -230,8 +228,8 @@ namespace LearningMissionSimulation
                 Console.WriteLine($"City Name: {cityName}");
 
                 return cityName;
-            }  
-            
+            }
+
             return null;
         }
 
@@ -300,6 +298,14 @@ namespace LearningMissionSimulation
             //not implemented yet!
             return "";
         }
+        public static string GetUnitName(UnitType unitType)
+        {
+            return  unitType + "Name" + SimulationConstants.random.Next(1000, 10000);            
+        }
+        public static string GetUnitDescprition(UnitType unitType)
+        {          
+            return unitType + "Description" + SimulationConstants.random.Next(1000, 10000);
+        }
 
         // Returns a random building number
         public static int GetBuildingNumber()
@@ -307,7 +313,7 @@ namespace LearningMissionSimulation
             return (byte)random.Next(SimulationConstants.MinBuildingNumber, SimulationConstants.MaxBuildingNumber + 1);
         }
 
-        // Returns a Random apartment number
+        // Returns a random apartment number
         public static int GetApartmentNumber()
         {
             return (byte)random.Next(SimulationConstants.MinApartmentNumber, SimulationConstants.MaxApartmentNumber + 1);
