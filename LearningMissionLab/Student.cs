@@ -15,8 +15,8 @@ namespace LearningMissionLab
         List<Classroom> _classroomList;
         Schedule _schedule;
         public Student(Guid accountId, string coverLetter, List<string> recommendationList, List<Module> completedModuleList, List<Classroom> classroomList,
-            Schedule schedule, string firstName, string lastName, ContactInfo contactInfo)
-                       : base(accountId, firstName, lastName, contactInfo)
+            Schedule schedule, string firstName, string lastName, DateTime dateOfBirth, Gender gender, ContactInfo contactInfo, List<Language> languageList)
+                       : base(accountId, firstName, lastName, dateOfBirth, gender, contactInfo, languageList)
         {
             this._coverLetter = coverLetter;
             this._recommendationList = recommendationList;

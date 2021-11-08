@@ -11,14 +11,18 @@ namespace LearningMissionSimulation
         {
             return new Student(accountId: accountId, coverLetter: AttributeGenerator.GetCoverLetter(), recommendationList: GenerateRecommendationList(),
                                completedModuleList: GenerateModuleList(), classroomList: GenerateClassroomList(), schedule: GenerateSchedule(),
-                               firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(), contactInfo:GenerateContactInfo());
+                               firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
+                               dateOfBirth: AttributeGenerator.GetDateOfBirth(SimulationConstants.ApplicantMinAge, SimulationConstants.ApplicantMaxAge),
+                               gender: AttributeGenerator.GetGender(), contactInfo:GenerateContactInfo(), languageList: GenerateLanguageList(5));
         }
 
         // Creates an Instructor object with randomly selected attributes
         public static Instructor GenerateInstructor(Guid accountId)
         {
             return new Instructor(accountId: accountId, moduleList:GenerateModuleList(), classroomsList: GenerateClassroomList(), schedule: GenerateSchedule(),
-                                  firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(), contactInfo: GenerateContactInfo());
+                                  firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
+                                  dateOfBirth: AttributeGenerator.GetDateOfBirth(SimulationConstants.ApplicantMinAge, SimulationConstants.ApplicantMaxAge),
+                                  gender: AttributeGenerator.GetGender(), contactInfo: GenerateContactInfo(), languageList: GenerateLanguageList(2));
 
         }
 
@@ -35,7 +39,8 @@ namespace LearningMissionSimulation
         public static Profile GenerateProfile(Guid accountId)
         {
             return new Profile(accountId: accountId, firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
-                               dateOfBirth: AttributeGenerator.GetDateOfBirth(18, 70), gender: AttributeGenerator.GetGender());
+                               dateOfBirth: AttributeGenerator.GetDateOfBirth(18, 70), gender: AttributeGenerator.GetGender(),
+                               contactInfo: GenerateContactInfo(), languageList: GenerateLanguageList(2));
         }
 
         // Creates a Language object with randomly selected attributes
