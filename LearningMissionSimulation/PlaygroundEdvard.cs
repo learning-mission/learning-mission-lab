@@ -8,11 +8,11 @@ namespace LearningMissionSimulation
 {
     class PlaygroundEdvard : ISimulation
     {
-        Stack<Account> createdAccountList = new Stack<Account>();
+        Stack<Account> createAccountStack = new Stack<Account>();
         List<Student> studentList = new List<Student>();
         List<Instructor> instructorList = new List<Instructor>();
-        Dictionary<Guid, Account> activatedStudentAccountList = new Dictionary<Guid, Account>();
-        Dictionary<Guid, Account> activatedInstructorAccountList = new Dictionary<Guid, Account>();
+        Dictionary<Guid, Account> activatedStudentAccountDictionary = new Dictionary<Guid, Account>();
+        Dictionary<Guid, Account> activatedInstructorAccountDictionary = new Dictionary<Guid, Account>();
 
         public static void Action0()
         {
@@ -66,13 +66,10 @@ namespace LearningMissionSimulation
             {
                 Console.WriteLine($" Account {i + 1}");
 
-                createdAccountList.Push(ObjectGenerator.GenerateAccount());
+                Account account = ObjectGenerator.GenerateAccount();
 
-                Console.WriteLine('\n');
-            }
+                createAccountStack.Push(account);
 
-            foreach (Account account in createdAccountList)
-            {
                 if (account.Role == Role.Student)
                 {
                     studentList.Add(ObjectGenerator.GenerateStudent(account.Id));
@@ -81,23 +78,28 @@ namespace LearningMissionSimulation
                 {
                     instructorList.Add(ObjectGenerator.GenerateInstructor(account.Id));
                 }
+
+                Console.WriteLine('\n');
             }
         }
 
         // Unfair Coordinator
         public void ActivateAccounts()
         {
-            Account lastAccount = createdAccountList.Peek();
+            foreach (Account account in createAccountStack)
+            {
+                if (account.Role == Role.Student && account.Status == Status.Pending)
+                {
+                    account.Status = Status.Active;
 
-            if (lastAccount.Role == Role.Student && lastAccount.Status == Status.Pending)
-            {
-                lastAccount.Status = Status.Active;
-                activatedStudentAccountList.Add(lastAccount.Id, lastAccount);
-            }
-            else if (lastAccount.Role == Role.Instructor && lastAccount.Status == Status.Pending)
-            {
-                lastAccount.Status = Status.Active;
-                activatedInstructorAccountList.Add(lastAccount.Id, lastAccount);
+                    activatedStudentAccountDictionary.Add(account.Id, account);
+                }
+                else if (account.Role == Role.Instructor && account.Status == Status.Pending)
+                {
+                    account.Status = Status.Active;
+
+                    activatedInstructorAccountDictionary.Add(account.Id, account);
+                }
             }
         }
 

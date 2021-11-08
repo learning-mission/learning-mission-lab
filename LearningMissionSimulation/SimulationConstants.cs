@@ -5,6 +5,14 @@ namespace LearningMissionSimulation
 {
     public class SimulationConstants
     {
+        // Minimum valid building number
+        public static readonly byte MinBuildingNumber = 1;
+        // Maximum valid building number
+        public static readonly byte MaxBuildingNumber = 200;
+        // Minimum valid appartment number
+        public static readonly byte MinApartmentNumber = 1;
+        // Maximum valid appartment number
+        public static readonly byte MaxApartmentNumber = 100;
         // Minimum valid applicant age
         public static readonly byte ApplicantMinAge = 18;
         // Maximum valid applicant age
@@ -17,7 +25,6 @@ namespace LearningMissionSimulation
         /// <param name="minAge">The minimum age.</param>
         /// <param name="maxAge">The maximum age.</param>
         /// <returns>The DateTime value within specified range.</returns>
-        public static Random random = new Random();
 
         public static readonly char[] CharacterPool = {'~', '!', '@', '#', '$', '%', '^', '&', '*', '(',
             ')', '-', '_', '+', '=', '<', '>', '/', '?', ';', ':', '"', '{', '}', '[', ']' };

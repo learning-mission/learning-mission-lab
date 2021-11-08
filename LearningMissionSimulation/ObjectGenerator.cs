@@ -18,7 +18,7 @@ namespace LearningMissionSimulation
                 schedule: GenerateSchedule(),
                 firstName: AttributeGenerator.GetFirstName(),
                 lastName: AttributeGenerator.GetLastName(),
-                contactInfo:GenerateContactInfo()
+                contactInfo: GenerateContactInfo()
             );
         }
 
@@ -40,12 +40,12 @@ namespace LearningMissionSimulation
         public static Account GenerateAccount()
         {
             Account account =  new Account(
-                AttributeGenerator.GetUsername(),
-                AttributeGenerator.GetPassword(),
-                AttributeGenerator.GetEmail(),
-                AttributeGenerator.GetPhoneNumber(),
-                AttributeGenerator.GetRole(),
-                AttributeGenerator.GetStatus()
+                username: AttributeGenerator.GetUsername(),
+                password: AttributeGenerator.GetPassword(),
+                email: AttributeGenerator.GetEmail(),
+                phone: AttributeGenerator.GetPhoneNumber(),
+                role: AttributeGenerator.GetRole(),
+                status: AttributeGenerator.GetStatus()
             );
 
             account.Report();
@@ -103,13 +103,13 @@ namespace LearningMissionSimulation
             string postalCode = AttributeGenerator.GetPostalCode();
 
             return new Address(
-                 AttributeGenerator.GetStreetAddress(),
-                 AttributeGenerator.GetBuildingNumber(),
-                 AttributeGenerator.GetApartmentNumber(),
-                 AttributeGenerator.GetCity(postalCode),
-                 AttributeGenerator.GetProvince(postalCode),
-                 AttributeGenerator.GetPostalCode(),
-                 AttributeGenerator.GetCountry()
+                 streetName: AttributeGenerator.GetStreetName(),
+                 buildingNumber: AttributeGenerator.GetBuildingNumber(4, 90),
+                 apartmentNumber: AttributeGenerator.GetApartmentNumber(6, 50),
+                 city: AttributeGenerator.GetCity(postalCode),
+                 province: AttributeGenerator.GetProvince(postalCode),
+                 postalCode: AttributeGenerator.GetPostalCode(),
+                 country: AttributeGenerator.GetCountry()
              );
         }
 
@@ -117,11 +117,11 @@ namespace LearningMissionSimulation
         public static ContactInfo GenerateContactInfo()
         {
             return new ContactInfo(
-                GenerateAddress(),
-                AttributeGenerator.GetEmail(),
-                AttributeGenerator.GetPhoneNumber(),
-                AttributeGenerator.GetPhoneNumber(),
-                AttributeGenerator.GetPhoneNumber()
+                address: GenerateAddress(),
+                email: AttributeGenerator.GetEmail(),
+                homePhone: AttributeGenerator.GetPhoneNumber(),
+                workPhone: AttributeGenerator.GetPhoneNumber(),
+                cellPhone: AttributeGenerator.GetPhoneNumber()
             );
         }
 

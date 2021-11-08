@@ -6,7 +6,9 @@ using LearningMissionLab;
 namespace LearningMissionSimulation
 {
     public class AttributeGenerator  
-    { 
+    {
+        public static Random Random = new Random();
+
         public static DateTime GetDateOfBirth(byte minAge, byte maxAge)
         {
             // input's validation: check age limits, make sure their within
@@ -30,9 +32,9 @@ namespace LearningMissionSimulation
             minAge = Math.Max(SimulationConstants.ApplicantMinAge, minAge);
             maxAge = Math.Min(SimulationConstants.ApplicantMaxAge, maxAge);
 
-            byte age = (byte)SimulationConstants.random.Next(minAge, maxAge + 1);
+            byte age = (byte)Random.Next(minAge, maxAge + 1);
             int year = DateTime.Now.Year - age;
-            byte month = (byte)SimulationConstants.random.Next(1, 13);
+            byte month = (byte)Random.Next(1, 13);
             byte day;
 
             switch (month)
@@ -44,13 +46,13 @@ namespace LearningMissionSimulation
                 case 8:
                 case 10:
                 case 12:
-                    day = (byte)SimulationConstants.random.Next(1, 32); //for months with 31 days
+                    day = (byte)Random.Next(1, 32); //for months with 31 days
                     break;
                 case 2:
-                    day = year % 4 == 0 ? (byte)SimulationConstants.random.Next(1, 30) : (byte)SimulationConstants.random.Next(1, 29); // February
+                    day = year % 4 == 0 ? (byte)Random.Next(1, 30) : (byte)Random.Next(1, 29); // February
                     break;
                 default:
-                    day = (byte)SimulationConstants.random.Next(1, 31); // for months with 30 days
+                    day = (byte)Random.Next(1, 31); // for months with 30 days
                     break;
             }
 
@@ -59,21 +61,21 @@ namespace LearningMissionSimulation
             return new DateTime(year, month, day);
         }
 
-        // Returns a random first name
+        // Returns a Random first name
         public static string GetFirstName(int lengthLimit)
         {
-            int count = SimulationConstants.random.Next(2, lengthLimit);
-            int i = SimulationConstants.random.Next(0, 2);
+            int count = Random.Next(2, lengthLimit);
+            int i = Random.Next(0, 2);
             string name = "";
             while (i < count)
             {
                 if (i % 2 == 0)
                 {
-                    name += SimulationConstants.AlphabetVocalLetterPool[SimulationConstants.random.Next(0, SimulationConstants.AlphabetVocalLetterPool.Length)];                                                                 
+                    name += SimulationConstants.AlphabetVocalLetterPool[Random.Next(0, SimulationConstants.AlphabetVocalLetterPool.Length)];                                                                 
                 }
                 else
                 {
-                    name += SimulationConstants.AlphabetConsonantLetterPool[SimulationConstants.random.Next(0, SimulationConstants.AlphabetConsonantLetterPool.Length)];
+                    name += SimulationConstants.AlphabetConsonantLetterPool[Random.Next(0, SimulationConstants.AlphabetConsonantLetterPool.Length)];
                 }
                 i++;
             }
@@ -85,7 +87,7 @@ namespace LearningMissionSimulation
             return GetFirstName(8);
         }
 
-        // Returns a random last name
+        // Returns a Random last name
         public static string GetLastName(int lengthLimit)
         { 
             return GetFirstName(lengthLimit) + "yan";
@@ -96,96 +98,96 @@ namespace LearningMissionSimulation
             return GetLastName(10);
         }
 
-        // Returns a random value from LanguageLevel, LanguageLevel.Unspecified
+        // Returns a Random value from LanguageLevel, LanguageLevel.Unspecified
         // is excluded
         public static LanguageLevel GetLanguageLevel()
         {
             var levelCount = Enum.GetNames(typeof(LanguageLevel)).Length;
-            return (LanguageLevel)SimulationConstants.random.Next(1, levelCount);
+            return (LanguageLevel)Random.Next(1, levelCount);
         }
 
-        // Returns a random value from LanguageName, LanguageName.Unspecified
+        // Returns a Random value from LanguageName, LanguageName.Unspecified
         // is excluded
         public static LanguageName GetLanguageName()
         {
             var nameCount = Enum.GetNames(typeof(LanguageName)).Length;
-            return (LanguageName)SimulationConstants.random.Next(1, nameCount);
+            return (LanguageName)Random.Next(1, nameCount);
         }
 
-        // Returns a random value from ModuleLevel, ModuleLevel.Unspecified
+        // Returns a Random value from ModuleLevel, ModuleLevel.Unspecified
         // is excluded
         public static ModuleLevel GetModuleLevel()
         {                        
             var levelCount = Enum.GetValues(typeof(ModuleLevel)).Length;
-            return (ModuleLevel)SimulationConstants.random.Next(0, levelCount);
+            return (ModuleLevel)Random.Next(0, levelCount);
             
         }
 
-        // Returns a random value from SubjectType, SubjectType.Unspecified
+        // Returns a Random value from SubjectType, SubjectType.Unspecified
         // is excluded
         public static SubjectType GetSubjecType()
         {
            var levelCount = Enum.GetValues(typeof(SubjectType)).Length;
-           return (SubjectType)SimulationConstants.random.Next(0, levelCount);           
+            return (SubjectType)Random.Next(0, levelCount);
         }
 
-        // Returns a random value from Gender, Gender.Unspecified
+        // Returns a Random value from Gender, Gender.Unspecified
         // is excluded
         public static Gender GetGender()
         {
             var genderCount = Enum.GetValues(typeof(Gender)).Length;
-            return (Gender)SimulationConstants.random.Next(1, genderCount); 
+            return (Gender)Random.Next(1, genderCount); 
         }
 
-        // Returns a random value from DepartmentType, DepartmentType.Unspecified
+        // Returns a Random value from DepartmentType, DepartmentType.Unspecified
         // is excluded
         public static DepartmentType GetDepartmentType()
         {
             var departmentTypeCount = Enum.GetValues(typeof(DepartmentType)).Length;
-            return (DepartmentType)SimulationConstants.random.Next(1, departmentTypeCount);
+            return (DepartmentType)Random.Next(1, departmentTypeCount);
         }
 
-        // Returns a random value from Role, Role.Unspecified
+        // Returns a Random value from Role, Role.Unspecified
         // is excluded
         public static Role GetRole()
         {
             var roleCount = Enum.GetValues(typeof(Role)).Length;
-            return (Role)SimulationConstants.random.Next(1, roleCount); ;
+            return (Role)Random.Next(1, roleCount); ;
         }
 
-        // Returns a random value from Status, Status.Unspecified
+        // Returns a Random value from Status, Status.Unspecified
         // is excluded
         public static Status GetStatus()
         {
             var statusCount = Enum.GetValues(typeof(Status)).Length;
-            return (Status)SimulationConstants.random.Next(1, statusCount);
+            return (Status)Random.Next(1, statusCount);
         }
 
-        // Returns a random phone number
+        // Returns a Random phone number
         public static string GetPhoneNumber()
         {
-            string phoneNumberCode = SimulationConstants.PhoneOperatorCode[SimulationConstants.random.Next(0, SimulationConstants.PhoneOperatorCode.Length)];
-            string mobileNumber = Convert.ToString(SimulationConstants.random.Next(100000, 1000000));
+            string phoneNumberCode = SimulationConstants.PhoneOperatorCode[Random.Next(0, SimulationConstants.PhoneOperatorCode.Length)];
+            string mobileNumber = Convert.ToString(Random.Next(100000, 1000000));
             var phoneNumber = (SimulationConstants.CountryCode + phoneNumberCode + mobileNumber);
             return phoneNumber;
         }
 
-        // Returns a random email address
+        // Returns a Random email address
         public static string GetEmail()
         {            
-            int emailLength = SimulationConstants.random.Next(5, 12);
-            int domainIndex = SimulationConstants.random.Next(0, SimulationConstants.DomainPool.Count);
+            int emailLength = Random.Next(5, 12);
+            int domainIndex = Random.Next(0, SimulationConstants.DomainPool.Count);
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i <= emailLength; i++)
             {
-                int letterIndex = SimulationConstants.random.Next(0, SimulationConstants.LetterPool.Length);
+                int letterIndex = Random.Next(0, SimulationConstants.LetterPool.Length);
                 stringBuilder.Append(SimulationConstants.LetterPool[letterIndex]);
             }
             return stringBuilder.Append(SimulationConstants.DomainPool[domainIndex]).ToString();
         }
 
-        // Returns a random street address
-        public static string GetStreetAddress()
+        // Returns a Random street address
+        public static string GetStreetName()
         {
             //not implemented yet
             return "";
@@ -194,14 +196,14 @@ namespace LearningMissionSimulation
         public static string GetTwoDigitCode(int maxLimit)
         {
             string postalCode = "";
-            int range = SimulationConstants.random.Next(0, maxLimit);
+            int range = Random.Next(0, maxLimit);
 
             postalCode = range < 10 ? "0" + range.ToString() : range.ToString();
 
             return postalCode;
         }
 
-        // Returns a random postal code
+        // Returns a Random postal code
         public static string GetPostalCode()
         {
             string postalCode = GetTwoDigitCode(43) + GetTwoDigitCode(20);
@@ -211,12 +213,12 @@ namespace LearningMissionSimulation
                 postalCode = GetTwoDigitCode(43) + GetTwoDigitCode(20);
             }
 
-            Console.WriteLine($"Postal Code: {postalCode}");
+            //Console.WriteLine($" Postal Code: {postalCode}");
 
             return postalCode;
         }
 
-        // Returns a random city name
+        // Returns a Random city name
         public static string GetCity(string postalCode)
         {
             if (SimulationConstants.CityDictionary.ContainsKey(postalCode)) 
@@ -225,7 +227,7 @@ namespace LearningMissionSimulation
 
                 SimulationConstants.CityDictionary.TryGetValue(postalCode, out cityName);
 
-                Console.WriteLine($"City Name: {cityName}");
+                Console.WriteLine($" City Name: {cityName}");
 
                 return cityName;
             }  
@@ -233,7 +235,7 @@ namespace LearningMissionSimulation
             return null;
         }
 
-        // Returns a random province name
+        // Returns a Random province name
         public static string GetProvince(string postalCode)
         {
             if (SimulationConstants.ProvinceDictionary.ContainsKey(postalCode.Substring(0, 2)))
@@ -242,7 +244,7 @@ namespace LearningMissionSimulation
 
                 SimulationConstants.ProvinceDictionary.TryGetValue(postalCode.Substring(0, 2), out provinceName);
 
-                Console.WriteLine($"Province Name: {provinceName}");
+                Console.WriteLine($" Province Name: {provinceName}\n Postal Code: {postalCode}");
 
                 return provinceName;
             }
@@ -250,40 +252,40 @@ namespace LearningMissionSimulation
             return null;
         }
 
-        // Returns a random country name
+        // Returns a Random country name
         public static string GetCountry()
         {
             //not implemented yet!
             return "";
         }
 
-        // Returns a random username
+        // Returns a Random username
         public static string GetUsername()
         {
             string username = GetFirstName();
-            int endOfusername = SimulationConstants.random.Next(0, 10000);
+            int endOfusername = Random.Next(0, 10000);
             return username + "-" + Convert.ToString(endOfusername);
         }
 
-        // Returns a random password
+        // Returns a Random password
         public static string GetPassword(int minLength, int maxLength)
         {
-            int count = SimulationConstants.random.Next(minLength, maxLength);
-            int i = SimulationConstants.random.Next(0, minLength);
+            int count = Random.Next(minLength, maxLength);
+            int i = Random.Next(0, minLength);
             string password = "";
             while (i < count)
             {
                 if (i % 2 == 0)
                 {
-                    password += SimulationConstants.AlphabetVocalLetterPool[SimulationConstants.random.Next(0, SimulationConstants.AlphabetVocalLetterPool.Length)];
+                    password += SimulationConstants.AlphabetVocalLetterPool[Random.Next(0, SimulationConstants.AlphabetVocalLetterPool.Length)];
                 }
                 else
                 {
-                    password += SimulationConstants.AlphabetConsonantLetterPool[SimulationConstants.random.Next(0, SimulationConstants.AlphabetConsonantLetterPool.Length)];
+                    password += SimulationConstants.AlphabetConsonantLetterPool[Random.Next(0, SimulationConstants.AlphabetConsonantLetterPool.Length)];
                 }
                 i++;
             }
-            password += SimulationConstants.CharacterPool[SimulationConstants.random.Next(0, SimulationConstants.CharacterPool.Length)];
+            password += SimulationConstants.CharacterPool[Random.Next(0, SimulationConstants.CharacterPool.Length)];
             return char.ToUpper(password[0]) + password.Substring(1);
         }
 
@@ -292,23 +294,29 @@ namespace LearningMissionSimulation
             return GetPassword(SimulationConstants.PasswordMinLength, SimulationConstants.PasswordMaxLength);
         }
 
-        // Returns a random cover letter
+        // Returns a Random cover letter
         public static string GetCoverLetter()
         {
             //not implemented yet!
             return "";
         }
 
-        // Returns a random building number
-        public static int GetBuildingNumber()
+        // Returns a Random building number
+        public static int GetBuildingNumber(byte minBuildingNumber, byte maxBuildingNumber)
         {
-            return SimulationConstants.random.Next(1, 101);
+            minBuildingNumber = Math.Max(SimulationConstants.MinBuildingNumber, minBuildingNumber);
+            maxBuildingNumber = Math.Min(SimulationConstants.MaxBuildingNumber, maxBuildingNumber);
+
+            return (byte)Random.Next(minBuildingNumber, maxBuildingNumber + 1);
         }
 
-        // Returns a random apartment number
-        public static int GetApartmentNumber()
+        // Returns a Random apartment number
+        public static int GetApartmentNumber(byte minApartmentNumber, byte maxApartmentNumber)
         {
-            return SimulationConstants.random.Next(1, 101);
+            minApartmentNumber = Math.Max(SimulationConstants.MinApartmentNumber, minApartmentNumber);
+            maxApartmentNumber = Math.Min(SimulationConstants.MaxApartmentNumber, maxApartmentNumber);
+
+            return (byte)Random.Next(minApartmentNumber, maxApartmentNumber + 1);
         }
     }
 }
