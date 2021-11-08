@@ -74,8 +74,8 @@ namespace LearningMissionSimulation
 
             return new Address(
                  AttributeGenerator.GetStreetAddress(),
-                 AttributeGenerator.GetBuildingNumber(1, 100),
-                 AttributeGenerator.GetApartmentNumber(1, 50),
+                 AttributeGenerator.GetBuildingNumber(),
+                 AttributeGenerator.GetApartmentNumber(),
                  AttributeGenerator.GetCity(postalCode),
                  AttributeGenerator.GetProvince(postalCode),
                  AttributeGenerator.GetPostalCode(),

@@ -302,21 +302,15 @@ namespace LearningMissionSimulation
         }
 
         // Returns a random building number
-        public static int GetBuildingNumber(byte minBuildingNumber, byte maxBuildingNumber)
+        public static int GetBuildingNumber()
         {
-            minBuildingNumber = Math.Max(SimulationConstants.MinBuildingNumber, minBuildingNumber);
-            maxBuildingNumber = Math.Min(SimulationConstants.MaxBuildingNumber, maxBuildingNumber);
-
-            return (byte)random.Next(minBuildingNumber, maxBuildingNumber + 1);
+            return (byte)random.Next(SimulationConstants.MinBuildingNumber, SimulationConstants.MaxBuildingNumber + 1);
         }
 
         // Returns a Random apartment number
-        public static int GetApartmentNumber(byte minApartmentNumber, byte maxApartmentNumber)
+        public static int GetApartmentNumber()
         {
-            minApartmentNumber = Math.Max(SimulationConstants.MinApartmentNumber, minApartmentNumber);
-            maxApartmentNumber = Math.Min(SimulationConstants.MaxApartmentNumber, maxApartmentNumber);
-
-            return (byte)random.Next(minApartmentNumber, maxApartmentNumber + 1);
+            return (byte)random.Next(SimulationConstants.MinApartmentNumber, SimulationConstants.MaxApartmentNumber + 1);
         }
     }
 }
