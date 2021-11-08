@@ -53,21 +53,16 @@ namespace LearningMissionLab
             this._contactInfo = contactInfo;
             this._languageList = languageList;
         }
-        public Profile(Guid accountId, string firstName, string lastName, ContactInfo contactInfo)
-        {
-            this._accountId = accountId;
-            this._firstName = firstName;
-            this._lastName = lastName;
-            this._contactInfo = contactInfo;
-            this._createDate = DateTime.UtcNow;
-        }
-        public Profile(Guid accountId, string firstName, string lastName, DateTime dateOfBirth, Gender gender)
+        public Profile(Guid accountId, string firstName, string lastName, DateTime dateOfBirth, 
+                       Gender gender, ContactInfo contactInfo, List<Language> languageList)
         {
             this._accountId = accountId;
             this._firstName = firstName;
             this._lastName = lastName;
             this._dateOfBirth = dateOfBirth;
             this._gender = gender;
+            this._contactInfo = contactInfo;
+            this._languageList = languageList;
         }
         public Guid AccountId => _accountId;
         public string FirstName { get => _firstName; set => _firstName = value; }

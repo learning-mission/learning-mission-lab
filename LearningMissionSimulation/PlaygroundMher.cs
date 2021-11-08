@@ -1,66 +1,104 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using LearningMissionLab;
 
 namespace LearningMissionSimulation
 {
     public class PlaygroundMher
     {
-        int accountCount;
-        List<string> passwoerdNameList;
-        List<string> userNameList;
-        List<string> emailNameList;
-        List<string> phoneNumberList;
-        List<Enum> roleEnumList;
-        List<Enum> statusEnumList;
-        List<DateTime> createDateList;
-        List<DateTime> updateDateList;
-        public PlaygroundMher(int count)
+        public PlaygroundMher()
         {
-            this.accountCount = count;
+            
         }
+       
+        //Account account = ObjectGenerator.GenerateAccount();
 
+        List<Account> accountList = new List<Account>();
 
-        public List<string> PasswoerdNameList { private get => passwoerdNameList; set => passwoerdNameList = value; }
-        public List<string> UserNameList { get => userNameList; set => userNameList = value; }
-        public List<string> EmailNameList { get => emailNameList; set => emailNameList = value; }
-        public List<string> PhoneNumberList { get => phoneNumberList; set => phoneNumberList = value; }
-        public List<Enum> RoleEnumList { get => roleEnumList; set => roleEnumList = value; }
-        public List<Enum> StatusEnumList { get => statusEnumList; set => statusEnumList = value; }
-        public List<DateTime> CreateDateList { get => createDateList; set => createDateList = value; }
-        public List<DateTime> UpdateDateList { get => updateDateList; set => updateDateList = value; }
+        Queue<Status> statusQueue = new Queue<Status>();
 
-        Account account = ObjectGenerator.GenerateAccount();
         // Simulate account creation  process
-        public void SimulateAccountCreationProcess(int accountCount)
+        public void CreateAccounts(int accountCount)
         {
-            account.Report();
             int i = 0;
             while (i < accountCount)
             {
-                passwoerdNameList.Add(account.Password);
-                userNameList.Add(account.Username);
-                emailNameList.Add(account.Email);
-                phoneNumberList.Add(account.Phone);
-                roleEnumList.Add(account.Role);
-                statusEnumList.Add(account.Status);
-                createDateList.Add(account.CreateDate);
-                updateDateList.Add(account.UpdateDate);
+                accountList.Add(ObjectGenerator.GenerateAccount());
+                i++;
+            }
+            i = 0;
+            foreach (var account in accountList)
+            {
+                if (account.Status == Status.Pending)
+                {
+                    statusQueue.Enqueue(account.Status);
+                }
+                Console.WriteLine("=============== Create Account {0} =================\n", i);
+                Console.WriteLine(account + "\n");
                 i++;
             }
         }
-        // Simulate account activati process
-        public void SimulateAccountActivatiProcess()
-        {
 
+        // Simulate account activati process
+        public void ActivateAccounts()
+        {
+            int i = 0;
+            foreach (var account in accountList)
+            {
+                if (account.Status == Status.Pending)
+                {
+                    account.Status = Status.Active;
+                }
+                Console.WriteLine("=============== Create Account {0} =================\n", i);
+                Console.WriteLine(account + "\n");
+                i++;
+            }
+            
+        }
+
+        public void CreateModules(int moduleCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AssignModulesToStudents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AssignModulesToInstructors()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateClassrooms(int classroomCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RegisterStudentsForClasses()
+        {
+            throw new NotImplementedException();
         }
         public void FairCoordinator()
         {
-            if (statusEnumList.Contains(Status.Suspended))
+            int i = 0;
+            var statusQueueList = statusQueue.Peek();
+            while (i < statusQueue.Count)
             {
-
+                statusQueueList = Status.Active;
             }
+            foreach (var account in accountList)
+            {
+                if (account.Status == Status.Pending)
+                {
+                    account.Status = Status.Active;
+                }
+                Console.WriteLine("=============== Create Account {0} =================\n", i);
+                Console.WriteLine(account + "\n");
+                i++;
+            }
+
 
         }
     }
