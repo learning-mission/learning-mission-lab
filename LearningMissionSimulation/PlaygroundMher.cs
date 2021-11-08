@@ -6,57 +6,42 @@ namespace LearningMissionSimulation
 {
     public class PlaygroundMher
     {
-        public PlaygroundMher()
-        {
-            
-        }
-       
-        //Account account = ObjectGenerator.GenerateAccount();
+        Queue<Account> accountQueue = new Queue<Account>();
 
-        List<Account> accountList = new List<Account>();
+        Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
 
-        Queue<Status> statusQueue = new Queue<Status>();
-
-        // Simulate account creation  process
         public void CreateAccounts(int accountCount)
         {
             int i = 0;
             while (i < accountCount)
             {
-                accountList.Add(ObjectGenerator.GenerateAccount());
-                i++;
-            }
-            i = 0;
-            foreach (var account in accountList)
-            {
-                if (account.Status == Status.Pending)
+                Account account = ObjectGenerator.GenerateAccount();
+                accountDictionary.Add(account.Id, account);
+                if (account.Role == Role.Student || account.Role == Role.Instructor)
                 {
-                    statusQueue.Enqueue(account.Status);
+                    accountQueue.Enqueue(account);
                 }
-                Console.WriteLine("=============== Create Account {0} =================\n", i);
-                Console.WriteLine(account + "\n");
+                Console.WriteLine("========== Create  account {0} =======\n{1}", i, account);
+                Console.WriteLine("\n");
                 i++;
             }
         }
 
-        // Simulate account activati process
         public void ActivateAccounts()
         {
-            int i = 0;
-            foreach (var account in accountList)
+            foreach (var accountStatus in accountQueue)
             {
-                if (account.Status == Status.Pending)
+                if (accountStatus.Status == Status.Pending)
                 {
-                    account.Status = Status.Active;
+                    accountStatus.Status = Status.Active;
+                    Console.WriteLine("========== Activate {0} status FiFo =======\n{1}", accountStatus.Role, accountStatus);
+                    Console.WriteLine("\n");
                 }
-                Console.WriteLine("=============== Create Account {0} =================\n", i);
-                Console.WriteLine(account + "\n");
-                i++;
+                accountQueue.Peek();
             }
-            
         }
 
-        public void CreateModules(int moduleCount)
+        public void AssignModulesToInstructors()
         {
             throw new NotImplementedException();
         }
@@ -66,12 +51,13 @@ namespace LearningMissionSimulation
             throw new NotImplementedException();
         }
 
-        public void AssignModulesToInstructors()
+
+        public void CreateClassrooms(int classroomCount)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateClassrooms(int classroomCount)
+        public void CreateModules(int moduleCount)
         {
             throw new NotImplementedException();
         }
@@ -79,27 +65,6 @@ namespace LearningMissionSimulation
         public void RegisterStudentsForClasses()
         {
             throw new NotImplementedException();
-        }
-        public void FairCoordinator()
-        {
-            int i = 0;
-            var statusQueueList = statusQueue.Peek();
-            while (i < statusQueue.Count)
-            {
-                statusQueueList = Status.Active;
-            }
-            foreach (var account in accountList)
-            {
-                if (account.Status == Status.Pending)
-                {
-                    account.Status = Status.Active;
-                }
-                Console.WriteLine("=============== Create Account {0} =================\n", i);
-                Console.WriteLine(account + "\n");
-                i++;
-            }
-
-
         }
     }
 }
