@@ -8,11 +8,10 @@ namespace LearningMissionSimulation
 {
     class PlaygroundEdvard : ISimulation
     {
-        Stack<Account> createAccountStack = new Stack<Account>();
+        Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
         List<Student> studentList = new List<Student>();
         List<Instructor> instructorList = new List<Instructor>();
-        Dictionary<Guid, Account> activatedStudentAccountDictionary = new Dictionary<Guid, Account>();
-        Dictionary<Guid, Account> activatedInstructorAccountDictionary = new Dictionary<Guid, Account>();
+        Stack<Account> generatedAccountStack = new Stack<Account>();
 
         public static void Action0()
         {
@@ -68,15 +67,28 @@ namespace LearningMissionSimulation
 
                 Account account = ObjectGenerator.GenerateAccount();
 
-                createAccountStack.Push(account);
+                accountDictionary.Add(account.Id, account);
+
+                if (account.Role == Role.Student && account.Status == Status.Pending || account.Role == Role.Instructor && account.Status == Status.Pending)
+                {
+                    generatedAccountStack.Push(account);
+                }
 
                 if (account.Role == Role.Student)
                 {
-                    studentList.Add(ObjectGenerator.GenerateStudent(account.Id));
+                    Student student = ObjectGenerator.GenerateStudent(account.Id);
+
+                    studentList.Add(student);
+
+                    student.Report();
                 }
                 else if (account.Role == Role.Instructor)
                 {
-                    instructorList.Add(ObjectGenerator.GenerateInstructor(account.Id));
+                    Instructor instructor = ObjectGenerator.GenerateInstructor(account.Id);
+
+                    instructorList.Add(instructor);
+
+                    instructor.Report();
                 }
 
                 Console.WriteLine('\n');
@@ -86,21 +98,19 @@ namespace LearningMissionSimulation
         // Unfair Coordinator
         public void ActivateAccounts()
         {
-            foreach (Account account in createAccountStack)
+            Console.WriteLine("-----Activation starting with Unfair coordinator-----\n");
+
+            while (generatedAccountStack.Count > 0)
             {
-                if (account.Role == Role.Student && account.Status == Status.Pending)
-                {
-                    account.Status = Status.Active;
+                generatedAccountStack.Peek().Status = Status.Active;
 
-                    activatedStudentAccountDictionary.Add(account.Id, account);
-                }
-                else if (account.Role == Role.Instructor && account.Status == Status.Pending)
-                {
-                    account.Status = Status.Active;
+                Console.WriteLine(generatedAccountStack.Peek());
+                Console.WriteLine($" Activated at {DateTime.Now}\n");
 
-                    activatedInstructorAccountDictionary.Add(account.Id, account);
-                }
+                generatedAccountStack.Pop();
             }
+
+            Console.WriteLine("-----Activation ended with Unfair coordinator-----");
         }
 
         public void AssignModulesToInstructors()
