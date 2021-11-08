@@ -7,6 +7,11 @@ namespace LearningMissionSimulation
 {
     class PlaygroundEdvard
     {
+        Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
+        Stack<Account> generatedAccountStack = new Stack<Account>();
+        List<Student> studentList = new List<Student>();
+        List<Instructor> instructorList = new List<Instructor>();
+
         public static void Action0()
         {
             ObjectGenerator.GenerateAddress();
@@ -47,6 +52,63 @@ namespace LearningMissionSimulation
             //unit0.Report();
         }
 
+        public void Action2(int accountCount)
+        {
+            CreateAccounts(accountCount);
+            ActivateAccounts();
+        }
 
+        public void CreateAccounts(int accountCount)
+        {
+            for (int i = 0; i < accountCount; i++)
+            {
+                Console.WriteLine($" Account {i + 1}");
+
+                Account account = ObjectGenerator.GenerateAccount();
+
+                accountDictionary.Add(account.Id, account);
+
+                if (account.Role == Role.Student && account.Status == Status.Pending || account.Role == Role.Instructor && account.Status == Status.Pending)
+                {
+                    generatedAccountStack.Push(account);
+                }
+
+                if (account.Role == Role.Student)
+                {
+                    Student student = ObjectGenerator.GenerateStudent(account.Id);
+
+                    studentList.Add(student);
+
+                    student.Report();
+                }
+                else if (account.Role == Role.Instructor)
+                {
+                    Instructor instructor = ObjectGenerator.GenerateInstructor(account.Id);
+
+                    instructorList.Add(instructor);
+
+                    instructor.Report();
+                }
+
+                Console.WriteLine('\n');
+            }
+        }
+
+        public void ActivateAccounts()
+        {
+            Console.WriteLine("-----Activation starting with Unfair coordinator-----\n");
+
+            while (generatedAccountStack.Count > 0)
+            {
+                generatedAccountStack.Peek().Status = Status.Active;
+
+                Console.WriteLine(generatedAccountStack.Peek());
+                Console.WriteLine($" Activated at {DateTime.Now}\n");
+
+                generatedAccountStack.Pop();
+            }
+
+            Console.WriteLine("-----Activation ended with Unfair coordinator-----");
+        }
     }
 }
