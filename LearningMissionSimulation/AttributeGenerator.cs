@@ -213,8 +213,6 @@ namespace LearningMissionSimulation
                 postalCode = GetTwoDigitCode(43) + GetTwoDigitCode(20);
             }
 
-            //Console.WriteLine($" Postal Code: {postalCode}");
-
             return postalCode;
         }
 
