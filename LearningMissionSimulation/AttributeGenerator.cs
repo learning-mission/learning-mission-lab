@@ -5,8 +5,8 @@ using LearningMissionLab;
 
 namespace LearningMissionSimulation
 {
-    public class AttributeGenerator  
-    { 
+    public class AttributeGenerator
+    {
         public static DateTime GetDateOfBirth(byte minAge, byte maxAge)
         {
             // input's validation: check age limits, make sure their within
@@ -69,7 +69,7 @@ namespace LearningMissionSimulation
             {
                 if (i % 2 == 0)
                 {
-                    name += SimulationConstants.AlphabetVocalLetterPool[SimulationConstants.random.Next(0, SimulationConstants.AlphabetVocalLetterPool.Length)];                                                                 
+                    name += SimulationConstants.AlphabetVocalLetterPool[SimulationConstants.random.Next(0, SimulationConstants.AlphabetVocalLetterPool.Length)];
                 }
                 else
                 {
@@ -77,7 +77,7 @@ namespace LearningMissionSimulation
                 }
                 i++;
             }
-            return char.ToUpper(name[0]) + name.Substring(1); 
+            return char.ToUpper(name[0]) + name.Substring(1);
         }
 
         public static string GetFirstName()
@@ -87,7 +87,7 @@ namespace LearningMissionSimulation
 
         // Returns a random last name
         public static string GetLastName(int lengthLimit)
-        { 
+        {
             return GetFirstName(lengthLimit) + "yan";
         }
 
@@ -115,18 +115,18 @@ namespace LearningMissionSimulation
         // Returns a random value from ModuleLevel, ModuleLevel.Unspecified
         // is excluded
         public static ModuleLevel GetModuleLevel()
-        {                        
+        {
             var levelCount = Enum.GetValues(typeof(ModuleLevel)).Length;
             return (ModuleLevel)SimulationConstants.random.Next(0, levelCount);
-            
+
         }
 
         // Returns a random value from SubjectType, SubjectType.Unspecified
         // is excluded
         public static SubjectType GetSubjecType()
         {
-           var levelCount = Enum.GetValues(typeof(SubjectType)).Length;
-           return (SubjectType)SimulationConstants.random.Next(0, levelCount);           
+            var levelCount = Enum.GetValues(typeof(SubjectType)).Length;
+            return (SubjectType)SimulationConstants.random.Next(0, levelCount);
         }
 
         // Returns a random value from Gender, Gender.Unspecified
@@ -134,7 +134,7 @@ namespace LearningMissionSimulation
         public static Gender GetGender()
         {
             var genderCount = Enum.GetValues(typeof(Gender)).Length;
-            return (Gender)SimulationConstants.random.Next(1, genderCount); 
+            return (Gender)SimulationConstants.random.Next(1, genderCount);
         }
 
         // Returns a random value from DepartmentType, DepartmentType.Unspecified
@@ -172,7 +172,7 @@ namespace LearningMissionSimulation
 
         // Returns a random email address
         public static string GetEmail()
-        {            
+        {
             int emailLength = SimulationConstants.random.Next(5, 12);
             int domainIndex = SimulationConstants.random.Next(0, SimulationConstants.DomainPool.Count);
             StringBuilder stringBuilder = new StringBuilder();
@@ -219,7 +219,7 @@ namespace LearningMissionSimulation
         // Returns a random city name
         public static string GetCity(string postalCode)
         {
-            if (SimulationConstants.CityDictionary.ContainsKey(postalCode)) 
+            if (SimulationConstants.CityDictionary.ContainsKey(postalCode))
             {
                 string cityName;
 
@@ -228,8 +228,8 @@ namespace LearningMissionSimulation
                 Console.WriteLine($"City Name: {cityName}");
 
                 return cityName;
-            }  
-            
+            }
+
             return null;
         }
 
@@ -297,6 +297,14 @@ namespace LearningMissionSimulation
         {
             //not implemented yet!
             return "";
+        }
+        public static string GetUnitName(UnitType unitType)
+        {
+            return  unitType + "Name" + SimulationConstants.random.Next(1000, 10000);            
+        }
+        public static string GetUnitDescprition(UnitType unitType)
+        {          
+            return unitType + "Description" + SimulationConstants.random.Next(1000, 10000);
         }
 
         // Returns a random building number
