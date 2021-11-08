@@ -37,7 +37,7 @@ namespace LearningMissionSimulation
         {
             Account account =  new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(), AttributeGenerator.GetEmail(),
                                AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetRole(), AttributeGenerator.GetStatus());
-            //account.Report();
+            account.Report();
             return account;
         }
 
