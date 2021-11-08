@@ -10,20 +10,26 @@ namespace LearningMissionSimulation
         public static Student GenerateStudent(Guid accountId)
         {
             return new Student(accountId: accountId, coverLetter: AttributeGenerator.GetCoverLetter(), recommendationList: GenerateRecommendationList(),
-                               completedModuleList: GenerateModuleList(), classroomList: GenerateClassroomList(), schedule: GenerateSchedule(),
+                               completedModuleList: GenerateModuleList(), classroomList: GenerateClassroomList(2), schedule: GenerateSchedule(),
                                firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
                                dateOfBirth: AttributeGenerator.GetDateOfBirth(SimulationConstants.ApplicantMinAge, SimulationConstants.ApplicantMaxAge),
                                gender: AttributeGenerator.GetGender(), contactInfo:GenerateContactInfo(), languageList: GenerateLanguageList(5));
         }
 
+        // Creates a random list of student
+        public static List<Student> GenerateStudentList()
+        {
+            List<Student> studentList = new List<Student>();
+            return studentList;
+        }
+
         // Creates an Instructor object with randomly selected attributes
         public static Instructor GenerateInstructor(Guid accountId)
         {
-            return new Instructor(accountId: accountId, moduleList:GenerateModuleList(), classroomsList: GenerateClassroomList(),
+            return new Instructor(accountId: accountId, moduleList:GenerateModuleList(), classroomsList: GenerateClassroomList(2),
                                   schedule: GenerateSchedule(), firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
                                   dateOfBirth: AttributeGenerator.GetDateOfBirth(SimulationConstants.ApplicantMinAge, SimulationConstants.ApplicantMaxAge),
                                   gender: AttributeGenerator.GetGender(), contactInfo: GenerateContactInfo(), languageList: GenerateLanguageList(2));
-
         }
 
         // Creates an Account object with randomly selected attributes
@@ -31,7 +37,7 @@ namespace LearningMissionSimulation
         {
             Account account =  new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(), AttributeGenerator.GetEmail(),
                                AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetRole(), AttributeGenerator.GetStatus());
-            account.Report();
+            //account.Report();
             return account;
         }
 
@@ -109,18 +115,31 @@ namespace LearningMissionSimulation
             return new List<string>();
         }
 
-        // Creates a random list of Classroom objects
-        public static Classroom GenerateClassroom()
+        // Creates a random list of Modul objects
+        public static Module GenerateModule()
         {
-            //not implemented yet!
             return null;
         }
 
+
         // Creates a random list of Classroom objects
-        public static List<Classroom> GenerateClassroomList()
+        public static Classroom GenerateClassroom()
         {
-            //not implemented yet!
-            return new List<Classroom>();
+            return new Classroom(maximumCapacity: SimulationConstants.ApplicantMaxAge, minimumCapacity: SimulationConstants.ApplicantMinAge,
+                                 module: GenerateModule(), schedule: GenerateSchedule(), name: AttributeGenerator.GetFirstName(),
+                                 description: AttributeGenerator.GetFirstName(), itemList: GenerateStudentList());
+        }
+
+        // Creates a random list of Classroom objects
+        public static List<Classroom> GenerateClassroomList(uint classroomListCount)
+        {
+            List<Classroom> classroomList = new List<Classroom>();
+            int i = 0;
+            while (i < classroomListCount)
+            {
+                classroomList.Add(GenerateClassroom());
+            }
+            return classroomList;
         }
 
         // Creates a random list of Module objects
