@@ -32,12 +32,12 @@ namespace LearningMissionSimulation
                 {
                     Instructor instructor = (ObjectGenerator.GenerateInstructor(account.Id));
                     instructorList.Add(instructor);
-                }
-                if ((account.Role == Role.Student || account.Role == Role.Instructor) && account.Status == Status.Pending)
-                {
-                    pendingAccountList.Add(account);
-
-                }
+                    if (instructor.Gender == Gender.Female && account.Status == Status.Pending)
+                    {
+                        pendingAccountList.Add(account);
+                    }
+                }                
+                
                 Console.WriteLine("create account {0} \n", account);                
             }
         }
@@ -49,8 +49,9 @@ namespace LearningMissionSimulation
                 pendingAccountList[i].Status = Status.Active;
                 Console.WriteLine($" activated account is{pendingAccountList[i]}\n");
             }
+            Console.WriteLine($"count is  {pendingAccountList.Count}");
             pendingAccountList.Clear();
-            Console.WriteLine($" count is {pendingAccountList.Count}");
+            
 
 
         }
