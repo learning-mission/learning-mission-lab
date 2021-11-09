@@ -10,6 +10,8 @@ namespace LearningMissionSimulation
         {
             Console.WriteLine(AttributeGenerator.GetLanguageLevel());
             Console.WriteLine(AttributeGenerator.GetLanguageName());
+
+
         }
 
     }

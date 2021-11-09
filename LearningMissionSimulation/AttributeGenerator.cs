@@ -268,8 +268,13 @@ namespace LearningMissionSimulation
         // Returns a random password
         public static string GetPassword(int minLength, int maxLength)
         {
+<<<<<<< Updated upstream
             int count = random.Next(minLength, maxLength);
             int i = random.Next(0, minLength);
+=======
+            int count = SimulationConstants.random.Next(minLength, maxLength);
+            int i = SimulationConstants.random.Next(minLength, maxLength);
+>>>>>>> Stashed changes
             string password = "";
             while (i < count)
             {
