@@ -131,9 +131,8 @@ namespace LearningMissionSimulation
         // Creates a random Module object
         public static Module GenerateModule(Guid subjectId)
         {
-            //not implemented yet!
             return new Module(subjectId: subjectId, moduleLevel: AttributeGenerator.GetModuleLevel(), prerequisiteList: GenerateModuleList(),
-                              name: AttributeGenerator.GetFirstName(), description: AttributeGenerator.GetUnitDescprition(UnitType.Department),
+                              name: AttributeGenerator.GetUnitName(UnitType.Module), description: AttributeGenerator.GetUnitDescprition(UnitType.Module),
                               itemList: new List<Lesson>());
         }
 
@@ -147,8 +146,8 @@ namespace LearningMissionSimulation
         // Creates a random Subject object
         public static Subject GenerateSubject()
         {
-            return new Subject(subjectType: AttributeGenerator.GetSubjecType(), description: AttributeGenerator.GetUnitDescprition(UnitType.Department),
-                               name: AttributeGenerator.GetFirstName(), itemList: ObjectGenerator.GenerateModuleList());
+            return new Subject(subjectType: AttributeGenerator.GetSubjecType(), description: AttributeGenerator.GetUnitDescprition(UnitType.Subject),
+                               name: AttributeGenerator.GetUnitName(UnitType.Subject), itemList: ObjectGenerator.GenerateModuleList());
         }
     }
 }
