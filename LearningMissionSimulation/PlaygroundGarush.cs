@@ -10,8 +10,8 @@ namespace LearningMissionSimulation
         List<Account> pendingAccountList = new List<Account>();
         List<Student> studentList = new List<Student>();
         List<Instructor> instructorList = new List<Instructor>();
-
         Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
+        
         public void CreateAccounts(int accountCount)
         {
             for (int i = 0; i < accountCount; i++)
