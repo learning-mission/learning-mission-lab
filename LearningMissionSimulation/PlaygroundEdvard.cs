@@ -7,6 +7,11 @@ namespace LearningMissionSimulation
 {
     class PlaygroundEdvard
     {
+        Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
+        Stack<Account> pendingAccountStack = new Stack<Account>();
+        List<Student> studentList = new List<Student>();
+        List<Instructor> instructorList = new List<Instructor>();
+
         public static void Action0()
         {
             ObjectGenerator.GenerateAddress();
@@ -47,6 +52,60 @@ namespace LearningMissionSimulation
             //unit0.Report();
         }
 
+        public void Action2(int accountCount)
+        {
+            CreateAccounts(accountCount);
+            ActivateAccounts();
+        }
 
+        public void CreateAccounts(int accountCount)
+        {
+            for (int i = 1; i <= accountCount; i++)
+            {
+                Console.WriteLine($" Account {i}");
+
+                Account account = ObjectGenerator.GenerateAccount();
+
+                accountDictionary.Add(account.Id, account);
+
+                if ((account.Role == Role.Student || account.Role == Role.Instructor) && account.Status == Status.Pending)
+                {
+                    pendingAccountStack.Push(account);
+                }
+
+                if (account.Role == Role.Student)
+                {
+                    Student student = ObjectGenerator.GenerateStudent(account.Id);
+
+                    studentList.Add(student);
+
+                    student.Report();
+                }
+                else if (account.Role == Role.Instructor)
+                {
+                    Instructor instructor = ObjectGenerator.GenerateInstructor(account.Id);
+
+                    instructorList.Add(instructor);
+
+                    instructor.Report();
+                }
+
+                Console.WriteLine('\n');
+            }
+        }
+
+        public void ActivateAccounts()
+        {
+            Console.WriteLine("-----Unfair coordinator started activating accounts-----\n");
+
+            while (pendingAccountStack.Count > 0)
+            {
+                pendingAccountStack.Pop().Status = Status.Active;
+
+                Console.WriteLine($" Activated at {DateTime.Now}\n");
+            }
+
+            Console.WriteLine("-----Unfair coordinator finished activating accounts-----");
+        }
     }
 }

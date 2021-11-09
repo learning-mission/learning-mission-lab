@@ -78,13 +78,13 @@ namespace LearningMissionSimulation
             string postalCode = AttributeGenerator.GetPostalCode();
 
             return new Address(
-                 AttributeGenerator.GetStreetAddress(),
-                 AttributeGenerator.GetBuildingNumber(),
-                 AttributeGenerator.GetApartmentNumber(),
-                 AttributeGenerator.GetCity(postalCode),
-                 AttributeGenerator.GetProvince(postalCode),
-                 AttributeGenerator.GetPostalCode(),
-                 AttributeGenerator.GetCountry()
+                 streetName: AttributeGenerator.GetStreetName(),
+                 buildingNumber: AttributeGenerator.GetBuildingNumber(),
+                 apartmentNumber: AttributeGenerator.GetApartmentNumber(),
+                 city: AttributeGenerator.GetCity(postalCode),
+                 province: AttributeGenerator.GetProvince(postalCode),
+                 postalCode: AttributeGenerator.GetPostalCode(),
+                 country: AttributeGenerator.GetCountry()
              );
         }
 

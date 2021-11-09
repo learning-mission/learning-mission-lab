@@ -185,7 +185,7 @@ namespace LearningMissionSimulation
         }
 
         // Returns a random street address
-        public static string GetStreetAddress()
+        public static string GetStreetName()
         {
             //not implemented yet!
             return "";
