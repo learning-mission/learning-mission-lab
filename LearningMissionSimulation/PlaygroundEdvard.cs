@@ -50,6 +50,8 @@ namespace LearningMissionSimulation
             Unit<Department> unit0 = new Unit<Department>(UnitType.Department, "Dep0", "Department0", departmentList);
 
             Console.WriteLine(AttributeGenerator.GetDateOfBirth(20, 60));
+
+            //unit0.Report();
         }
 
         public void Action2(int accountCount)
