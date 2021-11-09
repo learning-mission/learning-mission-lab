@@ -6,7 +6,11 @@ namespace LearningMissionSimulation
 {
     public class PlaygroundMher
     {
-        Queue<Account> accountQueue = new Queue<Account>();
+        List<Student> studentList = new List<Student>();
+
+        List<Instructor> instructorList = new List<Instructor>();
+
+        Queue<Account> pendingAccountQueue = new Queue<Account>();
 
         Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
 
@@ -17,9 +21,23 @@ namespace LearningMissionSimulation
             {
                 Account account = ObjectGenerator.GenerateAccount();
                 accountDictionary.Add(account.Id, account);
-                if (account.Role == Role.Student || account.Role == Role.Instructor)
+                if (account.Role == Role.Student)
                 {
-                    accountQueue.Enqueue(account);
+                    Student student = ObjectGenerator.GenerateStudent(account.Id);
+                    studentList.Add(student);
+                    if (account.Status == Status.Pending)
+                    {
+                        pendingAccountQueue.Enqueue(account);
+                    }
+                }
+                else if(account.Role == Role.Instructor)
+                {
+                    Instructor instructor = ObjectGenerator.GenerateInstructor(account.Id);
+                    instructorList.Add(instructor);
+                    if(account.Status == Status.Pending)
+                    {
+                        pendingAccountQueue.Enqueue(account);
+                    }
                 }
                 Console.WriteLine("========== Create  account {0} =======\n{1}", i, account);
                 Console.WriteLine("\n");
@@ -29,15 +47,13 @@ namespace LearningMissionSimulation
 
         public void ActivateAccounts()
         {
-            foreach (var accountStatus in accountQueue)
+
+            while(pendingAccountQueue.Count > 0)
             {
-                if (accountStatus.Status == Status.Pending)
-                {
-                    accountStatus.Status = Status.Active;
-                    Console.WriteLine("========== Activate {0} status FiFo =======\n{1}", accountStatus.Role, accountStatus);
-                    Console.WriteLine("\n");
-                }
-                accountQueue.Peek();
+                Account account = pendingAccountQueue.Dequeue();
+                account.Status = Status.Active;
+                Console.WriteLine("========== Activated account =======\n{0}", account);
+                Console.WriteLine("\n");
             }
         }
 
