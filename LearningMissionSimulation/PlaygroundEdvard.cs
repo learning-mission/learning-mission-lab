@@ -11,6 +11,8 @@ namespace LearningMissionSimulation
         Stack<Account> pendingAccountStack = new Stack<Account>();
         List<Student> studentList = new List<Student>();
         List<Instructor> instructorList = new List<Instructor>();
+        Dictionary<Guid, Subject> subjectDictionary = new Dictionary<Guid, Subject>();
+        Dictionary<Guid, Module> moduleDictionary = new Dictionary<Guid, Module>();
 
         public static void Action0()
         {
@@ -56,6 +58,12 @@ namespace LearningMissionSimulation
         {
             CreateAccounts(accountCount);
             ActivateAccounts();
+        }
+
+        public void Action3(int subjectCount, int moduleCount)
+        {
+            CreateSubjects(subjectCount);
+            CreateModules(moduleCount);
         }
 
         public void CreateAccounts(int accountCount)
@@ -106,6 +114,26 @@ namespace LearningMissionSimulation
             }
 
             Console.WriteLine("-----Unfair coordinator finished activating accounts-----");
+        }
+
+        public void CreateSubjects(int subjectCount)
+        {
+            for (int i = 0; i < subjectCount; i++)
+            {
+                Subject subject = ObjectGenerator.GenerateSubject();
+
+                subjectDictionary.Add(subject.Id, subject);
+            }
+        }
+
+        public void CreateModules(int moduleCount)
+        {
+            for (int i = 0; i < moduleCount; i++)
+            {
+                Module module = ObjectGenerator.GenerateModule(Guid.NewGuid());
+
+                moduleDictionary.Add(module.Id, module);
+            }
         }
     }
 }
