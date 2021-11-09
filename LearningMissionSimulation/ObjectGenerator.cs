@@ -128,11 +128,25 @@ namespace LearningMissionSimulation
             return new List<Classroom>();
         }
 
+        // Creates a random Module object
+        public static Module GenerateModule(Guid subjectId)
+        {
+            //not implemented yet!
+            return null;
+        }
+
         // Creates a random list of Module objects
         public static List<Module> GenerateModuleList()
         {
             //not implemented yet!
             return new List<Module>();
+        }
+
+        // Creates a random Subject object
+        public static Subject GenerateSubject()
+        {
+            //not implemented yet!
+            return null;
         }
     }
 }
