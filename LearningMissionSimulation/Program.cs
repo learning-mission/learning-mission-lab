@@ -14,6 +14,7 @@ namespace LearningMissionSimulation
             AttributeGenerator.GetCity("2613");
             PlaygroundEdvard playgroundEdvard0 = new PlaygroundEdvard();
             playgroundEdvard0.Action2(25);
+            playgroundEdvard0.Action3(5, 7);
         }
         ModuleLevel moduleLevel = new ModuleLevel();
     }

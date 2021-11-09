@@ -5,12 +5,14 @@ using System.Text;
 
 namespace LearningMissionSimulation
 {
-    class PlaygroundEdvard
+    class PlaygroundEdvard : ISimulation
     {
         Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
         Stack<Account> pendingAccountStack = new Stack<Account>();
         List<Student> studentList = new List<Student>();
         List<Instructor> instructorList = new List<Instructor>();
+        Dictionary<Guid, Subject> subjectDictionary = new Dictionary<Guid, Subject>();
+        Dictionary<Guid, Module> moduleDictionary = new Dictionary<Guid, Module>();
 
         public static void Action0()
         {
@@ -48,14 +50,18 @@ namespace LearningMissionSimulation
             Unit<Department> unit0 = new Unit<Department>(UnitType.Department, "Dep0", "Department0", departmentList);
 
             Console.WriteLine(AttributeGenerator.GetDateOfBirth(20, 60));
-
-            //unit0.Report();
         }
 
         public void Action2(int accountCount)
         {
             CreateAccounts(accountCount);
             ActivateAccounts();
+        }
+
+        public void Action3(int subjectCount, int moduleCount)
+        {
+            CreateSubjects(subjectCount);
+            CreateModules(moduleCount);
         }
 
         public void CreateAccounts(int accountCount)
@@ -106,6 +112,46 @@ namespace LearningMissionSimulation
             }
 
             Console.WriteLine("-----Unfair coordinator finished activating accounts-----");
+        }
+
+        public void CreateSubjects(int subjectCount)
+        {
+            for (int i = 0; i < subjectCount; i++)
+            {
+                Subject subject = ObjectGenerator.GenerateSubject();
+
+                subjectDictionary.Add(subject.Id, subject);
+            }
+        }
+
+        public void CreateModules(int moduleCount)
+        {
+            for (int i = 0; i < moduleCount; i++)
+            {
+                Module module = ObjectGenerator.GenerateModule(Guid.NewGuid());
+
+                moduleDictionary.Add(module.Id, module);
+            }
+        }
+
+        public void AssignModulesToStudents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AssignModulesToInstructors()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateClassrooms(int classroomCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RegisterStudentsForClasses()
+        {
+            throw new NotImplementedException();
         }
     }
 }
