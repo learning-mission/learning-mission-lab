@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LearningMissionSimulation
 {
-    class PlaygroundEdvard : ISimulation
+    class PlaygroundEdvard
     {
         Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
         Stack<Account> pendingAccountStack = new Stack<Account>();
