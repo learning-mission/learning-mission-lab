@@ -6,6 +6,8 @@ namespace LearningMissionSimulation
 {
     public class PlaygroundMher
     {
+        Random random = new Random();
+
         List<Student> studentList = new List<Student>();
 
         List<Instructor> instructorList = new List<Instructor>();
@@ -13,6 +15,12 @@ namespace LearningMissionSimulation
         Queue<Account> pendingAccountQueue = new Queue<Account>();
 
         Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
+
+        List<Subject> subjectsList = new List<Subject>();
+
+        Dictionary<Guid, Module> modulDictionary = new Dictionary<Guid, Module>();
+
+        List<Guid> guidList = new List<Guid>();
 
         public void CreateAccounts(int accountCount)
         {
@@ -57,26 +65,73 @@ namespace LearningMissionSimulation
             }
         }
 
+        public void CreateModules(int moduleCount)
+        {
+            int i = 0;
+            while (i < moduleCount)
+            {
+                Subject subject = ObjectGenerator.GenerateSubject();
+                Module module = ObjectGenerator.GenerateModule(subject.Id);
+                subjectsList.Add(subject);
+                modulDictionary.Add(module.Id, module);
+                guidList.Add(module.Id);
+                Console.WriteLine("\ncreate modul {0}\n", module);
+                i++;
+            }
+        }
         public void AssignModulesToInstructors()
         {
-            throw new NotImplementedException();
+            foreach (var moduleItem in modulDictionary)
+            {
+                Guid guid = guidList[random.Next(0, guidList.Count - 1)];
+                Console.WriteLine(guid);
+                Console.WriteLine("\n");
+                ModuleInstructor(instructorList, moduleItem.Value);
+                Console.WriteLine(moduleItem.Value);
+                Console.WriteLine("\n");
+            } 
         }
 
+        public void ModuleInstructor(List<Instructor> instructorList, Module module)
+        {           
+            foreach (var instructorModule in instructorList)
+            {
+                if (!(instructorModule.ModuleList.Contains(module)))
+                {
+                    instructorModule.ModuleList.Add(module);
+                }    
+            }
+        } 
         public void AssignModulesToStudents()
         {
-            throw new NotImplementedException();
+            foreach (var moduleItem in modulDictionary)
+            {
+                Guid guid = guidList[random.Next(0, guidList.Count - 1)];
+                Console.WriteLine(guid);
+                Console.WriteLine("\n");
+                ModuleStudent(studentList, moduleItem.Value);
+                Console.WriteLine(moduleItem.Value);
+                Console.WriteLine("\n");
+            }
         }
 
+        public void ModuleStudent(List<Student> studentList, Module module)
+        {
+            foreach (var studentModule in studentList)
+            {
+                if (!(studentModule.CompletedModuleList.Contains(module)))
+                {
+                    studentModule.CompletedModuleList.Add(module);
+                }
+            }
+        }
 
         public void CreateClassrooms(int classroomCount)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateModules(int moduleCount)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public void RegisterStudentsForClasses()
         {
