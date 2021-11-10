@@ -24,7 +24,7 @@ namespace LearningMissionSimulation
 
         public void CreateAccounts(int accountCount)
         {
-            Console.WriteLine("******** Simulation Accounts Started  ********\n");
+            Console.WriteLine("******** Started creating accounts  ********\n");
             int i = 0;
             while (i < accountCount)
             {
@@ -53,13 +53,12 @@ namespace LearningMissionSimulation
                 i++;
             }
             Console.WriteLine("========== Generated {0} Accounts  =======\n", accountCount);
-            Console.WriteLine("******** Simulation Accounts Finished  ********\n\n\n\n");
+            Console.WriteLine("********  Finished creating accounts   ********\n");
         }
-
         public void ActivateAccounts()
         {
-            Console.WriteLine("******** Activate Accounts Started  ********\n");
-            int i = pendingAccountQueue.Count;
+            Console.WriteLine("******** Started activating accounts ********\n");
+            int pendingAccountQueueCount = pendingAccountQueue.Count;
             while(pendingAccountQueue.Count > 0)
             {
                 Console.WriteLine("========== Activate Account =======");
@@ -67,12 +66,12 @@ namespace LearningMissionSimulation
                 account.Status = Status.Active;
                 Console.WriteLine("\n========== Activated account =======\n{0}\n", account);
             }
-            Console.WriteLine("========== Activated {0} accounts  =======\n", i);
-            Console.WriteLine("******** Activate Accounts Finished  ********\n\n\n\n");
+            Console.WriteLine("========== Activated {0} accounts  =======\n", pendingAccountQueueCount);
+            Console.WriteLine("******** Finished activating accounts ********\n");
         }
         public void CreateSubjects(int subjectCount)
         {
-            Console.WriteLine("******** Simulation Subjects Started  ********\n");
+            Console.WriteLine("******** Started creating subjects  ********\n");
             int i = 0;
             while (i < subjectCount)
             {
@@ -83,11 +82,11 @@ namespace LearningMissionSimulation
                 i++;
             }
             Console.WriteLine("========== Generated {0} Subjects  =======\n", subjectCount);
-            Console.WriteLine("******** Simulation Subject Finished  ********\n\n\n\n");
+            Console.WriteLine("******** Finished creating subjects  ********\n");
         }
         public void CreateModules(int moduleCount)
         {
-            Console.WriteLine("******** Simulation Modules Started  ********\n");
+            Console.WriteLine("******** Started creating modules  ********\n");
             int i = 0;
             while (i < moduleCount)
             {
@@ -99,11 +98,11 @@ namespace LearningMissionSimulation
                 i++;
             }
             Console.WriteLine("========== Generated {0} Modules  =======\n", moduleCount);
-            Console.WriteLine("******** Simulation Modules Finished  ********\n\n\n\n");
+            Console.WriteLine("******** Finished creating modules ********\n");
         }
         public void AssignModulesToInstructors()
         {
-            Console.WriteLine("******** Simulation Instructor Module List Started  ********\n");
+            Console.WriteLine("******** Started assigning modules to instructors  ********\n");
             int i = 0;
             foreach (var instructor in instructorList)
             {
@@ -112,12 +111,11 @@ namespace LearningMissionSimulation
                 i++;
             }
             Console.WriteLine("========== Generated Lists of the Instructors Module List  =======\n");
-            Console.WriteLine("******** Simulation Instructor Module List Finished  ********\n\n\n\n");
+            Console.WriteLine("******** Finished assigning modules to instructors  ********\n");
         }
-
         public void AssignModulesToStudents()
         {
-            Console.WriteLine("******** Simulation Student Module List Started  ********\n");
+            Console.WriteLine("******** Started assigning modules to students  ********\n");
             int i = 0;
             foreach (var student in studentList)
             {
@@ -126,9 +124,8 @@ namespace LearningMissionSimulation
                 i++;
             }
             Console.WriteLine("========== Generated  List of the Students Module List  =======\n");
-            Console.WriteLine("******** Simulation Student Module List Finished  ********\n\n\n\n");
+            Console.WriteLine("******** Finished assigning modules to students   ********\n\n\n\n");
         }
-
         List<Module> GetModuleList() 
         {
             ISet<Guid> moduleIdSet = new HashSet<Guid>();
@@ -147,11 +144,11 @@ namespace LearningMissionSimulation
                 if (!moduleIdSet.Contains(moduleId))
                 {
                     moduleIdSet.Add(moduleId);
-                    Console.WriteLine("========== Random Guid Id of the Module Dictionary is =======\n\n{0}\n\n", moduleId);
+                    Console.WriteLine("========== Randomly selected module id is =======\n\n{0}\n\n", moduleId);
                     Module module;
                     moduleDictionary.TryGetValue(moduleId, out module);
                     moduleList.Add(module);
-                    Console.WriteLine("========== The Corresponding Module Of Id  =======\n\n{0}\n\n", module);
+                    Console.WriteLine("========== Added module =======\n\n{0}\n\n", module);
                 }
                 i++;
             }
