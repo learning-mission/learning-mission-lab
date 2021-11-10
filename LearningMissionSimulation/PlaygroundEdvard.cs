@@ -11,7 +11,7 @@ namespace LearningMissionSimulation
         Stack<Account> pendingAccountStack = new Stack<Account>();
         List<Student> studentList = new List<Student>();
         List<Instructor> instructorList = new List<Instructor>();
-        Dictionary<Guid, Subject> subjectDictionary = new Dictionary<Guid, Subject>();
+        Dictionary<int, KeyValuePair<Guid, Subject>> subjectDictionary = new Dictionary<int, KeyValuePair<Guid, Subject>>();
         Dictionary<Guid, Module> moduleDictionary = new Dictionary<Guid, Module>();
 
         public static void Action0()
@@ -122,18 +122,34 @@ namespace LearningMissionSimulation
             {
                 Subject subject = ObjectGenerator.GenerateSubject();
 
-                subjectDictionary.Add(subject.Id, subject);
+                subjectDictionary.Add(i, new KeyValuePair<Guid, Subject>(subject.Id, subject));
             }
         }
 
         public void CreateModules(int moduleCount)
         {
+            Console.WriteLine($"Keys: {subjectDictionary[1].Key}");
+
             for (int i = 0; i < moduleCount; i++)
             {
-                Module module = ObjectGenerator.GenerateModule(Guid.NewGuid());
+                int index = CreateIndex();
 
-                moduleDictionary.Add(module.Id, module);
+                Module module = ObjectGenerator.GenerateModule(subjectDictionary[index].Key);
+
+                moduleDictionary.Add(module.SubjectId, module);
             }
+        }
+
+        int CreateIndex()
+        {
+            int index = AttributeGenerator.random.Next(0, subjectDictionary.Count);
+
+            while (moduleDictionary.ContainsKey(subjectDictionary[index].Key))
+            {
+                index = AttributeGenerator.random.Next(0, subjectDictionary.Count);
+            }
+
+            return index;
         }
     }
 }
