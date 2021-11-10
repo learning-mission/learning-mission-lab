@@ -17,7 +17,7 @@ namespace LearningMissionSimulation
             //playgroundGarush.ActivateAccounts();
             PlaygroundEdvard playgroundEdvard0 = new PlaygroundEdvard();
             playgroundEdvard0.Action2(25);
-            playgroundEdvard0.Action3(5, 5);
+            playgroundEdvard0.Action3(10, 10);
         }
         //ModuleLevel moduleLevel = new ModuleLevel();
     }

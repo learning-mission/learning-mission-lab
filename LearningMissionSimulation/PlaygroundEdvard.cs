@@ -11,8 +11,10 @@ namespace LearningMissionSimulation
         Stack<Account> pendingAccountStack = new Stack<Account>();
         List<Student> studentList = new List<Student>();
         List<Instructor> instructorList = new List<Instructor>();
-        Dictionary<int, KeyValuePair<Guid, Subject>> subjectDictionary = new Dictionary<int, KeyValuePair<Guid, Subject>>();
+        Dictionary<Guid, Subject> subjectDictionary = new Dictionary<Guid, Subject>();
         Dictionary<Guid, Module> moduleDictionary = new Dictionary<Guid, Module>();
+        List<Guid> subjectId = new List<Guid>();
+        List<Guid> moduleId = new List<Guid>();
 
         public static void Action0()
         {
@@ -28,7 +30,7 @@ namespace LearningMissionSimulation
                 "zxczxc.asdasdqweqweqwe@gmail.com",
                 "010-54-74-90",
                 "010-28-88-88",
-                "043-23-09-99"
+                "013-23-122-33"
             );
 
             Employee employee0 = new Employee();
@@ -122,34 +124,35 @@ namespace LearningMissionSimulation
             {
                 Subject subject = ObjectGenerator.GenerateSubject();
 
-                subjectDictionary.Add(i, new KeyValuePair<Guid, Subject>(subject.Id, subject));
+                subjectDictionary.Add(subject.Id, subject);
+                subjectId.Add(subject.Id);
             }
         }
 
         public void CreateModules(int moduleCount)
         {
-            Console.WriteLine($"Keys: {subjectDictionary[1].Key}");
-
             for (int i = 0; i < moduleCount; i++)
             {
-                int index = CreateIndex();
+                Guid index = GetIndex();
 
-                Module module = ObjectGenerator.GenerateModule(subjectDictionary[index].Key);
+                Module module = ObjectGenerator.GenerateModule(index);
 
-                moduleDictionary.Add(module.SubjectId, module);
+                moduleDictionary.Add(module.Id, module);
+                moduleId.Add(module.Id);
             }
         }
 
-        int CreateIndex()
+        Guid GetIndex()
         {
-            int index = AttributeGenerator.random.Next(0, subjectDictionary.Count);
-
-            while (moduleDictionary.ContainsKey(subjectDictionary[index].Key))
-            {
-                index = AttributeGenerator.random.Next(0, subjectDictionary.Count);
-            }
+            Guid index = subjectId[AttributeGenerator.random.Next(0, subjectId.Count)];
 
             return index;
         }
     }
 }
+            //while (moduleDictionary.ContainsKey(subjectDictionary[index].Key))
+            //{
+            //    index = AttributeGenerator.random.Next(0, subjectDictionary.Count);
+            //}
+
+            //return index;
