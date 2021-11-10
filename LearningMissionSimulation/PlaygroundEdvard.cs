@@ -13,8 +13,8 @@ namespace LearningMissionSimulation
         List<Instructor> instructorList = new List<Instructor>();
         Dictionary<Guid, Subject> subjectDictionary = new Dictionary<Guid, Subject>();
         Dictionary<Guid, Module> moduleDictionary = new Dictionary<Guid, Module>();
-        List<Guid> subjectId = new List<Guid>();
-        List<Guid> moduleId = new List<Guid>();
+        List<Guid> subjectIdList = new List<Guid>();
+        List<Guid> moduleIdList = new List<Guid>();
 
         public static void Action0()
         {
@@ -66,6 +66,8 @@ namespace LearningMissionSimulation
         {
             CreateSubjects(subjectCount);
             CreateModules(moduleCount);
+            AssignModulesToStudents();
+            AssignModulesToInstructors();
         }
 
         public void CreateAccounts(int accountCount)
@@ -125,7 +127,7 @@ namespace LearningMissionSimulation
                 Subject subject = ObjectGenerator.GenerateSubject();
 
                 subjectDictionary.Add(subject.Id, subject);
-                subjectId.Add(subject.Id);
+                subjectIdList.Add(subject.Id);
             }
         }
 
@@ -133,26 +135,53 @@ namespace LearningMissionSimulation
         {
             for (int i = 0; i < moduleCount; i++)
             {
-                Guid index = GetIndex();
+                Guid subjectId = GetSubjectId();
 
-                Module module = ObjectGenerator.GenerateModule(index);
+                Module module = ObjectGenerator.GenerateModule(subjectId);
 
                 moduleDictionary.Add(module.Id, module);
-                moduleId.Add(module.Id);
+                subjectIdList.Add(module.Id);
             }
         }
 
-        Guid GetIndex()
+        Guid GetSubjectId()
         {
-            Guid index = subjectId[AttributeGenerator.random.Next(0, subjectId.Count)];
+            return subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count)];
+        }
 
-            return index;
+        public void AssignModulesToStudents()
+        {
+            foreach (Student student in studentList)
+            {
+                student.CompletedModuleList = GenerateModuleList();
+            }
+        }
+        
+        public void AssignModulesToInstructors()
+        {
+            foreach (Instructor instructor in instructorList)
+            {
+                instructor.ModuleList = GenerateModuleList();
+            }
+        }
+
+        public List<Module> GenerateModuleList()
+        {
+            List<Module> modules = new List<Module>();
+            int moduleCount = AttributeGenerator.random.Next(1, moduleDictionary.Count);
+
+            for (int i = 0; i < moduleCount; i++)
+            {
+                Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
+
+                Module module;
+
+                moduleDictionary.TryGetValue(id, out module);
+
+                modules.Add(module);
+            }
+
+            return modules;
         }
     }
 }
-            //while (moduleDictionary.ContainsKey(subjectDictionary[index].Key))
-            //{
-            //    index = AttributeGenerator.random.Next(0, subjectDictionary.Count);
-            //}
-
-            //return index;
