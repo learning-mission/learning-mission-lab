@@ -17,9 +17,9 @@ namespace LearningMissionSimulation
         }
 
         // Creates an Instructor object with randomly selected attributes
-        public static Instructor GenerateInstructor(Guid accountId)
+        public static instructor GenerateInstructor(Guid accountId)
         {
-            return new Instructor(accountId: accountId, moduleList:GenerateModuleList(), classroomsList: GenerateClassroomList(),
+            return new instructor(accountId: accountId, moduleList:GenerateModuleList(), classroomsList: GenerateClassroomList(),
                                   schedule: GenerateSchedule(), firstName: AttributeGenerator.GetFirstName(), lastName: AttributeGenerator.GetLastName(),
                                   dateOfBirth: AttributeGenerator.GetDateOfBirth(SimulationConstants.ApplicantMinAge, SimulationConstants.ApplicantMaxAge),
                                   gender: AttributeGenerator.GetGender(), contactInfo: GenerateContactInfo(), languageList: GenerateLanguageList(2));
