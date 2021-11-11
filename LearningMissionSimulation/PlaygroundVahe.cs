@@ -13,9 +13,9 @@ namespace LearningMissionSimulation
         }
 
         Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
-        Dictionary<Guid, Account> accountLanguageDictionary = new Dictionary<Guid, Account>();
-        Dictionary<Account, Instructor> instructorDictionary = new Dictionary<Account, Instructor>();
-        Dictionary<Account, Student> studentDictionary = new Dictionary<Account, Student>();
+        Dictionary<Guid, Instructor> instructorDictionary = new Dictionary<Guid, Instructor>();
+        Dictionary<Guid, Student> studentDictionary = new Dictionary<Guid, Student>();
+        List<Account> pendingAccountList = new List<Account>();
 
         public void CreateAccounts(int accountCount)
         {
@@ -24,13 +24,29 @@ namespace LearningMissionSimulation
             {
                 Account account = ObjectGenerator.GenerateAccount();
                 accountDictionary.Add(account.Id, account);
-                if (account.Status == Status.Pending && account.Role == Role.Instructor)
+                if (account.Role == Role.Instructor)
                 {
-                    instructorDictionary.Add(account, ObjectGenerator.GenerateInstructor(account.Id));
+                    Instructor instructor = ObjectGenerator.GenerateInstructor(account.Id);
+                    instructorDictionary.Add(account.Id, instructor);
+                    if (account.Status == Status.Pending)
+                    {
+                        if (IsArmenianAndEnglishPresent(instructor.LanguageList))
+                        {
+                            pendingAccountList.Add(account);
+                        }
+                    }
                 }
-                else if (account.Status == Status.Pending && account.Role == Role.Student)
+                else if (account.Role == Role.Student)
                 {
-                    studentDictionary.Add(account, ObjectGenerator.GenerateStudent(account.Id));
+                    Student student = ObjectGenerator.GenerateStudent(account.Id);
+                    studentDictionary.Add(account.Id, student);
+                    if (account.Status == Status.Pending)
+                    {
+                        if (IsArmenianAndEnglishPresent(student.LanguageList))
+                        {
+                            pendingAccountList.Add(account);
+                        }
+                    }
                 }
                 Console.WriteLine("... Create Account {0} ....\n", i);
                 Console.WriteLine(account + "\n");
@@ -38,34 +54,33 @@ namespace LearningMissionSimulation
             }
         }
 
+        bool IsArmenianAndEnglishPresent(List<Language> languageList)
+        {
+            bool isArmenian = false;
+            bool isEnglish = false;
+
+            foreach (var l in languageList)
+            {
+                if (l.LanguageName == LanguageName.English)
+                {
+                    isEnglish = true;
+                }
+                else if (l.LanguageName == LanguageName.Armenian)
+                {
+                    isArmenian = true;
+                }
+            }
+            return isArmenian && isEnglish;
+        }
+
         public void ActivateAccounts()
         {
-            ISet<LanguageName> languageNameList = new HashSet<LanguageName>();
-            int i = 0;
-            while (i < 5)
+            foreach (var account in pendingAccountList)
             {
-                Language language = ObjectGenerator.GenerateLanguage();
-                languageNameList.Add(language.LanguageName);
-                i++;
+                account.Status = Status.Active;
+                accountDictionary.Add(account.Id, account);
             }
-
-            if (languageNameList.Contains(LanguageName.Armenian) && languageNameList.Contains(LanguageName.English))
-            {
-                foreach (var itemStudent in studentDictionary)
-                {
-                    itemStudent.Key.Status = Status.Active;
-                    Console.WriteLine("...Activate Account....\n");
-                    Console.WriteLine(itemStudent + "\n");
-                }
-
-                foreach (var itemInstructor in instructorDictionary)
-                {
-                    itemInstructor.Key.Status = Status.Active;
-                    Console.WriteLine("...Activate Account....\n");
-                    Console.WriteLine(itemInstructor + "\n");
-                }
-            }
-
+            pendingAccountList.Clear();
         }
 
         public void AssignModulesToInstructors()

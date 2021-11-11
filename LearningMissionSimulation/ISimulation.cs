@@ -9,7 +9,7 @@ namespace LearningMissionSimulation
 
         void CreateModules(int moduleCount);
 
-        void AssignModulesToStudents();
+                void AssignModulesToStudents();
 
         void AssignModulesToInstructors();
 
