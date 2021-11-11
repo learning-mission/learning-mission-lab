@@ -7,7 +7,7 @@ namespace LearningMissionLab
     /// Class: Instructor
     /// Purpose: Provides a model for Learning Mission instructor 
     /// </summary>
-    public class instructor : Profile
+    public class Instructor : Profile
     {
         List<Module> _moduleList;
         List<Classroom> _classroomList;
@@ -15,7 +15,7 @@ namespace LearningMissionLab
        
 
 
-        public   instructor(Guid accountId, List<Module> moduleList, List<Classroom> classroomsList, Schedule schedule, string firstName,
+        public   Instructor(Guid accountId, List<Module> moduleList, List<Classroom> classroomsList, Schedule schedule, string firstName,
                           string lastName, DateTime dateOfBirth, Gender gender, ContactInfo contactInfo, List<Language> languageList)
                          : base(accountId, firstName, lastName, dateOfBirth, gender, contactInfo, languageList)
         {
