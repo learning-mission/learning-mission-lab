@@ -82,9 +82,9 @@ namespace LearningMissionSimulation
             foreach (var account in pendingAccountList)
             {
                 account.Status = Status.Active;
-                accountDictionary.Add(account.Id, account);
+                pendingAccountList.Remove(account);
             }
-            pendingAccountList.Clear();
+            
         }
 
         public void AssignModulesToInstructors()
@@ -108,6 +108,11 @@ namespace LearningMissionSimulation
         }
 
         public void RegisterStudentsForClasses()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateSubjects(int subjectCount)
         {
             throw new NotImplementedException();
         }
