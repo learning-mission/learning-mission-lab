@@ -49,7 +49,6 @@ namespace LearningMissionSimulation
 
                 account.Status = Status.Active; 
                 pendingAccountList.Remove(account);
-                Console.WriteLine($" Create account is {pendingAccountList.Count} \n");
             }
             
         }
