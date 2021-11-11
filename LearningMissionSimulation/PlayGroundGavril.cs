@@ -39,7 +39,7 @@ namespace LearningMissionSimulation
                         pendingAccountList.Add(account);
                     }
                 }
-                Console.WriteLine("Create Account {0} \n ",account);
+             
             }
         }
         public void ActivateAccounts()
@@ -48,11 +48,10 @@ namespace LearningMissionSimulation
             {
 
                 account.Status = Status.Active; 
-                //pendingAccountList.Remove(account);
-                //Console.WriteLine($" account is {pendingAccountList.Count} \n");
+                pendingAccountList.Remove(account);
                 Console.WriteLine($" Create account is {pendingAccountList.Count} \n");
             }
-            Console.WriteLine("Count is  ", pendingAccountList.Count);
+            
         }
     }
 }

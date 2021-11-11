@@ -12,10 +12,10 @@ namespace LearningMissionSimulation
             //PlaygroundEdvard.Action0();
             //PlaygroundMher playgroundMher = new PlaygroundMher();
             //AttributeGenerator.GetCity("2613");
-          //  Account account = ObjectGenerator.GenerateAccount();
+           // Account account = ObjectGenerator.GenerateAccount();
             PlayGroundGavril groundGavril = new PlayGroundGavril();
             groundGavril.CreateAccounts(10);
-            Console.WriteLine("Create Account");
+           
             groundGavril.ActivateAccounts();
             
 
