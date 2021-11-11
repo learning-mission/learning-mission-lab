@@ -119,11 +119,10 @@ namespace LearningMissionSimulation
             int i = 0;
             foreach (var student in studentList)
             {
+                Console.WriteLine("========== List of modules assigned to student {0} {1} {2} =======", student.AccountId, student.FirstName, student.LastName);
                 student.CompletedModuleList = GetModuleList();
-                Console.WriteLine("========== Generated List Number {0} of the  Student Number {1} =======", i+1, i+1);
                 i++;
             }
-            Console.WriteLine("========== Generated  List of the Students Module List  =======\n");
             Console.WriteLine("******** Finished assigning modules to students   ********\n\n\n\n");
         }
         List<Module> GetModuleList() 
