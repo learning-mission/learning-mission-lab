@@ -69,8 +69,12 @@ namespace LearningMissionSimulation
                 {
                     isArmenian = true;
                 }
+                if (isArmenian && isEnglish)
+                {
+                    return true;
+                }
             }
-            return isArmenian && isEnglish;
+            return false;
         }
 
         public void ActivateAccounts()
