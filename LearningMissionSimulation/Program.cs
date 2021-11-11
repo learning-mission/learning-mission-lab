@@ -8,22 +8,11 @@ namespace LearningMissionSimulation
     {
         static void Main(string[] args)
         {
-            //PlaygroundVahe.Play();
-            //PlaygroundEdvard.Action0();
-            //PlaygroundMher playgroundMher = new PlaygroundMher();
-            //AttributeGenerator.GetCity("2613");
-           // Account account = ObjectGenerator.GenerateAccount();
-            PlayGroundGavril groundGavril = new PlayGroundGavril();
-            groundGavril.CreateAccounts(10);
-           
-            groundGavril.ActivateAccounts();
-            
-
-
-
-
-
+            PlaygroundEdvard playgroundEdvard = new PlaygroundEdvard();
+            PlaygroundGarush playgroundGarush = new PlaygroundGarush();
+            PlayGroundGavril playGroundGavril = new PlayGroundGavril();
+            PlaygroundVahe playgroundVahe = new PlaygroundVahe();
+            PlaygroundMher playgroundMher = new PlaygroundMher(); 
         }
-        //ModuleLevel moduleLevel = new ModuleLevel();
     }
 }

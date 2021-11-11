@@ -7,6 +7,8 @@ namespace LearningMissionSimulation
 
         void ActivateAccounts();
 
+        void CreateSubjects(int subjectCount);
+
         void CreateModules(int moduleCount);
 
         void AssignModulesToStudents();

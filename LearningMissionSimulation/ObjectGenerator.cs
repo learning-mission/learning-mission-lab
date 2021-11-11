@@ -78,21 +78,26 @@ namespace LearningMissionSimulation
             string postalCode = AttributeGenerator.GetPostalCode();
 
             return new Address(
-                 AttributeGenerator.GetStreetAddress(),
-                 AttributeGenerator.GetBuildingNumber(),
-                 AttributeGenerator.GetApartmentNumber(),
-                 AttributeGenerator.GetCity(postalCode),
-                 AttributeGenerator.GetProvince(postalCode),
-                 AttributeGenerator.GetPostalCode(),
-                 AttributeGenerator.GetCountry()
+                 streetName: AttributeGenerator.GetStreetName(),
+                 buildingNumber: AttributeGenerator.GetBuildingNumber(),
+                 apartmentNumber: AttributeGenerator.GetApartmentNumber(),
+                 city: AttributeGenerator.GetCity(postalCode),
+                 province: AttributeGenerator.GetProvince(postalCode),
+                 postalCode: AttributeGenerator.GetPostalCode(),
+                 country: AttributeGenerator.GetCountry()
              );
         }
 
         // Creates a ContactInfo object with randomly selected attributes
         public static ContactInfo GenerateContactInfo()
         {
-            //not implemented yet!
-            return null;
+            return new ContactInfo(
+                address: GenerateAddress(),
+                email: AttributeGenerator.GetEmail(),
+                homePhone: AttributeGenerator.GetPhoneNumber(),
+                workPhone: AttributeGenerator.GetPhoneNumber(),
+                cellPhone: AttributeGenerator.GetPhoneNumber()
+            );
         }
 
         // Creates a Schedule object with randomly selected attributes
@@ -123,11 +128,26 @@ namespace LearningMissionSimulation
             return new List<Classroom>();
         }
 
+        // Creates a random Module object
+        public static Module GenerateModule(Guid subjectId)
+        {
+            return new Module(subjectId: subjectId, moduleLevel: AttributeGenerator.GetModuleLevel(), prerequisiteList: GenerateModuleList(),
+                              name: AttributeGenerator.GetUnitName(UnitType.Module), description: AttributeGenerator.GetUnitDescprition(UnitType.Module),
+                              itemList: new List<Lesson>());
+        }
+
         // Creates a random list of Module objects
         public static List<Module> GenerateModuleList()
         {
             //not implemented yet!
             return new List<Module>();
+        }
+
+        // Creates a random Subject object
+        public static Subject GenerateSubject()
+        {
+            return new Subject(subjectType: AttributeGenerator.GetSubjecType(), description: AttributeGenerator.GetUnitDescprition(UnitType.Subject),
+                               name: AttributeGenerator.GetUnitName(UnitType.Subject), itemList: ObjectGenerator.GenerateModuleList());
         }
     }
 }
