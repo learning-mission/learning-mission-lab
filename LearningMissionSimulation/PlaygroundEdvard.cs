@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LearningMissionSimulation
 {
-    class PlaygroundEdvard
+    class PlaygroundEdvard : ISimulation
     {
         Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
         Stack<Account> pendingAccountStack = new Stack<Account>();
@@ -140,13 +140,13 @@ namespace LearningMissionSimulation
                 Module module = ObjectGenerator.GenerateModule(subjectId);
 
                 moduleDictionary.Add(module.Id, module);
-                subjectIdList.Add(module.Id);
+                moduleIdList.Add(module.Id);
             }
         }
 
         Guid GetSubjectId()
         {
-            return subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count)];
+            return subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count - 1)];
         }
 
         public void AssignModulesToStudents()
@@ -167,21 +167,36 @@ namespace LearningMissionSimulation
 
         public List<Module> GenerateModuleList()
         {
-            List<Module> modules = new List<Module>();
-            int moduleCount = AttributeGenerator.random.Next(1, moduleDictionary.Count);
+            List<Module> moduleList = new List<Module>();
+            int totalModuleCount = moduleIdList.Count;
+            int minModuleCountLimit = 2;
+            int maxModuleCountLimit = 5;
+            minModuleCountLimit = Math.Min(totalModuleCount, minModuleCountLimit);
+            maxModuleCountLimit = Math.Min(totalModuleCount, maxModuleCountLimit);
+            int moduleCount = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit);
 
             for (int i = 0; i < moduleCount; i++)
             {
-                Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
+                Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count - 1)];
 
                 Module module;
 
                 moduleDictionary.TryGetValue(id, out module);
 
-                modules.Add(module);
+                moduleList.Add(module);
             }
 
-            return modules;
+            return moduleList;
+        }
+
+        public void CreateClassrooms(int classroomCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RegisterStudentsForClasses()
+        {
+            throw new NotImplementedException();
         }
     }
 }
