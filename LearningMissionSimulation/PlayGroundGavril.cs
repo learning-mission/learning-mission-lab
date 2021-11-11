@@ -46,7 +46,6 @@ namespace LearningMissionSimulation
         {
             foreach (var account  in pendingAccountList )
             {
-
                 account.Status = Status.Active; 
                 pendingAccountList.Remove(account);
             }
