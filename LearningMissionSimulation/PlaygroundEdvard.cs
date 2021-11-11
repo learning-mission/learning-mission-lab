@@ -7,6 +7,15 @@ namespace LearningMissionSimulation
 {
     class PlaygroundEdvard
     {
+        Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
+        Stack<Account> pendingAccountStack = new Stack<Account>();
+        List<Student> studentList = new List<Student>();
+        List<Instructor> instructorList = new List<Instructor>();
+        Dictionary<Guid, Subject> subjectDictionary = new Dictionary<Guid, Subject>();
+        Dictionary<Guid, Module> moduleDictionary = new Dictionary<Guid, Module>();
+        List<Guid> subjectIdList = new List<Guid>();
+        List<Guid> moduleIdList = new List<Guid>();
+
         public static void Action0()
         {
             ObjectGenerator.GenerateAddress();
@@ -21,7 +30,7 @@ namespace LearningMissionSimulation
                 "zxczxc.asdasdqweqweqwe@gmail.com",
                 "010-54-74-90",
                 "010-28-88-88",
-                "043-23-09-99"
+                "013-23-122-33"
             );
 
             Employee employee0 = new Employee();
@@ -47,6 +56,132 @@ namespace LearningMissionSimulation
             //unit0.Report();
         }
 
+        public void Action2(int accountCount)
+        {
+            CreateAccounts(accountCount);
+            ActivateAccounts();
+        }
 
+        public void Action3(int subjectCount, int moduleCount)
+        {
+            CreateSubjects(subjectCount);
+            CreateModules(moduleCount);
+            AssignModulesToStudents();
+            AssignModulesToInstructors();
+        }
+
+        public void CreateAccounts(int accountCount)
+        {
+            for (int i = 1; i <= accountCount; i++)
+            {
+                Console.WriteLine($" Account {i}");
+
+                Account account = ObjectGenerator.GenerateAccount();
+
+                accountDictionary.Add(account.Id, account);
+
+                if ((account.Role == Role.Student || account.Role == Role.Instructor) && account.Status == Status.Pending)
+                {
+                    pendingAccountStack.Push(account);
+                }
+
+                if (account.Role == Role.Student)
+                {
+                    Student student = ObjectGenerator.GenerateStudent(account.Id);
+
+                    studentList.Add(student);
+
+                    student.Report();
+                }
+                else if (account.Role == Role.Instructor)
+                {
+                    Instructor instructor = ObjectGenerator.GenerateInstructor(account.Id);
+
+                    instructorList.Add(instructor);
+
+                    instructor.Report();
+                }
+
+                Console.WriteLine('\n');
+            }
+        }
+
+        public void ActivateAccounts()
+        {
+            Console.WriteLine("-----Unfair coordinator started activating accounts-----\n");
+
+            while (pendingAccountStack.Count > 0)
+            {
+                pendingAccountStack.Pop().Status = Status.Active;
+
+                Console.WriteLine($" Activated at {DateTime.Now}\n");
+            }
+
+            Console.WriteLine("-----Unfair coordinator finished activating accounts-----");
+        }
+
+        public void CreateSubjects(int subjectCount)
+        {
+            for (int i = 0; i < subjectCount; i++)
+            {
+                Subject subject = ObjectGenerator.GenerateSubject();
+
+                subjectDictionary.Add(subject.Id, subject);
+                subjectIdList.Add(subject.Id);
+            }
+        }
+
+        public void CreateModules(int moduleCount)
+        {
+            for (int i = 0; i < moduleCount; i++)
+            {
+                Guid subjectId = GetSubjectId();
+
+                Module module = ObjectGenerator.GenerateModule(subjectId);
+
+                moduleDictionary.Add(module.Id, module);
+                subjectIdList.Add(module.Id);
+            }
+        }
+
+        Guid GetSubjectId()
+        {
+            return subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count)];
+        }
+
+        public void AssignModulesToStudents()
+        {
+            foreach (Student student in studentList)
+            {
+                student.CompletedModuleList = GenerateModuleList();
+            }
+        }
+        
+        public void AssignModulesToInstructors()
+        {
+            foreach (Instructor instructor in instructorList)
+            {
+                instructor.ModuleList = GenerateModuleList();
+            }
+        }
+
+        public List<Module> GenerateModuleList()
+        {
+            List<Module> modules = new List<Module>();
+            int moduleCount = AttributeGenerator.random.Next(1, moduleDictionary.Count);
+
+            for (int i = 0; i < moduleCount; i++)
+            {
+                Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
+
+                Module module;
+
+                moduleDictionary.TryGetValue(id, out module);
+
+                modules.Add(module);
+            }
+
+            return modules;
+        }
     }
 }
