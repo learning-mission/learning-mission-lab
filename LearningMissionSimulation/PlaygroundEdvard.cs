@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LearningMissionSimulation
 {
-    class PlaygroundEdvard
+    class PlaygroundEdvard : ISimulation
     {
         Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
         Stack<Account> pendingAccountStack = new Stack<Account>();
@@ -187,6 +187,16 @@ namespace LearningMissionSimulation
             }
 
             return moduleList;
+        }
+
+        public void CreateClassrooms(int classroomCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RegisterStudentsForClasses()
+        {
+            throw new NotImplementedException();
         }
     }
 }
