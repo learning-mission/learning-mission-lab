@@ -84,7 +84,6 @@ namespace LearningMissionSimulation
                 account.Status = Status.Active;
                 pendingAccountList.Remove(account);
             }
-            
         }
 
         public void AssignModulesToInstructors()
