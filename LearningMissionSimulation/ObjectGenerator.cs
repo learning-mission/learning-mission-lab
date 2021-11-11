@@ -114,8 +114,8 @@ namespace LearningMissionSimulation
             return new List<string>();
         }
 
-        // Creates a random list of Classroom objects
-        public static Classroom GenerateClassroom()
+        // Creates a random Classroom object
+        public static Classroom GenerateClassroom(Module module)
         {
             //not implemented yet!
             return null;
