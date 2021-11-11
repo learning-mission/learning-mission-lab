@@ -28,7 +28,7 @@ namespace LearningMissionLab
         Gender _gender;
         ContactInfo _contactInfo;
         List<Language> _languageList;
-        public  Profile(Guid accountId, string firstName, string lastName, string financialId, string passportId, string education,
+        public Profile(Guid accountId, string firstName, string lastName, string financialId, string passportId, string education,
                        string resume, string salary, string militaryId, string family, string occupation,string stipend,
                        string computerInventory, DateTime createDate, DateTime updateDate, DateTime dateOfBirth,
                        Gender gender, ContactInfo contactInfo, List<Language> languageList)
