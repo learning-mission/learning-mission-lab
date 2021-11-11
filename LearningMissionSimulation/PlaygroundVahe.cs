@@ -59,13 +59,13 @@ namespace LearningMissionSimulation
             bool isArmenian = false;
             bool isEnglish = false;
 
-            foreach (var l in languageList)
+            foreach (Language language in languageList)
             {
-                if (l.LanguageName == LanguageName.English)
+                if (language.LanguageName == LanguageName.English)
                 {
                     isEnglish = true;
                 }
-                else if (l.LanguageName == LanguageName.Armenian)
+                else if (language.LanguageName == LanguageName.Armenian)
                 {
                     isArmenian = true;
                 }
