@@ -29,7 +29,7 @@ namespace LearningMissionLab
 
         public List<Module> ModuleList { get => _moduleList; set => _moduleList = value; }
         public List<Classroom> ClassroomList { get => _classroomList; set => _classroomList = value; }
-        public Schedule Scheule { get => _schedule; set => _schedule = value; }
+        public Schedule Schedule { get => _schedule; set => _schedule = value; }
         
     }
 }
