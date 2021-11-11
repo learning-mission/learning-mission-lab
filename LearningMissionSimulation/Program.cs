@@ -8,7 +8,7 @@ namespace LearningMissionSimulation
     {
         static void Main(string[] args)
         {
-            PlaygroundEdvard playgroundEdvard0 = new PlaygroundEdvard();
+            PlaygroundEdvard playgroundEdvard = new PlaygroundEdvard();
             PlaygroundGarush playgroundGarush = new PlaygroundGarush();
             PlayGroundGavril playGroundGavril = new PlayGroundGavril();
             PlaygroundVahe playgroundVahe = new PlaygroundVahe();
