@@ -117,8 +117,9 @@ namespace LearningMissionSimulation
         // Creates a random Classroom object
         public static Classroom GenerateClassroom(Module module)
         {
-            //not implemented yet!
-            return null;
+            return new Classroom(maximumCapacity: SimulationConstants.MaxClassroomSize, minimumCapacity: SimulationConstants.MinClassroomSize,
+                                 module: module, schedule: GenerateSchedule(), name: AttributeGenerator.GetUnitName(UnitType.Classroom),
+                                 description: AttributeGenerator.GetUnitDescprition(UnitType.Classroom), itemList: new List<Student>()); 
         }
 
         // Creates a random list of Classroom objects
