@@ -6,6 +6,7 @@ namespace LearningMissionSimulation
 {
     public class PlaygroundMher : ISimulation
     {
+        
         List<Student> studentList = new List<Student>();
 
         List<Instructor> instructorList = new List<Instructor>();
@@ -185,6 +186,46 @@ namespace LearningMissionSimulation
         void ReportHeader(string actionDescription )
         {
             Console.WriteLine("\n------------ {0} ----------\n",actionDescription);
+        }
+
+        public void SimulationRandom(int count)
+        {
+            var methodsCount = Enum.GetValues(typeof(Method)).Length;
+            var methodsValue = AttributeGenerator.random.Next(0, methodsCount);
+            int i = 0;
+            while (i < count)
+            {
+                switch (methodsValue)
+                {
+                    case 0:
+                        CreateAccounts(20);
+                        break;
+                    case 1:
+                        ActivateAccounts();
+                        break;
+                    case 2:
+                        CreateSubjects(20);
+                        break;
+                    case 3:
+                        CreateModules(15);
+                        break;
+                    case 4:
+                        AssignModulesToInstructors();
+                        break;
+                    case 5:
+                        AssignModulesToStudents();
+                        break;
+                    case 6:
+                        CreateClassrooms(10);
+                        break;
+                    case 7:
+                        RegisterStudentsForClasses();
+                        break;
+                    default:
+                        break;
+                }
+                i++;
+            } 
         }
 
         public void SimulationAll()
