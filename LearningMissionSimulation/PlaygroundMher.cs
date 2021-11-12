@@ -24,6 +24,8 @@ namespace LearningMissionSimulation
 
         Dictionary<Module, Classroom> classroomDictionary = new Dictionary<Module, Classroom>();
 
+        List<Module> moduleList = new List<Module>();
+
         public void CreateAccounts(int accountCount)
         {
             Console.WriteLine("******** Started creating accounts  ********\n");
@@ -172,19 +174,43 @@ namespace LearningMissionSimulation
             {
                 Classroom classroom = ObjectGenerator.GenerateClassroom(module);
                 classroomDictionary.Add(module, classroom);
+                moduleList.Add(module);
                 i++;
             }
             
         }
 
-        public void RegisterStudentsForClasses()
-        {
-            throw new NotImplementedException();
-        }
-
         public void AssignInstructorsToClassrooms()
         {
-            throw new NotImplementedException();
+            Module module = moduleList[AttributeGenerator.random.Next(0, moduleList.Count)];
+            foreach (var instructor in instructorList)
+            {
+                if (GetModule(instructor, module))
+                {
+                    Classroom classroom;
+                    classroomDictionary.TryGetValue(module, out classroom);
+                    classroom.Head = instructor;
+                }
+            }
         }
+
+        bool GetModule(Instructor instructor, Module module)
+        {
+            foreach (var instructorModul in instructor.ModuleList)
+            {
+                if (module == instructorModul)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public void RegisterStudentsForClasses()
+        {
+           
+        }
+       
+
+        
     }
 }
