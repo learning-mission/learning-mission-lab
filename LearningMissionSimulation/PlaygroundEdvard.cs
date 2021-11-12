@@ -223,7 +223,7 @@ namespace LearningMissionSimulation
         }
 
         #region Reports
-        public void ReportHeader(string objectName)
+        void ReportHeader(string objectName)
         {
             switch (objectName)
             {
@@ -242,7 +242,7 @@ namespace LearningMissionSimulation
             }
         }
 
-        public void ReportFooter(string objectName)
+        void ReportFooter(string objectName)
         {
             switch (objectName)
             {
@@ -261,12 +261,12 @@ namespace LearningMissionSimulation
             }
         }
 
-        public void ReportItem(string itemName, int count)
+        void ReportItem(string itemName, int count)
         {
             Console.WriteLine($" {itemName} {count}");
         }
 
-        public void ReportSummary(string reportDescription, int count)
+        void ReportSummary(string reportDescription, int count)
         {
             Console.WriteLine($"''''''Generated {count} {reportDescription}''''''");
         }
