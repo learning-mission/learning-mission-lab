@@ -22,6 +22,8 @@ namespace LearningMissionSimulation
 
         List<Guid> subjectIdList = new List<Guid>();
 
+        Dictionary<Module, Classroom> classroomDictionary = new Dictionary<Module, Classroom>();
+
         public void CreateAccounts(int accountCount)
         {
             Console.WriteLine("******** Started creating accounts  ********\n");
@@ -55,6 +57,7 @@ namespace LearningMissionSimulation
             Console.WriteLine("========== Generated {0} Accounts  =======\n", accountCount);
             Console.WriteLine("********  Finished creating accounts   ********\n");
         }
+
         public void ActivateAccounts()
         {
             Console.WriteLine("******** Started activating accounts ********\n");
@@ -69,6 +72,7 @@ namespace LearningMissionSimulation
             Console.WriteLine("========== Activated {0} accounts  =======\n", pendingAccountQueueCount);
             Console.WriteLine("******** Finished activating accounts ********\n");
         }
+
         public void CreateSubjects(int subjectCount)
         {
             Console.WriteLine("******** Started creating subjects  ********\n");
@@ -84,6 +88,7 @@ namespace LearningMissionSimulation
             Console.WriteLine("========== Generated {0} Subjects  =======\n", subjectCount);
             Console.WriteLine("******** Finished creating subjects  ********\n");
         }
+
         public void CreateModules(int moduleCount)
         {
             Console.WriteLine("******** Started creating modules  ********\n");
@@ -100,6 +105,7 @@ namespace LearningMissionSimulation
             Console.WriteLine("========== Generated {0} Modules  =======\n", moduleCount);
             Console.WriteLine("******** Finished creating modules ********\n");
         }
+
         public void AssignModulesToInstructors()
         {
             Console.WriteLine("******** Started assigning modules to instructors  ********\n");
@@ -113,6 +119,7 @@ namespace LearningMissionSimulation
             Console.WriteLine("========== Generated Lists of the Instructors Module List  =======\n");
             Console.WriteLine("******** Finished assigning modules to instructors  ********\n");
         }
+
         public void AssignModulesToStudents()
         {
             Console.WriteLine("******** Started assigning modules to students  ********\n");
@@ -125,6 +132,7 @@ namespace LearningMissionSimulation
             }
             Console.WriteLine("******** Finished assigning modules to students   ********\n\n\n\n");
         }
+
         List<Module> GetModuleList() 
         {
             ISet<Guid> moduleIdSet = new HashSet<Guid>();
@@ -156,12 +164,25 @@ namespace LearningMissionSimulation
 
         public void CreateClassrooms(int classroomCount)
         {
+            Guid moduleIdListId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
+            Module module;
+            moduleDictionary.TryGetValue(moduleIdListId, out module);
+            int i = 0;
+            while (i < classroomCount)
+            {
+                Classroom classroom = ObjectGenerator.GenerateClassroom(module);
+                classroomDictionary.Add(module, classroom);
+                i++;
+            }
+            
+        }
+
+        public void RegisterStudentsForClasses()
+        {
             throw new NotImplementedException();
         }
 
-       
-
-        public void RegisterStudentsForClasses()
+        public void AssignInstructorsToClassrooms()
         {
             throw new NotImplementedException();
         }
