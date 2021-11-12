@@ -79,5 +79,10 @@ namespace LearningMissionSimulation
         {
             throw new NotImplementedException();
         }
+
+        public void CreateSubjects(int subjectCount)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

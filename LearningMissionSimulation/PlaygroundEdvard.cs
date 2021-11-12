@@ -16,65 +16,13 @@ namespace LearningMissionSimulation
         List<Guid> subjectIdList = new List<Guid>();
         List<Guid> moduleIdList = new List<Guid>();
 
-        public static void Action0()
-        {
-            ObjectGenerator.GenerateAddress();
-        }
-        
-        public static void Action1()
-        {
-            Address address0 = new Address("dasdasd str",23, 15, "Yerevan", "asdqwe", "15", "Armenia");
-            ContactInfo contact0 = new ContactInfo
-            (
-                address0,
-                "zxczxc.asdasdqweqweqwe@gmail.com",
-                "010-54-74-90",
-                "010-28-88-88",
-                "013-23-122-33"
-            );
-
-            Employee employee0 = new Employee();
-            Employee employee1 = new Employee();
-
-            List<Employee> employeeList = new List<Employee>
-            {
-                employee0,
-                employee1
-            };
-
-            Department department0 = new Department(Guid.NewGuid(), contact0, "Dep0", "Department0", employeeList);
-
-            List<Department> departmentList = new List<Department>
-            {
-                department0
-            };
-
-            Unit<Department> unit0 = new Unit<Department>(UnitType.Department, "Dep0", "Department0", departmentList);
-
-            Console.WriteLine(AttributeGenerator.GetDateOfBirth(20, 60));
-
-            //unit0.Report();
-        }
-
-        public void Action2(int accountCount)
-        {
-            CreateAccounts(accountCount);
-            ActivateAccounts();
-        }
-
-        public void Action3(int subjectCount, int moduleCount)
-        {
-            CreateSubjects(subjectCount);
-            CreateModules(moduleCount);
-            AssignModulesToStudents();
-            AssignModulesToInstructors();
-        }
-
         public void CreateAccounts(int accountCount)
         {
+            ReportHeader("Account");
+
             for (int i = 1; i <= accountCount; i++)
             {
-                Console.WriteLine($" Account {i}");
+                ReportItem("Account", i);
 
                 Account account = ObjectGenerator.GenerateAccount();
 
@@ -104,49 +52,77 @@ namespace LearningMissionSimulation
 
                 Console.WriteLine('\n');
             }
+
+            ReportSummary("Account", accountCount);
+            ReportFooter("Account");
         }
 
         public void ActivateAccounts()
         {
-            Console.WriteLine("-----Unfair coordinator started activating accounts-----\n");
-
-            while (pendingAccountStack.Count > 0)
+            if (pendingAccountStack.Count == 0)
             {
-                pendingAccountStack.Pop().Status = Status.Active;
-
-                Console.WriteLine($" Activated at {DateTime.Now}\n");
+                EmptyPendingAccountStack();
             }
+            else
+            {
+                ActivationProcess();
 
-            Console.WriteLine("-----Unfair coordinator finished activating accounts-----");
+                while (pendingAccountStack.Count > 0)
+                {
+                    pendingAccountStack.Pop().Status = Status.Active;
+
+                    Console.WriteLine($" Activated at {DateTime.Now}\n");
+                }
+
+                ActivationProcess();
+            }
         }
 
         public void CreateSubjects(int subjectCount)
         {
-            for (int i = 0; i < subjectCount; i++)
+            ReportHeader("Subject");
+
+            for (int i = 1; i <= subjectCount; i++)
             {
                 Subject subject = ObjectGenerator.GenerateSubject();
+
+                ReportItem("Subject", i);
+
+                subject.Report();
 
                 subjectDictionary.Add(subject.Id, subject);
                 subjectIdList.Add(subject.Id);
             }
+
+            ReportSummary("Subject", subjectCount);
+            ReportFooter("Subject");
         }
 
         public void CreateModules(int moduleCount)
         {
-            for (int i = 0; i < moduleCount; i++)
+            ReportHeader("Module");
+
+            for (int i = 1; i <= moduleCount; i++)
             {
+                ReportItem("Module", i);
+
                 Guid subjectId = GetSubjectId();
 
                 Module module = ObjectGenerator.GenerateModule(subjectId);
 
+                module.Report();
+
                 moduleDictionary.Add(module.Id, module);
                 moduleIdList.Add(module.Id);
             }
+
+            ReportSummary("Module", moduleCount);
+            ReportFooter("Module");
         }
 
         Guid GetSubjectId()
         {
-            return subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count - 1)];
+            return subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count)];
         }
 
         public void AssignModulesToStudents()
@@ -198,5 +174,129 @@ namespace LearningMissionSimulation
         {
             throw new NotImplementedException();
         }
+        public static void Action0()
+        {
+            ObjectGenerator.GenerateAddress();
+        }
+        
+        public static void Action1()
+        {
+            Address address0 = new Address("dasdasd str",23, 15, "Yerevan", "asdqwe", "15", "Armenia");
+            ContactInfo contact0 = new ContactInfo
+            (
+                address0,
+                "zxczxc.asdasdqweqweqwe@gmail.com",
+                "010-54-74-90",
+                "010-28-88-88",
+                "013-23-122-33"
+            );
+
+            Employee employee0 = new Employee();
+            Employee employee1 = new Employee();
+
+            List<Employee> employeeList = new List<Employee>
+            {
+                employee0,
+                employee1
+            };
+
+            Department department0 = new Department(Guid.NewGuid(), contact0, "Dep0", "Department0", employeeList);
+
+            List<Department> departmentList = new List<Department>
+            {
+                department0
+            };
+
+            Unit<Department> unit0 = new Unit<Department>(UnitType.Department, "Dep0", "Department0", departmentList);
+
+            Console.WriteLine(AttributeGenerator.GetDateOfBirth(20, 60));
+        }
+
+        public void Action2(int accountCount)
+        {
+            CreateAccounts(accountCount);
+            ActivateAccounts();
+        }
+
+        public void Action3(int subjectCount, int moduleCount)
+        {
+            CreateSubjects(subjectCount);
+            CreateModules(moduleCount);
+            AssignModulesToStudents();
+            AssignModulesToInstructors();
+        }
+
+        #region Reports
+        public void ReportHeader(string objectName)
+        {
+            switch (objectName)
+            {
+                case "Account":
+                    Console.WriteLine("******Account generation is started******");
+
+                    break;
+                case "Subject":
+                    Console.WriteLine("******Subject generation is started******");
+
+                    break;
+                case "Module":
+                    Console.WriteLine("******Module generation is started******");
+
+                    break;
+            }
+        }
+
+        public void ReportFooter(string objectName)
+        {
+            switch (objectName)
+            {
+                case "Account":
+                    Console.WriteLine("******Account generation is finished******\n");
+
+                    break;
+                case "Subject":
+                    Console.WriteLine("******Subject generation is finished******\n");
+
+                    break;
+                case "Module":
+                    Console.WriteLine("******Module generation is finished******\n");
+
+                    break;
+            }
+        }
+
+        public void ReportItem(string itemName, int count)
+        {
+            Console.WriteLine($" {itemName} {count}");
+        }
+
+        public void ReportSummary(string reportDescription, int count)
+        {
+            Console.WriteLine($"''''''Generated {count} {reportDescription}''''''");
+        }
+
+        void ActivationProcess(string coordinatorType)
+        {
+            if (pendingAccountStack.Count > 0)
+            {
+                Console.WriteLine($"------{coordinatorType} coordinator started activating accounts------\n");
+            }
+            else
+            {
+                Console.WriteLine($"------{coordinatorType} coordinator finished activating accounts------\n");
+            }
+        }
+
+        void ActivationProcess()
+        {
+            ActivationProcess("Unfair");
+        }
+
+        void EmptyPendingAccountStack()
+        {
+            Console.WriteLine("______There is nothing to activate!______\n");
+        }
+
+        #endregion Reports
     }
 }
