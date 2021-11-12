@@ -101,6 +101,7 @@ namespace LearningMissionSimulation
                 subjectIdList.Add(subject.Id);
             }
         }
+
         public void CreateModules(int moduleCount)
         {
             for (int i = 0;  i < moduleCount; i++)
@@ -111,22 +112,20 @@ namespace LearningMissionSimulation
                 moduleIdList.Add(module.Id);
             }
         }
+
         public void AssignModulesToInstructors()
         {
-            int i = 0;
             foreach (var instructor in instructorList)
             {
                 instructor.ModuleList = GetModuleList();
-                i++;
             }
         }
+
         public void AssignModulesToStudents()
         {
-            int i = 0;
             foreach (var student in studentList)
             {
                 student.CompletedModuleList = GetModuleList();
-                i++;
             }
         }
 
@@ -142,11 +141,8 @@ namespace LearningMissionSimulation
             for (int i = 0; i < moduleCount; i++)
             {
                 Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
-
                 Module module;
-
                 moduleDictionary.TryGetValue(id, out module);
-
                 moduleList.Add(module);
             }
             return moduleList;
