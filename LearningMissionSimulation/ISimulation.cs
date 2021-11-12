@@ -22,10 +22,13 @@ namespace LearningMissionSimulation
         // Adds a random number of existing modules to instructor's module list
         void AssignModulesToInstructors();
 
-        // Creates classrooms with randomly assign modules and instructors
+        // Creates classrooms with randomly assigned modules
+        void CreateClassrooms(int classroomCount);
+
+        // Assigns instuctors to classrooms
         // The only requirement is: the classroom's module is in the
         // instructor's module list.
-        void CreateClassrooms(int classroomCount);
+        void AssignInstructorsToClassrooms();
 
         // Assigns students to exisitng classrooms
         void RegisterStudentsForClasses();
