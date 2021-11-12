@@ -24,11 +24,11 @@ namespace LearningMissionSimulation
 
         public void CreateAccounts(int accountCount)
         {
-            Console.WriteLine("******** Started creating accounts  ********\n");
+            ReportItem("Started creating accounts");
             int i = 0;
             while (i < accountCount)
             {
-                Console.WriteLine("\n========== Created  account {0} =======\n", i);
+                ReportHeader($"Created  account {i}"); 
                 Account account = ObjectGenerator.GenerateAccount();
                 accountDictionary.Add(account.Id, account);
                 if (account.Role == Role.Student)
@@ -49,82 +49,90 @@ namespace LearningMissionSimulation
                         pendingAccountQueue.Enqueue(account);
                     }
                 }
-                Console.WriteLine("\n");
                 i++;
             }
-            Console.WriteLine("========== Generated {0} Accounts  =======\n", accountCount);
-            Console.WriteLine("********  Finished creating accounts   ********\n");
+            ReportHeader($"Generated {accountCount} Accounts");
+            ReportItem(" Finished creating accounts"); 
         }
+
         public void ActivateAccounts()
         {
-            Console.WriteLine("******** Started activating accounts ********\n");
+            ReportItem("Started activating accounts");
             int pendingAccountQueueCount = pendingAccountQueue.Count;
             while(pendingAccountQueue.Count > 0)
             {
-                Console.WriteLine("========== Activate Account =======");
                 Account account = pendingAccountQueue.Dequeue();
                 account.Status = Status.Active;
-                Console.WriteLine("\n========== Activated account =======\n{0}\n", account);
+                ReportSummary($"Activated account", Convert.ToString(account)); 
             }
-            Console.WriteLine("========== Activated {0} accounts  =======\n", pendingAccountQueueCount);
-            Console.WriteLine("******** Finished activating accounts ********\n");
+            ReportHeader($"Activated {pendingAccountQueueCount} accounts "); 
+            ReportItem("Finished activating accounts");
         }
+
         public void CreateSubjects(int subjectCount)
         {
-            Console.WriteLine("******** Started creating subjects  ********\n");
+            ReportItem("Started creating subjects"); 
             int i = 0;
             while (i < subjectCount)
             {
                 Subject subject = ObjectGenerator.GenerateSubject();
-                Console.WriteLine("========== Created  Subject {0} =======\n\n{1}\n", i, subject);
+                ReportSummary($"Created  Subject {i}", Convert.ToString(subject));
                 subjectList.Add(subject);
                 subjectIdList.Add(subject.Id);
                 i++;
             }
-            Console.WriteLine("========== Generated {0} Subjects  =======\n", subjectCount);
-            Console.WriteLine("******** Finished creating subjects  ********\n");
+            ReportHeader($"Generated {subjectCount} Subjects "); 
+            ReportItem("Finished creating subjects");
         }
+
         public void CreateModules(int moduleCount)
         {
-            Console.WriteLine("******** Started creating modules  ********\n");
+            ReportItem("Started creating modules"); 
             int i = 0;
-            while (i < moduleCount)
+            if(subjectIdList.Count != 0)
             {
-                Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count-1)];
-                Module module = ObjectGenerator.GenerateModule(subjectId);
-                moduleDictionary.Add(module.Id, module);
-                moduleIdList.Add(module.Id);
-                Console.WriteLine("\n========== Created  Module {0} =======\n\n{1}\n", i, module);
-                i++;
+                while (i < moduleCount)
+                {
+                    Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count)];
+                    Module module = ObjectGenerator.GenerateModule(subjectId);
+                    moduleDictionary.Add(module.Id, module);
+                    moduleIdList.Add(module.Id);
+                    ReportSummary($"Created  Module {i}", Convert.ToString(module));
+                    i++;
+                }
             }
-            Console.WriteLine("========== Generated {0} Modules  =======\n", moduleCount);
-            Console.WriteLine("******** Finished creating modules ********\n");
+
+            ReportHeader($"Generated {moduleCount} Modules "); 
+            ReportItem("Finished creating modules"); 
         }
+
         public void AssignModulesToInstructors()
         {
-            Console.WriteLine("******** Started assigning modules to instructors  ********\n");
+            ReportItem("Started assigning modules to instructors");
             int i = 0;
             foreach (var instructor in instructorList)
             {
                 instructor.ModuleList = GetModuleList();
-                Console.WriteLine("\n========== Generated List Number {0} of the Instructor Number {1} =======\n\n\n", i+1, i+1);
+                ReportHeader($"Generated List Number {i + 1} of the Instructor Number {i + 1}");
                 i++;
             }
-            Console.WriteLine("========== Generated Lists of the Instructors Module List  =======\n");
-            Console.WriteLine("******** Finished assigning modules to instructors  ********\n");
+            ReportHeader($"Generated Lists of the Instructors Module List"); 
+            ReportItem("Finished assigning modules to instructors"); 
         }
+
         public void AssignModulesToStudents()
         {
-            Console.WriteLine("******** Started assigning modules to students  ********\n");
+            ReportItem("Started assigning modules to students"); 
             int i = 0;
             foreach (var student in studentList)
             {
-                Console.WriteLine("========== List of modules assigned to student {0} {1} {2} =======", student.AccountId, student.FirstName, student.LastName);
+                ReportHeader($" List of modules assigned to student {student.AccountId}, {student.FirstName},  {student.LastName}");
                 student.CompletedModuleList = GetModuleList();
                 i++;
             }
-            Console.WriteLine("******** Finished assigning modules to students   ********\n\n\n\n");
+            ReportItem("Finished assigning modules to students"); 
         }
+
         List<Module> GetModuleList() 
         {
             ISet<Guid> moduleIdSet = new HashSet<Guid>();
@@ -138,16 +146,16 @@ namespace LearningMissionSimulation
             int i = 0;
             while (i < count)
             {
-                Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count - 1)];
+                Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
                 
                 if (!moduleIdSet.Contains(moduleId))
                 {
                     moduleIdSet.Add(moduleId);
-                    Console.WriteLine("========== Randomly selected module id is =======\n\n{0}\n\n", moduleId);
+                    ReportSummary("Randomly selected module id is", Convert.ToString(moduleId));
                     Module module;
                     moduleDictionary.TryGetValue(moduleId, out module);
                     moduleList.Add(module);
-                    Console.WriteLine("========== Added module =======\n\n{0}\n\n", module);
+                    ReportSummary("Added module", Convert.ToString(module)); 
                 }
                 i++;
             }
@@ -159,11 +167,62 @@ namespace LearningMissionSimulation
             throw new NotImplementedException();
         }
 
-       
-
         public void RegisterStudentsForClasses()
         {
             throw new NotImplementedException();
+        }
+
+        void ReportItem( string actionDescription)
+        {
+            Console.WriteLine("\n************* {0} *************\n",actionDescription);
+        }
+
+        void ReportSummary(string actionDescription, string itemDiscriprionCount)
+        {
+            Console.WriteLine("\n=========== {0} ==========\n{1}\n",actionDescription,itemDiscriprionCount);
+        }
+
+        void ReportHeader(string actionDescription )
+        {
+            Console.WriteLine("\n------------ {0} ----------\n",actionDescription);
+        }
+
+        public void SimulationAll()
+        {
+            CreateAccounts(20);
+            ActivateAccounts();
+            CreateSubjects(20);
+            CreateModules(15);
+            AssignModulesToInstructors();
+            AssignModulesToStudents();
+        }
+
+        public void SimulationSmallA()
+        {
+            CreateAccounts(20);
+            ActivateAccounts();
+        }
+
+        public void SimulationSmallB()
+        {
+            CreateSubjects(20);
+            CreateModules(15);
+        }
+
+        public void SimulationSmallC()
+        {
+            CreateAccounts(20);
+            CreateSubjects(20);
+            CreateModules(15);
+            AssignModulesToInstructors();
+        }
+
+        public void SimulationSmallD()
+        {
+            CreateAccounts(20);
+            CreateSubjects(20);
+            CreateModules(15);
+            AssignModulesToStudents();
         }
     }
 }
