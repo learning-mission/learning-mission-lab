@@ -174,12 +174,8 @@ namespace LearningMissionSimulation
         {
             throw new NotImplementedException();
         }
-        public static void Action0()
-        {
-            ObjectGenerator.GenerateAddress();
-        }
-        
-        public static void Action1()
+
+        public static void SimulationBig0()
         {
             Address address0 = new Address("dasdasd str",23, 15, "Yerevan", "asdqwe", "15", "Armenia");
             ContactInfo contact0 = new ContactInfo
@@ -212,13 +208,13 @@ namespace LearningMissionSimulation
             Console.WriteLine(AttributeGenerator.GetDateOfBirth(20, 60));
         }
 
-        public void Action2(int accountCount)
+        public void SimulationSmall0(int accountCount)
         {
             CreateAccounts(accountCount);
             ActivateAccounts();
         }
 
-        public void Action3(int subjectCount, int moduleCount)
+        public void SimulationBig1(int subjectCount, int moduleCount)
         {
             CreateSubjects(subjectCount);
             CreateModules(moduleCount);

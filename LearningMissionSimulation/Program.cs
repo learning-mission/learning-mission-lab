@@ -9,8 +9,8 @@ namespace LearningMissionSimulation
         static void Main(string[] args)
         {
             PlaygroundEdvard playgroundEdvard = new PlaygroundEdvard();
-            playgroundEdvard.Action2(25);
-            playgroundEdvard.Action3(15, 15);
+            playgroundEdvard.SimulationSmall0(25);
+            playgroundEdvard.SimulationBig1(15, 15);
             //PlaygroundGarush playgroundGarush = new PlaygroundGarush();
             //PlayGroundGavril playGroundGavril = new PlayGroundGavril();
             //PlaygroundVahe playgroundVahe = new PlaygroundVahe();
