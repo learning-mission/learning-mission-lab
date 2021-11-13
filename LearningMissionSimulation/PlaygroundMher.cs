@@ -22,7 +22,7 @@ namespace LearningMissionSimulation
 
         List<Guid> subjectIdList = new List<Guid>();
 
-        Dictionary<Module, Classroom> classroomDictionary = new Dictionary<Module, Classroom>();
+        Dictionary<Guid, Classroom> classroomDictionary = new Dictionary<Guid, Classroom>();
 
         List<Module> moduleList = new List<Module>();
 
@@ -173,7 +173,7 @@ namespace LearningMissionSimulation
             while (i < classroomCount)
             {
                 Classroom classroom = ObjectGenerator.GenerateClassroom(module);
-                classroomDictionary.Add(module, classroom);
+                classroomDictionary.Add(module.Id, classroom);
                 moduleList.Add(module);
                 i++;
             }
@@ -188,7 +188,7 @@ namespace LearningMissionSimulation
                 if (GetModule(instructor, module))
                 {
                     Classroom classroom;
-                    classroomDictionary.TryGetValue(module, out classroom);
+                    classroomDictionary.TryGetValue(module.Id, out classroom);
                     classroom.Head = instructor;
                 }
             }
