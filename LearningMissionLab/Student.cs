@@ -34,7 +34,7 @@ namespace LearningMissionLab
 
         public override string ToString()
         {
-            return $"Cover letter is {CoverLetter}\n" +
+            return $" Cover letter is {CoverLetter}\n" +
                    $" Recommendation list {RecommendationList}\n" +
                    $" Completed module {CompletedModuleList}\n" +
                    $" Schedule is {Schedule}\n" +

@@ -22,11 +22,9 @@ namespace LearningMissionSimulation
 
             for (int i = 1; i <= accountCount; i++)
             {
-                ReportItem("Account", i);
-
                 Account account = ObjectGenerator.GenerateAccount();
 
-                account.Report();
+                ReportItem(account.ToString(), "Created account", i);
 
                 accountDictionary.Add(account.Id, account);
 
@@ -39,9 +37,9 @@ namespace LearningMissionSimulation
                 {
                     Student student = ObjectGenerator.GenerateStudent(account.Id);
 
-                    studentList.Add(student);
-
                     student.Report();
+
+                    studentList.Add(student);
                 }
                 else if (account.Role == Role.Instructor)
                 {
@@ -51,8 +49,6 @@ namespace LearningMissionSimulation
 
                     instructor.Report();
                 }
-
-                Console.WriteLine('\n');
             }
 
             ReportSummary("Account", accountCount);
@@ -63,9 +59,15 @@ namespace LearningMissionSimulation
         {
             ReportHeader("Activate account");
 
+            int item = 0;
+
             while (pendingAccountStack.Count > 0)
             {
-                pendingAccountStack.Pop().Status = Status.Active;
+                Account account = pendingAccountStack.Pop();
+
+                account.Status = Status.Active;
+
+                ReportItem(account.ToString(), "Activated account", ++item);
             }
 
             ReportFooter("Activate account");
@@ -79,9 +81,7 @@ namespace LearningMissionSimulation
             {
                 Subject subject = ObjectGenerator.GenerateSubject();
 
-                ReportItem("Subject", i);
-
-                subject.Report();
+                ReportItem(subject.ToString(), "Subject", i);
 
                 subjectDictionary.Add(subject.Id, subject);
                 subjectIdList.Add(subject.Id);
@@ -97,13 +97,12 @@ namespace LearningMissionSimulation
 
             for (int i = 1; i <= moduleCount; i++)
             {
-                ReportItem("Module", i);
 
                 Guid subjectId = GetSubjectId();
 
                 Module module = ObjectGenerator.GenerateModule(subjectId);
 
-                module.Report();
+                ReportItem(module.ToString(), "Module", i);
 
                 moduleDictionary.Add(module.Id, module);
                 moduleIdList.Add(module.Id);
@@ -128,7 +127,7 @@ namespace LearningMissionSimulation
             {
                 student.CompletedModuleList = GenerateModuleList();
 
-                ReportItem(student.ToString(), ++count);
+                ReportItem(student.ToString(), "Assigned module", ++count);
             }
 
             ReportFooter("Assign modules to students");
@@ -144,7 +143,7 @@ namespace LearningMissionSimulation
             {
                 instructor.ModuleList = GenerateModuleList();
 
-                ReportItem(instructor.ToString(), ++count);
+                ReportItem(instructor.ToString(), "Assign instructor", ++count);
             }
 
             ReportFooter("Assign modules to instructors");
@@ -234,24 +233,24 @@ namespace LearningMissionSimulation
         #endregion Simulations
 
         #region Reports
-        void ReportHeader(string objectName)
+        void ReportHeader(string componentName)
         {
-            Console.WriteLine($"******{objectName} is started******\n");
+            Console.WriteLine($"******{componentName} is started******\n");
         }
 
-        void ReportFooter(string objectName)
+        void ReportFooter(string actionName)
         {
-            Console.WriteLine($"******{objectName} is finished******\n");
+            Console.WriteLine($"******{actionName} is finished******\n");
         }
 
-        void ReportItem(string itemName, int count)
+        void ReportItem(string itemDescription, string actionName, int itemIndex)
         {
-            Console.WriteLine($" {itemName} {count}");
+            Console.WriteLine($" {actionName} {itemIndex}\n{itemDescription}");
         }
 
-        void ReportSummary(string reportDescription, int count)
+        void ReportSummary(string summary, int count)
         {
-            Console.WriteLine($"''''''Generated {count} {reportDescription}''''''\n");
+            Console.WriteLine($"''''''Generated {count} {summary}''''''\n");
         }
 
         public void AssignInstructorsToClassrooms()

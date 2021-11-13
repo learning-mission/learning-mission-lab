@@ -24,5 +24,12 @@ namespace LearningMissionLab
         public Guid SubjectId { get => _subjectId; set => _subjectId = value; }
         public ModuleLevel ModuleLevel { get => _moduleLevel; set => _moduleLevel = value; }
         public List<Module> PrerequisiteList { get => _prerequisiteList; set => _prerequisiteList = value; }
+
+        public void Report()
+        {
+            Console.WriteLine($"SubjectId is {SubjectId}\n" +
+                $"ModuleLevel is {ModuleLevel}\n" +
+                $"PrerequisiteList is {PrerequisiteList}");
+        }
     }
 }
