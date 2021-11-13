@@ -138,12 +138,16 @@ namespace LearningMissionSimulation
             maxModuleCountLimit = Math.Min(moduleCount, maxModuleCountLimit);
             minModuleCountLimit = Math.Min(moduleCount, minModuleCountLimit);
             int count = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit);
+
             for (int i = 0; i < moduleCount; i++)
             {
-                Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
                 Module module;
+                Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
                 moduleDictionary.TryGetValue(id, out module);
-                moduleList.Add(module);
+                if (!moduleList.Contains(module))
+                {
+                    moduleList.Add(module);
+                }
             }
             return moduleList;
         }
@@ -157,7 +161,5 @@ namespace LearningMissionSimulation
         {
             throw new NotImplementedException();
         }
-
-
     }
 }
