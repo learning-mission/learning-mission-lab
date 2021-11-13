@@ -15,6 +15,8 @@ namespace LearningMissionSimulation
         Dictionary<Guid, Module> moduleDictionary = new Dictionary<Guid, Module>();
         List<Guid> subjectIdList = new List<Guid>();
         List<Guid> moduleIdList = new List<Guid>();
+        HashSet<Module> temporaryModuleHashSet = new HashSet<Module>();
+        Dictionary<Guid, Classroom> classRoomDictionary = new Dictionary<Guid, Classroom>();
 
         public static void Action0()
         {
@@ -52,8 +54,6 @@ namespace LearningMissionSimulation
             Unit<Department> unit0 = new Unit<Department>(UnitType.Department, "Dep0", "Department0", departmentList);
 
             Console.WriteLine(AttributeGenerator.GetDateOfBirth(20, 60));
-
-            //unit0.Report();
         }
 
         public void Action2(int accountCount)
@@ -64,10 +64,13 @@ namespace LearningMissionSimulation
 
         public void Action3(int subjectCount, int moduleCount)
         {
+            Action2(20);
             CreateSubjects(subjectCount);
             CreateModules(moduleCount);
             AssignModulesToStudents();
             AssignModulesToInstructors();
+            CreateClassrooms(moduleCount);
+            AssignInstructorsToClassrooms();
         }
 
         public void CreateAccounts(int accountCount)
@@ -191,7 +194,45 @@ namespace LearningMissionSimulation
 
         public void CreateClassrooms(int classroomCount)
         {
-            throw new NotImplementedException();
+            foreach(Module module in moduleDictionary.Values)
+            {
+                temporaryModuleHashSet.Add(module);
+
+                Classroom classroom = ObjectGenerator.GenerateClassroom(module);
+
+                classRoomDictionary.Add(Guid.NewGuid(), classroom);
+
+                temporaryModuleHashSet.Remove(module);
+            }
+        }
+
+        public void AssignInstructorsToClassrooms()
+        {
+            foreach(Classroom classroom in classRoomDictionary.Values)
+            {
+                foreach(Instructor instructor in instructorList)
+                {
+                    bool isCandidate = false;
+
+                    foreach (Module module in instructor.ModuleList)
+                    {
+                        if (classroom.Module == module)
+                        {
+                            classroom.Head = instructor;
+
+                            isCandidate = !isCandidate;
+
+                            break;
+                        }
+                    }
+
+                    if (isCandidate)
+                    {
+                        break;
+                    }
+                }
+            }
+
         }
 
         public void RegisterStudentsForClasses()
