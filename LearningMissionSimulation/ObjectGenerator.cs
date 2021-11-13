@@ -29,10 +29,8 @@ namespace LearningMissionSimulation
         // Creates an Account object with randomly selected attributes
         public static Account GenerateAccount()
         {
-            Account account =  new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(), AttributeGenerator.GetEmail(),
+            return  new Account(AttributeGenerator.GetUsername(), AttributeGenerator.GetPassword(), AttributeGenerator.GetEmail(),
                                AttributeGenerator.GetPhoneNumber(), AttributeGenerator.GetRole(), AttributeGenerator.GetStatus());
-            account.Report();
-            return account;
         }
 
         // Creates a Profile object with randomly selected attributes
@@ -117,8 +115,9 @@ namespace LearningMissionSimulation
         // Creates a random Classroom object
         public static Classroom GenerateClassroom(Module module)
         {
-            //not implemented yet!
-            return null;
+            return new Classroom(maximumCapacity: SimulationConstants.MaxClassroomSize, minimumCapacity: SimulationConstants.MinClassroomSize,
+                                 module: module, schedule: GenerateSchedule(), name: AttributeGenerator.GetUnitName(UnitType.Classroom),
+                                 description: AttributeGenerator.GetUnitDescprition(UnitType.Classroom), itemList: new List<Student>()); 
         }
 
         // Creates a random list of Classroom objects

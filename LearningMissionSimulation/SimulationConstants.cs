@@ -26,6 +26,11 @@ namespace LearningMissionSimulation
         /// <param name="maxAge">The maximum age.</param>
         /// <returns>The DateTime value within specified range.</returns>
 
+        // Minimum valid classroom size
+        public static readonly byte MinClassroomSize = 5;
+        // Maximum valid classroom size
+        public static readonly byte MaxClassroomSize = 20;
+
         public static readonly char[] CharacterPool = {'~', '!', '@', '#', '$', '%', '^', '&', '*', '(',
             ')', '-', '_', '+', '=', '<', '>', '/', '?', ';', ':', '"', '{', '}', '[', ']' };
 

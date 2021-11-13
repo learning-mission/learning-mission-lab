@@ -18,13 +18,15 @@ namespace LearningMissionSimulation
 
         public void CreateAccounts(int accountCount)
         {
-            ReportHeader("Account");
+            ReportHeader("Create Account");
 
             for (int i = 1; i <= accountCount; i++)
             {
                 ReportItem("Account", i);
 
                 Account account = ObjectGenerator.GenerateAccount();
+
+                account.Report();
 
                 accountDictionary.Add(account.Id, account);
 
@@ -54,33 +56,24 @@ namespace LearningMissionSimulation
             }
 
             ReportSummary("Account", accountCount);
-            ReportFooter("Account");
+            ReportFooter("Create Account");
         }
 
         public void ActivateAccounts()
         {
-            if (pendingAccountStack.Count == 0)
+            ReportHeader("Activate account");
+
+            while (pendingAccountStack.Count > 0)
             {
-                EmptyPendingAccountStack();
+                pendingAccountStack.Pop().Status = Status.Active;
             }
-            else
-            {
-                ActivationProcess();
 
-                while (pendingAccountStack.Count > 0)
-                {
-                    pendingAccountStack.Pop().Status = Status.Active;
-
-                    Console.WriteLine($" Activated at {DateTime.Now}\n");
-                }
-
-                ActivationProcess();
-            }
+            ReportFooter("Activate account");
         }
 
         public void CreateSubjects(int subjectCount)
         {
-            ReportHeader("Subject");
+            ReportHeader("Subject generation");
 
             for (int i = 1; i <= subjectCount; i++)
             {
@@ -95,12 +88,12 @@ namespace LearningMissionSimulation
             }
 
             ReportSummary("Subject", subjectCount);
-            ReportFooter("Subject");
+            ReportFooter("Subject generation");
         }
 
         public void CreateModules(int moduleCount)
         {
-            ReportHeader("Module");
+            ReportHeader("Module generation");
 
             for (int i = 1; i <= moduleCount; i++)
             {
@@ -117,7 +110,7 @@ namespace LearningMissionSimulation
             }
 
             ReportSummary("Module", moduleCount);
-            ReportFooter("Module");
+            ReportFooter("Module generation");
         }
 
         Guid GetSubjectId()
@@ -127,18 +120,34 @@ namespace LearningMissionSimulation
 
         public void AssignModulesToStudents()
         {
+            ReportHeader("Assign modules to students");
+
+            int count = 0;
+
             foreach (Student student in studentList)
             {
                 student.CompletedModuleList = GenerateModuleList();
+
+                ReportItem(student.ToString(), ++count);
             }
+
+            ReportFooter("Assign modules to students");
         }
         
         public void AssignModulesToInstructors()
         {
+            ReportHeader("Assign modules to instructors");
+
+            int count = 0;
+
             foreach (Instructor instructor in instructorList)
             {
                 instructor.ModuleList = GenerateModuleList();
+
+                ReportItem(instructor.ToString(), ++count);
             }
+
+            ReportFooter("Assign modules to instructors");
         }
 
         public List<Module> GenerateModuleList()
@@ -153,7 +162,7 @@ namespace LearningMissionSimulation
 
             for (int i = 0; i < moduleCount; i++)
             {
-                Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count - 1)];
+                Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
 
                 Module module;
 
@@ -175,6 +184,7 @@ namespace LearningMissionSimulation
             throw new NotImplementedException();
         }
 
+        #region Simulations
         public static void SimulationBig0()
         {
             Address address0 = new Address("dasdasd str",23, 15, "Yerevan", "asdqwe", "15", "Armenia");
@@ -221,44 +231,17 @@ namespace LearningMissionSimulation
             AssignModulesToStudents();
             AssignModulesToInstructors();
         }
+        #endregion Simulations
 
         #region Reports
         void ReportHeader(string objectName)
         {
-            switch (objectName)
-            {
-                case "Account":
-                    Console.WriteLine("******Account generation is started******");
-
-                    break;
-                case "Subject":
-                    Console.WriteLine("******Subject generation is started******");
-
-                    break;
-                case "Module":
-                    Console.WriteLine("******Module generation is started******");
-
-                    break;
-            }
+            Console.WriteLine($"******{objectName} is started******\n");
         }
 
         void ReportFooter(string objectName)
         {
-            switch (objectName)
-            {
-                case "Account":
-                    Console.WriteLine("******Account generation is finished******\n");
-
-                    break;
-                case "Subject":
-                    Console.WriteLine("******Subject generation is finished******\n");
-
-                    break;
-                case "Module":
-                    Console.WriteLine("******Module generation is finished******\n");
-
-                    break;
-            }
+            Console.WriteLine($"******{objectName} is finished******\n");
         }
 
         void ReportItem(string itemName, int count)
@@ -268,29 +251,12 @@ namespace LearningMissionSimulation
 
         void ReportSummary(string reportDescription, int count)
         {
-            Console.WriteLine($"''''''Generated {count} {reportDescription}''''''");
+            Console.WriteLine($"''''''Generated {count} {reportDescription}''''''\n");
         }
 
-        void ActivationProcess(string coordinatorType)
+        public void AssignInstructorsToClassrooms()
         {
-            if (pendingAccountStack.Count > 0)
-            {
-                Console.WriteLine($"------{coordinatorType} coordinator started activating accounts------\n");
-            }
-            else
-            {
-                Console.WriteLine($"------{coordinatorType} coordinator finished activating accounts------\n");
-            }
-        }
-
-        void ActivationProcess()
-        {
-            ActivationProcess("Unfair");
-        }
-
-        void EmptyPendingAccountStack()
-        {
-            Console.WriteLine("______There is nothing to activate!______\n");
+            throw new NotImplementedException();
         }
 
         #endregion Reports
