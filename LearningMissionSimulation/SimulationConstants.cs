@@ -18,9 +18,9 @@ namespace LearningMissionSimulation
         // Maximum valid applicant age
         public static readonly byte ApplicantMaxAge = 70;
         // Minimum valid password length
-        public static readonly int PasswordMinLength = 3;
+        public static readonly int PasswordMinLength = 8;
         // Maximum valid password length
-        public static readonly int PasswordMaxLength = 8;
+        public static readonly int PasswordMaxLength = 15;
         /// <summary>Generates random date of birth values within the specified age range./>
         /// <param name="minAge">The minimum age.</param>
         /// <param name="maxAge">The maximum age.</param>

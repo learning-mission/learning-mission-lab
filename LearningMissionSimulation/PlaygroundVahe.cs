@@ -12,10 +12,18 @@ namespace LearningMissionSimulation
             Console.WriteLine(AttributeGenerator.GetLanguageName());
         }
 
+        #region
         Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
         Dictionary<Guid, Instructor> instructorDictionary = new Dictionary<Guid, Instructor>();
         Dictionary<Guid, Student> studentDictionary = new Dictionary<Guid, Student>();
         List<Account> pendingAccountList = new List<Account>();
+        List<Subject> subjectList = new List<Subject>();
+        List<Guid> subjectIdList = new List<Guid>();
+        List<Guid> moduleIdList = new List<Guid>();
+        List<Student> studentList = new List<Student>();
+        List<Instructor> instructorList = new List<Instructor>();
+        Dictionary<Guid, Module> moduleDictionary = new Dictionary<Guid, Module>();
+        #endregion
 
         public void CreateAccounts(int accountCount)
         {
@@ -86,22 +94,67 @@ namespace LearningMissionSimulation
             }
         }
 
+        public void CreateSubjects(int subjectCount)
+        {
+            for (int i = 0; i < subjectCount; i++)
+            { 
+                Subject subject = ObjectGenerator.GenerateSubject();
+                subjectList.Add(subject);
+                subjectIdList.Add(subject.Id);
+            }
+        }
+
+        public void CreateModules(int moduleCount)
+        {
+            for (int i = 0;  i < moduleCount; i++)
+            {
+                Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count)];
+                Module module = ObjectGenerator.GenerateModule(subjectId);
+                moduleDictionary.Add(module.Id, module);
+                moduleIdList.Add(module.Id);
+            }
+        }
+
         public void AssignModulesToInstructors()
         {
-            throw new NotImplementedException();
+            foreach (var instructor in instructorList)
+            {
+                instructor.ModuleList = GetModuleList();
+            }
         }
 
         public void AssignModulesToStudents()
         {
-            throw new NotImplementedException();
+            foreach (var student in studentList)
+            {
+                student.CompletedModuleList = GetModuleList();
+            }
+        }
+
+        List<Module> GetModuleList()
+        {
+            List<Module> moduleList = new List<Module>();
+            int moduleCount = moduleIdList.Count;
+            int maxModuleCountLimit = 7;
+            int minModuleCountLimit = 1;
+            maxModuleCountLimit = Math.Min(moduleCount, maxModuleCountLimit);
+            minModuleCountLimit = Math.Min(moduleCount, minModuleCountLimit);
+            int count = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit);
+
+            for (int i = 0; i < moduleCount; i++)
+            {
+                Module module;
+                Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
+                moduleDictionary.TryGetValue(id, out module);
+                if (!moduleList.Contains(module))
+                {
+                    moduleList.Add(module);
+                }
+            }
+            return moduleList;
         }
 
         public void CreateClassrooms(int classroomCount)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CreateModules(int moduleCount)
         {
             throw new NotImplementedException();
         }
@@ -111,7 +164,7 @@ namespace LearningMissionSimulation
             throw new NotImplementedException();
         }
 
-        public void CreateSubjects(int subjectCount)
+        public void AssignInstructorsToClassrooms()
         {
             throw new NotImplementedException();
         }
