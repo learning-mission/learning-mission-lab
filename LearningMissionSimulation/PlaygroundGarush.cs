@@ -82,11 +82,11 @@ namespace LearningMissionSimulation
             int maxModuleCount = 5;
             minModuleCount = Math.Min(allModuleCount, minModuleCount);
             maxModuleCount = Math.Min(allModuleCount, maxModuleCount);
-            int Count = AttributeGenerator.random.Next(minModuleCount, maxModuleCount);
+            int moduleCount = AttributeGenerator.random.Next(minModuleCount, maxModuleCount + 1);
 
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < moduleCount; i++)
             {
-                Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count - 1)];
+                Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
 
                 Module module;
 
@@ -96,8 +96,6 @@ namespace LearningMissionSimulation
             }
 
             return moduleList;
-
-
         }
 
         public void AssignModulesToStudents()
@@ -127,7 +125,7 @@ namespace LearningMissionSimulation
             int i = 0;
             while (i < moduleCount)
             {
-                Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0,subjectIdList.Count-1)];
+                Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count - 1)];
                 Module module = ObjectGenerator.GenerateModule(subjectId);
                 moduleDictionary.Add(module.Id, module);
                 moduleIdList.Add(module.Id);
@@ -136,7 +134,7 @@ namespace LearningMissionSimulation
             }
         }
 
-        
+
 
         public void CreateClassrooms(int classroomCount)
         {
