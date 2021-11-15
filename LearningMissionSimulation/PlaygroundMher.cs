@@ -97,7 +97,7 @@ namespace LearningMissionSimulation
             int i = 0;
             while (i < moduleCount)
             {
-                Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count-1)];
+                Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count)];
                 Module module = ObjectGenerator.GenerateModule(subjectId);
                 moduleDictionary.Add(module.Id, module);
                 moduleIdList.Add(module.Id);
@@ -167,7 +167,7 @@ namespace LearningMissionSimulation
             int i = 0;
             while (i < count)
             {
-                Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count - 1)];
+                Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
                 
                 if (!moduleIdSet.Contains(moduleId))
                 {
