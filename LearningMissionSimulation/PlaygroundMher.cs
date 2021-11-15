@@ -203,9 +203,13 @@ namespace LearningMissionSimulation
             {
                 if (moduleInstructorDictionary.ContainsKey(classroom.Module.Id))
                 {
-                    List<Instructor> instructorList = new List<Instructor>();
+                    List<Instructor> instructorList;
                     moduleInstructorDictionary.TryGetValue(classroom.Module.Id, out instructorList);
                     classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                }
+                else
+                {
+                    Console.WriteLine("Failed to find instructor for classroom");
                 }
             }
         }
