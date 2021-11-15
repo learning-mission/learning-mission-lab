@@ -22,6 +22,10 @@ namespace LearningMissionSimulation
 
         List<Guid> subjectIdList = new List<Guid>();
 
+        List<Classroom> classroomList = new List<Classroom>();
+
+        Dictionary<Guid, List<Instructor>> moduleInstructorDictionary = new Dictionary<Guid, List<Instructor>>();
+
         public void CreateAccounts(int accountCount)
         {
             Console.WriteLine("******** Started creating accounts  ********\n");
@@ -55,6 +59,7 @@ namespace LearningMissionSimulation
             Console.WriteLine("========== Generated {0} Accounts  =======\n", accountCount);
             Console.WriteLine("********  Finished creating accounts   ********\n");
         }
+
         public void ActivateAccounts()
         {
             Console.WriteLine("******** Started activating accounts ********\n");
@@ -69,6 +74,7 @@ namespace LearningMissionSimulation
             Console.WriteLine("========== Activated {0} accounts  =======\n", pendingAccountQueueCount);
             Console.WriteLine("******** Finished activating accounts ********\n");
         }
+
         public void CreateSubjects(int subjectCount)
         {
             Console.WriteLine("******** Started creating subjects  ********\n");
@@ -84,6 +90,7 @@ namespace LearningMissionSimulation
             Console.WriteLine("========== Generated {0} Subjects  =======\n", subjectCount);
             Console.WriteLine("******** Finished creating subjects  ********\n");
         }
+
         public void CreateModules(int moduleCount)
         {
             Console.WriteLine("******** Started creating modules  ********\n");
@@ -100,6 +107,7 @@ namespace LearningMissionSimulation
             Console.WriteLine("========== Generated {0} Modules  =======\n", moduleCount);
             Console.WriteLine("******** Finished creating modules ********\n");
         }
+
         public void AssignModulesToInstructors()
         {
             Console.WriteLine("******** Started assigning modules to instructors  ********\n");
@@ -107,12 +115,32 @@ namespace LearningMissionSimulation
             foreach (var instructor in instructorList)
             {
                 instructor.ModuleList = GetModuleList();
+                AddToModuleInstructorList(instructor);
                 Console.WriteLine("\n========== Generated List Number {0} of the Instructor Number {1} =======\n\n\n", i+1, i+1);
                 i++;
             }
             Console.WriteLine("========== Generated Lists of the Instructors Module List  =======\n");
             Console.WriteLine("******** Finished assigning modules to instructors  ********\n");
         }
+
+        void AddToModuleInstructorList(Instructor instructor)
+        {
+            List<Instructor> instructorList ;
+            foreach (var module in instructor.ModuleList)
+            {
+                if (!moduleInstructorDictionary.ContainsKey(module.Id))
+                {
+                    instructorList = new List<Instructor>() { instructor };
+                    moduleInstructorDictionary.Add(module.Id, instructorList);
+                }
+                else
+                {
+                    moduleInstructorDictionary.TryGetValue(module.Id, out instructorList);
+                    instructorList.Add(instructor);
+                }
+            }
+        }
+
         public void AssignModulesToStudents()
         {
             Console.WriteLine("******** Started assigning modules to students  ********\n");
@@ -125,6 +153,7 @@ namespace LearningMissionSimulation
             }
             Console.WriteLine("******** Finished assigning modules to students   ********\n\n\n\n");
         }
+
         List<Module> GetModuleList() 
         {
             ISet<Guid> moduleIdSet = new HashSet<Guid>();
@@ -156,14 +185,35 @@ namespace LearningMissionSimulation
 
         public void CreateClassrooms(int classroomCount)
         {
-            throw new NotImplementedException();
+            Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
+            Module module;
+            moduleDictionary.TryGetValue(moduleId, out module);
+            int i = 0;
+            while (i < classroomCount)
+            {
+                Classroom classroom = ObjectGenerator.GenerateClassroom(module);
+                classroomList.Add(classroom);
+                i++;
+            }
         }
 
-       
+        public void AssignInstructorsToClassrooms()
+        {
+            foreach (var classroom in classroomList)
+            {
+                if (moduleInstructorDictionary.ContainsKey(classroom.Module.Id))
+                {
+                    List<Instructor> instructorList = new List<Instructor>();
+                    moduleInstructorDictionary.TryGetValue(classroom.Module.Id, out instructorList);
+                    classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                }
+            }
+        }
 
         public void RegisterStudentsForClasses()
         {
             throw new NotImplementedException();
         }
+
     }
 }
