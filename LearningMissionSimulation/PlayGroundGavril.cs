@@ -11,13 +11,20 @@ namespace LearningMissionSimulation
     public class PlayGroundGavril
     {
         List<Account> pendingAccountList = new List<Account>();
+
         List<Student> studentList = new List<Student>();
+
         List<Instructor> instructorList = new List<Instructor>();
+
         Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
-        // Dictionary<Guid, Subject> subjectDictionary = new Dictionary<Guid, Subject>();
+
         Dictionary<Guid, Module> moduleDictionary = new Dictionary<Guid, Module>();
+
         List<Guid> moduleIdList = new List<Guid>();
+
         List<Guid> subjectIdList = new List<Guid>();
+
+        List<Subject> subjectList = new List<Subject>();
 
         public  void CreateAccounts(int accountCount)
         {
@@ -43,9 +50,9 @@ namespace LearningMissionSimulation
                         pendingAccountList.Add(account);
                     }
                 }
-             
             }
         }
+
         public void ActivateAccounts()
         {
             foreach (var account  in pendingAccountList )
@@ -53,28 +60,41 @@ namespace LearningMissionSimulation
                 account.Status = Status.Active; 
                 pendingAccountList.Remove(account);
             }
-            
         }
+
+        public void CreateSubjects(int subjectCount)
+        {
+            Console.WriteLine("******** Started creating subjects  ********\n");
+            int i = 0;
+            while (i < subjectCount)
+            {
+                Subject subject = ObjectGenerator.GenerateSubject();
+                Console.WriteLine("========== Created  Subject {0} =======\n\n{1}\n", i, subject);
+                subjectList.Add(subject);
+                subjectIdList.Add(subject.Id);
+                i++;
+            }
+            Console.WriteLine("========== Generated {0} Subjects  =======\n", subjectCount);
+            Console.WriteLine("******** Finished creating subjects  ********\n");
+        }
+
         public void CreateModules(int moduleCount)
         {
-            for (int i = 0; i < moduleCount; i++)
+            Console.WriteLine("******** Started creating modules  ********\n");
+            int i = 0;
+            while (i < moduleCount)
             {
-                
-                Guid subjectId = GetSubjectId();
-
+                Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count - 1)];
                 Module module = ObjectGenerator.GenerateModule(subjectId);
-
                 moduleDictionary.Add(module.Id, module);
                 moduleIdList.Add(module.Id);
+                Console.WriteLine("\n========== Created  Module {0} =======\n\n{1}\n", i, module);
+                i++;
             }
+            Console.WriteLine("========== Generated {0} Modules  =======\n", moduleCount);
+            Console.WriteLine("******** Finished creating modules ********\n");
         }
 
-        Guid GetSubjectId()
-        {
-            return subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count - 1)];
-        }
-
-       
         public void AssignModulesToInstructors()
         {
             Console.WriteLine("******** Started assigning modules to instructors  ********\n");
@@ -88,6 +108,7 @@ namespace LearningMissionSimulation
             Console.WriteLine("========== Generated Lists of the Instructors Module List  =======\n");
             Console.WriteLine("******** Finished assigning modules to instructors  ********\n");
         }
+
         List<Module> GetModuleList()
         {
             ISet<Guid> moduleIdSet = new HashSet<Guid>();
@@ -117,17 +138,12 @@ namespace LearningMissionSimulation
             return moduleList;
         }
 
-
         public void AssignModulesToStudents()
         {
             foreach (Student student in studentList)
             {
                 student.CompletedModuleList = GetModuleList();
             }
-        }
-       
+        }  
     }
 }
-
-
-
