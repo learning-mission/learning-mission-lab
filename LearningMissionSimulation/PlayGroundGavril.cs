@@ -111,32 +111,29 @@ namespace LearningMissionSimulation
 
         List<Module> GetModuleList()
         {
-            ISet<Guid> moduleIdSet = new HashSet<Guid>();
             List<Module> moduleList = new List<Module>();
-            int totalModuleCount = moduleIdList.Count;
-            int maxModuleCountLimit = 5;
-            int minModuleCountLimit = 2;
-            maxModuleCountLimit = Math.Min(totalModuleCount, maxModuleCountLimit);
-            minModuleCountLimit = Math.Min(totalModuleCount, minModuleCountLimit);
+            int moduleCount = moduleIdList.Count;
+            int maxModuleCountLimit = 7;
+            int minModuleCountLimit = 1;
+            maxModuleCountLimit = Math.Min(moduleCount, maxModuleCountLimit);
+            minModuleCountLimit = Math.Min(moduleCount, minModuleCountLimit);
             int count = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit);
-            int i = 0;
-            while (i < count)
-            {
-                Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count - 1)];
 
-                if (!moduleIdSet.Contains(moduleId))
+            for (int i = 0; i < count; i++)
+            {
+                Module module;
+                Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
+                moduleDictionary.TryGetValue(id, out module);
+                if (!moduleList.Contains(module))
                 {
-                    moduleIdSet.Add(moduleId);
-                    Console.WriteLine("========== Randomly selected module id is =======\n\n{0}\n\n", moduleId);
-                    Module module;
-                    moduleDictionary.TryGetValue(moduleId, out module);
                     moduleList.Add(module);
-                    Console.WriteLine("========== Added module =======\n\n{0}\n\n", module);
                 }
-                i++;
             }
             return moduleList;
         }
+
+
+
 
         public void AssignModulesToStudents()
         {
