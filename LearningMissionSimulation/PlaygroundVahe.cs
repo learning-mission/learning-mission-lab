@@ -163,7 +163,11 @@ namespace LearningMissionSimulation
         {
             throw new NotImplementedException();
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> ff70dbacf6efd10f137314a78724f9659c831374
         public void AssignInstructorsToClassrooms()
         {
             throw new NotImplementedException();
