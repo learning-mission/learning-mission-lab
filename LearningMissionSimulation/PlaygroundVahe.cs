@@ -131,21 +131,23 @@ namespace LearningMissionSimulation
 
         List<Module> GetModuleList()
         {
+            HashSet<Guid> moduleIdSet = new HashSet<Guid>();
             List<Module> moduleList = new List<Module>();
             int moduleCount = moduleIdList.Count;
-            int maxModuleCountLimit = 7;
-            int minModuleCountLimit = 1;
-            maxModuleCountLimit = Math.Min(moduleCount, maxModuleCountLimit);
+            int maxModuleCountLimit = SimulationConstants.MaxModuleCountLimit;
+            int minModuleCountLimit = SimulationConstants.MinModuleCountLimit;
             minModuleCountLimit = Math.Min(moduleCount, minModuleCountLimit);
+            maxModuleCountLimit = Math.Min(moduleCount, maxModuleCountLimit);
             int count = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit);
 
-            for (int i = 0; i < moduleCount; i++)
+            for (int i = 0; i < count; i++)
             {
-                Module module;
-                Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
-                moduleDictionary.TryGetValue(id, out module);
-                if (!moduleList.Contains(module))
+                Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
+                if (!moduleIdSet.Contains(moduleId))
                 {
+                    moduleIdSet.Add(moduleId);
+                    Module module;
+                    moduleDictionary.TryGetValue(moduleId, out module);
                     moduleList.Add(module);
                 }
             }
@@ -156,18 +158,13 @@ namespace LearningMissionSimulation
         {
             throw new NotImplementedException();
         }
+        
+        public void AssignInstructorsToClassrooms()
+        {
+            throw new NotImplementedException();
+        }
 
         public void RegisterStudentsForClasses()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CreateSubjects(int subjectCount)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AssignInstructorsToClassrooms()
         {
             throw new NotImplementedException();
         }
