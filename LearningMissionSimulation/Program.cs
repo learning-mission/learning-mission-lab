@@ -12,7 +12,8 @@ namespace LearningMissionSimulation
             PlaygroundGarush playgroundGarush = new PlaygroundGarush();
             PlayGroundGavril playGroundGavril = new PlayGroundGavril();
             PlaygroundVahe playgroundVahe = new PlaygroundVahe();
-            PlaygroundMher playgroundMher = new PlaygroundMher(); 
+            PlaygroundMher playgroundMher = new PlaygroundMher();
+
         }
     }
 }
