@@ -269,7 +269,7 @@ namespace LearningMissionSimulation
         public static string GetPassword(int minLength, int maxLength)
         {
             int count = random.Next(minLength, maxLength);
-            int i = random.Next(0, minLength);
+            int i = 0;
             string password = "";
             while (i < count)
             {
