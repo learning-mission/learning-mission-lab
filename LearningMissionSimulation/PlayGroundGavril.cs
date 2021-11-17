@@ -108,6 +108,14 @@ namespace LearningMissionSimulation
             Console.WriteLine("========== Generated Lists of the Instructors Module List  =======\n");
             Console.WriteLine("******** Finished assigning modules to instructors  ********\n");
         }
+        
+        public void AssignModulesToStudents()
+        {
+            foreach (Student student in studentList)
+            {
+                student.CompletedModuleList = GetModuleList();
+            }
+        }  
 
         List<Module> GetModuleList()
         {
@@ -117,7 +125,7 @@ namespace LearningMissionSimulation
             int minModuleCountLimit = 1;
             maxModuleCountLimit = Math.Min(totalModuleCount, maxModuleCountLimit);
             minModuleCountLimit = Math.Min(totalModuleCount, minModuleCountLimit);
-            int count = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit);
+            int count = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit + 1);
 
             for (int i = 0; i < count; i++)
             {
@@ -131,16 +139,5 @@ namespace LearningMissionSimulation
             }
             return moduleList;
         }
-
-
-
-
-        public void AssignModulesToStudents()
-        {
-            foreach (Student student in studentList)
-            {
-                student.CompletedModuleList = GetModuleList();
-            }
-        }  
     }
 }
