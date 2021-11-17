@@ -3,6 +3,7 @@
     public enum ReportType
     {
         Verbose,
+        Short,
         Error,
         Silent,
     }
