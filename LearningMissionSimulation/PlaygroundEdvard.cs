@@ -153,6 +153,11 @@ namespace LearningMissionSimulation
         {
             throw new NotImplementedException();
         }
+        
+        public void AssignInstructorsToClassrooms()
+        {
+            throw new NotImplementedException();
+        }
 
         #region Simulations
         public static void SimulationBig0()
@@ -223,12 +228,6 @@ namespace LearningMissionSimulation
         {
             Console.WriteLine($"''''''Generated {count} {summary}''''''\n");
         }
-
-        public void AssignInstructorsToClassrooms()
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion Reports
     }
 }
