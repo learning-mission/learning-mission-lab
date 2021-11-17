@@ -27,7 +27,9 @@ namespace LearningMissionLab
 
         public void Report()
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine($"SubjectId is {SubjectId}\n" +
+                $"ModuleLevel is {ModuleLevel}\n" +
+                $"PrerequisiteList is {PrerequisiteList}");
         }
     }
 }

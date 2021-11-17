@@ -17,9 +17,12 @@ namespace LearningMissionLab
             this._subjectType = subjectType;
         }
         public SubjectType SubjectType { get => _subjectType; set => _subjectType = value; }
+
         public override string ToString()
         {
-            return $" Subject Type is {SubjectType} ";
+            return $" Subject Type is {SubjectType}\n" +
+                   $" Name is {Name}\n" +
+                   $" Description is {Description}\n";
         }
     }
 }
