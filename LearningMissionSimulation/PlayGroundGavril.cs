@@ -84,7 +84,7 @@ namespace LearningMissionSimulation
             int i = 0;
             while (i < moduleCount)
             {
-                Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count - 1)];
+                Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count )];
                 Module module = ObjectGenerator.GenerateModule(subjectId);
                 moduleDictionary.Add(module.Id, module);
                 moduleIdList.Add(module.Id);
@@ -112,11 +112,11 @@ namespace LearningMissionSimulation
         List<Module> GetModuleList()
         {
             List<Module> moduleList = new List<Module>();
-            int moduleCount = moduleIdList.Count;
+            int totalmoduleCount = moduleIdList.Count;
             int maxModuleCountLimit = 7;
             int minModuleCountLimit = 1;
-            maxModuleCountLimit = Math.Min(moduleCount, maxModuleCountLimit);
-            minModuleCountLimit = Math.Min(moduleCount, minModuleCountLimit);
+          /*poxel modulCount@ 1 -118.119 u mekel 155*/  maxModuleCountLimit = Math.Min(totalmoduleCount, maxModuleCountLimit);
+            minModuleCountLimit = Math.Min(totalmoduleCount, minModuleCountLimit);
             int count = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit);
 
             for (int i = 0; i < count; i++)
