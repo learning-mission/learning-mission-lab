@@ -112,11 +112,11 @@ namespace LearningMissionSimulation
         List<Module> GetModuleList()
         {
             List<Module> moduleList = new List<Module>();
-            int totalmoduleCount = moduleIdList.Count;
+            int totalModuleCount = moduleIdList.Count;
             int maxModuleCountLimit = 7;
             int minModuleCountLimit = 1;
-          /*poxel modulCount@ 1 -118.119 u mekel 155*/  maxModuleCountLimit = Math.Min(totalmoduleCount, maxModuleCountLimit);
-            minModuleCountLimit = Math.Min(totalmoduleCount, minModuleCountLimit);
+            maxModuleCountLimit = Math.Min(totalModuleCount, maxModuleCountLimit);
+            minModuleCountLimit = Math.Min(totalModuleCount, minModuleCountLimit);
             int count = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit);
 
             for (int i = 0; i < count; i++)
