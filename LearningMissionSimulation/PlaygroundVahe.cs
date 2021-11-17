@@ -134,10 +134,10 @@ namespace LearningMissionSimulation
             HashSet<Guid> moduleIdSet = new HashSet<Guid>();
             List<Module> moduleList = new List<Module>();
             int moduleCount = moduleIdList.Count;
-            int maxModuleCountLimit = 7;
-            int minModuleCountLimit = 1;
-            maxModuleCountLimit = Math.Min(moduleCount, maxModuleCountLimit);
+            int maxModuleCountLimit = SimulationConstants.MaxModuleCountLimit;
+            int minModuleCountLimit = SimulationConstants.MinModuleCountLimit;
             minModuleCountLimit = Math.Min(moduleCount, minModuleCountLimit);
+            maxModuleCountLimit = Math.Min(moduleCount, maxModuleCountLimit);
             int count = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit);
 
             for (int i = 0; i < count; i++)
