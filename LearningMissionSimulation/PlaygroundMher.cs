@@ -246,7 +246,7 @@ namespace LearningMissionSimulation
 
         public void RegisterStudentsForClasses()
         {
-            throw new NotImplementedException();
+           
         }
 
         #region Reports
