@@ -53,7 +53,6 @@ namespace LearningMissionSimulation
                         pendingAccountQueue.Enqueue(account);
                     }
                 }
-                Console.WriteLine("\n");
                 i++;
             }
             ReportSummary("Account", accountCount);
@@ -235,7 +234,7 @@ namespace LearningMissionSimulation
                     }
                     else
                     {
-                        Console.WriteLine("Failed to find instructor for classroom");
+                        ReportError("Instructor", "Classroom");
                     }
                 }
             }
