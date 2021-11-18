@@ -55,7 +55,7 @@ namespace LearningMissionSimulation
                 }
                 i++;
             }
-            ReportSummary("Generated", "Account", accountCount);
+            ReportSummary("Generated", "accounts", accountCount);
             ReportFooter("Create Account");
         }
 
@@ -70,7 +70,7 @@ namespace LearningMissionSimulation
                 account.Status = Status.Active;
                 ReportItem(account.ToString(), "Activated account", i++);
             }
-            ReportSummary("Activated", "Accounts", pendingAccountQueueCount);
+            ReportSummary("Activated", "accounts", pendingAccountQueueCount);
             ReportFooter("Activate account");
         }
 
@@ -86,7 +86,7 @@ namespace LearningMissionSimulation
                 subjectIdList.Add(subject.Id);
                 i++;
             }
-            ReportSummary("Generated", "Subject", subjectCount);
+            ReportSummary("Generated", "subjects", subjectCount);
             ReportFooter("Subject generation");
         }
 
@@ -109,7 +109,7 @@ namespace LearningMissionSimulation
                     ReportItem(module.ToString(), "Module", i++);
                     i++;
                 }
-                ReportSummary("Generated", "Module", moduleCount);
+                ReportSummary("Generated", "modules", moduleCount);
                 ReportFooter("Module generation");
             }
         }
@@ -125,7 +125,7 @@ namespace LearningMissionSimulation
                 ReportItem(instructor.ToString(), "Assigned module", i++);
                 i++;
             }
-            ReportSummary("Generated", "Assign Modules Instructors", i);
+            ReportSummary("Assigned modules to", "instructors", i);
             ReportFooter("Assign modules to instructors");
         }
 
@@ -154,10 +154,10 @@ namespace LearningMissionSimulation
             foreach (var student in studentList)
             {
                 student.CompletedModuleList = GetModuleList();
-                ReportItem(student.ToString(), "Assigned module", i++);
+                ReportItem(student.ToString(), "Assigned completed modules", i++);
                 i++;
             }
-            ReportSummary("Generated", "Assign Modules Students", i);
+            ReportSummary("Assigned modules to", "students", i);
             ReportFooter("Assign modules to students");
         }
 
@@ -215,7 +215,7 @@ namespace LearningMissionSimulation
                     classroomList.Add(classroom);
                     i++;
                 }
-                ReportSummary("Created", "Classroom", i);
+                ReportSummary("Created", "Classrooms", i);
                 ReportFooter("Create Classroom");
             }
         }
@@ -262,12 +262,12 @@ namespace LearningMissionSimulation
 
         void ReportItem(string itemName, string actionName, int itemIndex)
         {
-            Console.WriteLine($" {actionName} {itemIndex}\n{itemName}");
+            Console.WriteLine($" {actionName} {itemIndex} {itemName}\n");
         }
 
-        void ReportSummary(string itemName, string actionName, int itemCount)
+        void ReportSummary(string actionName, string itemName, int itemCount)
         {
-            Console.WriteLine($"'''''' {itemName} {itemCount} {actionName}''''''\n");
+            Console.WriteLine($"'''''' {actionName} {itemCount} {itemName}''''''\n");
         }
 
         void ReportError(string missingResource, string failedAction)
