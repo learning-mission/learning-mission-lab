@@ -82,13 +82,13 @@ namespace LearningMissionLab
         {
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.AppendFormat($"Id: {Id}" +
-                $"\nUnit Type: {UnitType}" +
-                $"\nName: {Name}" +
-                $"\nDescription: {Description}" +
-                $"\nItem List: {ItemList}" +
-                $"\nCreate Date: {CreateDate}" +
-                $"\nUpdate Date: {UpdateDate}");
+            stringBuilder.AppendFormat($" Id: {Id}" +
+                $"\n Unit Type: {UnitType}" +
+                $"\n Name: {Name}" +
+                $"\n Description: {Description}" +
+                $"\n Item List: {ItemList}" +
+                $"\n Create Date: {CreateDate}" +
+                $"\n Update Date: {UpdateDate}\n");
 
             return stringBuilder.ToString();
         }
