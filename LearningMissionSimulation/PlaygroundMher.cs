@@ -92,7 +92,11 @@ namespace LearningMissionSimulation
 
         public void CreateModules(int moduleCount)
         {
-            if(subjectIdList.Count != 0)
+            if(subjectIdList.Count == 0)
+            {
+                ReportError("Subjects", "Module");
+            }
+            else
             {
                 ReportHeader("Module generation");
                 int i = 0;
@@ -107,7 +111,7 @@ namespace LearningMissionSimulation
                 }
                 ReportSummary("Module", moduleCount);
                 ReportFooter("Module generation");
-            } 
+            }
         }
 
         public void AssignModulesToInstructors()
@@ -159,7 +163,11 @@ namespace LearningMissionSimulation
         {
             ISet<Guid> moduleIdSet = new HashSet<Guid>();
             List<Module> moduleList = new List<Module>();
-            if (moduleIdList.Count != 0)
+            if (moduleIdList.Count == 0)
+            {
+                ReportError("Modules", "Module List");
+            }
+            else
             {
                 int totalModuleCount = moduleIdList.Count;
                 int maxModuleCountLimit = 5;
@@ -187,7 +195,11 @@ namespace LearningMissionSimulation
 
         public void CreateClassrooms(int classroomCount)
         {
-            if(moduleIdList.Count != 0)
+            if(moduleIdList.Count == 0)
+            {
+                ReportError("Modules", "Classroom");
+            }
+            else
             {
                 ReportHeader("Create Classroom");
                 Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
@@ -202,12 +214,16 @@ namespace LearningMissionSimulation
                     i++;
                 }
                 ReportFooter("Create Classroom");
-            } 
+            }
         }
 
         public void AssignInstructorsToClassrooms()
         {
-            if(classroomList.Count != 0)
+            if(classroomList.Count == 0)
+            {
+                ReportError("Instructor", "Classroom");
+            }
+            else
             {
                 foreach (var classroom in classroomList)
                 {
@@ -249,6 +265,11 @@ namespace LearningMissionSimulation
         void ReportSummary(string summary, int count)
         {
             Console.WriteLine($"''''''Generated {count} {summary}''''''\n");
+        }
+
+        void ReportError(string actionName, string actionItem)
+        {
+            Console.WriteLine("--------- You do not have the appropriate {0} List to create a persistent {1} ---------\n", actionName, actionItem);
         }
         #endregion Reports
     }
