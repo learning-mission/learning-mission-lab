@@ -16,10 +16,6 @@ namespace LearningMissionSimulation
         Dictionary<Guid, Module> moduleDictionary = new Dictionary<Guid, Module>();
         List<Guid> moduleIdList = new List<Guid>();
 
-
-
-
-
         public void CreateAccounts(int accountCount)
         {
             for (int i = 0; i < accountCount; i++)
@@ -59,7 +55,6 @@ namespace LearningMissionSimulation
             }
             Console.WriteLine($"count is  {pendingAccountList.Count}");
             pendingAccountList.Clear();
-
         }
 
         public void AssignModulesToInstructors()
@@ -73,7 +68,6 @@ namespace LearningMissionSimulation
 
         List<Module> GetModuleList()
         {
-
             List<Module> moduleList = new List<Module>();
             int allModuleCount = moduleIdList.Count;
             int minModuleCount = 2;
@@ -133,8 +127,6 @@ namespace LearningMissionSimulation
             }
         }
 
-
-
         public void CreateClassrooms(int classroomCount)
         {
             throw new NotImplementedException();
@@ -144,7 +136,6 @@ namespace LearningMissionSimulation
         {
             throw new NotImplementedException();
         }
-
 
         public void AssignInstructorsToClassrooms()
         {
