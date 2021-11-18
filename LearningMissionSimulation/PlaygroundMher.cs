@@ -55,7 +55,7 @@ namespace LearningMissionSimulation
                 }
                 i++;
             }
-            ReportSummary("Account", accountCount);
+            ReportSummary("Generated", "Account", accountCount);
             ReportFooter("Create Account");
         }
 
@@ -70,6 +70,7 @@ namespace LearningMissionSimulation
                 account.Status = Status.Active;
                 ReportItem(account.ToString(), "Activated account", i++);
             }
+            ReportSummary("Activated", "Accounts", pendingAccountQueueCount);
             ReportFooter("Activate account");
         }
 
@@ -85,7 +86,7 @@ namespace LearningMissionSimulation
                 subjectIdList.Add(subject.Id);
                 i++;
             }
-            ReportSummary("Subject", subjectCount);
+            ReportSummary("Generated", "Subject", subjectCount);
             ReportFooter("Subject generation");
         }
 
@@ -108,7 +109,7 @@ namespace LearningMissionSimulation
                     ReportItem(module.ToString(), "Module", i++);
                     i++;
                 }
-                ReportSummary("Module", moduleCount);
+                ReportSummary("Generated", "Module", moduleCount);
                 ReportFooter("Module generation");
             }
         }
@@ -124,6 +125,7 @@ namespace LearningMissionSimulation
                 ReportItem(instructor.ToString(), "Assigned module", i++);
                 i++;
             }
+            ReportSummary("Generated", "Assign Modules Instructors", i);
             ReportFooter("Assign modules to instructors");
         }
 
@@ -155,6 +157,7 @@ namespace LearningMissionSimulation
                 ReportItem(student.ToString(), "Assigned module", i++);
                 i++;
             }
+            ReportSummary("Generated", "Assign Modules Students", i);
             ReportFooter("Assign modules to students");
         }
 
@@ -212,6 +215,7 @@ namespace LearningMissionSimulation
                     classroomList.Add(classroom);
                     i++;
                 }
+                ReportSummary("Created", "Classroom", i);
                 ReportFooter("Create Classroom");
             }
         }
@@ -261,14 +265,14 @@ namespace LearningMissionSimulation
             Console.WriteLine($" {actionName} {itemIndex}\n{itemName}");
         }
 
-        void ReportSummary(string summary, int count)
+        void ReportSummary(string itemName, string actionName, int itemCount)
         {
-            Console.WriteLine($"''''''Generated {count} {summary}''''''\n");
+            Console.WriteLine($"'''''' {itemName} {itemCount} {actionName}''''''\n");
         }
 
-        void ReportError(string actionName, string actionItem)
+        void ReportError(string missingResource, string failedAction)
         {
-            Console.WriteLine("--------- You do not have the appropriate {0} List to create a persistent {1} ---------\n", actionName, actionItem);
+            Console.WriteLine("--------- You do not have the appropriate {0} to {1} ---------\n", missingResource, failedAction);
         }
         #endregion Reports
     }
