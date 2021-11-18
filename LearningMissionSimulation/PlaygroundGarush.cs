@@ -60,8 +60,6 @@ namespace LearningMissionSimulation
             Console.WriteLine($"count is  {pendingAccountList.Count}");
             pendingAccountList.Clear();
 
-
-
         }
 
         public void AssignModulesToInstructors()
@@ -91,10 +89,11 @@ namespace LearningMissionSimulation
                 Module module;
 
                 moduleDictionary.TryGetValue(id, out module);
-
-                moduleList.Add(module);
+                if (!moduleList.Contains(module))
+                {
+                    moduleList.Add(module);
+                }                               
             }
-
             return moduleList;
         }
 
@@ -125,7 +124,7 @@ namespace LearningMissionSimulation
             int i = 0;
             while (i < moduleCount)
             {
-                Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count - 1)];
+                Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count)];
                 Module module = ObjectGenerator.GenerateModule(subjectId);
                 moduleDictionary.Add(module.Id, module);
                 moduleIdList.Add(module.Id);
