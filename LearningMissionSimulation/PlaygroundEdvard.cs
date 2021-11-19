@@ -97,14 +97,17 @@ namespace LearningMissionSimulation
         {
             ReportHeader("Module generation");
             
-            for (int i = 1; i <= moduleCount; i++)
+            if (subjectIdList.Count != 0)
             {
-                Guid subjectId = GetSubjectId();
-                Module module = ObjectGenerator.GenerateModule(subjectId);          
-                moduleDictionary.Add(module.Id, module);
-                moduleIdList.Add(module.Id);
+                for (int i = 1; i <= moduleCount; i++)
+                {
+                    Guid subjectId = GetSubjectId();
+                    Module module = ObjectGenerator.GenerateModule(subjectId);
+                    moduleDictionary.Add(module.Id, module);
+                    moduleIdList.Add(module.Id);
                 
-                ReportItem(module.ToString(), "Module", i);
+                    ReportItem(module.ToString(), "Module", i);
+                }
             }
 
             ReportSummary("Module", moduleCount);
@@ -184,19 +187,20 @@ namespace LearningMissionSimulation
 
         public void CreateClassrooms(int classroomCount)
         {
-            // check if module count is 0 or not
-
-            for (int i = 0; i < classroomCount; i++)
+            if (moduleIdList.Count != 0)
             {
-                Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
+                for (int i = 0; i < classroomCount; i++)
+                {
+                    Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
 
-                Module module;
+                    Module module;
 
-                moduleDictionary.TryGetValue(moduleId, out module);
+                    moduleDictionary.TryGetValue(moduleId, out module);
 
-                Classroom classroom = ObjectGenerator.GenerateClassroom(module);
+                    Classroom classroom = ObjectGenerator.GenerateClassroom(module);
 
-                classroomDictionary.Add(classroom.Id, classroom);
+                    classroomDictionary.Add(classroom.Id, classroom);
+                }
             }
         }
 
