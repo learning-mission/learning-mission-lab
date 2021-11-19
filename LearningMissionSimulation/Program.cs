@@ -8,12 +8,12 @@ namespace LearningMissionSimulation
     {
         static void Main(string[] args)
         {
-            PlaygroundEdvard playgroundEdvard = new PlaygroundEdvard();
-            PlaygroundGarush playgroundGarush = new PlaygroundGarush();
-            PlayGroundGavril playGroundGavril = new PlayGroundGavril();
+            //PlaygroundEdvard playgroundEdvard = new PlaygroundEdvard();
+            //PlaygroundGarush playgroundGarush = new PlaygroundGarush();
+            //PlayGroundGavril playGroundGavril = new PlayGroundGavril();
             PlaygroundVahe playgroundVahe = new PlaygroundVahe();
-            PlaygroundMher playgroundMher = new PlaygroundMher();
-
+            //PlaygroundMher playgroundMher = new PlaygroundMher();
+            playgroundVahe.SimulationAll(10);
         }
     }
 }
