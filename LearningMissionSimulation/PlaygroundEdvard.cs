@@ -192,13 +192,9 @@ namespace LearningMissionSimulation
                 for (int i = 0; i < classroomCount; i++)
                 {
                     Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
-
                     Module module;
-
                     moduleDictionary.TryGetValue(moduleId, out module);
-
                     Classroom classroom = ObjectGenerator.GenerateClassroom(module);
-
                     classroomDictionary.Add(classroom.Id, classroom);
                 }
             }
@@ -216,7 +212,6 @@ namespace LearningMissionSimulation
                     if (moduleInstructorListDictionary.ContainsKey(moduleId))
                     {
                         moduleInstructorListDictionary.TryGetValue(moduleId, out instructorList);
-
                         classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
                     }
                 }
