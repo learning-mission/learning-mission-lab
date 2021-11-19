@@ -19,7 +19,6 @@ namespace LearningMissionSimulation
             Simulation.SimulationA(playgroundGavril, 20);
             Simulation.SimulationA(playgroundMher, 20);
             Simulation.SimulationA(playgroundVahe, 20);
-
         }
     }
 }
