@@ -23,12 +23,6 @@ namespace LearningMissionSimulation
         Dictionary<Guid, List<Instructor>> _moduleInstructorListDictionary = new Dictionary<Guid, List<Instructor>>();
         #endregion Fields
 
-        public static void Play()
-        {
-            Console.WriteLine(AttributeGenerator.GetLanguageLevel());
-            Console.WriteLine(AttributeGenerator.GetLanguageName());
-        }
-
         public void CreateAccounts(int accountCount)
         {
             ReportHeader("Create account");
@@ -112,7 +106,7 @@ namespace LearningMissionSimulation
                 }
                 ReportFooter("accounts");
             }
-            ReportError("","");
+            ReportError(PendingAccountList.ToString(),"account");
         }
 
         public void CreateSubjects(int subjectCount)
@@ -305,6 +299,12 @@ namespace LearningMissionSimulation
 
         #endregion ReportMethods
 
+        public static void Play()
+        {
+            Console.WriteLine(AttributeGenerator.GetLanguageLevel());
+            Console.WriteLine(AttributeGenerator.GetLanguageName());
+        }
+
         #region Properties
         public Dictionary<Guid, Account> AccountDictionary { get => _accountDictionary; set => _accountDictionary = value; }
         public Dictionary<Guid, Instructor> InstructorDictionary { get => _instructorDictionary; set => _instructorDictionary = value; }
@@ -321,6 +321,5 @@ namespace LearningMissionSimulation
         public Dictionary<Guid, Classroom> ClassroomDictionary { get => _classroomDictionary; set => _classroomDictionary = value; }
         public Dictionary<Guid, List<Instructor>> ModuleInstructorListDictionary { get => _moduleInstructorListDictionary; set => _moduleInstructorListDictionary = value; }
         #endregion Properties
-
     }
 }
