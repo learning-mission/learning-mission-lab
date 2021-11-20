@@ -8,7 +8,7 @@ namespace LearningMissionSimulation
             int iRun = 0;
             while (iRun < runCount)
             {
-                int methodIndex = AttributeGenerator.random.Next(1, 10);
+                int methodIndex = AttributeGenerator.random.Next(1, 11);
                 int itemCount = AttributeGenerator.random.Next(0, 10);
                 switch (methodIndex)
                 {
@@ -39,6 +39,9 @@ namespace LearningMissionSimulation
                     case 9:
                         //simulation.RegisterStudentsForClasses();
                         break;
+                    case 10:
+                        //simulation.Clear();
+                        break;
                 }
                 iRun++;
             }
@@ -60,7 +63,8 @@ namespace LearningMissionSimulation
                 //simulation.CreateClassrooms(itemCount);        
                 //simulation.AssignInstructorsToClassrooms();
                 //simulation.RegisterStudentsForClasses();
-                      
+                //simulation.Clear();
+
                 iRun++;
             }
         }

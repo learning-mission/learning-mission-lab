@@ -354,6 +354,11 @@ namespace LearningMissionSimulation
             ReportFooter(actionName: action);
         }
 
+        public void Clear()
+        {
+            // Clear all internal data structures 
+            throw new NotImplementedException();
+        }
 
         void UpdateStudentList(Classroom classroom)
         {
@@ -403,11 +408,6 @@ namespace LearningMissionSimulation
             Console.WriteLine("--------- You do not have the appropriate {0} to {1} ---------\n", missingResource, failedAction);
         }
 
-        public void Clear()
-        {
-            // Clear all internal data structures 
-            throw new NotImplementedException();
-        }
         #endregion Reports
     }
 }
