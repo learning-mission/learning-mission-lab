@@ -39,6 +39,9 @@ namespace LearningMissionSimulation
                     case 9:
                         //simulation.RegisterStudentsForClasses();
                         break;
+                    case 10:
+                        //simulation.Clear();
+                        break;
                 }
                 iRun++;
             }
@@ -60,7 +63,8 @@ namespace LearningMissionSimulation
                 //simulation.CreateClassrooms(itemCount);        
                 //simulation.AssignInstructorsToClassrooms();
                 //simulation.RegisterStudentsForClasses();
-                      
+                //simulation.Clear();
+
                 iRun++;
             }
         }
