@@ -94,19 +94,41 @@ namespace LearningMissionSimulation
 
         public void ActivateAccounts()
         {
-            ReportHeader("Pending accounts is activating");
+            ReportHeader("Activate account");
+            int count = 0;
             if (PendingAccountList.Count != 0)
             {
-                int i = 0;
                 foreach (var account in PendingAccountList)
                 {
                     account.Status = Status.Active;
+                    if (account.Role == Role.Student)
+                    {
+                        Student student;
+                        if (StudentDictionary.ContainsKey(account.Id))
+                        {
+                            StudentDictionary.TryGetValue(account.Id, out student);
+                            ActiveStudentList.Add(student);
+                        }
+                    }
+                    else if (account.Role == Role.Instructor)
+                    {
+                        Instructor instructor;
+                        if (InstructorDictionary.ContainsKey(account.Id))
+                        {
+                            InstructorDictionary.TryGetValue(account.Id, out instructor);
+                            ActiveInstructorList.Add(instructor);
+                        }
+                    }
+                    ReportItem(account.ToString(), "Accounts", count++);
                     PendingAccountList.Remove(account);
-                    ReportItem(account.ToString(), "Accounts", i);
                 }
-                ReportFooter("accounts");
             }
-            ReportError(PendingAccountList.ToString(),"account");
+            else 
+            {
+                ReportError(PendingAccountList.ToString(), "account");
+            }
+            ReportSummary("Active accounts", count);
+            ReportFooter("accounts");
         }
 
         public void CreateSubjects(int subjectCount)
@@ -138,14 +160,17 @@ namespace LearningMissionSimulation
                     ReportItem(module.ToString(), "Modules", i);
                 }
             }
+            else
+            {
+                ReportError(SubjectIdList.ToString(), "module");
+            }
             ReportSummary("Modules", moduleCount);
             ReportFooter("Modules generated");
-            ReportError(SubjectIdList.ToString(), "module");
         }
 
         public void AssignModulesToInstructors()
         {
-            ReportHeader("Assigning modules to instructors");
+            ReportHeader("Assign modules to instructors");
             int i = 0;
             foreach (var instructor in ActiveInstructorList)
             {
@@ -153,12 +178,13 @@ namespace LearningMissionSimulation
                 AddInstructorToModuleList(instructor);
                 ReportItem(instructor.ToString(), "Assign instructors", i++);
             }
-            ReportFooter("Assigned modules to instructors");
+            ReportSummary("Assign modules to instructors", i);
+            ReportFooter("Assign modules to instructors");
         }
 
         public void AssignModulesToStudents()
         {
-            ReportHeader("Assigning modules to students");
+            ReportHeader("Assign modules to students");
             int i = 0;
             foreach (var student in ActiveStudentList)
             {
@@ -166,7 +192,8 @@ namespace LearningMissionSimulation
                 ReportItem(student.ToString(), "Assign students", i++);
 
             }
-            ReportFooter("Assigned modules to students");
+            ReportSummary("Assign modules to students", i);
+            ReportFooter("Assign modules to students");
         }
 
         List<Module> GetModuleList()
@@ -207,11 +234,17 @@ namespace LearningMissionSimulation
                     ModuleDictionary.TryGetValue(moduleId, out module);
                     Classroom classroom = ObjectGenerator.GenerateClassroom(module);
                     ClassroomDictionary.Add(classroom.Id, classroom);
-                    ReportSummary("Classrooms", classroomCount);
-                    ReportFooter("Modules generated");
+                    ReportSummary("Create classrooms", classroomCount);
+                    ReportFooter("Create classrooms");
                 }
             }
-            ReportError(ModuleIdList.ToString(), "classroom");
+            else
+            {
+                ReportError(ModuleIdList.ToString(), "classroom");
+            }
+            ReportSummary("Create classrooms", classroomCount);
+            ReportFooter("Create classrooms");
+
         }
 
         public void AssignInstructorsToClassrooms()
@@ -225,9 +258,11 @@ namespace LearningMissionSimulation
                     if (ModuleInstructorListDictionary.ContainsKey(moduleId))
                     {
                         ModuleInstructorListDictionary.TryGetValue(moduleId, out instructorList);
+                        classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
                     }
                 }
             }
+
         }
 
         void AddInstructorToModuleList(Instructor instructor)
@@ -254,6 +289,38 @@ namespace LearningMissionSimulation
             throw new NotImplementedException();
         }
 
+        #region ReportMethods
+        void ReportHeader(string actionName)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($" <<<<< {actionName} is started >>>>> \n");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        void ReportFooter(string actionName)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine($" <<<<< {actionName} is finished >>>>> \n");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        void ReportItem(string itemName, string actionName, int itemIndex)
+        {
+            Console.WriteLine($"{actionName} {itemIndex} {itemName} \n");
+        }
+
+        void ReportSummary(string summary, int count)
+        {
+            Console.WriteLine($" <<<<< Generated {count} {summary} >>>>> \n");
+        }
+        void ReportError(string missingResource, string failedAction)
+        {
+            Console.WriteLine($"<<<<< Satisfy the condition first and then start work. Shoild be" +
+                              $"{missingResource}  in order to {failedAction} start working >>>>>");
+        }
+
+        #endregion ReportMethods
+
         public void SimulationAll(int count)
         {
 
@@ -267,42 +334,16 @@ namespace LearningMissionSimulation
             AssignInstructorsToClassrooms();
         }
 
-        #region ReportMethods
-        void ReportHeader(string actionName)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($" <<<<< {actionName} is started >>>>> \n");
-            Console.ForegroundColor = ConsoleColor.Black;
-        }
-
-        void ReportFooter(string actionName)
-        {
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine($" <<<<< {actionName} is finished >>>>> \n");
-            Console.ForegroundColor = ConsoleColor.Black;
-        }
-
-        void ReportItem(string itemName, string actionName, int itemIndex)
-        {
-            Console.WriteLine($"{actionName} {itemIndex}\n{itemName}");
-        }
-
-        void ReportSummary(string summary, int count)
-        {
-            Console.WriteLine($"<<<<< Generated {count} {summary} >>>>>\n");
-        }
-        void ReportError(string missingResource, string failedAction)
-        {
-            Console.WriteLine($"<<<<< Satisfy the condition first and then start work. Shoild be" +
-                              $"{missingResource}  in order to {failedAction} will be created >>>>>");
-        }
-
-        #endregion ReportMethods
-
         public static void Play()
         {
             Console.WriteLine(AttributeGenerator.GetLanguageLevel());
             Console.WriteLine(AttributeGenerator.GetLanguageName());
+        }
+
+        public void Clear()
+        {
+            // Clear all internal data structures 
+            throw new NotImplementedException();
         }
 
         #region Properties

@@ -6,121 +6,196 @@ namespace LearningMissionSimulation
 {
     public class PlaygroundMher : ISimulation
     {
-        List<Student> studentList = new List<Student>();
+        ReportType _reportType;
+        
+        List<Student> _activeStudentList = new List<Student>();
+        Dictionary<Guid, Student> _studentDictionary = new Dictionary<Guid, Student>();
+        List<Instructor> _activeInstructorList = new List<Instructor>();
+        Dictionary<Guid, Instructor> _instructorDictionary = new Dictionary<Guid, Instructor>();
+        Queue<Account> _pendingAccountQueue = new Queue<Account>();
+        Dictionary<Guid, Account> _accountDictionary = new Dictionary<Guid, Account>();
+        List<Subject> _subjectList = new List<Subject>();
+        Dictionary<Guid, Module> _moduleDictionary = new Dictionary<Guid, Module>();
+        List<Guid> _moduleIdList = new List<Guid>();
+        List<Guid> _subjectIdList = new List<Guid>();
+        List<Classroom> _classroomList = new List<Classroom>();
+        Dictionary<Guid, List<Instructor>> _moduleInstructorDictionary = new Dictionary<Guid, List<Instructor>>();
 
-        List<Instructor> instructorList = new List<Instructor>();
+        public PlaygroundMher()
+        {
 
-        Queue<Account> pendingAccountQueue = new Queue<Account>();
+        }
 
-        Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
+        public PlaygroundMher(ReportType reportType)
+        {
+            this.ReportType = reportType;
+        }
 
-        List<Subject> subjectList = new List<Subject>();
 
-        Dictionary<Guid, Module> moduleDictionary = new Dictionary<Guid, Module>();
+        public ReportType ReportType { get; set; } = ReportType.Verbose;
+        public List<Student> ActiveStudentList { get => _activeStudentList; set => _activeStudentList = value; }
+        public Dictionary<Guid, Student> StudentDictionary { get => _studentDictionary; set => _studentDictionary = value; }
+        public List<Instructor> ActiveInstructorList { get => _activeInstructorList; set => _activeInstructorList = value; }
+        public Dictionary<Guid, Instructor> InstructorDictionary { get => _instructorDictionary; set => _instructorDictionary = value; }
+        public Queue<Account> PendingAccountQueue { get => _pendingAccountQueue; set => _pendingAccountQueue = value; }
+        public Dictionary<Guid, Account> AccountDictionary { get => _accountDictionary; set => _accountDictionary = value; }
+        public List<Subject> SubjectList { get => _subjectList; set => _subjectList = value; }
+        public Dictionary<Guid, Module> ModuleDictionary { get => _moduleDictionary; set => _moduleDictionary = value; }
+        public List<Guid> ModuleIdList { get => _moduleIdList; set => _moduleIdList = value; }
+        public List<Guid> SubjectIdList { get => _subjectIdList; set => _subjectIdList = value; }
+        public List<Classroom> ClassroomList { get => _classroomList; set => _classroomList = value; }
+        public Dictionary<Guid, List<Instructor>> ModuleInstructorDictionary { get => _moduleInstructorDictionary; set => _moduleInstructorDictionary = value; }
 
-        List<Guid> moduleIdList = new List<Guid>();
-
-        List<Guid> subjectIdList = new List<Guid>();
-
-        List<Classroom> classroomList = new List<Classroom>();
-
-        Dictionary<Guid, List<Instructor>> moduleInstructorDictionary = new Dictionary<Guid, List<Instructor>>();
-
+        
         public void CreateAccounts(int accountCount)
         {
-            Console.WriteLine("******** Started creating accounts  ********\n");
+            string action = "Create Account";
+            ReportHeader(actionName: action);
+
             int i = 0;
             while (i < accountCount)
             {
-                Console.WriteLine("\n========== Created  account {0} =======\n", i);
                 Account account = ObjectGenerator.GenerateAccount();
-                accountDictionary.Add(account.Id, account);
+                AccountDictionary.Add(account.Id, account);
+
+                ReportItem(itemName: account.ToString(), actionName: action, itemIndex: i);
+
                 if (account.Role == Role.Student)
                 {
                     Student student = ObjectGenerator.GenerateStudent(account.Id);
-                    studentList.Add(student);
+                    StudentDictionary.Add(account.Id, student);
                     if (account.Status == Status.Pending)
                     {
-                        pendingAccountQueue.Enqueue(account);
+                        PendingAccountQueue.Enqueue(account);
+                    }
+                    else if(account.Status == Status.Active)
+                    {
+                        ActiveStudentList.Add(student);
                     }
                 }
                 else if(account.Role == Role.Instructor)
                 {
                     Instructor instructor = ObjectGenerator.GenerateInstructor(account.Id);
-                    instructorList.Add(instructor);
+                    InstructorDictionary.Add(account.Id, instructor);
                     if(account.Status == Status.Pending)
                     {
-                        pendingAccountQueue.Enqueue(account);
+                        PendingAccountQueue.Enqueue(account);
+                    }
+                    else if (account.Status == Status.Active)
+                    {
+                        ActiveInstructorList.Add(instructor);
                     }
                 }
-                Console.WriteLine("\n");
                 i++;
             }
-            Console.WriteLine("========== Generated {0} Accounts  =======\n", accountCount);
-            Console.WriteLine("********  Finished creating accounts   ********\n");
+
+            ReportSummary(actionName: action, itemCount: accountCount);
+            ReportFooter(actionName: action);
         }
 
         public void ActivateAccounts()
         {
-            Console.WriteLine("******** Started activating accounts ********\n");
-            int pendingAccountQueueCount = pendingAccountQueue.Count;
-            while(pendingAccountQueue.Count > 0)
+            string action = "Activate account";
+            ReportHeader(actionName: action);
+
+            int pendingAccountQueueCount = PendingAccountQueue.Count;
+            int i = 0;
+            while(PendingAccountQueue.Count > 0)
             {
-                Console.WriteLine("========== Activate Account =======");
-                Account account = pendingAccountQueue.Dequeue();
+                Account account = PendingAccountQueue.Dequeue();
                 account.Status = Status.Active;
-                Console.WriteLine("\n========== Activated account =======\n{0}\n", account);
+                if(account.Role == Role.Student)
+                {
+                    Student student = null;
+                    if (StudentDictionary.ContainsKey(account.Id))
+                    {
+                        StudentDictionary.TryGetValue(account.Id, out student);
+                        ActiveStudentList.Add(student);
+                    }
+                }
+                else if (account.Role == Role.Instructor)
+                {
+                    Instructor instructor = null;
+                    if(InstructorDictionary.ContainsKey(account.Id))
+                    {
+                        InstructorDictionary.TryGetValue(account.Id, out instructor);
+                        ActiveInstructorList.Add(instructor);
+                    }
+                }
+                i++;
+
+                ReportItem( itemName: account.ToString(), actionName: action, itemIndex: i);
             }
-            Console.WriteLine("========== Activated {0} accounts  =======\n", pendingAccountQueueCount);
-            Console.WriteLine("******** Finished activating accounts ********\n");
+
+            ReportSummary(actionName: action, itemCount: pendingAccountQueueCount);
+            ReportFooter(actionName: action);
         }
 
         public void CreateSubjects(int subjectCount)
         {
-            Console.WriteLine("******** Started creating subjects  ********\n");
+            string action = "Subject generation";
+            ReportHeader(actionName: action);
+
             int i = 0;
             while (i < subjectCount)
             {
                 Subject subject = ObjectGenerator.GenerateSubject();
-                Console.WriteLine("========== Created  Subject {0} =======\n\n{1}\n", i, subject);
-                subjectList.Add(subject);
-                subjectIdList.Add(subject.Id);
+                SubjectList.Add(subject);
+                SubjectIdList.Add(subject.Id);
                 i++;
+
+                ReportItem(itemName: subject.ToString(), actionName: action, itemIndex: i);
             }
-            Console.WriteLine("========== Generated {0} Subjects  =======\n", subjectCount);
-            Console.WriteLine("******** Finished creating subjects  ********\n");
+
+            ReportSummary(actionName: action, itemCount: subjectCount);
+            ReportFooter(actionName: action);
         }
 
         public void CreateModules(int moduleCount)
         {
-            Console.WriteLine("******** Started creating modules  ********\n");
-            int i = 0;
-            while (i < moduleCount)
+            string action = "Create Modules";
+            ReportHeader(actionName: action);
+
+            if (SubjectIdList.Count == 0)
             {
-                Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count)];
-                Module module = ObjectGenerator.GenerateModule(subjectId);
-                moduleDictionary.Add(module.Id, module);
-                moduleIdList.Add(module.Id);
-                Console.WriteLine("\n========== Created  Module {0} =======\n\n{1}\n", i, module);
-                i++;
+                ReportError("Subjects", action);
             }
-            Console.WriteLine("========== Generated {0} Modules  =======\n", moduleCount);
-            Console.WriteLine("******** Finished creating modules ********\n");
+            else
+            {
+                int i = 0;
+                while (i < moduleCount)
+                {
+                    Guid subjectId = SubjectIdList[AttributeGenerator.random.Next(0, SubjectIdList.Count)];
+                    Module module = ObjectGenerator.GenerateModule(subjectId);
+                    ModuleDictionary.Add(module.Id, module);
+                    ModuleIdList.Add(module.Id);
+                    i++;
+
+                    ReportItem(itemName: module.ToString(), actionName: action, itemIndex: i);
+                }
+            }
+
+            ReportSummary(actionName: action, itemCount: moduleCount);
+            ReportFooter(actionName: action);
         }
 
         public void AssignModulesToInstructors()
         {
-            Console.WriteLine("******** Started assigning modules to instructors  ********\n");
+            string action = "Assign modules to instructors";
+            ReportHeader(actionName: action);
+
             int i = 0;
-            foreach (var instructor in instructorList)
+            foreach (var instructor in ActiveInstructorList)
             {
                 instructor.ModuleList = GetModuleList();
                 AddToModuleInstructorList(instructor);
-                Console.WriteLine("\n========== Generated List Number {0} of the Instructor Number {1} =======\n\n\n", i+1, i+1);
                 i++;
+
+                ReportItem(itemName: instructor.ToString(), actionName: action, itemIndex: i);
             }
-            Console.WriteLine("========== Generated Lists of the Instructors Module List  =======\n");
-            Console.WriteLine("******** Finished assigning modules to instructors  ********\n");
+
+            ReportSummary(actionName: action, itemCount: i);
+            ReportFooter(actionName: action);
         }
 
         void AddToModuleInstructorList(Instructor instructor)
@@ -128,14 +203,14 @@ namespace LearningMissionSimulation
             List<Instructor> instructorList ;
             foreach (var module in instructor.ModuleList)
             {
-                if (!moduleInstructorDictionary.ContainsKey(module.Id))
+                if (!ModuleInstructorDictionary.ContainsKey(module.Id))
                 {
                     instructorList = new List<Instructor>() { instructor };
-                    moduleInstructorDictionary.Add(module.Id, instructorList);
+                    ModuleInstructorDictionary.Add(module.Id, instructorList);
                 }
                 else
                 {
-                    moduleInstructorDictionary.TryGetValue(module.Id, out instructorList);
+                    ModuleInstructorDictionary.TryGetValue(module.Id, out instructorList);
                     instructorList.Add(instructor);
                 }
             }
@@ -143,81 +218,196 @@ namespace LearningMissionSimulation
 
         public void AssignModulesToStudents()
         {
-            Console.WriteLine("******** Started assigning modules to students  ********\n");
+            string action = "Assign modules to students";
+            ReportHeader(actionName: action);
+
             int i = 0;
-            foreach (var student in studentList)
+            foreach (var student in ActiveStudentList)
             {
-                Console.WriteLine("========== List of modules assigned to student {0} {1} {2} =======", student.AccountId, student.FirstName, student.LastName);
                 student.CompletedModuleList = GetModuleList();
                 i++;
+
+                ReportItem(itemName: student.ToString(), actionName: action, itemIndex: i);
             }
-            Console.WriteLine("******** Finished assigning modules to students   ********\n\n\n\n");
+
+            ReportSummary(actionName: action, itemCount: i);
+            ReportFooter(actionName: action);
         }
 
         List<Module> GetModuleList() 
         {
             ISet<Guid> moduleIdSet = new HashSet<Guid>();
             List<Module> moduleList = new List<Module>();
-            int totalModuleCount = moduleIdList.Count;
-            int maxModuleCountLimit = 5;
-            int minModuleCountLimit = 2;
-            maxModuleCountLimit = Math.Min(totalModuleCount, maxModuleCountLimit);
-            minModuleCountLimit = Math.Min(totalModuleCount, minModuleCountLimit);
-            int count = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit);
-            int i = 0;
-            while (i < count)
+            if (ModuleIdList.Count == 0)
             {
-                Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
-                
-                if (!moduleIdSet.Contains(moduleId))
+                ReportError(missingResource: "Modules", failedAction: "Module List");
+            }
+            else
+            {
+                int totalModuleCount = _moduleIdList.Count;
+                int maxModuleCountLimit = 5;
+                int minModuleCountLimit = 2;
+                maxModuleCountLimit = Math.Min(totalModuleCount, maxModuleCountLimit);
+                minModuleCountLimit = Math.Min(totalModuleCount, minModuleCountLimit);
+                int count = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit);
+                int i = 0;
+                while (i < count)
                 {
-                    moduleIdSet.Add(moduleId);
-                    Console.WriteLine("========== Randomly selected module id is =======\n\n{0}\n\n", moduleId);
-                    Module module;
-                    moduleDictionary.TryGetValue(moduleId, out module);
-                    moduleList.Add(module);
-                    Console.WriteLine("========== Added module =======\n\n{0}\n\n", module);
+                    Guid moduleId = ModuleIdList[AttributeGenerator.random.Next(0, ModuleIdList.Count)];
+
+                    if (!moduleIdSet.Contains(moduleId))
+                    {
+                        moduleIdSet.Add(moduleId);
+                        Module module;
+                        ModuleDictionary.TryGetValue(moduleId, out module);
+                        moduleList.Add(module);
+                    }
+                    i++;
                 }
-                i++;
             }
             return moduleList;
         }
 
         public void CreateClassrooms(int classroomCount)
         {
-            Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
-            Module module;
-            moduleDictionary.TryGetValue(moduleId, out module);
+            string action = "Create Classroom";
             int i = 0;
-            while (i < classroomCount)
+            ReportHeader(actionName: action);
+
+            if (ModuleIdList.Count == 0)
             {
-                Classroom classroom = ObjectGenerator.GenerateClassroom(module);
-                classroomList.Add(classroom);
-                i++;
+                ReportError(missingResource: "Modules", failedAction: action);
             }
+            else
+            {
+                while (i < classroomCount)
+                {
+                    Guid moduleId = ModuleIdList[AttributeGenerator.random.Next(0, ModuleIdList.Count)];
+                    Module module;
+                    ModuleDictionary.TryGetValue(moduleId, out module);
+                    Classroom classroom = ObjectGenerator.GenerateClassroom(module);
+                    ClassroomList.Add(classroom);
+                    i++;
+
+                    ReportItem(itemName: classroom.ToString(), actionName: action, itemIndex: i);
+                }
+            }
+
+            ReportSummary(actionName: action, itemCount: i);
+            ReportFooter(actionName: action);
         }
 
         public void AssignInstructorsToClassrooms()
         {
-            foreach (var classroom in classroomList)
+            string action = "Assign Instructors To Classrooms";
+            ReportHeader(actionName: action);
+
+            if (ClassroomList.Count == 0)
             {
-                if (moduleInstructorDictionary.ContainsKey(classroom.Module.Id))
+                ReportError(missingResource: "Instructor", failedAction: action);
+            }
+            else
+            {
+                foreach (var classroom in ClassroomList)
                 {
-                    List<Instructor> instructorList;
-                    moduleInstructorDictionary.TryGetValue(classroom.Module.Id, out instructorList);
-                    classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
-                }
-                else
-                {
-                    Console.WriteLine("Failed to find instructor for classroom");
+                    if (ModuleInstructorDictionary.ContainsKey(classroom.Module.Id))
+                    {
+                        List<Instructor> instructorList;
+                        ModuleInstructorDictionary.TryGetValue(classroom.Module.Id, out instructorList);
+                        classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                    }
+                    else
+                    {
+                        ReportError(missingResource: "Instructor", failedAction: action);
+                    }
                 }
             }
+
+            ReportSummary(actionName: action, itemCount: 1);
+            ReportFooter(actionName: action);
         }
 
         public void RegisterStudentsForClasses()
         {
+            string action = "Register Students For Classes";
+            int classroomItemListCount = 0;
+            ReportHeader(actionName: action);
+
+            if (ClassroomList.Count == 0)
+            {
+                ReportError(missingResource: "Instructor", failedAction: action);
+            }
+            else
+            {
+                foreach (var classroom in ClassroomList)
+                {
+                    if(classroom.ItemList.Count < classroom.MaximumCapacity)
+                    {
+                        UpdateStudentList(classroom);
+                        classroomItemListCount = classroom.ItemList.Count;
+                    } 
+                   
+                }
+            }
+
+            ReportSummary(actionName: action, itemCount: classroomItemListCount);
+            ReportFooter(actionName: action);
+        }
+
+        public void Clear()
+        {
+            // Clear all internal data structures 
             throw new NotImplementedException();
         }
 
+        void UpdateStudentList(Classroom classroom)
+        {
+            int itemListCount = AttributeGenerator.random.Next(0, classroom.MaximumCapacity - classroom.ItemList.Count + 1);
+            int i = 0;
+            while (i < itemListCount)
+            {
+                foreach (var student in ActiveStudentList)
+                {
+                    if (!student.CompletedModuleList.Contains(classroom.Module))
+                    {
+                        classroom.ItemList.Add(student);
+                        student.ClassroomList.Add(classroom);
+
+                        ReportItem(itemName: student.ToString(), actionName: "Registered for class", itemIndex: i);
+                    }
+                }
+                i++;
+            }
+            
+        }
+
+
+        #region Reports
+        void ReportHeader(string actionName)
+        {
+            Console.WriteLine($"******{actionName} is started******\n");
+        }
+
+        void ReportFooter(string actionName)
+        {
+            Console.WriteLine($"******{actionName} is finished******\n");
+        }
+
+        void ReportItem(string itemName, string actionName, int itemIndex)
+        {
+            Console.WriteLine($" {actionName} {itemIndex} {itemName}\n");
+        }
+
+        void ReportSummary(string actionName, int itemCount)
+        {
+            Console.WriteLine($"'''''' {actionName} {itemCount} ''''''\n");
+        }
+
+        void ReportError(string missingResource, string failedAction)
+        {
+            Console.WriteLine("--------- You do not have the appropriate {0} to {1} ---------\n", missingResource, failedAction);
+        }
+
+        #endregion Reports
     }
 }
