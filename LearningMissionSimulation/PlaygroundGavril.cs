@@ -1,14 +1,10 @@
 ﻿using LearningMissionLab;
 using System;
 using System.Collections.Generic;
-using System.Text;
-
-
-
 
 namespace LearningMissionSimulation
 {
-    public class PlayGroundGavril
+    public class PlaygroundGavril : ISimulation
     {
         List<Account> pendingAccountList = new List<Account>();
 
@@ -138,6 +134,27 @@ namespace LearningMissionSimulation
                 }
             }
             return moduleList;
+        }
+
+        public void CreateClassrooms(int classroomCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AssignInstructorsToClassrooms()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RegisterStudentsForClasses()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Clear()
+        {
+            // Clear all internal data structures 
+            throw new NotImplementedException();
         }
     }
 }

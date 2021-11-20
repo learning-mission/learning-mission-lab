@@ -321,5 +321,11 @@ namespace LearningMissionSimulation
         public Dictionary<Guid, Classroom> ClassroomDictionary { get => _classroomDictionary; set => _classroomDictionary = value; }
         public Dictionary<Guid, List<Instructor>> ModuleInstructorListDictionary { get => _moduleInstructorListDictionary; set => _moduleInstructorListDictionary = value; }
         #endregion Properties
+        
+        public void Clear()
+        {
+            // Clear all internal data structures 
+            throw new NotImplementedException();
+        }
     }
 }
