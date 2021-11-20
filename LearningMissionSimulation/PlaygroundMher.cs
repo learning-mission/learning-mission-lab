@@ -107,21 +107,20 @@ namespace LearningMissionSimulation
                 if(account.Role == Role.Student)
                 {
                     Student student = null;
-                    if (StudentDictionary.Count != 0)
+                    if (StudentDictionary.ContainsKey(account.Id))
                     {
                         StudentDictionary.TryGetValue(account.Id, out student);
+                        ActiveStudentList.Add(student);
                     }
-                    ActiveStudentList.Add(student);
-
                 }
                 else if (account.Role == Role.Instructor)
                 {
                     Instructor instructor = null;
-                    if(InstructorDictionary.Count != 0)
+                    if(InstructorDictionary.ContainsKey(account.Id))
                     {
                         InstructorDictionary.TryGetValue(account.Id, out instructor);
+                        ActiveInstructorList.Add(instructor);
                     }
-                    ActiveInstructorList.Add(instructor);
                 }
                 i++;
 
@@ -281,12 +280,11 @@ namespace LearningMissionSimulation
             }
             else
             {
-               
-                Guid moduleId = ModuleIdList[AttributeGenerator.random.Next(0, ModuleIdList.Count)];
-                Module module;
-                ModuleDictionary.TryGetValue(moduleId, out module);
                 while (i < classroomCount)
                 {
+                    Guid moduleId = ModuleIdList[AttributeGenerator.random.Next(0, ModuleIdList.Count)];
+                    Module module;
+                    ModuleDictionary.TryGetValue(moduleId, out module);
                     Classroom classroom = ObjectGenerator.GenerateClassroom(module);
                     ClassroomList.Add(classroom);
                     i++;
@@ -365,11 +363,11 @@ namespace LearningMissionSimulation
             {
                 foreach (var student in ActiveStudentList)
                 {
-                    if (student.CompletedModuleList.Contains(classroom.Module))
+                    if (!student.CompletedModuleList.Contains(classroom.Module))
                     {
                         classroom.ItemList.Add(student);
 
-                        ReportItem(itemName: student.ToString(), actionName: "", itemIndex: i);
+                        ReportItem(itemName: student.ToString(), actionName: "Registered for class", itemIndex: i);
                     }
                 }
                 i++;
