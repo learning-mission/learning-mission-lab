@@ -234,6 +234,12 @@ namespace LearningMissionSimulation
             throw new NotImplementedException();
         }
 
+        public void Clear()
+        {
+            // Clear all internal data structures 
+            this.AccountDictionary.Clear();
+        }
+
         #region Simulations
         public static void SimulationBig0()
         {
