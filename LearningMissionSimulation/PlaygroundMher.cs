@@ -28,7 +28,7 @@ namespace LearningMissionSimulation
 
         public PlaygroundMher(ReportType reportType)
         {
-            this._reportType = reportType;
+            this.ReportType = reportType;
         }
 
 
@@ -366,6 +366,7 @@ namespace LearningMissionSimulation
                     if (!student.CompletedModuleList.Contains(classroom.Module))
                     {
                         classroom.ItemList.Add(student);
+                        student.ClassroomList.Add(classroom);
 
                         ReportItem(itemName: student.ToString(), actionName: "Registered for class", itemIndex: i);
                     }
