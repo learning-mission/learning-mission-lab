@@ -150,5 +150,11 @@ namespace LearningMissionSimulation
         {
             throw new NotImplementedException();
         }
+
+        public void Clear()
+        {
+            // Clear all internal data structures 
+            throw new NotImplementedException();
+        }
     }
 }

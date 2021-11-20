@@ -33,5 +33,8 @@ namespace LearningMissionSimulation
         // Assigns students to exisitng classrooms
         void RegisterStudentsForClasses();
 
+        // Clear the internal state
+        void Clear();
+
     }
 }

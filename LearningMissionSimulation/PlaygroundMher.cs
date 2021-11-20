@@ -32,7 +32,7 @@ namespace LearningMissionSimulation
         }
 
 
-        public ReportType ReportType { get => _reportType; set => _reportType = value; }
+        public ReportType ReportType { get; set; } = ReportType.Verbose;
         public List<Student> ActiveStudentList { get => _activeStudentList; set => _activeStudentList = value; }
         public Dictionary<Guid, Student> StudentDictionary { get => _studentDictionary; set => _studentDictionary = value; }
         public List<Instructor> ActiveInstructorList { get => _activeInstructorList; set => _activeInstructorList = value; }
@@ -401,6 +401,12 @@ namespace LearningMissionSimulation
         void ReportError(string missingResource, string failedAction)
         {
             Console.WriteLine("--------- You do not have the appropriate {0} to {1} ---------\n", missingResource, failedAction);
+        }
+
+        public void Clear()
+        {
+            // Clear all internal data structures 
+            throw new NotImplementedException();
         }
         #endregion Reports
     }
