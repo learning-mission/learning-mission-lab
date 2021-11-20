@@ -83,6 +83,27 @@ namespace LearningMissionSimulation
                 Account account = PendingAccountStack.Pop();
                 account.Status = Status.Active;
 
+                if (account.Role == Role.Student)
+                {
+                    Student student;
+                    StudentDictionary.TryGetValue(account.Id, out student);
+
+                    if (student != null)
+                    {
+                        ActiveStudentList.Add(student);
+                    }
+                }
+                else if (account.Role == Role.Instructor)
+                {
+                    Instructor instructor;
+                    InstructorDictionary.TryGetValue(account.Id, out instructor);
+
+                    if (instructor != null)
+                    {
+                        ActiveInstructorList.Add(instructor);
+                    }
+                }
+
                 ReportItem(itemName: account.ToString(), actionName: "Activated account", itemIndex: ++item);
             }
             ReportFooter(actionName: "Activate account");
