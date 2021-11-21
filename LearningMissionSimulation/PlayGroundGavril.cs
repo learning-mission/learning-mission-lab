@@ -10,6 +10,8 @@ namespace LearningMissionSimulation
 {
     public class PlayGroundGavril
     {
+
+        
         List<Account> pendingAccountList = new List<Account>();
 
         List<Student> studentList = new List<Student>();
@@ -25,9 +27,16 @@ namespace LearningMissionSimulation
         List<Guid> subjectIdList = new List<Guid>();
 
         List<Subject> subjectList = new List<Subject>();
+      
+
+       
 
         public  void CreateAccounts(int accountCount)
         {
+
+
+
+
             for (int i = 0; i < accountCount; i++)
             {
                 Account account = ObjectGenerator.GenerateAccount();
