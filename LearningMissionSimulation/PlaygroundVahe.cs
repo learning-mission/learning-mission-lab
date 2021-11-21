@@ -23,6 +23,23 @@ namespace LearningMissionSimulation
         Dictionary<Guid, List<Instructor>> _moduleInstructorListDictionary = new Dictionary<Guid, List<Instructor>>();
         #endregion Fields
 
+        #region Properties
+        public Dictionary<Guid, Account> AccountDictionary { get => _accountDictionary; set => _accountDictionary = value; }
+        public Dictionary<Guid, Instructor> InstructorDictionary { get => _instructorDictionary; set => _instructorDictionary = value; }
+        public List<Student> ActiveStudentList { get => _activeStudentList; set => _activeStudentList = value; }
+        public Dictionary<Guid, Student> StudentDictionary { get => _studentDictionary; set => _studentDictionary = value; }
+        public List<Instructor> ActiveInstructorList { get => _activeInstructorList; set => _activeInstructorList = value; }
+        public List<Account> PendingAccountList { get => _pendingAccountList; set => _pendingAccountList = value; }
+        public List<Subject> SubjectList { get => _subjectList; set => _subjectList = value; }
+        public List<Guid> SubjectIdList { get => _subjectIdList; set => _subjectIdList = value; }
+        public List<Guid> ModuleIdList { get => _moduleIdList; set => _moduleIdList = value; }
+        public List<Student> StudentList { get => _studentList; set => _studentList = value; }
+        public List<Instructor> InstructorList { get => _instructorList; set => _instructorList = value; }
+        public Dictionary<Guid, Module> ModuleDictionary { get => _moduleDictionary; set => _moduleDictionary = value; }
+        public Dictionary<Guid, Classroom> ClassroomDictionary { get => _classroomDictionary; set => _classroomDictionary = value; }
+        public Dictionary<Guid, List<Instructor>> ModuleInstructorListDictionary { get => _moduleInstructorListDictionary; set => _moduleInstructorListDictionary = value; }
+        #endregion Properties
+
         public void CreateAccounts(int accountCount)
         {
             ReportHeader("Create account");
@@ -98,6 +115,7 @@ namespace LearningMissionSimulation
             int count = 0;
             if (PendingAccountList.Count != 0)
             {
+                PendingAccountList = new List<Account>(); 
                 foreach (var account in PendingAccountList)
                 {
                     account.Status = Status.Active;
@@ -346,21 +364,6 @@ namespace LearningMissionSimulation
             throw new NotImplementedException();
         }
 
-        #region Properties
-        public Dictionary<Guid, Account> AccountDictionary { get => _accountDictionary; set => _accountDictionary = value; }
-        public Dictionary<Guid, Instructor> InstructorDictionary { get => _instructorDictionary; set => _instructorDictionary = value; }
-        public List<Student> ActiveStudentList { get => _activeStudentList; set => _activeStudentList = value; }
-        public Dictionary<Guid, Student> StudentDictionary { get => _studentDictionary; set => _studentDictionary = value; }
-        public List<Instructor> ActiveInstructorList { get => _activeInstructorList; set => _activeInstructorList = value; }
-        public List<Account> PendingAccountList { get => _pendingAccountList; set => _pendingAccountList = value; }
-        public List<Subject> SubjectList { get => _subjectList; set => _subjectList = value; }
-        public List<Guid> SubjectIdList { get => _subjectIdList; set => _subjectIdList = value; }
-        public List<Guid> ModuleIdList { get => _moduleIdList; set => _moduleIdList = value; }
-        public List<Student> StudentList { get => _studentList; set => _studentList = value; }
-        public List<Instructor> InstructorList { get => _instructorList; set => _instructorList = value; }
-        public Dictionary<Guid, Module> ModuleDictionary { get => _moduleDictionary; set => _moduleDictionary = value; }
-        public Dictionary<Guid, Classroom> ClassroomDictionary { get => _classroomDictionary; set => _classroomDictionary = value; }
-        public Dictionary<Guid, List<Instructor>> ModuleInstructorListDictionary { get => _moduleInstructorListDictionary; set => _moduleInstructorListDictionary = value; }
-        #endregion Properties
+
     }
 }
