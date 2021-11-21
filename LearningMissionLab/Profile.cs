@@ -94,7 +94,7 @@ namespace LearningMissionLab
                    $" Military Id is {MilitaryId}, Family is {Family}, Occupation is {Occupation}, Stipend is {Stipend}," +
                    $" Computer Inventory is {ComputerInventory},\n Create Date is {CreateDate},\n Update Date is {UpdateDate},\n" +
                    $" Date Of Birth is {DateOfBirth},\n Gender is {Gender},\n Contact Info is {ContactInfo},\n " +
-                   $" Language List is {LanguageList} ";
+                   $" Language List is {LanguageList}\n ";
         }
     }
 }

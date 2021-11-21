@@ -18,9 +18,9 @@ namespace LearningMissionSimulation
         // Maximum valid applicant age
         public static readonly byte ApplicantMaxAge = 70;
         // Minimum valid password length
-        public static readonly int PasswordMinLength = 3;
+        public static readonly int PasswordMinLength = 6;
         // Maximum valid password length
-        public static readonly int PasswordMaxLength = 8;
+        public static readonly int PasswordMaxLength = 16;
         /// <summary>Generates random date of birth values within the specified age range./>
         /// <param name="minAge">The minimum age.</param>
         /// <param name="maxAge">The maximum age.</param>
@@ -30,6 +30,10 @@ namespace LearningMissionSimulation
         public static readonly byte MinClassroomSize = 5;
         // Maximum valid classroom size
         public static readonly byte MaxClassroomSize = 20;
+        // Minimum valid module size
+        public static readonly byte MinModuleCountLimit = 5;
+        // Maximum valid module size
+        public static readonly byte MaxModuleCountLimit = 20;
 
         public static readonly char[] CharacterPool = {'~', '!', '@', '#', '$', '%', '^', '&', '*', '(',
             ')', '-', '_', '+', '=', '<', '>', '/', '?', ';', ':', '"', '{', '}', '[', ']' };
