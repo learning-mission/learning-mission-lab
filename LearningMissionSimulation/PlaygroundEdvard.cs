@@ -7,6 +7,7 @@ namespace LearningMissionSimulation
 {
     class PlaygroundEdvard : ISimulation
     {
+        ReportType _reportType;
         Dictionary<Guid, Account> _accountDictionary = new Dictionary<Guid, Account>();
         Stack<Account> _pendingAccountStack = new Stack<Account>();
         Dictionary<Guid, Student> _studentDictionary = new Dictionary<Guid, Student>();
@@ -20,6 +21,16 @@ namespace LearningMissionSimulation
         Dictionary<Guid, Classroom> _classroomDictionary = new Dictionary<Guid, Classroom>();
         Dictionary<Guid, List<Instructor>> _moduleInstructorListDictionary = new Dictionary<Guid, List<Instructor>>();
 
+        public PlaygroundEdvard()
+        {
+
+        }
+        
+        public PlaygroundEdvard(ReportType reportType)
+        {
+            this.ReportType = reportType;
+        }
+
         public Dictionary<Guid, Account> AccountDictionary { get => _accountDictionary; set => _accountDictionary = value; }
         public Stack<Account> PendingAccountStack { get => _pendingAccountStack; set => _pendingAccountStack = value; }
         public Dictionary<Guid, Student> StudentDictionary { get => _studentDictionary; set => _studentDictionary = value; }
@@ -32,6 +43,7 @@ namespace LearningMissionSimulation
         public List<Guid> ModuleIdList { get => _moduleIdList; set => _moduleIdList = value; }
         public Dictionary<Guid, Classroom> ClassroomDictionary { get => _classroomDictionary; set => _classroomDictionary = value; }
         public Dictionary<Guid, List<Instructor>> ModuleInstructorListDictionary { get => _moduleInstructorListDictionary; set => _moduleInstructorListDictionary = value; }
+        public ReportType ReportType { get => _reportType; set => _reportType = value; }
 
         public void CreateAccounts(int accountCount)
         {
@@ -221,6 +233,8 @@ namespace LearningMissionSimulation
         {
             if (ModuleIdList.Count != 0)
             {
+                ReportHeader(actionName: "Classroom generation");
+
                 for (int i = 0; i < classroomCount; i++)
                 {
                     Guid moduleId = ModuleIdList[AttributeGenerator.random.Next(0, ModuleIdList.Count)];
@@ -228,7 +242,16 @@ namespace LearningMissionSimulation
                     ModuleDictionary.TryGetValue(moduleId, out module);
                     Classroom classroom = ObjectGenerator.GenerateClassroom(module);
                     ClassroomDictionary.Add(classroom.Id, classroom);
+
+                    ReportItem(itemName: classroom.ToString(), actionName: "Generate", itemIndex: ++i);
                 }
+
+                ReportSummary(summary: "Classroom", count: classroomCount);
+                ReportFooter(actionName: "Classroom generation");
+            }
+            else
+            {
+                ReportError(missingResource: "Module Id", failedAction: "Classroom generation");
             }
         }
 
@@ -236,6 +259,9 @@ namespace LearningMissionSimulation
         {
             if (ActiveInstructorList.Count != 0 && ClassroomDictionary.Count != 0)
             {
+                ReportHeader(actionName: "Assign instructors to classroom");
+                int count = 0;
+
                 foreach (Classroom classroom in ClassroomDictionary.Values)
                 {
                     Guid moduleId = classroom.Module.Id;
@@ -245,8 +271,11 @@ namespace LearningMissionSimulation
                     {
                         ModuleInstructorListDictionary.TryGetValue(moduleId, out instructorList);
                         classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                        ReportItem(itemName: classroom.ToString(), actionName: "Instructor assignment", ++count);
                     }
                 }
+
+                ReportFooter(actionName: "Assign instructors to classroom");
             }
         }
 
@@ -316,22 +345,55 @@ namespace LearningMissionSimulation
         #region Reports
         void ReportHeader(string actionName)
         {
-            Console.WriteLine($"******{actionName} is started******\n");
+            switch (this.ReportType)
+            {
+                case ReportType.Verbose:
+                case ReportType.Short:
+                    Console.WriteLine($"******{actionName} is started******\n");
+                    break;
+            }
         }
 
         void ReportFooter(string actionName)
         {
-            Console.WriteLine($"******{actionName} is finished******\n");
+            switch (this.ReportType)
+            {
+                case ReportType.Verbose:
+                case ReportType.Short:
+                    Console.WriteLine($"******{actionName} is finished******\n");
+                    break;
+            }
         }
 
         void ReportItem(string itemName, string actionName, int itemIndex)
         {
-            Console.WriteLine($" {actionName} {itemIndex}\n{itemName}");
+            switch (this.ReportType)
+            {
+                case ReportType.Verbose:
+                    Console.WriteLine($" {actionName} {itemIndex}\n{itemName}");
+                    break;
+            }
         }
 
         void ReportSummary(string summary, int count)
         {
-            Console.WriteLine($"''''''Generated {count} {summary}''''''\n");
+            switch (this.ReportType)
+            {
+                case ReportType.Verbose:
+                    Console.WriteLine($"''''''Generated {count} {summary}''''''\n");
+                    break;
+            }
+        }
+
+        void ReportError(string missingResource, string failedAction)
+        {
+            switch (this.ReportType)
+            {
+                case ReportType.Error:
+                case ReportType.Verbose:
+                    Console.WriteLine("--------- You do not have the appropriate {0} to {1} ---------\n", missingResource, failedAction);
+                    break;
+            }
         }
         #endregion Reports
     }
