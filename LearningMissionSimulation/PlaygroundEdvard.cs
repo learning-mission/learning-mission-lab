@@ -153,6 +153,10 @@ namespace LearningMissionSimulation
                     ReportItem(itemName: module.ToString(), actionName: "Module", itemIndex: i);
                 }
             }
+            else
+            {
+                ReportError(missingResource: "Subject", failedAction: "Module generation");
+            }
 
             ReportSummary(summary: "Module", count: moduleCount);
             ReportFooter(actionName: "Module generation");
@@ -275,6 +279,7 @@ namespace LearningMissionSimulation
                     }
                 }
 
+                ReportSummary(summary: "Instructor", count: count);
                 ReportFooter(actionName: "Assign instructors to classroom");
             }
         }
@@ -349,6 +354,7 @@ namespace LearningMissionSimulation
             {
                 case ReportType.Verbose:
                 case ReportType.Short:
+                case ReportType.Error:
                     Console.WriteLine($"******{actionName} is started******\n");
                     break;
             }
@@ -360,6 +366,7 @@ namespace LearningMissionSimulation
             {
                 case ReportType.Verbose:
                 case ReportType.Short:
+                case ReportType.Error:
                     Console.WriteLine($"******{actionName} is finished******\n");
                     break;
             }
@@ -367,21 +374,17 @@ namespace LearningMissionSimulation
 
         void ReportItem(string itemName, string actionName, int itemIndex)
         {
-            switch (this.ReportType)
+            if (this.ReportType == ReportType.Verbose)
             {
-                case ReportType.Verbose:
-                    Console.WriteLine($" {actionName} {itemIndex}\n{itemName}");
-                    break;
+                Console.WriteLine($" {actionName} {itemIndex} {itemName}\n");
             }
         }
 
         void ReportSummary(string summary, int count)
         {
-            switch (this.ReportType)
+            if (this.ReportType == ReportType.Verbose || this.ReportType == ReportType.Short)
             {
-                case ReportType.Verbose:
-                    Console.WriteLine($"''''''Generated {count} {summary}''''''\n");
-                    break;
+                Console.WriteLine($"''''''Generated {count} {summary}''''''\n");
             }
         }
 
@@ -391,6 +394,7 @@ namespace LearningMissionSimulation
             {
                 case ReportType.Error:
                 case ReportType.Verbose:
+                case ReportType.Short:
                     Console.WriteLine("--------- You do not have the appropriate {0} to {1} ---------\n", missingResource, failedAction);
                     break;
             }
