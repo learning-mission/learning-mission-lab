@@ -6,44 +6,29 @@ namespace LearningMissionSimulation
 {
     class PlaygroundVahe : ISimulation
     {
-        #region Fields
-        Dictionary<Guid, Account> _accountDictionary = new Dictionary<Guid, Account>();
-        Dictionary<Guid, Instructor> _instructorDictionary = new Dictionary<Guid, Instructor>();
-        List<Student> _activeStudentList = new List<Student>();
-        Dictionary<Guid, Student> _studentDictionary = new Dictionary<Guid, Student>();
-        List<Instructor> _activeInstructorList = new List<Instructor>();
-        List<Account> _pendingAccountList = new List<Account>();
-        List<Subject> _subjectList = new List<Subject>();
-        List<Guid> _subjectIdList = new List<Guid>();
-        List<Guid> _moduleIdList = new List<Guid>();
-        List<Student> _studentList = new List<Student>();
-        List<Instructor> _instructorList = new List<Instructor>();
-        Dictionary<Guid, Module> _moduleDictionary = new Dictionary<Guid, Module>();
-        Dictionary<Guid, Classroom> _classroomDictionary = new Dictionary<Guid, Classroom>();
-        Dictionary<Guid, List<Instructor>> _moduleInstructorListDictionary = new Dictionary<Guid, List<Instructor>>();
-        #endregion Fields
-
-        #region Properties
-        public Dictionary<Guid, Account> AccountDictionary { get => _accountDictionary; set => _accountDictionary = value; }
-        public Dictionary<Guid, Instructor> InstructorDictionary { get => _instructorDictionary; set => _instructorDictionary = value; }
-        public List<Student> ActiveStudentList { get => _activeStudentList; set => _activeStudentList = value; }
-        public Dictionary<Guid, Student> StudentDictionary { get => _studentDictionary; set => _studentDictionary = value; }
-        public List<Instructor> ActiveInstructorList { get => _activeInstructorList; set => _activeInstructorList = value; }
-        public List<Account> PendingAccountList { get => _pendingAccountList; set => _pendingAccountList = value; }
-        public List<Subject> SubjectList { get => _subjectList; set => _subjectList = value; }
-        public List<Guid> SubjectIdList { get => _subjectIdList; set => _subjectIdList = value; }
-        public List<Guid> ModuleIdList { get => _moduleIdList; set => _moduleIdList = value; }
-        public List<Student> StudentList { get => _studentList; set => _studentList = value; }
-        public List<Instructor> InstructorList { get => _instructorList; set => _instructorList = value; }
-        public Dictionary<Guid, Module> ModuleDictionary { get => _moduleDictionary; set => _moduleDictionary = value; }
-        public Dictionary<Guid, Classroom> ClassroomDictionary { get => _classroomDictionary; set => _classroomDictionary = value; }
-        public Dictionary<Guid, List<Instructor>> ModuleInstructorListDictionary { get => _moduleInstructorListDictionary; set => _moduleInstructorListDictionary = value; }
-        #endregion Properties
+        #region Properties and fields
+        public Dictionary<Guid, Account> AccountDictionary { get; set; } = new Dictionary<Guid, Account>();
+        public Dictionary<Guid, Instructor> InstructorDictionary { get; set; } = new Dictionary<Guid, Instructor>();
+        public List<Student> ActiveStudentList { get; set; } = new List<Student>();
+        public Dictionary<Guid, Student> StudentDictionary { get; set; } = new Dictionary<Guid, Student>();
+        public List<Instructor> ActiveInstructorList { get; set; } = new List<Instructor>();
+        public List<Account> PendingAccountList { get; set ; } = new List<Account>();
+        public List<Subject> SubjectList { get ; set; } = new List<Subject>();
+        public List<Guid> SubjectIdList { get ; set; } = new List<Guid>();
+        public List<Guid> ModuleIdList { get ; set; } = new List<Guid>();
+        public List<Student> StudentList { get; set; } = new List<Student>();
+        public List<Instructor> InstructorList { get; set; } = new List<Instructor>();
+        public Dictionary<Guid, Module> ModuleDictionary { get; set; } = new Dictionary<Guid, Module>();
+        public Dictionary<Guid, Classroom> ClassroomDictionary { get; set; } = new Dictionary<Guid, Classroom>();
+        public Dictionary<Guid, List<Instructor>> ModuleInstructorListDictionary { get; set; } = new Dictionary<Guid, List<Instructor>>();
+        #endregion Properties and fields
 
         public void CreateAccounts(int accountCount)
         {
-            ReportHeader("Create account");
+            string action = "Create accounts";
+            ReportHeader(action);
             int i = 0;
+
             while (i < accountCount)
             {
                 Account account = ObjectGenerator.GenerateAccount();
@@ -80,10 +65,10 @@ namespace LearningMissionSimulation
                         ActiveStudentList.Add(student);
                     }
                 }
-                ReportItem(account.ToString(), "Create account", i++);
+                ReportItem(account.ToString(), action, i++);
             }
-            ReportSummary("Account", accountCount);
-            ReportFooter("Create account");
+            ReportSummary(action, accountCount, "account");
+            ReportFooter(action);
         }
 
         bool IsArmenianAndEnglishPresent(List<Language> languageList)
@@ -111,8 +96,10 @@ namespace LearningMissionSimulation
 
         public void ActivateAccounts()
         {
-            ReportHeader("Activate account");
+            string action = "Activate account";
+            ReportHeader(action);
             int count = 0;
+
             if (PendingAccountList.Count != 0)
             {
                 PendingAccountList = new List<Account>(); 
@@ -137,7 +124,7 @@ namespace LearningMissionSimulation
                             ActiveInstructorList.Add(instructor);
                         }
                     }
-                    ReportItem(account.ToString(), "Accounts", count++);
+                    ReportItem(account.ToString(), action, count++);
                     PendingAccountList.Remove(account);
                 }
             }
@@ -145,28 +132,32 @@ namespace LearningMissionSimulation
             {
                 ReportError(PendingAccountList.ToString(), "account");
             }
-            ReportSummary("Active accounts", count);
-            ReportFooter("accounts");
+            ReportSummary(action, count, "account");
+            ReportFooter(action);
         }
 
         public void CreateSubjects(int subjectCount)
         {
-            ReportHeader("Subjects generation");
+            string action = "Subjects generation";
+            ReportHeader(action);
+
             for (int i = 0; i < subjectCount; i++)
             { 
                 Subject subject = ObjectGenerator.GenerateSubject();
                 SubjectList.Add(subject);
                 SubjectIdList.Add(subject.Id);
-                ReportItem(subject.ToString(), "Subjects", i);
+                ReportItem(subject.ToString(), action, i);
             }
 
-            ReportSummary("Subjects", subjectCount);
-            ReportFooter("Subjects generated");
+            ReportSummary(action, subjectCount, "subject");
+            ReportFooter(action);
         }
 
         public void CreateModules(int moduleCount)
         {
-            ReportHeader("Modules generation");
+            string action = "Modules generation";
+            ReportHeader(action);
+
             if (SubjectIdList.Count > 0)
             {
                 for (int i = 0; i < moduleCount; i++)
@@ -175,43 +166,47 @@ namespace LearningMissionSimulation
                     Module module = ObjectGenerator.GenerateModule(subjectId);
                     ModuleDictionary.Add(module.Id, module);
                     ModuleIdList.Add(module.Id);
-                    ReportItem(module.ToString(), "Modules", i);
+                    ReportItem(module.ToString(), action, i);
                 }
             }
             else
             {
-                ReportError(SubjectIdList.ToString(), "module");
+                ReportError(SubjectIdList.ToString(), action);
             }
-            ReportSummary("Modules", moduleCount);
-            ReportFooter("Modules generated");
+            ReportSummary(action, moduleCount, "module");
+            ReportFooter(action);
         }
 
         public void AssignModulesToInstructors()
         {
-            ReportHeader("Assign modules to instructors");
+            string action = "Assign modules to instructors";
+            ReportHeader(action);
+
             int i = 0;
             foreach (var instructor in ActiveInstructorList)
             {
                 instructor.ModuleList = GetModuleList();
                 AddInstructorToModuleList(instructor);
-                ReportItem(instructor.ToString(), "Assign instructors", i++);
+                ReportItem(instructor.ToString(), action, i++);
             }
-            ReportSummary("Assign modules to instructors", i);
-            ReportFooter("Assign modules to instructors");
+            ReportSummary(action, i, "instructors");
+            ReportFooter(action);
         }
 
         public void AssignModulesToStudents()
         {
-            ReportHeader("Assign modules to students");
+            string action = "Assign modules to students";
+            ReportHeader(action);
+
             int i = 0;
             foreach (var student in ActiveStudentList)
             {
                 student.CompletedModuleList = GetModuleList();
-                ReportItem(student.ToString(), "Assign students", i++);
+                ReportItem(student.ToString(), action, i++);
 
             }
-            ReportSummary("Assign modules to students", i);
-            ReportFooter("Assign modules to students");
+            ReportSummary(action, i, "students");
+            ReportFooter(action);
         }
 
         List<Module> GetModuleList()
@@ -241,7 +236,9 @@ namespace LearningMissionSimulation
 
         public void CreateClassrooms(int classroomCount)
         {
-            ReportHeader("Create classrooms");
+            string action = "Create classrooms";
+            ReportHeader(action);
+
             if (ModuleIdList.Count != 0)
             {
                 int i = 0;
@@ -252,21 +249,23 @@ namespace LearningMissionSimulation
                     ModuleDictionary.TryGetValue(moduleId, out module);
                     Classroom classroom = ObjectGenerator.GenerateClassroom(module);
                     ClassroomDictionary.Add(classroom.Id, classroom);
-                    ReportSummary("Create classrooms", classroomCount);
-                    ReportFooter("Create classrooms");
+                    ReportItem(classroom.ToString(), action, i++);
                 }
             }
             else
             {
-                ReportError(ModuleIdList.ToString(), "classroom");
+                ReportError(ModuleIdList.ToString(), action);
             }
-            ReportSummary("Create classrooms", classroomCount);
-            ReportFooter("Create classrooms");
+            ReportSummary(action, classroomCount,"classroom");
+            ReportFooter(action);
 
         }
 
         public void AssignInstructorsToClassrooms()
         {
+            string action = "Assign instructor to classroom";
+            ReportHeader(action);
+
             if(ActiveInstructorList.Count > 0 && ClassroomDictionary.Count > 0)
             {
                 foreach (var classroom in ClassroomDictionary.Values)
@@ -280,7 +279,16 @@ namespace LearningMissionSimulation
                     }
                 }
             }
-
+            else if(ActiveInstructorList.Count == 0)
+            {
+                ReportError(ActiveInstructorList.ToString(), action);
+                if(ClassroomDictionary.Count == 0)
+                {
+                    ReportError(ClassroomDictionary.ToString(), action);
+                }
+            }
+            ReportSummary(action, 1, "classroom");
+            ReportFooter(action);
         }
 
         void AddInstructorToModuleList(Instructor instructor)
@@ -327,13 +335,13 @@ namespace LearningMissionSimulation
             Console.WriteLine($"{actionName} {itemIndex} {itemName} \n");
         }
 
-        void ReportSummary(string summary, int count)
+        void ReportSummary(string actionName, int itemCount, string itemName)
         {
-            Console.WriteLine($" <<<<< Generated {count} {summary} >>>>> \n");
+            Console.WriteLine($" <<<<<  Performed {actionName} for {itemCount} {itemName}(s) >>>>> \n");
         }
         void ReportError(string missingResource, string failedAction)
         {
-            Console.WriteLine($"<<<<< Satisfy the condition first and then start work. Shoild be" +
+            Console.WriteLine($"<<<<< Satisfy the condition first and then start work. Should be" +
                               $"{missingResource}  in order to {failedAction} start working >>>>>");
         }
 
@@ -363,7 +371,5 @@ namespace LearningMissionSimulation
             // Clear all internal data structures 
             throw new NotImplementedException();
         }
-
-
     }
 }
