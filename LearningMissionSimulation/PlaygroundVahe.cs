@@ -332,9 +332,10 @@ namespace LearningMissionSimulation
                 foreach (var classroom in ClassroomDictionary.Values)
                 {
                     if (classroom.ItemList.Count < classroom.MaximumCapacity)
-                    {
+                    { 
                         UpdateStudentList(classroom);
                         itemListCount = classroom.ItemList.Count;
+                        ReportItem(classroom.ToString(), "Register Students For Classes", (int)itemListCount);
                     }
                 }
             }
@@ -343,25 +344,23 @@ namespace LearningMissionSimulation
                 ReportError(ClassroomDictionary.ToString(), action);
             }
 
-            ReportSummary(action, itemListCount, "student");
+            ReportSummary(action, itemListCount, "classroom");
             ReportFooter(action);
         }
 
         void UpdateStudentList(Classroom classroom)
         {
-            string action = "Register Students For Classes";
             uint itemListCount = (uint)AttributeGenerator.random.Next(classroom.MaximumCapacity - classroom.ItemList.Count + 1);
 
             for (int i = 1; i <= itemListCount; i++)
             {
                 foreach (Student student in ActiveStudentList)
                 {
-                    if (!student.ClassroomList.Contains(classroom))
+                    if (!student.CompletedModuleList.Contains(classroom.Module))
                     {
                         student.ClassroomList.Add(classroom);
                         classroom.ItemList.Add(student);
-
-                        ReportItem(student.ToString(), action, i);
+                        
                     }
                 }
             }
@@ -395,7 +394,7 @@ namespace LearningMissionSimulation
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"<<<<< Satisfy the condition first and then start work. Should be" +
-                              $"{missingResource}  in order to {failedAction} start working >>>>>");
+                              $" {missingResource}  in order to {failedAction} start working >>>>>");
             Console.ForegroundColor = ConsoleColor.White;
         }
 
