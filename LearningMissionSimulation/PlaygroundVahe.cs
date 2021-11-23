@@ -12,10 +12,10 @@ namespace LearningMissionSimulation
         public List<Student> ActiveStudentList { get; set; } = new List<Student>();
         public Dictionary<Guid, Student> StudentDictionary { get; set; } = new Dictionary<Guid, Student>();
         public List<Instructor> ActiveInstructorList { get; set; } = new List<Instructor>();
-        public List<Account> PendingAccountList { get; set ; } = new List<Account>();
-        public List<Subject> SubjectList { get ; set; } = new List<Subject>();
-        public List<Guid> SubjectIdList { get ; set; } = new List<Guid>();
-        public List<Guid> ModuleIdList { get ; set; } = new List<Guid>();
+        public List<Account> PendingAccountList { get; set; } = new List<Account>();
+        public List<Subject> SubjectList { get; set; } = new List<Subject>();
+        public List<Guid> SubjectIdList { get; set; } = new List<Guid>();
+        public List<Guid> ModuleIdList { get; set; } = new List<Guid>();
         public List<Student> StudentList { get; set; } = new List<Student>();
         public List<Instructor> InstructorList { get; set; } = new List<Instructor>();
         public Dictionary<Guid, Module> ModuleDictionary { get; set; } = new Dictionary<Guid, Module>();
@@ -102,7 +102,7 @@ namespace LearningMissionSimulation
 
             if (PendingAccountList.Count != 0)
             {
-                PendingAccountList = new List<Account>(); 
+                PendingAccountList = new List<Account>();
                 foreach (var account in PendingAccountList)
                 {
                     account.Status = Status.Active;
@@ -128,7 +128,7 @@ namespace LearningMissionSimulation
                     PendingAccountList.Remove(account);
                 }
             }
-            else 
+            else
             {
                 ReportError(PendingAccountList.ToString(), "account");
             }
@@ -142,7 +142,7 @@ namespace LearningMissionSimulation
             ReportHeader(action);
 
             for (int i = 0; i < subjectCount; i++)
-            { 
+            {
                 Subject subject = ObjectGenerator.GenerateSubject();
                 SubjectList.Add(subject);
                 SubjectIdList.Add(subject.Id);
@@ -256,7 +256,7 @@ namespace LearningMissionSimulation
             {
                 ReportError(ModuleIdList.ToString(), action);
             }
-            ReportSummary(action, classroomCount,"classroom");
+            ReportSummary(action, classroomCount, "classroom");
             ReportFooter(action);
 
         }
@@ -266,7 +266,7 @@ namespace LearningMissionSimulation
             string action = "Assign instructor to classroom";
             ReportHeader(action);
 
-            if(ActiveInstructorList.Count > 0 && ClassroomDictionary.Count > 0)
+            if (ActiveInstructorList.Count > 0 && ClassroomDictionary.Count > 0)
             {
                 foreach (var classroom in ClassroomDictionary.Values)
                 {
@@ -279,10 +279,10 @@ namespace LearningMissionSimulation
                     }
                 }
             }
-            else if(ActiveInstructorList.Count == 0)
+            else if (ActiveInstructorList.Count == 0)
             {
                 ReportError(ActiveInstructorList.ToString(), action);
-                if(ClassroomDictionary.Count == 0)
+                if (ClassroomDictionary.Count == 0)
                 {
                     ReportError(ClassroomDictionary.ToString(), action);
                 }
