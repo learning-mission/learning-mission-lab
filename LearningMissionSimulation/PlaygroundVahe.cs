@@ -7,6 +7,7 @@ namespace LearningMissionSimulation
     class PlaygroundVahe : ISimulation
     {
         #region Properties and fields
+        public ReportType ReportType { get; set; } = ReportType.Verbose;
         public Dictionary<Guid, Account> AccountDictionary { get; set; } = new Dictionary<Guid, Account>();
         public Dictionary<Guid, Instructor> InstructorDictionary { get; set; } = new Dictionary<Guid, Instructor>();
         public List<Student> ActiveStudentList { get; set; } = new List<Student>();
@@ -22,6 +23,16 @@ namespace LearningMissionSimulation
         public Dictionary<Guid, Classroom> ClassroomDictionary { get; set; } = new Dictionary<Guid, Classroom>();
         public Dictionary<Guid, List<Instructor>> ModuleInstructorListDictionary { get; set; } = new Dictionary<Guid, List<Instructor>>();
         #endregion Properties and fields
+
+        public PlaygroundVahe()
+        {
+
+        }
+
+        public PlaygroundVahe(ReportType reportType)
+        {
+            this.ReportType = reportType;
+        }
 
         public void CreateAccounts(int accountCount)
         {
@@ -189,7 +200,7 @@ namespace LearningMissionSimulation
                 AddInstructorToModuleList(instructor);
                 ReportItem(instructor.ToString(), action, i++);
             }
-            ReportSummary(action, i, "instructors");
+            ReportSummary(action, i, "instructor");
             ReportFooter(action);
         }
 
@@ -205,7 +216,7 @@ namespace LearningMissionSimulation
                 ReportItem(student.ToString(), action, i++);
 
             }
-            ReportSummary(action, i, "students");
+            ReportSummary(action, i, "student");
             ReportFooter(action);
         }
 
@@ -312,7 +323,48 @@ namespace LearningMissionSimulation
 
         public void RegisterStudentsForClasses()
         {
-            throw new NotImplementedException();
+            string action = "Register Students For Classes";
+            int itemListCount = 0;
+            ReportHeader(action);
+
+            if (ClassroomDictionary.Count > 0)
+            {
+                foreach (var classroom in ClassroomDictionary.Values)
+                {
+                    if (classroom.ItemList.Count < classroom.MaximumCapacity)
+                    {
+                        UpdateStudentList(classroom);
+                        itemListCount = classroom.ItemList.Count;
+                    }
+                }
+            }
+            else
+            {
+                ReportError(ClassroomDictionary.ToString(), action);
+            }
+
+            ReportSummary(action, itemListCount, "student");
+            ReportFooter(action);
+        }
+
+        void UpdateStudentList(Classroom classroom)
+        {
+            string action = "Register Students For Classes";
+            uint itemListCount = (uint)AttributeGenerator.random.Next(classroom.MaximumCapacity - classroom.ItemList.Count + 1);
+
+            for (int i = 1; i <= itemListCount; i++)
+            {
+                foreach (Student student in ActiveStudentList)
+                {
+                    if (!student.ClassroomList.Contains(classroom))
+                    {
+                        student.ClassroomList.Add(classroom);
+                        classroom.ItemList.Add(student);
+
+                        ReportItem(student.ToString(), action, i);
+                    }
+                }
+            }
         }
 
         #region ReportMethods
@@ -325,7 +377,7 @@ namespace LearningMissionSimulation
 
         void ReportFooter(string actionName)
         {
-            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($" <<<<< {actionName} is finished >>>>> \n");
             Console.ForegroundColor = ConsoleColor.White;
         }
@@ -341,8 +393,10 @@ namespace LearningMissionSimulation
         }
         void ReportError(string missingResource, string failedAction)
         {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"<<<<< Satisfy the condition first and then start work. Should be" +
                               $"{missingResource}  in order to {failedAction} start working >>>>>");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         #endregion ReportMethods
