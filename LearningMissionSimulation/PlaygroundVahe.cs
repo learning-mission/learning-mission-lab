@@ -111,7 +111,11 @@ namespace LearningMissionSimulation
             ReportHeader(action);
             int count = 0;
 
-            if (PendingAccountList.Count != 0)
+            if (PendingAccountList.Count == 0)
+            {
+                ReportError(PendingAccountList.ToString(), "account");
+            }
+            else
             {
                 PendingAccountList = new List<Account>();
                 foreach (var account in PendingAccountList)
@@ -139,10 +143,6 @@ namespace LearningMissionSimulation
                     PendingAccountList.Remove(account);
                 }
             }
-            else
-            {
-                ReportError(PendingAccountList.ToString(), "account");
-            }
             ReportSummary(action, count, "account");
             ReportFooter(action);
         }
@@ -169,7 +169,11 @@ namespace LearningMissionSimulation
             string action = "Modules generation";
             ReportHeader(action);
 
-            if (SubjectIdList.Count > 0)
+            if (SubjectIdList.Count == 0)
+            {
+                ReportError(SubjectIdList.ToString(), action);
+            }
+            else
             {
                 for (int i = 0; i < moduleCount; i++)
                 {
@@ -179,10 +183,6 @@ namespace LearningMissionSimulation
                     ModuleIdList.Add(module.Id);
                     ReportItem(module.ToString(), action, i);
                 }
-            }
-            else
-            {
-                ReportError(SubjectIdList.ToString(), action);
             }
             ReportSummary(action, moduleCount, "module");
             ReportFooter(action);
@@ -250,7 +250,11 @@ namespace LearningMissionSimulation
             string action = "Create classrooms";
             ReportHeader(action);
 
-            if (ModuleIdList.Count != 0)
+            if (ModuleIdList.Count == 0)
+            {
+                ReportError(ModuleIdList.ToString(), action);
+            }
+            else
             {
                 int i = 0;
                 while (i < classroomCount)
@@ -263,13 +267,8 @@ namespace LearningMissionSimulation
                     ReportItem(classroom.ToString(), action, i++);
                 }
             }
-            else
-            {
-                ReportError(ModuleIdList.ToString(), action);
-            }
             ReportSummary(action, classroomCount, "classroom");
             ReportFooter(action);
-
         }
 
         public void AssignInstructorsToClassrooms()
@@ -277,7 +276,15 @@ namespace LearningMissionSimulation
             string action = "Assign instructor to classroom";
             ReportHeader(action);
 
-            if (ActiveInstructorList.Count > 0 && ClassroomDictionary.Count > 0)
+            if (ActiveInstructorList.Count == 0)
+            {
+                ReportError(ActiveInstructorList.ToString(), action);
+            }
+            else if (ClassroomDictionary.Count == 0)
+            {
+                ReportError(ClassroomDictionary.ToString(), action);
+            }
+            else
             {
                 foreach (var classroom in ClassroomDictionary.Values)
                 {
@@ -288,14 +295,6 @@ namespace LearningMissionSimulation
                         ModuleInstructorListDictionary.TryGetValue(moduleId, out instructorList);
                         classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
                     }
-                }
-            }
-            else if (ActiveInstructorList.Count == 0)
-            {
-                ReportError(ActiveInstructorList.ToString(), action);
-                if (ClassroomDictionary.Count == 0)
-                {
-                    ReportError(ClassroomDictionary.ToString(), action);
                 }
             }
             ReportSummary(action, 1, "classroom");
@@ -327,21 +326,19 @@ namespace LearningMissionSimulation
             int itemListCount = 0;
             ReportHeader(action);
 
-            if (ClassroomDictionary.Count > 0)
+            if (ClassroomDictionary.Count == 0)
+            {
+                ReportError(ClassroomDictionary.ToString(), action);
+            }
+            else
             {
                 foreach (var classroom in ClassroomDictionary.Values)
                 {
                     if (classroom.ItemList.Count < classroom.MaximumCapacity)
-                    { 
+                    {
                         UpdateStudentList(classroom);
-                        itemListCount = classroom.ItemList.Count;
-                        ReportItem(classroom.ToString(), "Register Students For Classes", (int)itemListCount);
                     }
                 }
-            }
-            else
-            {
-                ReportError(ClassroomDictionary.ToString(), action);
             }
 
             ReportSummary(action, itemListCount, "classroom");
@@ -350,17 +347,23 @@ namespace LearningMissionSimulation
 
         void UpdateStudentList(Classroom classroom)
         {
-            uint itemListCount = (uint)AttributeGenerator.random.Next(classroom.MaximumCapacity - classroom.ItemList.Count + 1);
+            string action = "Register Students For Classes";
 
-            for (int i = 1; i <= itemListCount; i++)
+            if(ActiveStudentList.Count == 0)
             {
+                ReportError(ActiveStudentList.ToString(), action);
+            }
+            else
+            {
+                int itemListCount = AttributeGenerator.random.Next(0, classroom.MaximumCapacity - classroom.ItemList.Count + 1);
+
                 foreach (Student student in ActiveStudentList)
                 {
-                    if (!student.CompletedModuleList.Contains(classroom.Module))
+                    if (!student.CompletedModuleList.Contains(classroom.Module) && !student.ClassroomList.Contains(classroom))
                     {
                         student.ClassroomList.Add(classroom);
                         classroom.ItemList.Add(student);
-                        
+                        ReportItem(student.ToString(), action, itemListCount);
                     }
                 }
             }
