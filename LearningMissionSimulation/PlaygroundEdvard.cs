@@ -252,7 +252,42 @@ namespace LearningMissionSimulation
 
         public void RegisterStudentsForClasses()
         {
-            throw new NotImplementedException();
+            if (ClassroomDictionary.Count != 0)
+            {
+                int maxCount = 0;
+                foreach (Classroom classroom in ClassroomDictionary.Values)
+                {
+                    if (classroom.ItemList.Count < classroom.MaximumCapacity)
+                    {
+                        UpdateStudentList(classroom);
+                        maxCount = classroom.ItemList.Count;
+                    }
+                }
+            }
+        }
+
+        void UpdateStudentList(Classroom classroom)
+        {
+            int studentCount = AttributeGenerator.random.Next(0, (classroom.MaximumCapacity - classroom.ItemList.Count) + 1);
+            int count = 0;
+            while (count < studentCount)
+            {
+                foreach (Student student in ActiveStudentList)
+                {
+                    if (!student.ClassroomList.Contains(classroom))
+                    {
+                        student.ClassroomList.Add(classroom);
+                        classroom.ItemList.Add(student);
+                    }
+
+                    count++;
+                }
+
+                if (count == ActiveStudentList.Count)
+                {
+                    break;
+                }
+            }
         }
 
         public void Clear()
