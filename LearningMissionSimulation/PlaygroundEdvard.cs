@@ -252,7 +252,15 @@ namespace LearningMissionSimulation
 
         public void RegisterStudentsForClasses()
         {
-            if (ClassroomDictionary.Count != 0)
+            if (ClassroomDictionary.Count == 0)
+            {
+                ReportError(missingResource: "Classroom", failedAction: "Register");
+            }
+            else if (ActiveStudentList.Count == 0)
+            {
+                ReportError(missingResource: "Student", failedAction: "Register");
+            }
+            else
             {
                 int maxCount = 0;
                 foreach (Classroom classroom in ClassroomDictionary.Values)
@@ -268,11 +276,11 @@ namespace LearningMissionSimulation
 
         void UpdateStudentList(Classroom classroom)
         {
-            int studentCount = AttributeGenerator.random.Next(0, (classroom.MaximumCapacity - classroom.ItemList.Count) + 1);
+            int studentCount = AttributeGenerator.random.Next(0, (classroom.MaximumCapacity - classroom.ItemList.Count - ActiveStudentList.Count) + 1);
             int count = 0;
             while (count < studentCount)
             {
-                foreach (Student student in ActiveStudentList)
+                foreach (Student student in StudentDictionary.Values)
                 {
                     if (!student.ClassroomList.Contains(classroom))
                     {
@@ -281,11 +289,6 @@ namespace LearningMissionSimulation
                     }
 
                     count++;
-                }
-
-                if (count == ActiveStudentList.Count)
-                {
-                    break;
                 }
             }
         }
@@ -367,6 +370,11 @@ namespace LearningMissionSimulation
         void ReportSummary(string summary, int count)
         {
             Console.WriteLine($"''''''Generated {count} {summary}''''''\n");
+        }
+
+        void ReportError(string missingResource, string failedAction)
+        {
+            Console.WriteLine("--------- You do not have the appropriate {0} to {1} ---------\n", missingResource, failedAction);
         }
         #endregion Reports
     }
