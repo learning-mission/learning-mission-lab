@@ -356,6 +356,7 @@ namespace LearningMissionSimulation
             else
             {
                 int itemListCount = AttributeGenerator.random.Next(0, classroom.MaximumCapacity - classroom.ItemList.Count + 1);
+                itemListCount = Math.Min(itemListCount, ActiveStudentList.Count);
 
                 foreach (Student student in ActiveStudentList)
                 {
