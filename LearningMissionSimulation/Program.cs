@@ -8,6 +8,7 @@ namespace LearningMissionSimulation
     {
         static void Main(string[] args)
         {
+
             ISimulation playgroundEdvard = new PlaygroundEdvard();
             ISimulation playgroundGarush = new PlaygroundGarush();
             ISimulation playgroundGavril = new PlaygroundGavril();
