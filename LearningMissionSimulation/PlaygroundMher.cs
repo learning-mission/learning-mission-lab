@@ -354,15 +354,9 @@ namespace LearningMissionSimulation
             ReportFooter(actionName: action);
         }
 
-        public void Clear()
-        {
-            // Clear all internal data structures 
-            throw new NotImplementedException();
-        }
-
         void UpdateStudentList(Classroom classroom)
         {
-            int itemListCount = AttributeGenerator.random.Next(0, classroom.MaximumCapacity - classroom.ItemList.Count + 1);
+            int itemListCount = AttributeGenerator.random.Next(0, classroom.MaximumCapacity + 1 - classroom.ItemList.Count );
             int i = 0;
             while (i < itemListCount)
             {
@@ -381,6 +375,17 @@ namespace LearningMissionSimulation
             
         }
 
+
+        public void Clear()
+        {
+            foreach (var account in AccountDictionary)
+            {
+                if(account.Value.Status == Status.Closed)
+                {
+                    AccountDictionary.Remove(account.Key);
+                }
+            }
+        }
 
         #region Reports
         void ReportHeader(string actionName)
