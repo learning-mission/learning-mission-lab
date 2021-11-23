@@ -356,7 +356,7 @@ namespace LearningMissionSimulation
 
         void UpdateStudentList(Classroom classroom)
         {
-            int itemListCount = AttributeGenerator.random.Next(0, classroom.MaximumCapacity + 1 - classroom.ItemList.Count );
+            int itemListCount = AttributeGenerator.random.Next(0, classroom.MaximumCapacity - classroom.ItemList.Count + 1);
             int i = 0;
             while (i < itemListCount)
             {
@@ -366,6 +366,7 @@ namespace LearningMissionSimulation
                     {
                         classroom.ItemList.Add(student);
                         student.ClassroomList.Add(classroom);
+                        student.CompletedModuleList.Add(classroom.Module);
 
                         ReportItem(itemName: student.ToString(), actionName: "Registered for class", itemIndex: i);
                     }
@@ -384,6 +385,19 @@ namespace LearningMissionSimulation
                 {
                     AccountDictionary.Remove(account.Key);
                 }
+                if (StudentDictionary.ContainsKey(account.Key))
+                {
+                    StudentDictionary.Remove(account.Key);
+                }
+                if (InstructorDictionary.ContainsKey(account.Key))
+                {
+                    InstructorDictionary.Remove(account.Key);
+                }
+                if (InstructorDictionary.ContainsKey(account.Key))
+                {
+                    InstructorDictionary.Remove(account.Key);
+                }
+
             }
         }
 
