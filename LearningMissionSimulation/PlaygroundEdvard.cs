@@ -118,6 +118,8 @@ namespace LearningMissionSimulation
 
                 ReportItem(itemName: account.ToString(), actionName: "Activated account", itemIndex: ++item);
             }
+
+            ReportSummary(summary: "Account", count: item);
             ReportFooter(actionName: "Activate account");
         }
 
@@ -249,22 +251,22 @@ namespace LearningMissionSimulation
 
                     ReportItem(itemName: classroom.ToString(), actionName: "Generate", itemIndex: ++i);
                 }
-
-                ReportSummary(summary: "Classroom", count: classroomCount);
-                ReportFooter(actionName: "Classroom generation");
             }
             else
             {
-                ReportError(missingResource: "Module Id", failedAction: "Classroom generation");
+                ReportError(missingResource: "Module", failedAction: "Classroom generation");
             }
+
+            ReportSummary(summary: "Classroom", count: classroomCount);
+            ReportFooter(actionName: "Classroom generation");
         }
 
         public void AssignInstructorsToClassrooms()
         {
+            int count = 0;
             if (ActiveInstructorList.Count != 0 && ClassroomDictionary.Count != 0)
             {
                 ReportHeader(actionName: "Assign instructors to classroom");
-                int count = 0;
 
                 foreach (Classroom classroom in ClassroomDictionary.Values)
                 {
@@ -278,10 +280,14 @@ namespace LearningMissionSimulation
                         ReportItem(itemName: classroom.ToString(), actionName: "Instructor assignment", ++count);
                     }
                 }
-
-                ReportSummary(summary: "Instructor", count: count);
-                ReportFooter(actionName: "Assign instructors to classroom");
             }
+            else
+            {
+                ReportError(missingResource: "Instructor", failedAction: "Assign instructors");
+            }
+
+            ReportSummary(summary: "Instructor", count: count);
+            ReportFooter(actionName: "Assign instructors to classroom");
         }
 
         public void RegisterStudentsForClasses()
