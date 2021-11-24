@@ -6,58 +6,80 @@ namespace LearningMissionSimulation
 {
     class PlaygroundVahe : ISimulation
     {
-        public static void Play()
+        #region Properties and fields
+        public ReportType ReportType { get; set; } = ReportType.Verbose;
+        public Dictionary<Guid, Account> AccountDictionary { get; set; } = new Dictionary<Guid, Account>();
+        public Dictionary<Guid, Instructor> InstructorDictionary { get; set; } = new Dictionary<Guid, Instructor>();
+        public List<Student> ActiveStudentList { get; set; } = new List<Student>();
+        public Dictionary<Guid, Student> StudentDictionary { get; set; } = new Dictionary<Guid, Student>();
+        public List<Instructor> ActiveInstructorList { get; set; } = new List<Instructor>();
+        public List<Account> PendingAccountList { get; set; } = new List<Account>();
+        public List<Subject> SubjectList { get; set; } = new List<Subject>();
+        public List<Guid> SubjectIdList { get; set; } = new List<Guid>();
+        public List<Guid> ModuleIdList { get; set; } = new List<Guid>();
+        public List<Student> StudentList { get; set; } = new List<Student>();
+        public List<Instructor> InstructorList { get; set; } = new List<Instructor>();
+        public Dictionary<Guid, Module> ModuleDictionary { get; set; } = new Dictionary<Guid, Module>();
+        public Dictionary<Guid, Classroom> ClassroomDictionary { get; set; } = new Dictionary<Guid, Classroom>();
+        public Dictionary<Guid, List<Instructor>> ModuleInstructorListDictionary { get; set; } = new Dictionary<Guid, List<Instructor>>();
+        #endregion Properties and fields
+
+        public PlaygroundVahe()
         {
-            Console.WriteLine(AttributeGenerator.GetLanguageLevel());
-            Console.WriteLine(AttributeGenerator.GetLanguageName());
+
         }
 
-        Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
-        Dictionary<Guid, Instructor> instructorDictionary = new Dictionary<Guid, Instructor>();
-        Dictionary<Guid, Student> studentDictionary = new Dictionary<Guid, Student>();
-        List<Account> pendingAccountList = new List<Account>();
-        List<Subject> subjectList = new List<Subject>();
-        List<Guid> subjectIdList = new List<Guid>();
-        List<Guid> moduleIdList = new List<Guid>();
-        List<Student> studentList = new List<Student>();
-        List<Instructor> instructorList = new List<Instructor>();
-        Dictionary<Guid, Module> moduleDictionary = new Dictionary<Guid, Module>();
+        public PlaygroundVahe(ReportType reportType)
+        {
+            this.ReportType = reportType;
+        }
 
         public void CreateAccounts(int accountCount)
         {
+            string action = "Create accounts";
+            ReportHeader(action);
             int i = 0;
+
             while (i < accountCount)
             {
                 Account account = ObjectGenerator.GenerateAccount();
-                accountDictionary.Add(account.Id, account);
+                AccountDictionary.Add(account.Id, account);
                 if (account.Role == Role.Instructor)
                 {
                     Instructor instructor = ObjectGenerator.GenerateInstructor(account.Id);
-                    instructorDictionary.Add(account.Id, instructor);
+                    InstructorDictionary.Add(account.Id, instructor);
                     if (account.Status == Status.Pending)
                     {
                         if (IsArmenianAndEnglishPresent(instructor.LanguageList))
                         {
-                            pendingAccountList.Add(account);
+                            PendingAccountList.Add(account);
                         }
+                    }
+                    else if (account.Status == Status.Active)
+                    {
+                        ActiveInstructorList.Add(instructor);
                     }
                 }
                 else if (account.Role == Role.Student)
                 {
                     Student student = ObjectGenerator.GenerateStudent(account.Id);
-                    studentDictionary.Add(account.Id, student);
+                    StudentDictionary.Add(account.Id, student);
                     if (account.Status == Status.Pending)
                     {
                         if (IsArmenianAndEnglishPresent(student.LanguageList))
                         {
-                            pendingAccountList.Add(account);
+                            PendingAccountList.Add(account);
                         }
                     }
+                    else if (account.Status == Status.Active)
+                    {
+                        ActiveStudentList.Add(student);
+                    }
                 }
-                Console.WriteLine("... Create Account {0} ....\n", i);
-                Console.WriteLine(account + "\n");
-                i++;
+                ReportItem(account.ToString(), action, i++);
             }
+            ReportSummary(action, accountCount, "account");
+            ReportFooter(action);
         }
 
         bool IsArmenianAndEnglishPresent(List<Language> languageList)
@@ -85,69 +107,138 @@ namespace LearningMissionSimulation
 
         public void ActivateAccounts()
         {
-            foreach (var account in pendingAccountList)
+            string action = "Activate account";
+            ReportHeader(action);
+            int count = 0;
+
+            if (PendingAccountList.Count == 0)
             {
-                account.Status = Status.Active;
-                pendingAccountList.Remove(account);
+                ReportError(PendingAccountList.ToString(), "account");
             }
+            else
+            {
+                PendingAccountList = new List<Account>();
+                foreach (var account in PendingAccountList)
+                {
+                    account.Status = Status.Active;
+                    if (account.Role == Role.Student)
+                    {
+                        Student student;
+                        if (StudentDictionary.ContainsKey(account.Id))
+                        {
+                            StudentDictionary.TryGetValue(account.Id, out student);
+                            ActiveStudentList.Add(student);
+                        }
+                    }
+                    else if (account.Role == Role.Instructor)
+                    {
+                        Instructor instructor;
+                        if (InstructorDictionary.ContainsKey(account.Id))
+                        {
+                            InstructorDictionary.TryGetValue(account.Id, out instructor);
+                            ActiveInstructorList.Add(instructor);
+                        }
+                    }
+                    ReportItem(account.ToString(), action, count++);
+                    PendingAccountList.Remove(account);
+                }
+            }
+            ReportSummary(action, count, "account");
+            ReportFooter(action);
         }
 
         public void CreateSubjects(int subjectCount)
         {
+            string action = "Subjects generation";
+            ReportHeader(action);
+
             for (int i = 0; i < subjectCount; i++)
-            { 
+            {
                 Subject subject = ObjectGenerator.GenerateSubject();
-                subjectList.Add(subject);
-                subjectIdList.Add(subject.Id);
+                SubjectList.Add(subject);
+                SubjectIdList.Add(subject.Id);
+                ReportItem(subject.ToString(), action, i);
             }
+
+            ReportSummary(action, subjectCount, "subject");
+            ReportFooter(action);
         }
 
         public void CreateModules(int moduleCount)
         {
-            for (int i = 0;  i < moduleCount; i++)
+            string action = "Modules generation";
+            ReportHeader(action);
+
+            if (SubjectIdList.Count == 0)
             {
-                Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count)];
-                Module module = ObjectGenerator.GenerateModule(subjectId);
-                moduleDictionary.Add(module.Id, module);
-                moduleIdList.Add(module.Id);
+                ReportError(SubjectIdList.ToString(), action);
             }
+            else
+            {
+                for (int i = 0; i < moduleCount; i++)
+                {
+                    Guid subjectId = SubjectIdList[AttributeGenerator.random.Next(0, SubjectIdList.Count)];
+                    Module module = ObjectGenerator.GenerateModule(subjectId);
+                    ModuleDictionary.Add(module.Id, module);
+                    ModuleIdList.Add(module.Id);
+                    ReportItem(module.ToString(), action, i);
+                }
+            }
+            ReportSummary(action, moduleCount, "module");
+            ReportFooter(action);
         }
 
         public void AssignModulesToInstructors()
         {
-            foreach (var instructor in instructorList)
+            string action = "Assign modules to instructors";
+            ReportHeader(action);
+
+            int i = 0;
+            foreach (var instructor in ActiveInstructorList)
             {
                 instructor.ModuleList = GetModuleList();
+                AddInstructorToModuleList(instructor);
+                ReportItem(instructor.ToString(), action, i++);
             }
+            ReportSummary(action, i, "instructor");
+            ReportFooter(action);
         }
 
         public void AssignModulesToStudents()
         {
-            foreach (var student in studentList)
+            string action = "Assign modules to students";
+            ReportHeader(action);
+
+            int i = 0;
+            foreach (var student in ActiveStudentList)
             {
                 student.CompletedModuleList = GetModuleList();
+                ReportItem(student.ToString(), action, i++);
+
             }
+            ReportSummary(action, i, "student");
+            ReportFooter(action);
         }
 
         List<Module> GetModuleList()
         {
             HashSet<Guid> moduleIdSet = new HashSet<Guid>();
             List<Module> moduleList = new List<Module>();
-            int moduleCount = moduleIdList.Count;
+            int totalModuleCount = ModuleIdList.Count;
             int maxModuleCountLimit = SimulationConstants.MaxModuleCountLimit;
             int minModuleCountLimit = SimulationConstants.MinModuleCountLimit;
-            minModuleCountLimit = Math.Min(moduleCount, minModuleCountLimit);
-            maxModuleCountLimit = Math.Min(moduleCount, maxModuleCountLimit);
+            minModuleCountLimit = Math.Min(totalModuleCount, minModuleCountLimit);
+            maxModuleCountLimit = Math.Min(totalModuleCount, maxModuleCountLimit);
             int count = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit);
 
             for (int i = 0; i < count; i++)
             {
-                Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
+                Guid moduleId = ModuleIdList[AttributeGenerator.random.Next(0, ModuleIdList.Count)];
                 if (!moduleIdSet.Contains(moduleId))
                 {
                     moduleIdSet.Add(moduleId);
                     Module module;
-                    moduleDictionary.TryGetValue(moduleId, out module);
+                    ModuleDictionary.TryGetValue(moduleId, out module);
                     moduleList.Add(module);
                 }
             }
@@ -156,17 +247,180 @@ namespace LearningMissionSimulation
 
         public void CreateClassrooms(int classroomCount)
         {
-            throw new NotImplementedException();
+            string action = "Create classrooms";
+            ReportHeader(action);
+
+            if (ModuleIdList.Count == 0)
+            {
+                ReportError(ModuleIdList.ToString(), action);
+            }
+            else
+            {
+                int i = 0;
+                while (i < classroomCount)
+                {
+                    Guid moduleId = ModuleIdList[AttributeGenerator.random.Next(0, ModuleIdList.Count)];
+                    Module module;
+                    ModuleDictionary.TryGetValue(moduleId, out module);
+                    Classroom classroom = ObjectGenerator.GenerateClassroom(module);
+                    ClassroomDictionary.Add(classroom.Id, classroom);
+                    ReportItem(classroom.ToString(), action, i++);
+                }
+            }
+            ReportSummary(action, classroomCount, "classroom");
+            ReportFooter(action);
         }
-        
+
         public void AssignInstructorsToClassrooms()
         {
-            throw new NotImplementedException();
+            string action = "Assign instructor to classroom";
+            ReportHeader(action);
+
+            if (ActiveInstructorList.Count == 0)
+            {
+                ReportError(ActiveInstructorList.ToString(), action);
+            }
+            else if (ClassroomDictionary.Count == 0)
+            {
+                ReportError(ClassroomDictionary.ToString(), action);
+            }
+            else
+            {
+                foreach (var classroom in ClassroomDictionary.Values)
+                {
+                    Guid moduleId = classroom.Module.Id;
+                    List<Instructor> instructorList;
+                    if (ModuleInstructorListDictionary.ContainsKey(moduleId))
+                    {
+                        ModuleInstructorListDictionary.TryGetValue(moduleId, out instructorList);
+                        classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                    }
+                }
+            }
+            ReportSummary(action, 1, "classroom");
+            ReportFooter(action);
+        }
+
+        void AddInstructorToModuleList(Instructor instructor)
+        {
+            List<Module> moduleList = instructor.ModuleList;
+            foreach (var module in moduleList)
+            {
+                List<Instructor> instructorList;
+                if (ModuleInstructorListDictionary.ContainsKey(module.Id))
+                {
+                    ModuleInstructorListDictionary.TryGetValue(module.Id, out instructorList);
+                    instructorList.Add(instructor);
+                }
+                else
+                {
+                    instructorList = new List<Instructor>() { instructor };
+                    ModuleInstructorListDictionary.Add(module.Id, instructorList);
+                }
+            }
         }
 
         public void RegisterStudentsForClasses()
         {
-            throw new NotImplementedException();
+            string action = "Register Students For Classes";
+            int itemListCount = 0;
+            ReportHeader(action);
+
+            if (ClassroomDictionary.Count == 0)
+            {
+                ReportError(ClassroomDictionary.ToString(), action);
+            }
+            else
+            {
+                foreach (var classroom in ClassroomDictionary.Values)
+                {
+                    if (classroom.ItemList.Count < classroom.MaximumCapacity)
+                    {
+                        UpdateStudentList(classroom);
+                    }
+                }
+            }
+
+            ReportSummary(action, itemListCount, "classroom");
+            ReportFooter(action);
+        }
+
+        void UpdateStudentList(Classroom classroom)
+        {
+            string action = "Register Students For Classes";
+
+            if(ActiveStudentList.Count == 0)
+            {
+                ReportError(ActiveStudentList.ToString(), action);
+            }
+            else
+            {
+                int itemListCount = AttributeGenerator.random.Next(0, classroom.MaximumCapacity - classroom.ItemList.Count + 1);
+                itemListCount = Math.Min(itemListCount, ActiveStudentList.Count);
+
+                foreach (Student student in ActiveStudentList)
+                {
+                    if (!student.CompletedModuleList.Contains(classroom.Module) && !student.ClassroomList.Contains(classroom))
+                    {
+                        student.ClassroomList.Add(classroom);
+                        classroom.ItemList.Add(student);
+                        ReportItem(student.ToString(), action, itemListCount);
+                    }
+                }
+            }
+        }
+
+        #region ReportMethods
+        void ReportHeader(string actionName)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($" <<<<< {actionName} is started >>>>> \n");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        void ReportFooter(string actionName)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine($" <<<<< {actionName} is finished >>>>> \n");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        void ReportItem(string itemName, string actionName, int itemIndex)
+        {
+            Console.WriteLine($"{actionName} {itemIndex} {itemName} \n");
+        }
+
+        void ReportSummary(string actionName, int itemCount, string itemName)
+        {
+            Console.WriteLine($" <<<<<  Performed {actionName} for {itemCount} {itemName}(s) >>>>> \n");
+        }
+        void ReportError(string missingResource, string failedAction)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine($"<<<<< Satisfy the condition first and then start work. Should be" +
+                              $" {missingResource}  in order to {failedAction} start working >>>>>");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        #endregion ReportMethods
+
+        public void SimulationAll(int count)
+        {
+
+            CreateAccounts(count);
+            ActivateAccounts();
+            CreateSubjects(count);
+            CreateModules(count);
+            AssignModulesToStudents();
+            AssignModulesToInstructors();
+            CreateClassrooms(count);
+            AssignInstructorsToClassrooms();
+        }
+
+        public static void Play()
+        {
+            Console.WriteLine(AttributeGenerator.GetLanguageLevel());
+            Console.WriteLine(AttributeGenerator.GetLanguageName());
         }
 
         public void Clear()
