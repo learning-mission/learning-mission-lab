@@ -302,13 +302,16 @@ namespace LearningMissionSimulation
 
         public void RegisterStudentsForClasses()
         {
+            string action = "Register students for classes";
+            ReportHeader(actionName: action);
+
             if (ClassroomDictionary.Count == 0)
             {
-                ReportError(missingResource: "Classroom", failedAction: "Register");
+                ReportError(missingResource: "Classroom", failedAction: action);
             }
             else if (ActiveStudentList.Count == 0)
             {
-                ReportError(missingResource: "Student", failedAction: "Register");
+                ReportError(missingResource: "Student", failedAction: action);
             }
             else
             {
@@ -322,23 +325,36 @@ namespace LearningMissionSimulation
                     }
                 }
             }
+
+            ReportFooter(actionName: action);
         }
 
         void UpdateStudentList(Classroom classroom)
         {
-            int studentCount = AttributeGenerator.random.Next(0, (classroom.MaximumCapacity - classroom.ItemList.Count - ActiveStudentList.Count) + 1);
-            int count = 0;
-            while (count < studentCount)
-            {
-                foreach (Student student in StudentDictionary.Values)
-                {
-                    if (!student.ClassroomList.Contains(classroom))
-                    {
-                        student.ClassroomList.Add(classroom);
-                        classroom.ItemList.Add(student);
-                    }
+            int studentCount = 0;
 
+            if (ActiveStudentList.Count < classroom.MaximumCapacity - classroom.ItemList.Count)
+            {
+                studentCount = AttributeGenerator.random.Next((classroom.MaximumCapacity - classroom.ItemList.Count - ActiveStudentList.Count) + 1);
+            }
+            else
+            {
+                studentCount = AttributeGenerator.random.Next(classroom.MaximumCapacity - classroom.ItemList.Count);
+            }
+            int count = 0;
+
+            foreach (Student student in ActiveStudentList)
+            {
+                if (!student.CompletedModuleList.Contains(classroom.Module))
+                {
+                    student.ClassroomList.Add(classroom);
+                    classroom.ItemList.Add(student);
                     count++;
+                }
+
+                if (count >= studentCount || count == ActiveStudentList.Count)
+                {
+                    break;
                 }
             }
         }
@@ -452,11 +468,6 @@ namespace LearningMissionSimulation
                     Console.WriteLine("--------- You do not have the appropriate {0} to {1} ---------\n", missingResource, failedAction);
                     break;
             }
-        }
-
-        void ReportError(string missingResource, string failedAction)
-        {
-            Console.WriteLine("--------- You do not have the appropriate {0} to {1} ---------\n", missingResource, failedAction);
         }
         #endregion Reports
     }
