@@ -337,7 +337,8 @@ namespace LearningMissionSimulation
 
         void UpdateStudentList(Classroom classroom)
         {
-            int itemListCount = AttributeGenerator.random.Next(0, classroom.MaximumCapacity - classroom.ItemList.Count + 1);
+            int maxStudentCountToRegister = Math.Min(classroom.MaximumCapacity - classroom.ItemList.Count, ActiveStudentList.Count);
+            int itemListCount = AttributeGenerator.random.Next(0, maxStudentCountToRegister + 1);
             int i = 0;
             while (i < itemListCount)
             {
@@ -347,10 +348,11 @@ namespace LearningMissionSimulation
                 {
                     classroom.ItemList.Add(studentActive);
                     studentActive.ClassroomList.Add(classroom);
+                    i++;
 
                     ReportItem(itemName: studentActive.ToString(), actionName: "Registered for class", itemIndex: i);
                 }
-                i++;
+               
             }
         }
 
