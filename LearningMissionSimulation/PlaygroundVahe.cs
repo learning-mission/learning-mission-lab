@@ -286,14 +286,17 @@ namespace LearningMissionSimulation
             }
             else
             {
+                int count = 0;
                 foreach (var classroom in ClassroomDictionary.Values)
                 {
                     Guid moduleId = classroom.Module.Id;
                     List<Instructor> instructorList;
+
                     if (ModuleInstructorListDictionary.ContainsKey(moduleId))
                     {
                         ModuleInstructorListDictionary.TryGetValue(moduleId, out instructorList);
                         classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                        ReportItem(classroom.ToString(), action, ++count);
                     }
                 }
             }
@@ -307,9 +310,9 @@ namespace LearningMissionSimulation
             foreach (var module in moduleList)
             {
                 List<Instructor> instructorList;
-                if (ModuleInstructorListDictionary.ContainsKey(module.Id))
+
+                if (ModuleInstructorListDictionary.TryGetValue(module.Id, out instructorList))
                 {
-                    ModuleInstructorListDictionary.TryGetValue(module.Id, out instructorList);
                     instructorList.Add(instructor);
                 }
                 else
@@ -349,7 +352,7 @@ namespace LearningMissionSimulation
         {
             string action = "Register Students For Classes";
 
-            if(ActiveStudentList.Count == 0)
+            if (ActiveStudentList.Count == 0)
             {
                 ReportError(ActiveStudentList.ToString(), action);
             }
@@ -417,16 +420,20 @@ namespace LearningMissionSimulation
             AssignInstructorsToClassrooms();
         }
 
-        public static void Play()
-        {
-            Console.WriteLine(AttributeGenerator.GetLanguageLevel());
-            Console.WriteLine(AttributeGenerator.GetLanguageName());
-        }
-
         public void Clear()
         {
-            // Clear all internal data structures 
-            throw new NotImplementedException();
+            ActiveStudentList.Clear();
+            StudentDictionary.Clear();
+            ActiveInstructorList.Clear();
+            InstructorDictionary.Clear();
+            PendingAccountList.Clear();
+            AccountDictionary.Clear();
+            SubjectList.Clear();
+            ModuleDictionary.Clear();
+            ModuleIdList.Clear();
+            SubjectIdList.Clear();
+            ClassroomDictionary.Clear();
+            ModuleInstructorListDictionary.Clear();
         }
     }
 }
