@@ -302,6 +302,7 @@ namespace LearningMissionSimulation
 
         public void RegisterStudentsForClasses()
         {
+            int count = 0;
             string action = "Register students for classes";
             ReportHeader(actionName: action);
 
@@ -315,48 +316,53 @@ namespace LearningMissionSimulation
             }
             else
             {
-                int maxCount = 0;
                 foreach (Classroom classroom in ClassroomDictionary.Values)
                 {
                     if (classroom.ItemList.Count < classroom.MaximumCapacity)
                     {
                         UpdateStudentList(classroom);
-                        maxCount = classroom.ItemList.Count;
+                        count++;
+
+                        ReportItem(itemName: classroom.ToString(), actionName: action, itemIndex: count);
                     }
                 }
             }
 
+            ReportSummary(actionName: action, count: count);
             ReportFooter(actionName: action);
         }
 
         void UpdateStudentList(Classroom classroom)
         {
             int studentCount = 0;
-
-            if (ActiveStudentList.Count < classroom.MaximumCapacity - classroom.ItemList.Count)
-            {
-                studentCount = AttributeGenerator.random.Next((classroom.MaximumCapacity - classroom.ItemList.Count - ActiveStudentList.Count) + 1);
-            }
-            else
-            {
-                studentCount = AttributeGenerator.random.Next(classroom.MaximumCapacity - classroom.ItemList.Count);
-            }
+            string firstAction = "Update student List";
+            string secondAction = "Register students for classes";
+            uint remainingPlaceCount = (uint)(classroom.MaximumCapacity - classroom.ItemList.Count);
+            uint activeStudentCount = (uint)ActiveStudentList.Count;
+            int minimumCount = (int)Math.Min(activeStudentCount, remainingPlaceCount);
+            studentCount = AttributeGenerator.random.Next(0, minimumCount + 1);
             int count = 0;
 
+            ReportHeader(actionName: firstAction);
             foreach (Student student in ActiveStudentList)
             {
-                if (!student.CompletedModuleList.Contains(classroom.Module))
+                if (count >= studentCount)
+                {
+                    break;
+                }
+
+                if (!student.CompletedModuleList.Contains(classroom.Module) && !student.ClassroomList.Contains(classroom))
                 {
                     student.ClassroomList.Add(classroom);
                     classroom.ItemList.Add(student);
                     count++;
-                }
 
-                if (count >= studentCount || count == ActiveStudentList.Count)
-                {
-                    break;
+                    ReportItem(itemName: student.ToString(), actionName: secondAction, itemIndex: count);
                 }
             }
+
+            ReportSummary(actionName: secondAction, count: count);
+            ReportFooter(actionName: firstAction);
         }
 
         public void Clear()
