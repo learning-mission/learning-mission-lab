@@ -36,6 +36,8 @@ namespace LearningMissionSimulation
                 {
                     Student student = ObjectGenerator.GenerateStudent(account.Id);
                     studentList.Add(student);
+
+                    ReportItem(itemName: account.ToString(), actionName: action, itemIndex: i);
                     if (student.Gender == Gender.Female && account.Status == Status.Pending)
                     {
                         pendingAccountList.Add(account);
@@ -66,12 +68,13 @@ namespace LearningMissionSimulation
             for (int i = 0; i < pendingAccountList.Count; i++)
             {
                 pendingAccountList[i].Status = Status.Active;
-                Console.WriteLine($" activated account is{pendingAccountList[i]}\n");
+
+                ReportItem(itemName: item.ToString(), actionName: action, itemIndex: i);
             }            
            
+            pendingAccountList.Clear();
             ReportSummary(actionName: action, count: item);
             ReportFooter(actionName: action);
-            pendingAccountList.Clear();
         }
 
         public void AssignModulesToInstructors()
@@ -82,7 +85,8 @@ namespace LearningMissionSimulation
             foreach (var instructor in instructorList)
             {
                 instructor.ModuleList = GetModuleList();
-                Console.WriteLine(instructor);
+                
+                ReportItem(itemName: count.ToString(), actionName: action, itemIndex: count);
             }
 
             ReportSummary(actionName: action, count: count);
@@ -122,7 +126,8 @@ namespace LearningMissionSimulation
             foreach (var student in studentList)
             {
                 student.CompletedModuleList = GetModuleList();
-                Console.WriteLine(student);
+
+                ReportItem(itemName: count.ToString(), actionName: action, itemIndex: count);               
             }
 
             ReportSummary(actionName: action, count: count);
@@ -133,15 +138,19 @@ namespace LearningMissionSimulation
         {
             string action = "Subject generation";
             ReportHeader(actionName: action);
-            int i = 0;
+            int i = 0;            
             while (i < subjectCount)
-            {               
+            {  
+                
                 Subject subject = ObjectGenerator.GenerateSubject();
                 subjectList.Add(subject);
                 subjectIdList.Add(subject.Id);
-                Console.WriteLine("\ncreate subject {0}\n", subject);
-                i++;
-                ReportItem(itemName: subject.ToString(), actionName: action, itemIndex: i);
+                if (subjectList.Count==0)
+                {
+                    ReportError(missingResource: "Subject", failedAction: action);
+                }               
+                
+                ReportItem(itemName: subject.ToString(), actionName: action, itemIndex: ++i);
             }
 
             ReportSummary(actionName: action, count:subjectCount);
@@ -158,10 +167,9 @@ namespace LearningMissionSimulation
                 Guid subjectId = subjectIdList[AttributeGenerator.random.Next(0, subjectIdList.Count)];
                 Module module = ObjectGenerator.GenerateModule(subjectId);
                 moduleDictionary.Add(module.Id, module);
-                moduleIdList.Add(module.Id);
-                Console.WriteLine("\ncreate module {0}\n", module);
-                i++;
-                ReportItem(itemName: module.ToString(), actionName: action, itemIndex: i);
+                moduleIdList.Add(module.Id); 
+                
+                ReportItem(itemName: module.ToString(), actionName: action, itemIndex: ++i);
             }
 
             ReportSummary(actionName: action, count: moduleCount);
