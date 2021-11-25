@@ -25,7 +25,7 @@ namespace LearningMissionSimulation
 
         public void CreateAccounts(int accountCount)
         {
-            string action = " create account ";
+            string action = "Create accounts ";
             ReportHeader(actionName: action);
             for (int i = 0; i < accountCount; i++)
             {                
@@ -69,7 +69,7 @@ namespace LearningMissionSimulation
             {
                 pendingAccountList[i].Status = Status.Active;
 
-                ReportItem(itemName: item.ToString(), actionName: action, itemIndex: i);
+                ReportItem(itemName:item.ToString(), actionName: action, itemIndex: i);
             }            
            
             pendingAccountList.Clear();
@@ -121,7 +121,7 @@ namespace LearningMissionSimulation
         public void AssignModulesToStudents()
         {
             string action = "Assing Modules to students";
-            int count = 0;
+            int count = studentList.Count;
             ReportHeader(actionName: action);
             foreach (var student in studentList)
             {
@@ -136,7 +136,7 @@ namespace LearningMissionSimulation
 
         public void CreateSubjects(int subjectCount)
         {
-            string action = "Subject generation";
+            string action = "Create subject";
             ReportHeader(actionName: action);
             int i = 0;            
             while (i < subjectCount)
@@ -159,7 +159,7 @@ namespace LearningMissionSimulation
 
         public void CreateModules(int moduleCount)
         {
-            string action = "Subject generation";
+            string action = "Create module";
             ReportHeader(actionName: action);
             int i = 0;
             while (i < moduleCount)
