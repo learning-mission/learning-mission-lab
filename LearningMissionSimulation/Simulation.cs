@@ -31,16 +31,16 @@ namespace LearningMissionSimulation
                         simulation.AssignModulesToStudents();
                         break;
                     case 7:
-                        //simulation.CreateClassrooms(itemCount);
+                        simulation.CreateClassrooms(itemCount);
                         break;
                     case 8:
-                        //simulation.AssignInstructorsToClassrooms();
+                        simulation.AssignInstructorsToClassrooms();
                         break;
                     case 9:
-                        //simulation.RegisterStudentsForClasses();
+                        simulation.RegisterStudentsForClasses();
                         break;
                     case 10:
-                        //simulation.Clear();
+                        simulation.Clear();
                         break;
                 }
                 iRun++;
