@@ -23,8 +23,6 @@ namespace LearningMissionSimulation
 
         List<Guid> subjectIdList = new List<Guid>();
 
-        List<Subject> subjectList = new List<Subject>();
-
         List<Classroom> classroomList = new List<Classroom>();
 
 
@@ -89,7 +87,7 @@ namespace LearningMissionSimulation
             {
                 Subject subject = ObjectGenerator.GenerateSubject();
                 Console.WriteLine("========== Created  Subject {0} =======\n\n{1}\n", i, subject);
-                subjectList.Add(subject);
+              
                 subjectIdList.Add(subject.Id);
                 i++;
                 ReportItem(itemName: subject.ToString(), actionName: action, itemIndex: i);
@@ -178,8 +176,6 @@ namespace LearningMissionSimulation
             int count = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit);
             maxModuleCountLimit = Math.Min(totalModuleCount, maxModuleCountLimit);
             minModuleCountLimit = Math.Min(totalModuleCount, minModuleCountLimit);
-            int totalmoduleCount = AttributeGenerator.random.Next(minModuleCountLimit, maxModuleCountLimit + 1);
-
 
             for (int i = 0; i < count; i++)
             {
@@ -234,12 +230,6 @@ namespace LearningMissionSimulation
             string action = "Register Students For Classes";
             int classroomItemListCount = 0;
             ReportHeader(actionName: action);
-
-            if (classroomList.Count == 0)
-            {
-                ReportError(missingResource: "Instructor", failedAction: action);
-            }
-            else
             {
                 foreach (var classroom in classroomList)
                 {
