@@ -340,6 +340,7 @@ namespace LearningMissionSimulation
                     if (classroom.ItemList.Count < classroom.MaximumCapacity)
                     {
                         UpdateStudentList(classroom);
+                        ++itemListCount;
                     }
                 }
             }
