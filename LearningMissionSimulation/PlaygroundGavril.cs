@@ -261,6 +261,8 @@ namespace LearningMissionSimulation
         }
 
         //REPORTS
+
+        #region REPORTS
         void ReportHeader(string actionName)
         {
             Console.WriteLine($"******{actionName} is started******\n");
@@ -285,5 +287,7 @@ namespace LearningMissionSimulation
         {
             Console.WriteLine("--------- You do not have the appropriate {0} to {1} ---------\n", missingResource, failedAction);
         }
+
+        #endregion REPORTS
     }
 }
