@@ -60,7 +60,7 @@ namespace LearningMissionSimulation
                 simulation.CreateModules(itemCount);
                 simulation.AssignModulesToInstructors();
                 simulation.AssignModulesToStudents();
-                //simulation.CreateClassrooms(itemCount);        
+                simulation.CreateClassrooms(itemCount);        
                 //simulation.AssignInstructorsToClassrooms();
                 //simulation.RegisterStudentsForClasses();
                 //simulation.Clear();
