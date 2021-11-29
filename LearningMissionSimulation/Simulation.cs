@@ -54,13 +54,13 @@ namespace LearningMissionSimulation
             {
                 int itemCount = AttributeGenerator.random.Next(0, 10);
             
-                simulation.CreateAccounts(itemCount);
+                simulation.CreateAccounts(50);
                 simulation.ActivateAccounts();
-                simulation.CreateSubjects(itemCount);
-                simulation.CreateModules(itemCount);
+                simulation.CreateSubjects(50);
+                simulation.CreateModules(50);
                 simulation.AssignModulesToInstructors();
                 simulation.AssignModulesToStudents();
-                //simulation.CreateClassrooms(itemCount);        
+                simulation.CreateClassrooms(50);        
                 //simulation.AssignInstructorsToClassrooms();
                 //simulation.RegisterStudentsForClasses();
                 //simulation.Clear();
