@@ -9,6 +9,9 @@ namespace LearningMissionSimulation
     {
 
         ReportType _reportType;
+
+        List<Student> activeStudentList = new List<Student>(); 
+
         List<Account> pendingAccountList = new List<Account>();
 
         List<Student> studentList = new List<Student>();
@@ -26,6 +29,10 @@ namespace LearningMissionSimulation
         List<Classroom> classroomList = new List<Classroom>();
 
 
+        public PlaygroundGavril(ReportType reportType)
+        {
+            this._reportType = reportType;
+        }
 
 
         public  void CreateAccounts(int accountCount)
@@ -73,15 +80,16 @@ namespace LearningMissionSimulation
                 pendingAccountList.Remove(account);
                 ReportItem(itemName: account.ToString(), actionName: action, itemIndex: i);
             }
-            ReportSummary(actionName: action, itemCount: pendingAccountList);
+            ReportSummary(actionName: action, itemCount: pendingAccountList.Count);
             ReportFooter(actionName: action);
+            i++;
         }
 
         public void CreateSubjects(int subjectCount)
         {
             string action = "Subject generation";
             ReportHeader(actionName: action);
-            Console.WriteLine("******** Started creating subjects  ********\n");
+            
             int i = 0;
             while (i < subjectCount)
             {
@@ -92,8 +100,7 @@ namespace LearningMissionSimulation
                 i++;
                 ReportItem(itemName: subject.ToString(), actionName: action, itemIndex: i);
             }
-            Console.WriteLine("========== Generated {0} Subjects  =======\n", subjectCount);
-            Console.WriteLine("******** Finished creating subjects  ********\n");
+           
 
             ReportSummary(actionName: action, itemCount: subjectCount);
             ReportFooter(actionName: action);
@@ -155,7 +162,7 @@ namespace LearningMissionSimulation
             foreach (Student student in studentList)
             {
                 student.CompletedModuleList = GetModuleList();
-
+                i++;
                 ReportItem(itemName: student.ToString(), actionName: action, itemIndex: i);
 
             }
@@ -206,7 +213,11 @@ namespace LearningMissionSimulation
                 {
                     Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
                     Module module;
-                    moduleDictionary.TryGetValue(moduleId, out module);
+                    var moduleFound = moduleDictionary.TryGetValue(moduleId, out module);
+                    if (! moduleFound  )
+                    {
+                        ReportError(missingResource: "Modules", failedAction: action);
+                    }
                     Classroom classroom = ObjectGenerator.GenerateClassroom(module);
                     classroomList.Add(classroom);
                     i++;
@@ -235,6 +246,7 @@ namespace LearningMissionSimulation
                 {
                     if (classroom.ItemList.Count < classroom.MaximumCapacity)
                     {
+                        UpdateStudentList(classroom);
                         classroomItemListCount = classroom.ItemList.Count;
                     }
 
@@ -243,6 +255,30 @@ namespace LearningMissionSimulation
 
             ReportSummary(actionName: action, itemCount: classroomItemListCount);
             ReportFooter(actionName: action);
+        }
+
+        private void UpdateStudentList(Classroom classroom)
+        {
+            int itemListCount = AttributeGenerator.random.Next(0, classroom.MaximumCapacity - classroom.ItemList.Count + 1);
+            int i = 0;
+            while (i < itemListCount)
+            {
+                foreach (var student in activeStudentList)
+                {
+                    if (!student.CompletedModuleList.Contains(classroom.Module))
+                    {
+                        classroom.ItemList.Add(student);
+                        student.ClassroomList.Add(classroom);
+
+                        ReportItem(itemName: student.ToString(), actionName: "Registered for class", itemIndex: i);
+                    }
+                }
+                i++;
+            }
+
+
+
+           
         }
 
         public void Clear()

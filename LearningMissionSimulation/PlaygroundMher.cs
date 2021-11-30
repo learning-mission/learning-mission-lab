@@ -225,7 +225,6 @@ namespace LearningMissionSimulation
         {
             string action = "Assign modules to students";
             ReportHeader(actionName: action);
-
             int i = 0;
             foreach (var student in ActiveStudentList)
             {
