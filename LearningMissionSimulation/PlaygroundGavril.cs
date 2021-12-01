@@ -27,7 +27,6 @@ namespace LearningMissionSimulation
         List<Guid> subjectIdList = new List<Guid>();
 
         List<Classroom> classroomList = new List<Classroom>();
-
         public PlaygroundGavril(ReportType reportType)
         {
             this._reportType = reportType;
@@ -75,12 +74,13 @@ namespace LearningMissionSimulation
             foreach (var account  in pendingAccountList )
             {
                 account.Status = Status.Active; 
-                pendingAccountList.Remove(account);
+               
                 ReportItem(itemName: account.ToString(), actionName: action, itemIndex: i);
+                i++;
             }
             ReportSummary(actionName: action, itemCount: pendingAccountList.Count);
             ReportFooter(actionName: action);
-            i++;
+            pendingAccountList.Clear();
         }
 
         public void CreateSubjects(int subjectCount)
@@ -92,8 +92,6 @@ namespace LearningMissionSimulation
             while (i < subjectCount)
             {
                 Subject subject = ObjectGenerator.GenerateSubject();
-                Console.WriteLine("========== Created  Subject {0} =======\n\n{1}\n", i, subject);
-              
                 subjectIdList.Add(subject.Id);
                 i++;
                 ReportItem(itemName: subject.ToString(), actionName: action, itemIndex: i);
@@ -123,7 +121,6 @@ namespace LearningMissionSimulation
                     moduleDictionary.Add(module.Id, module);
                     moduleIdList.Add(module.Id);
                     i++;
-
                     ReportItem(itemName: module.ToString(), actionName: action, itemIndex: i);
                 }
             }
@@ -136,14 +133,11 @@ namespace LearningMissionSimulation
         {
             string action = "Assign modules to instructors";
             ReportHeader(actionName: action);
-            Console.WriteLine("******** Started assigning modules to instructors  ********\n");
             int i = 0;
             foreach (var instructor in instructorList)
             {
                 instructor.ModuleList = GetModuleList();
-                Console.WriteLine("\n========== Generated List Number {0} of the Instructor Number {1} =======\n\n\n", i + 1, i + 1);
                 i++;
-
                 ReportItem(itemName: instructor.ToString(), actionName: action, itemIndex: i);
             }
 
@@ -172,6 +166,7 @@ namespace LearningMissionSimulation
 
         List<Module> GetModuleList()
         {
+            string action = "create personal module list";
             List<Module> moduleList = new List<Module>();
             int totalModuleCount = moduleIdList.Count;
             int maxModuleCountLimit = 7;
@@ -186,11 +181,21 @@ namespace LearningMissionSimulation
             {
                 Module module;
                 Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
-                moduleDictionary.TryGetValue(id, out module);
-                if (!moduleList.Contains(module))
+
+               if( moduleDictionary.TryGetValue(id, out module))
+               {
+                    if (!moduleList.Contains(module))
+                    {
+                        moduleList.Add(module);
+                    }
+
+               }
+                else
                 {
-                    moduleList.Add(module);
+                    ReportError(missingResource: "Module", failedAction: action);
                 }
+                
+                
             }
             return moduleList;
         }
@@ -217,14 +222,11 @@ namespace LearningMissionSimulation
                     }
                     else 
                     {
-                        ReportError(missingResource: "Modules", failedAction: action);
+                        Classroom classroom = ObjectGenerator.GenerateClassroom(module);
+                        classroomList.Add(classroom);
+                        i++;
+                        ReportItem(itemName: classroom.ToString(), actionName: action, itemIndex: i);
                     }
-                    Classroom classroom = ObjectGenerator.GenerateClassroom(module);
-                    classroomList.Add(classroom);
-                    i++;
-                    ReportItem(itemName: classroom.ToString(), actionName: action, itemIndex: i);
-                    // elsi blok@ sarqeci senc chisht klini ?????? 
-                    
                 }
             }
 
@@ -267,7 +269,6 @@ namespace LearningMissionSimulation
             while (i < itemListCount)
             {
                 Student studentActive = activeStudentList[AttributeGenerator.random.Next(0, activeStudentList.Count)];
-
                 if (!studentActive.CompletedModuleList.Contains(classroom.Module) && !studentActive.ClassroomList.Contains(classroom))
                 {
                     classroom.ItemList.Add(studentActive);
