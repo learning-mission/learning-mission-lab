@@ -28,12 +28,10 @@ namespace LearningMissionSimulation
 
         List<Classroom> classroomList = new List<Classroom>();
 
-
         public PlaygroundGavril(ReportType reportType)
         {
             this._reportType = reportType;
         }
-
 
         public  void CreateAccounts(int accountCount)
         {
@@ -213,16 +211,20 @@ namespace LearningMissionSimulation
                 {
                     Guid moduleId = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
                     Module module;
-                    var moduleFound = moduleDictionary.TryGetValue(moduleId, out module);
-                    if (! moduleFound  )
+                    if (!moduleDictionary.TryGetValue(moduleId, out module))
+                    {
+                        ReportError(missingResource: "Modules", failedAction: action);
+                    }
+                    else 
                     {
                         ReportError(missingResource: "Modules", failedAction: action);
                     }
                     Classroom classroom = ObjectGenerator.GenerateClassroom(module);
                     classroomList.Add(classroom);
                     i++;
-
                     ReportItem(itemName: classroom.ToString(), actionName: action, itemIndex: i);
+                    // elsi blok@ sarqeci senc chisht klini ?????? 
+                    
                 }
             }
 
@@ -259,26 +261,23 @@ namespace LearningMissionSimulation
 
         private void UpdateStudentList(Classroom classroom)
         {
-            int itemListCount = AttributeGenerator.random.Next(0, classroom.MaximumCapacity - classroom.ItemList.Count + 1);
+            int maxStudentCountToRegister = Math.Min(classroom.MaximumCapacity - classroom.ItemList.Count, activeStudentList.Count);
+            int itemListCount = AttributeGenerator.random.Next(0, maxStudentCountToRegister + 1);
             int i = 0;
             while (i < itemListCount)
             {
-                foreach (var student in activeStudentList)
+                Student studentActive = activeStudentList[AttributeGenerator.random.Next(0, activeStudentList.Count)];
+
+                if (!studentActive.CompletedModuleList.Contains(classroom.Module) && !studentActive.ClassroomList.Contains(classroom))
                 {
-                    if (!student.CompletedModuleList.Contains(classroom.Module))
-                    {
-                        classroom.ItemList.Add(student);
-                        student.ClassroomList.Add(classroom);
+                    classroom.ItemList.Add(studentActive);
+                    studentActive.ClassroomList.Add(classroom);
+                    i++;
 
-                        ReportItem(itemName: student.ToString(), actionName: "Registered for class", itemIndex: i);
-                    }
+                    ReportItem(itemName: studentActive.ToString(), actionName: "Registered for class", itemIndex: i);
                 }
-                i++;
+
             }
-
-
-
-           
         }
 
         public void Clear()
@@ -315,5 +314,6 @@ namespace LearningMissionSimulation
         }
 
         #endregion REPORTS
+ 
     }
 }
