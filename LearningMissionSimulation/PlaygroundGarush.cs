@@ -16,14 +16,14 @@ namespace LearningMissionSimulation
         List<Guid> subjectIdList = new List<Guid>();
         Dictionary<Guid, Module> moduleDictionary = new Dictionary<Guid, Module>();
         List<Guid> moduleIdList = new List<Guid>();
-        List<Classroom>_classroomList = new List<Classroom>();
+        List<Classroom> _classroom = new List<Classroom>();
 
         public PlaygroundGarush(ReportType reportType)
         {
             this.ReportType = reportType;
         }
         public ReportType ReportType { get => _reportType; set => _reportType = value; }
-        public List<Classroom> ClassroomList1 { get => _classroomList; set => _classroomList = value; }
+        public List<Classroom> Classroom { get => _classroom; set => _classroom = value; }
 
 
         public void CreateAccounts(int accountCount)
@@ -191,7 +191,7 @@ namespace LearningMissionSimulation
 
             if (moduleIdList.Count == 0)
             {
-                ReportError(missingResource: "Module equals 0", failedAction: action);
+                ReportError(missingResource: "Module", failedAction: action);
             }
             else
             {
@@ -201,7 +201,7 @@ namespace LearningMissionSimulation
                     Module module;
                     moduleDictionary.TryGetValue(moduleId, out module);
                     Classroom classroom = ObjectGenerator.GenerateClassroom(module);
-                    _classroomList.Add(classroom);
+                    ClassroomList.Add(classroom);
 
                     ReportItem(itemName: classroom.ToString(), actionName: action, itemIndex: ++i);
                 }
