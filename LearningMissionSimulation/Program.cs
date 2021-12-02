@@ -9,7 +9,7 @@ namespace LearningMissionSimulation
         static void Main(string[] args)
         {
             ISimulation playgroundEdvard = new PlaygroundEdvard(ReportType.Silent);
-            ISimulation playgroundGarush = new PlaygroundGarush();
+            ISimulation playgroundGarush = new PlaygroundGarush(ReportType.Silent);
             ISimulation playgroundGavril = new PlaygroundGavril();
             ISimulation playgroundVahe = new PlaygroundVahe();
             ISimulation playgroundMher = new PlaygroundMher();
