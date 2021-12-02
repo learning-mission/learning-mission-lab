@@ -185,7 +185,8 @@ namespace LearningMissionSimulation
         public void CreateClassrooms(int classroomCount)
         {
             string action = "create Classrooms";
-            int i = 0;
+            int iSuccess = 0;
+            int iFailure=0;
             ReportHeader(actionName: action);
 
             if (ModuleIdList.Count == 0)
@@ -198,10 +199,14 @@ namespace LearningMissionSimulation
                 {
                     Guid moduleId = ModuleIdList[AttributeGenerator.random.Next(0, ModuleIdList.Count)];
                     Module module;
-                    ModuleDictionary.TryGetValue(moduleId, out module);
+                   if(ModuleDictionary.TryGetValue(moduleId, out module))
+                   {
                     Classroom classroom = ObjectGenerator.GenerateClassroom(module);
                     ClassroomDictionary.Add(classroom.Id, classroom);
-                    ReportItem(itemName: classroom.ToString(), actionName: action, itemIndex: ++i);
+                    ReportItem(itemName: classroom.ToString(), actionName: action, itemIndex: ++iSuccess);                    
+                   }
+                 
+                   
                 }
             }
 
