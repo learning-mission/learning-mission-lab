@@ -286,14 +286,17 @@ namespace LearningMissionSimulation
             }
             else
             {
+                int count = 0;
                 foreach (var classroom in ClassroomDictionary.Values)
                 {
                     Guid moduleId = classroom.Module.Id;
                     List<Instructor> instructorList;
+
                     if (ModuleInstructorListDictionary.ContainsKey(moduleId))
                     {
                         ModuleInstructorListDictionary.TryGetValue(moduleId, out instructorList);
                         classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                        ReportItem(classroom.ToString(), action, ++count);
                     }
                 }
             }
@@ -307,9 +310,9 @@ namespace LearningMissionSimulation
             foreach (var module in moduleList)
             {
                 List<Instructor> instructorList;
-                if (ModuleInstructorListDictionary.ContainsKey(module.Id))
+
+                if (ModuleInstructorListDictionary.TryGetValue(module.Id, out instructorList))
                 {
-                    ModuleInstructorListDictionary.TryGetValue(module.Id, out instructorList);
                     instructorList.Add(instructor);
                 }
                 else
@@ -337,6 +340,7 @@ namespace LearningMissionSimulation
                     if (classroom.ItemList.Count < classroom.MaximumCapacity)
                     {
                         UpdateStudentList(classroom);
+                        ++itemListCount;
                     }
                 }
             }
@@ -349,7 +353,7 @@ namespace LearningMissionSimulation
         {
             string action = "Register Students For Classes";
 
-            if(ActiveStudentList.Count == 0)
+            if (ActiveStudentList.Count == 0)
             {
                 ReportError(ActiveStudentList.ToString(), action);
             }
@@ -373,16 +377,16 @@ namespace LearningMissionSimulation
         #region ReportMethods
         void ReportHeader(string actionName)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($" <<<<< {actionName} is started >>>>> \n");
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Blue;
         }
 
         void ReportFooter(string actionName)
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($" <<<<< {actionName} is finished >>>>> \n");
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Blue;
         }
 
         void ReportItem(string itemName, string actionName, int itemIndex)
@@ -399,7 +403,7 @@ namespace LearningMissionSimulation
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"<<<<< Satisfy the condition first and then start work. Should be" +
                               $" {missingResource}  in order to {failedAction} start working >>>>>");
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Blue;
         }
 
         #endregion ReportMethods
@@ -417,16 +421,20 @@ namespace LearningMissionSimulation
             AssignInstructorsToClassrooms();
         }
 
-        public static void Play()
-        {
-            Console.WriteLine(AttributeGenerator.GetLanguageLevel());
-            Console.WriteLine(AttributeGenerator.GetLanguageName());
-        }
-
         public void Clear()
         {
-            // Clear all internal data structures 
-            throw new NotImplementedException();
+            ActiveStudentList.Clear();
+            StudentDictionary.Clear();
+            ActiveInstructorList.Clear();
+            InstructorDictionary.Clear();
+            PendingAccountList.Clear();
+            AccountDictionary.Clear();
+            SubjectList.Clear();
+            ModuleDictionary.Clear();
+            ModuleIdList.Clear();
+            SubjectIdList.Clear();
+            ClassroomDictionary.Clear();
+            ModuleInstructorListDictionary.Clear();
         }
     }
 }
