@@ -16,6 +16,7 @@ namespace LearningMissionSimulation
         List<Guid> _subjectIdList = new List<Guid>();
         Dictionary<Guid, Module> _moduleDictionary = new Dictionary<Guid, Module>();
         List<Guid> _moduleIdList = new List<Guid>();
+        Dictionary<Guid, Classroom> _classroomDictionary = new Dictionary<Guid, Classroom>();
 
         public PlaygroundGarush()
         {
@@ -34,6 +35,7 @@ namespace LearningMissionSimulation
         public List<Guid> SubjectIdList { get => _subjectIdList; set => _subjectIdList = value; }
         public Dictionary<Guid, Module> ModuleDictionary { get => _moduleDictionary; set => _moduleDictionary = value; }
         public List<Guid> ModuleIdList { get => _moduleIdList; set => _moduleIdList = value; }
+        public Dictionary<Guid, Classroom> ClassroomDictionary { get => _classroomDictionary; set => _classroomDictionary = value; }
 
         public void CreateAccounts(int accountCount)
         {
@@ -182,7 +184,29 @@ namespace LearningMissionSimulation
 
         public void CreateClassrooms(int classroomCount)
         {
-            throw new NotImplementedException();
+            string action = "create Classrooms";
+            int i = 0;
+            ReportHeader(actionName: action);
+
+            if (ModuleIdList.Count == 0)
+            {
+                ReportError(missingResource: "Module", failedAction: action);
+            }
+            else
+            {
+                while (i < classroomCount)
+                {
+                    Guid moduleId = ModuleIdList[AttributeGenerator.random.Next(0, ModuleIdList.Count)];
+                    Module module;
+                    ModuleDictionary.TryGetValue(moduleId, out module);
+                    Classroom classroom = ObjectGenerator.GenerateClassroom(module);
+                    ClassroomDictionary.Add(classroom.Id, classroom);
+                    ReportItem(itemName: classroom.ToString(), actionName: action, itemIndex: ++i);
+                }
+            }
+
+            ReportSummary(actionName: action, count: classroomCount);
+            ReportFooter(actionName: action);
         }
 
         public void RegisterStudentsForClasses()
