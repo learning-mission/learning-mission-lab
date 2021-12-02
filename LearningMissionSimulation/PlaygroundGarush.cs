@@ -186,7 +186,7 @@ namespace LearningMissionSimulation
         {
             string action = "create Classrooms";
             int iSuccess = 0;
-            int iFailure=0;
+            int attemptCount = 0;
             ReportHeader(actionName: action);
 
             if (ModuleIdList.Count == 0)
@@ -195,7 +195,7 @@ namespace LearningMissionSimulation
             }
             else
             {
-                while (i < classroomCount)
+                while (attemptCount < classroomCount)
                 {
                     Guid moduleId = ModuleIdList[AttributeGenerator.random.Next(0, ModuleIdList.Count)];
                     Module module;
@@ -205,12 +205,11 @@ namespace LearningMissionSimulation
                     ClassroomDictionary.Add(classroom.Id, classroom);
                     ReportItem(itemName: classroom.ToString(), actionName: action, itemIndex: ++iSuccess);                    
                    }
-                 
-                   
+                   attemptCount++;   
                 }
             }
 
-            ReportSummary(actionName: action, count: classroomCount);
+            ReportSummary(actionName: action, count: iSuccess);
             ReportFooter(actionName: action);
         }
 
