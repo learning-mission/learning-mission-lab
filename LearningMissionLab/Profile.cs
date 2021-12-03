@@ -15,7 +15,7 @@ namespace LearningMissionLab
         string _financialId;
         string _passportId;        
         string _education;
-        string _resume;
+        Resume _resume;
         string _salary;
         string _militaryId;
         string _family;
@@ -29,7 +29,7 @@ namespace LearningMissionLab
         ContactInfo _contactInfo;
         List<Language> _languageList;
         public Profile(Guid accountId, string firstName, string lastName, string financialId, string passportId, string education,
-                       string resume, string salary, string militaryId, string family, string occupation,string stipend,
+                       Resume resume, string salary, string militaryId, string family, string occupation,string stipend,
                        string computerInventory, DateTime createDate, DateTime updateDate, DateTime dateOfBirth,
                        Gender gender, ContactInfo contactInfo, List<Language> languageList)
         {
@@ -70,7 +70,7 @@ namespace LearningMissionLab
         public string FinancialId { get => _financialId; set => _financialId = value; }
         public string PassportId { get => _passportId; set => _passportId = value; }
         public string Education { get => _education; set => _education = value; }
-        public string Resume { get => _resume; set => _resume = value; }
+        public Resume Resume { get => _resume; set => _resume = value; }
         public string Salary { get => _salary; set => _salary = value; }
         public string MilitaryId { get => _militaryId; set => _militaryId = value; }
         public string Family { get => _family; set => _family = value; }

@@ -148,5 +148,21 @@ namespace LearningMissionSimulation
             return new Subject(subjectType: AttributeGenerator.GetSubjecType(), description: AttributeGenerator.GetUnitDescprition(UnitType.Subject),
                                name: AttributeGenerator.GetUnitName(UnitType.Subject), itemList: ObjectGenerator.GenerateModuleList());
         }
+
+        //public static Resume GenerateResume()
+        //{
+        //    return new Resume();
+        //}
+
+        //public static Education GenerateEducation()
+        //{
+        //    return new Education(
+        //        educationalInstitution: AttributeGenerator.GetEducationalInstitution(),
+        //        educationDegree: AttributeGenerator.GetEducationDegree(),
+        //        fieldOfStudy: AttributeGenerator.GetFieldOfStudy(),
+        //        startDate: AttributeGenerator.GenerateDate(),
+        //        endDate: AttributeGenerator.GenerateDate()
+        //    );
+        //}
     }
 }
