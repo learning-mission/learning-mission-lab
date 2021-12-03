@@ -20,7 +20,6 @@ namespace LearningMissionSimulation
         public List<Classroom> ClassroomList { get; set; } = new List<Classroom>();
         public Dictionary<Guid, List<Instructor>> ModuleInstructorDictionary { get; set; } = new Dictionary<Guid, List<Instructor>>();
 
-
         public PlaygroundMher()
         {
 
@@ -30,7 +29,6 @@ namespace LearningMissionSimulation
         {
             this.ReportType = reportType;
         }
-
 
         public void CreateAccounts(int accountCount)
         {
@@ -203,7 +201,6 @@ namespace LearningMissionSimulation
         {
             string action = "Assign modules to students";
             ReportHeader(actionName: action);
-
             int i = 0;
             foreach (var student in ActiveStudentList)
             {
