@@ -10,7 +10,7 @@ namespace LearningMissionSimulation
 
         ReportType _reportType;
 
-        List<Student> activeStudentList = new List<Student>(); 
+        List<Student> activeStudentList = new List<Student>();
 
         List<Account> pendingAccountList = new List<Account>();
 
@@ -32,7 +32,7 @@ namespace LearningMissionSimulation
             this._reportType = reportType;
         }
 
-        public  void CreateAccounts(int accountCount)
+        public void CreateAccounts(int accountCount)
         {
             string action = "Create Account";
             ReportHeader(actionName: action);
@@ -43,13 +43,13 @@ namespace LearningMissionSimulation
                 accountDictionary.Add(account.Id, account);
                 ReportItem(itemName: account.ToString(), actionName: action, itemIndex: i);
                 if (account.Role == Role.Student)
-                { 
+                {
                     Student student = ObjectGenerator.GenerateStudent(account.Id);
                     studentList.Add(student);
                     if (student.DateOfBirth.Month == 7 && account.Status == Status.Pending)
                     {
-                        pendingAccountList.Add(account);                       
-                    }  
+                        pendingAccountList.Add(account);
+                    }
                 }
                 else if (account.Role == Role.Instructor)
                 {
@@ -71,10 +71,10 @@ namespace LearningMissionSimulation
             string action = "Activate account";
             ReportHeader(actionName: action);
             int i = 0;
-            foreach (var account  in pendingAccountList )
+            foreach (var account in pendingAccountList)
             {
-                account.Status = Status.Active; 
-               
+                account.Status = Status.Active;
+
                 ReportItem(itemName: account.ToString(), actionName: action, itemIndex: i);
                 i++;
             }
@@ -87,7 +87,7 @@ namespace LearningMissionSimulation
         {
             string action = "Subject generation";
             ReportHeader(actionName: action);
-            
+
             int i = 0;
             while (i < subjectCount)
             {
@@ -96,7 +96,7 @@ namespace LearningMissionSimulation
                 i++;
                 ReportItem(itemName: subject.ToString(), actionName: action, itemIndex: i);
             }
-           
+
 
             ReportSummary(actionName: action, itemCount: subjectCount);
             ReportFooter(actionName: action);
@@ -143,9 +143,9 @@ namespace LearningMissionSimulation
 
             ReportSummary(actionName: action, itemCount: i);
             ReportFooter(actionName: action);
-          
+
         }
-        
+
         public void AssignModulesToStudents()
         {
             string action = "Assign modules to students";
@@ -162,7 +162,7 @@ namespace LearningMissionSimulation
             ReportSummary(actionName: action, itemCount: i);
             ReportFooter(actionName: action);
 
-        }  
+        }
 
         List<Module> GetModuleList()
         {
@@ -182,20 +182,20 @@ namespace LearningMissionSimulation
                 Module module;
                 Guid id = moduleIdList[AttributeGenerator.random.Next(0, moduleIdList.Count)];
 
-               if( moduleDictionary.TryGetValue(id, out module))
-               {
+                if (moduleDictionary.TryGetValue(id, out module))
+                {
                     if (!moduleList.Contains(module))
                     {
                         moduleList.Add(module);
                     }
 
-               }
+                }
                 else
                 {
                     ReportError(missingResource: "Module", failedAction: action);
                 }
-                
-                
+
+
             }
             return moduleList;
         }
@@ -220,7 +220,7 @@ namespace LearningMissionSimulation
                     {
                         ReportError(missingResource: "Modules", failedAction: action);
                     }
-                    else 
+                    else
                     {
                         Classroom classroom = ObjectGenerator.GenerateClassroom(module);
                         classroomList.Add(classroom);
@@ -243,7 +243,6 @@ namespace LearningMissionSimulation
         public void RegisterStudentsForClasses()
         {
             string action = "Register Students For Classes";
-            int classroomItemListCount = 0;
             ReportHeader(actionName: action);
             {
                 foreach (var classroom in classroomList)
@@ -251,13 +250,12 @@ namespace LearningMissionSimulation
                     if (classroom.ItemList.Count < classroom.MaximumCapacity)
                     {
                         UpdateStudentList(classroom);
-                        classroomItemListCount = classroom.ItemList.Count;
                     }
 
                 }
             }
 
-            ReportSummary(actionName: action, itemCount: classroomItemListCount);
+            ReportSummary(actionName: action, itemCount: classroomList.Count);
             ReportFooter(actionName: action);
         }
 
@@ -315,6 +313,6 @@ namespace LearningMissionSimulation
         }
 
         #endregion REPORTS
- 
+
     }
 }
