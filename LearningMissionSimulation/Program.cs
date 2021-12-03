@@ -11,7 +11,6 @@ namespace LearningMissionSimulation
             ISimulation playgroundEdvard = new PlaygroundEdvard();
             ISimulation playgroundGarush = new PlaygroundGarush();
             ISimulation playgroundGavril = new PlaygroundGavril(ReportType.Verbose);
-
             ISimulation playgroundVahe = new PlaygroundVahe();
             ISimulation playgroundMher = new PlaygroundMher();
 
