@@ -6,7 +6,6 @@ namespace LearningMissionSimulation
 {
     public class PlaygroundMher : ISimulation
     {
-        List<Student> studentList = new List<Student>();
         ReportType _reportType;
         List<Student> _activeStudentList = new List<Student>();
         Dictionary<Guid, Student> _studentDictionary = new Dictionary<Guid, Student>();
