@@ -6,12 +6,8 @@ namespace LearningMissionSimulation
 {
     public class PlaygroundMher : ISimulation
     {
-
-       
         List<Student> studentList = new List<Student>();
-
         ReportType _reportType;
-        
         List<Student> _activeStudentList = new List<Student>();
         Dictionary<Guid, Student> _studentDictionary = new Dictionary<Guid, Student>();
         List<Instructor> _activeInstructorList = new List<Instructor>();
@@ -25,7 +21,6 @@ namespace LearningMissionSimulation
         List<Classroom> _classroomList = new List<Classroom>();
         Dictionary<Guid, List<Instructor>> _moduleInstructorDictionary = new Dictionary<Guid, List<Instructor>>();
 
-
         public PlaygroundMher()
         {
 
@@ -35,7 +30,6 @@ namespace LearningMissionSimulation
         {
             this.ReportType = reportType;
         }
-
 
         public ReportType ReportType { get; set; } = ReportType.Verbose;
         public List<Student> ActiveStudentList { get => _activeStudentList; set => _activeStudentList = value; }
@@ -51,7 +45,6 @@ namespace LearningMissionSimulation
         public List<Classroom> ClassroomList { get => _classroomList; set => _classroomList = value; }
         public Dictionary<Guid, List<Instructor>> ModuleInstructorDictionary { get => _moduleInstructorDictionary; set => _moduleInstructorDictionary = value; }
 
-        
         public void CreateAccounts(int accountCount)
         {
             string action = "Create Account";
