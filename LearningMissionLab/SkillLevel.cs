@@ -4,12 +4,12 @@ using System.Text;
 
 namespace LearningMissionLab
 {
-    public enum EducationDegree
+    public enum SkillLevel
     {
         Unspecified,
-        Student,
-        Bachelor,
-        Master,
-        PhD
+        Beginner,
+        Intermediate,
+        Proficient,
+        Expert
     }
 }

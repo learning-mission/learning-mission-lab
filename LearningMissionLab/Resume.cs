@@ -6,58 +6,62 @@ namespace LearningMissionLab
 {
     public class Resume
     {
-        readonly Guid _resumeId;
+        Guid _accountId;
         string _firstName;
         string _lastName;
         DateTime _birthDate;
         string _birthPlace;
         ContactInfo _contactInfo;
+        List<SocialNetwork> _socialNetworkList;
         List<WorkExperience> _workExperienceList;
         List<Education> _educationList;
-        HashSet<Skill> _skillsHashSet;
-        HashSet<Language> _languageHashSet;
-        HashSet<string> _interestList;
+        List<Skill> _skillList;
+        List<Language> _languageList;
+        List<string> _interestList;
 
         public Resume() {}
 
         public Resume
         (
-            Guid resumeId,
+            Guid accountId,
             string firstName,
             string lastName,
             DateTime birthDate,
             string birthPlace,
             ContactInfo contactInfo,
+            List<SocialNetwork> socialNetworkList,
             List<WorkExperience> workExperienceList,
             List<Education> educationList,
-            HashSet<Skill> skillsHashSet,
-            HashSet<Language> languageHashSet,
-            HashSet<string> interestList
+            List<Skill> skillList,
+            List<Language> languageList,
+            List<string> interestList
         )
         {
-            this._resumeId = resumeId;
-            this._firstName = firstName;
-            this._lastName = lastName;
-            this._birthDate = birthDate;
-            this._birthPlace = birthPlace;
-            this._contactInfo = contactInfo;
-            this._workExperienceList = workExperienceList;
-            this._educationList = educationList;
-            this._skillsHashSet = skillsHashSet;
-            this._languageHashSet = languageHashSet;
-            this._interestList = interestList;
+            this.AccountId = accountId;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.BirthDate = birthDate;
+            this.BirthPlace = birthPlace;
+            this.ContactInfo = contactInfo;
+            this.SocialNetworkList = socialNetworkList;
+            this.WorkExperienceList = workExperienceList;
+            this.EducationList = educationList;
+            this.SkillList = skillList;
+            this.LanguageList = languageList;
+            this.InterestList = interestList;
         }
 
-        public Guid ResumeId => _resumeId;
+        public Guid AccountId { get => _accountId; private set => _accountId = value; }
         public string FirstName { get => _firstName; set => _firstName = value; }
         public string LastName { get => _lastName; set => _lastName = value; }
         public DateTime BirthDate { get => _birthDate; set => _birthDate = value; }
         public string BirthPlace { get => _birthPlace; set => _birthPlace = value; }
         public ContactInfo ContactInfo { get => _contactInfo; set => _contactInfo = value; }
+        public List<SocialNetwork> SocialNetworkList { get => _socialNetworkList; set => _socialNetworkList = value; }
         public List<WorkExperience> WorkExperienceList { get => _workExperienceList; set => _workExperienceList = value; }
         public List<Education> EducationList { get => _educationList; set => _educationList = value; }
-        public HashSet<Skill> SkillsHashSet { get => _skillsHashSet; set => _skillsHashSet = value; }
-        public HashSet<Language> LanguageHashSet { get => _languageHashSet; set => _languageHashSet = value; }
-        public HashSet<string> InterestList { get => _interestList; set => _interestList = value; }
+        public List<Skill> SkillList { get => _skillList; set => _skillList = value; }
+        public List<Language> LanguageList { get => _languageList; set => _languageList = value; }
+        public List<string> InterestList { get => _interestList; set => _interestList = value; }
     }
 }

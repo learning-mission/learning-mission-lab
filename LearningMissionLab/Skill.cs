@@ -7,20 +7,17 @@ namespace LearningMissionLab
     public class Skill
     {
         string _skillName;
-        ModuleLevel _moduleLevel;
+        SkillLevel _skillLevel;
 
-        public Skill()
+        public Skill() {}
+
+        public Skill(string skillName, SkillLevel skillLevel)
         {
-
-        }
-
-        public Skill(string skillName, ModuleLevel moduleLevel)
-        {
-            this._skillName = skillName;
-            this._moduleLevel = moduleLevel;
+            this.SkillName = skillName;
+            this.SkillLevel = skillLevel;
         }
 
         public string SkillName { get => _skillName; set => _skillName = value; }
-        public ModuleLevel ModuleLevel { get => _moduleLevel; set => _moduleLevel = value; }
+        public SkillLevel SkillLevel { get => _skillLevel; set => _skillLevel = value; }
     }
 }

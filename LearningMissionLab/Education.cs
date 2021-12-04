@@ -23,11 +23,11 @@ namespace LearningMissionLab
             DateTime endDate
         )
         {
-            this._educationalInstitution = educationalInstitution;
-            this._educationDegree = educationDegree;
-            this._fieldOfStudy = fieldOfStudy;
-            this._startDate = startDate;
-            this._endDate = endDate;
+            this.EducationalInstitution = educationalInstitution;
+            this.EducationDegree = educationDegree;
+            this.FieldOfStudy = fieldOfStudy;
+            this.StartDate = startDate;
+            this.EndDate = endDate;
         }
 
         public EducationalInstitution EducationalInstitution { get => _educationalInstitution; set => _educationalInstitution = value; }

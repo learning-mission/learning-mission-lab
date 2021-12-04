@@ -13,8 +13,8 @@ namespace LearningMissionLab
 
         public Project(string projectName, string projectDescription)
         {
-            this._projectName = projectName;
-            this._projectDescription = projectDescription;
+            this.ProjectName = projectName;
+            this.ProjectDescription = projectDescription;
         }
 
         public string ProjectName { get => _projectName; set => _projectName = value; }
