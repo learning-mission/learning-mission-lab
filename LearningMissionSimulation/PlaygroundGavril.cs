@@ -16,7 +16,7 @@ namespace LearningMissionSimulation
 
         List<Student> studentList = new List<Student>();
 
-        List<Instructor> instructorList = new List<Instructor>();
+        List<Instructor> _instructorList = new List<Instructor>();
 
         Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
 
@@ -58,7 +58,7 @@ namespace LearningMissionSimulation
                 else if (account.Role == Role.Instructor)
                 {
                     Instructor instructor = (ObjectGenerator.GenerateInstructor(account.Id));
-                    instructorList.Add(instructor);
+                    _instructorList.Add(instructor);
                     if (instructor.DateOfBirth.Month == 7 && account.Status == Status.Pending)
                     {
                         pendingAccountList.Add(account);
@@ -138,9 +138,10 @@ namespace LearningMissionSimulation
             string action = "Assign modules to instructors";
             ReportHeader(actionName: action);
             int i = 0;
-            foreach (var instructor in instructorList)
+            foreach (var instructor in _instructorList)
             {
                 instructor.ModuleList = GetModuleList();
+                AddToModuleInstructorList(instructor);
                 i++;
                 ReportItem(itemName: instructor.ToString(), actionName: action, itemIndex: i);
             }
@@ -149,6 +150,26 @@ namespace LearningMissionSimulation
             ReportFooter(actionName: action);
 
         }
+        void AddToModuleInstructorList(Instructor instructor)
+        {
+            List<Instructor> instructorList;
+            foreach (var module in instructor.ModuleList)
+            {
+                if (ModuleInstructorDictionary.TryGetValue(module.Id, out instructorList))
+                {
+                    instructorList.Add(instructor);
+
+                }
+                else
+                {
+                    instructorList = new List<Instructor>() { instructor };
+                    ModuleInstructorDictionary.Add(module.Id, instructorList);
+                }
+            }
+        }
+
+
+
 
         public void AssignModulesToStudents()
         {
@@ -247,25 +268,33 @@ namespace LearningMissionSimulation
 
             if (classroomList.Count == 0)
             {
-                ReportError(missingResource: "Instructor", failedAction: action);
+                ReportError(missingResource: "Classroom", failedAction: action);
             }
             else
             {
                 foreach (var classroom in classroomList)
                 {
-                    if (ModuleInstructorDictionary.ContainsKey(classroom.Module.Id))
+                    List<Instructor> instructorList;
+                    if (ModuleInstructorDictionary.TryGetValue(classroom.Module.Id, out instructorList))
                     {
-                        List<Instructor> instructorList;
-                        ModuleInstructorDictionary.TryGetValue(classroom.Module.Id, out instructorList);
-                        classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                        if (instructorList.Count > 0)
+                        {
+                            classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                        }
+                        else
+                        {
+                            ReportError(missingResource: "Instructor", failedAction: action);
+                        }
                     }
                     else
                     {
                         ReportError(missingResource: "Instructor", failedAction: action);
                     }
+                   
                 }
-
             }
+            ReportSummary(actionName: action, itemCount: classroomList.Count  );// Classrumneri qanak vor@ stanuma instructrner
+            ReportFooter(actionName: action);
         }
 
         public void RegisterStudentsForClasses()
@@ -283,7 +312,7 @@ namespace LearningMissionSimulation
                 }
             }
 
-            ReportSummary(actionName: action, itemCount: classroomList.Count);
+            ReportSummary(actionName: action, itemCount: 1);
             ReportFooter(actionName: action);
         }
 
