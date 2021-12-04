@@ -27,6 +27,10 @@ namespace LearningMissionSimulation
         List<Guid> subjectIdList = new List<Guid>();
 
         List<Classroom> classroomList = new List<Classroom>();
+
+       Dictionary <Guid, List<Instructor>> ModuleInstructorDictionary = new Dictionary<Guid, List<Instructor>>();
+
+
         public PlaygroundGavril(ReportType reportType)
         {
             this._reportType = reportType;
@@ -237,7 +241,31 @@ namespace LearningMissionSimulation
 
         public void AssignInstructorsToClassrooms()
         {
-            throw new NotImplementedException();
+
+            string action = "Assign Instructors To Classrooms";
+            ReportHeader(actionName: action);
+
+            if (classroomList.Count == 0)
+            {
+                ReportError(missingResource: "Instructor", failedAction: action);
+            }
+            else
+            {
+                foreach (var classroom in classroomList)
+                {
+                    if (ModuleInstructorDictionary.ContainsKey(classroom.Module.Id))
+                    {
+                        List<Instructor> instructorList;
+                        ModuleInstructorDictionary.TryGetValue(classroom.Module.Id, out instructorList);
+                        classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                    }
+                    else
+                    {
+                        ReportError(missingResource: "Instructor", failedAction: action);
+                    }
+                }
+
+            }
         }
 
         public void RegisterStudentsForClasses()

@@ -18,6 +18,8 @@ namespace LearningMissionSimulation
             Simulation.SimulationA(playgroundEdvard, 20);
             Simulation.SimulationA(playgroundGarush, 20);
             Simulation.SimulationB(playgroundGavril, 20);
+           
+
             Simulation.SimulationA(playgroundMher, 20);
             Simulation.SimulationA(playgroundVahe, 20);
         }
