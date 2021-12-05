@@ -25,6 +25,8 @@ namespace LearningMissionLab
             this._startDate = startDate;
             this._finishDate = finishDate;
             this._scheduleEventList = scheduleEventList;
+            this._createDate = DateTime.UtcNow;
+            this._updateDate = DateTime.UtcNow;
         }
 
         public DateTime StartDate { get => _startDate; set => _startDate = value; }
