@@ -24,7 +24,7 @@ namespace LearningMissionLab
     
         public DateTime StartDate { get => _startDate; set => _startDate = value; }
         public DateTime FinishDate { get => _finishDate; set => _finishDate = value; }
-        public List<ScheduleEvent> ScheduleEvent { get => _scheduleEventList; set => _scheduleEventList = value; }
+        public List<ScheduleEvent> ScheduleEventList { get => _scheduleEventList; set => _scheduleEventList = value; }
         public DateTime CreateDate { get => _createDate; set => _createDate = value; }
         public DateTime UpdateDate { get => _updateDate; set => _updateDate = value; }
     }
