@@ -279,7 +279,7 @@ namespace LearningMissionSimulation
                     {
                         if (instructorList.Count > 0)
                         {
-                            classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                          var i =  classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
                         }
                         else
                         {
