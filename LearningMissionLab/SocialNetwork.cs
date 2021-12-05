@@ -6,29 +6,17 @@ namespace LearningMissionLab
 {
     public class SocialNetwork
     {
-        string _linkedin;
-        string _github;
-        string _facebook;
-        string _otherLink;
+        Network _networkName;
+        string _networkLink;
 
         public SocialNetwork() {}
-        public SocialNetwork(string linkedin, string github, string facebook)
+        public SocialNetwork(Network networkName, string networkLink)
         {
-            this.Linkedin = linkedin;
-            this.Github = github;
-            this.Facebook = facebook;
-        }
-        public SocialNetwork(string linkedin, string github, string facebook, string otherLink)
-        {
-            this.Linkedin = linkedin;
-            this.Github = github;
-            this.Facebook = facebook;
-            this.OtherLink = otherLink;
+            this.NetworkName = networkName;
+            this.NetworkLink = networkLink;
         }
 
-        public string Linkedin { get => _linkedin; set => _linkedin = value; }
-        public string Github { get => _github; set => _github = value; }
-        public string Facebook { get => _facebook; set => _facebook = value; }
-        public string OtherLink { get => _otherLink; set => _otherLink = value; }
+        public Network NetworkName { get => _networkName; set => _networkName = value; }
+        public string NetworkLink { get => _networkLink; set => _networkLink = value; }
     }
 }
