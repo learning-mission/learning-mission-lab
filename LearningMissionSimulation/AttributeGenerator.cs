@@ -161,6 +161,30 @@ namespace LearningMissionSimulation
             return (Status)random.Next(1, statusCount);
         }
 
+        // Returns a random value from EducationalInstitution, EducationalInstitution.Unspecified
+        // is excluded
+        public static EducationalInstitution GetEducationalInstitution()
+        {
+            var institutionCount = Enum.GetValues(typeof(EducationalInstitution)).Length;
+            return (EducationalInstitution)random.Next(1, institutionCount);
+        }
+
+        // Returns a random value from EducationDegree, EducationDegree.Unspecified
+        // is excluded
+        public static EducationDegree GetEducationDegree()
+        {
+            var degreeCount = Enum.GetValues(typeof(EducationDegree)).Length;
+            return (EducationDegree)random.Next(1, degreeCount);
+        }
+
+        // Returns a random value from FieldOfStudy, FieldOfStudy.Unspecified
+        // is excluded
+        public static FieldOfStudy GetFieldOfStudy()
+        {
+            var studyCount = Enum.GetValues(typeof(FieldOfStudy)).Length;
+            return (FieldOfStudy)random.Next(1, studyCount);
+        }
+
         // Returns a random phone number
         public static string GetPhoneNumber()
         {

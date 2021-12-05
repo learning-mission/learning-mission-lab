@@ -11,8 +11,8 @@
         LanguageLevel _languageLevel;
         public Language(LanguageName languageName, LanguageLevel languageLevel)
         {
-            this._languageName = languageName;
-            this._languageLevel = languageLevel; 
+            this.LanguageName = languageName;
+            this.LanguageLevel = languageLevel; 
         }
 
         public LanguageName LanguageName { get => _languageName; set => _languageName = value; }

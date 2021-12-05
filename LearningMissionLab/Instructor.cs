@@ -12,7 +12,6 @@ namespace LearningMissionLab
         List<Module> _moduleList;
         List<Classroom> _classroomList;
         Schedule _schedule;
-       
 
 
         public   Instructor(Guid accountId, List<Module> moduleList, List<Classroom> classroomsList, Schedule schedule, string firstName,
@@ -22,9 +21,6 @@ namespace LearningMissionLab
             this._moduleList = moduleList;
             this._classroomList = classroomsList;
             this._schedule = schedule;
-          
-
-
         }
 
         public List<Module> ModuleList { get => _moduleList; set => _moduleList = value; }
