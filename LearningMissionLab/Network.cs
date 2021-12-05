@@ -7,7 +7,7 @@ namespace LearningMissionLab
     public enum Network
     {
         Unspecified,
-        Linkedin,
+        LinkedIn,
         Github,
         Facebook,
         Telegram,
