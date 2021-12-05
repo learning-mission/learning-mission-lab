@@ -272,6 +272,7 @@ namespace LearningMissionSimulation
             }
             else
             {
+                int count = 0;
                 foreach (var classroom in classroomList)
                 {
                     List<Instructor> instructorList;
@@ -279,7 +280,8 @@ namespace LearningMissionSimulation
                     {
                         if (instructorList.Count > 0)
                         {
-                          var i =  classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                             classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                             count++;
                         }
                         else
                         {
@@ -289,11 +291,11 @@ namespace LearningMissionSimulation
                     else
                     {
                         ReportError(missingResource: "Instructor", failedAction: action);
-                    }
-                   
+                    }                   
                 }
+                ReportSummary(actionName: action, itemCount: count);
             }
-            ReportSummary(actionName: action, itemCount: classroomList.Count  );// Classrumneri qanak vor@ stanuma instructrner
+             //assrumneri qanak vor@ stanuma instructrner
             ReportFooter(actionName: action);
         }
 
@@ -308,7 +310,6 @@ namespace LearningMissionSimulation
                     {
                         UpdateStudentList(classroom);
                     }
-
                 }
             }
 
