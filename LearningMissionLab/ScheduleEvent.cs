@@ -6,16 +6,16 @@ namespace LearningMissionLab
 {
     public class ScheduleEvent
     {
-        DayOfTheWeek _dayOfTheWeek;
+        DayOfWeek _dayOfWeek;
         uint _startTimeHour;
         uint _startTimeMinutes;
         uint _duration;
         ZoomMeeting _zoomMeeting;
 
 
-        public ScheduleEvent(DayOfTheWeek dayOfTheWeek, uint startTimeHour, uint startTimeMinutes, uint duration, ZoomMeeting zoomMeeting)
+        public ScheduleEvent(DayOfWeek dayOfWeek, uint startTimeHour, uint startTimeMinutes, uint duration, ZoomMeeting zoomMeeting)
         {
-            this._dayOfTheWeek = dayOfTheWeek;
+            this._dayOfWeek = dayOfWeek;
             this._startTimeHour = startTimeHour;
             this._startTimeMinutes = startTimeMinutes;
             this._duration = duration;
@@ -23,11 +23,37 @@ namespace LearningMissionLab
         }
 
 
-        public DayOfTheWeek DayOfTheWeek { get => _dayOfTheWeek; set => _dayOfTheWeek = value; }
-        public uint StartTimeHour { get => _startTimeHour; set => _startTimeHour = value; }
-        public uint StartTimeMinutes { get => _startTimeMinutes; set => _startTimeMinutes = value; }
+        public DayOfWeek DayOfWeek { get => _dayOfWeek; set => _dayOfWeek = value; }
         public uint Duration { get => _duration; set => _duration = value; }
         public ZoomMeeting ZoomMeeting { get => _zoomMeeting; set => _zoomMeeting = value; }
+        public uint StartTimeHour
+        {
+            set
+            {
+                if(_startTimeHour < 24)
+                {
+                    _startTimeHour = value;
+                }
+            }
+            get
+            {
+                return _startTimeHour;
+            }
+        }
+        public uint StartTimeMinutes
+        {
+            set
+            {
+                if (_startTimeMinutes < 60)
+                {
+                    _startTimeMinutes = value;
+                }
+            }
+            get
+            {
+                return _startTimeMinutes;
+            }
+        }
     }
 
 }

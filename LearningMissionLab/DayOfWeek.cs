@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LearningMissionLab
 {
-    public enum DayOfTheWeek
+    public enum DayOfWeek
     {
         Unspecified,
         Monday,
