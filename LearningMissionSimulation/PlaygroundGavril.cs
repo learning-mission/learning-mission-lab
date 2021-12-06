@@ -262,7 +262,7 @@ namespace LearningMissionSimulation
 
         public void AssignInstructorsToClassrooms()
         {
-
+            int count = 0;
             string action = "Assign Instructors To Classrooms";
             ReportHeader(actionName: action);
 
@@ -272,7 +272,7 @@ namespace LearningMissionSimulation
             }
             else
             {
-                int count = 0;
+                
                 foreach (var classroom in classroomList)
                 {
                     List<Instructor> instructorList;
@@ -293,9 +293,9 @@ namespace LearningMissionSimulation
                         ReportError(missingResource: "Instructor", failedAction: action);
                     }                   
                 }
-                ReportSummary(actionName: action, itemCount: count);
+                
             }
-             //assrumneri qanak vor@ stanuma instructrner
+            ReportSummary(actionName: action, itemCount: classroomList.Count);
             ReportFooter(actionName: action);
         }
 
