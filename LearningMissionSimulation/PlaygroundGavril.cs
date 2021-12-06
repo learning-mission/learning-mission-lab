@@ -283,7 +283,7 @@ namespace LearningMissionSimulation
             }
             else
             {
-
+              
                 foreach (var classroom in classroomList)
                 {
                     List<Instructor> instructorList;
@@ -306,7 +306,7 @@ namespace LearningMissionSimulation
                 }
 
             }
-            ReportSummary(actionName: action, itemCount: classroomList.Count);
+            ReportSummary(actionName: action, itemCount: count);
             ReportFooter(actionName: action);
         }
 
@@ -323,7 +323,7 @@ namespace LearningMissionSimulation
                     }
                 }
             }
-            ReportSummary(actionName: action, itemCount: 1);
+            ReportSummary(actionName: action, itemCount: classroomList.Count);
             ReportFooter(actionName: action);
         }
 
