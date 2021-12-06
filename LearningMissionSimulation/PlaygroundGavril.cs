@@ -16,7 +16,7 @@ namespace LearningMissionSimulation
 
         List<Student> studentList = new List<Student>();
 
-        List<Instructor> instructorList = new List<Instructor>();
+        List<Instructor> _instructorList = new List<Instructor>();
 
         Dictionary<Guid, Account> accountDictionary = new Dictionary<Guid, Account>();
 
@@ -27,6 +27,21 @@ namespace LearningMissionSimulation
         List<Guid> subjectIdList = new List<Guid>();
 
         List<Classroom> classroomList = new List<Classroom>();
+
+        Dictionary<Guid, List<Instructor>> ModuleInstructorDictionary = new Dictionary<Guid, List<Instructor>>();
+
+        public ReportType ReportType { get => _reportType; set => _reportType = value; }
+        public List<Student> ActiveStudentList { get => activeStudentList; set => activeStudentList = value; }
+        public List<Account> PendingAccountList { get => pendingAccountList; set => pendingAccountList = value; }
+        public List<Student> StudentList { get => studentList; set => studentList = value; }
+        public List<Instructor> InstructorList { get => _instructorList; set => _instructorList = value; }
+        public Dictionary<Guid, Account> AccountDictionary { get => accountDictionary; set => accountDictionary = value; }
+        public Dictionary<Guid, Module> ModuleDictionary { get => moduleDictionary; set => moduleDictionary = value; }
+        public List<Guid> ModuleIdList { get => moduleIdList; set => moduleIdList = value; }
+        public List<Guid> SubjectIdList { get => subjectIdList; set => subjectIdList = value; }
+        public List<Classroom> ClassroomList { get => classroomList; set => classroomList = value; }
+        public Dictionary<Guid, List<Instructor>> ModuleInstructorDictionary1 { get => ModuleInstructorDictionary; set => ModuleInstructorDictionary = value; }
+
         public PlaygroundGavril(ReportType reportType)
         {
             this._reportType = reportType;
@@ -54,7 +69,7 @@ namespace LearningMissionSimulation
                 else if (account.Role == Role.Instructor)
                 {
                     Instructor instructor = (ObjectGenerator.GenerateInstructor(account.Id));
-                    instructorList.Add(instructor);
+                    _instructorList.Add(instructor);
                     if (instructor.DateOfBirth.Month == 7 && account.Status == Status.Pending)
                     {
                         pendingAccountList.Add(account);
@@ -134,9 +149,10 @@ namespace LearningMissionSimulation
             string action = "Assign modules to instructors";
             ReportHeader(actionName: action);
             int i = 0;
-            foreach (var instructor in instructorList)
+            foreach (var instructor in _instructorList)
             {
                 instructor.ModuleList = GetModuleList();
+                AddToModuleInstructorList(instructor);
                 i++;
                 ReportItem(itemName: instructor.ToString(), actionName: action, itemIndex: i);
             }
@@ -145,6 +161,26 @@ namespace LearningMissionSimulation
             ReportFooter(actionName: action);
 
         }
+        void AddToModuleInstructorList(Instructor instructor)
+        {
+            List<Instructor> instructorList;
+            foreach (var module in instructor.ModuleList)
+            {
+                if (ModuleInstructorDictionary.TryGetValue(module.Id, out instructorList))
+                {
+                    instructorList.Add(instructor);
+
+                }
+                else
+                {
+                    instructorList = new List<Instructor>() { instructor };
+                    ModuleInstructorDictionary.Add(module.Id, instructorList);
+                }
+            }
+        }
+
+
+
 
         public void AssignModulesToStudents()
         {
@@ -237,7 +273,41 @@ namespace LearningMissionSimulation
 
         public void AssignInstructorsToClassrooms()
         {
-            throw new NotImplementedException();
+            int count = 0;
+            string action = "Assign Instructors To Classrooms";
+            ReportHeader(actionName: action);
+
+            if (classroomList.Count == 0)
+            {
+                ReportError(missingResource: "Classroom", failedAction: action);
+            }
+            else
+            {
+              
+                foreach (var classroom in classroomList)
+                {
+                    List<Instructor> instructorList;
+                    if (ModuleInstructorDictionary.TryGetValue(classroom.Module.Id, out instructorList))
+                    {
+                        if (instructorList.Count > 0)
+                        {
+                            classroom.Head = instructorList[AttributeGenerator.random.Next(0, instructorList.Count)];
+                            count++;
+                        }
+                        else
+                        {
+                            ReportError(missingResource: "Instructor", failedAction: action);
+                        }
+                    }
+                    else
+                    {
+                        ReportError(missingResource: "Instructor", failedAction: action);
+                    }
+                }
+
+            }
+            ReportSummary(actionName: action, itemCount: count);
+            ReportFooter(actionName: action);
         }
 
         public void RegisterStudentsForClasses()
@@ -251,10 +321,8 @@ namespace LearningMissionSimulation
                     {
                         UpdateStudentList(classroom);
                     }
-
                 }
             }
-
             ReportSummary(actionName: action, itemCount: classroomList.Count);
             ReportFooter(actionName: action);
         }

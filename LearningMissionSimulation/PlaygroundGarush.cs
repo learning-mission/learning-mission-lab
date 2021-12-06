@@ -30,8 +30,6 @@ namespace LearningMissionSimulation
         }
         public ReportType ReportType { get => _reportType; set => _reportType = value; }
         public List<Account> PendingAccountList { get => _pendingAccountList; set => _pendingAccountList = value; }
-        public List<Student> StudentList { get => _studentList; set => _studentList = value; }
-        public List<Instructor> InstructorList { get => _instructorList; set => _instructorList = value; }
         public Dictionary<Guid, Account> AccountDictionary { get => _accountDictionary; set => _accountDictionary = value; }
         public List<Subject> SubjectList { get => _subjectList; set => _subjectList = value; }
         public List<Guid> SubjectIdList { get => _subjectIdList; set => _subjectIdList = value; }
@@ -61,7 +59,6 @@ namespace LearningMissionSimulation
                     {
                         ActiveStudentList.Add(student);
                     }
-                    StudentList.Add(student);
                     if (student.Gender == Gender.Female && account.Status == Status.Pending)
                     {
                         PendingAccountList.Add(account);
@@ -76,7 +73,6 @@ namespace LearningMissionSimulation
                     {
                         ActiveInstructorList.Add(instructor);
                     }
-                    InstructorList.Add(instructor);
                     if (instructor.Gender == Gender.Female && account.Status == Status.Pending)
                     {
                         PendingAccountList.Add(account);
