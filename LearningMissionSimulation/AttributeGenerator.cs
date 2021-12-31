@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using LearningMissionLab;
+using LearningMission.Lab.Models;
 
 namespace LearningMissionSimulation
 {
