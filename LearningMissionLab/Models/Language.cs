@@ -1,4 +1,4 @@
-﻿namespace LearningMissionLab
+﻿namespace LearningMissionLab.Models
 {
     /// <summary>
     /// Class: Language

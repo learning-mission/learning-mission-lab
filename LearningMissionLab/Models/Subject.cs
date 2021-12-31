@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LearningMissionLab
-{
+namespace LearningMissionLab.Models
     /// <summary>
     /// Class: Subject
     /// Purpose: Provides a model for subject
     /// </summary>
-    public class Subject : Unit<Module>
+public class Subject : Unit<Module>
     {
         SubjectType _subjectType;
         public Subject(SubjectType subjectType, string description, string name, List<Module> itemList)

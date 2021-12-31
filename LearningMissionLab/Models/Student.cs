@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LearningMissionLab
+namespace LearningMissionLab.Models
 {
     /// <summary>
     /// Class: Student

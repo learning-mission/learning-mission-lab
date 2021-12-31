@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LearningMissionLab
+namespace LearningMissionLab.Models
 {
     public class Skill
     {

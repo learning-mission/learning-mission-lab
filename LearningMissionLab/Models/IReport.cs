@@ -1,5 +1,5 @@
 ﻿using System;
-namespace LearningMissionLab
+namespace LearningMissionLab.Models
 {
     public interface IReport
     {
